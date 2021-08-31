@@ -32,9 +32,8 @@ app.use('/api/carts',carts);
 
 //Home Routes
  app.get('/',(req,res)=>{
-     res.send('We are on home')
+     res.send('Daabia Web App  version 0.1')
  })
-
 
 //Connect to DB
 mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true ,useUnifiedTopology: true }, ()=>{
