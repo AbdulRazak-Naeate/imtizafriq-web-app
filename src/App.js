@@ -8,7 +8,7 @@ function App() {
      const[greetings,setGreetings]=useState('');
 
      const handleChange=(e)=>{
-          setName(e.target.value)
+        setName(e.target.value)
      }
      const handleSubmit = (e) =>{
        e.preventDefault()
