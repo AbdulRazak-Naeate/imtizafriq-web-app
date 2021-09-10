@@ -21,7 +21,7 @@ router.get('/',async(req,res)=>{
 });
 
 //Submit a product
-router.post('/',uploadImage('./uploads/products'),verify, async(req,res)=>{
+router.post('/',uploadImage('./server/uploads/products'),verify, async(req,res)=>{
 
     const userId = req.user._id; //get userid
 
@@ -54,7 +54,7 @@ router.post('/',uploadImage('./uploads/products'),verify, async(req,res)=>{
 
     try{
 
-        saveProduct = await product.save();
+       const saveProduct = await product.save();
         res.json({product:saveProduct,status:200});
     }catch(err){
         res.json({message:err})

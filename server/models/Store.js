@@ -46,7 +46,7 @@ const mongoose = require('mongoose');
     },
     date:{
         type:String,
-        default:Date.now
+        default:Date.now()
     },
        validStatus:{
         type:String,

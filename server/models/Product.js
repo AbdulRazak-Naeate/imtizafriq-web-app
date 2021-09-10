@@ -45,8 +45,16 @@ const mongoose = require('mongoose');
     },
     date:{
         type:String,
-        default:Date.now
+        default:Date.now()
     },
+    stock:{
+        type:String,
+        default:'0'
+    },
+    active:{
+        type:String,
+        default:'yes',
+    }
     
 
 

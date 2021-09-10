@@ -17,7 +17,7 @@ router.get('/',async(req,res)=>{
 });
 
 //Submit a store
-router.post('/',uploadImage('./uploads/stores'),verify,async(req,res)=>{
+router.post('/',uploadImage('./server/uploads/stores'),verify,async(req,res)=>{
 
     const {error} = storeValidation(req.body);
 
@@ -46,7 +46,7 @@ router.post('/',uploadImage('./uploads/stores'),verify,async(req,res)=>{
         validStatus:req.body.validStatus
     });
     try{
-        saveStore = await store.save();
+        const saveStore = await store.save();
         res.json({store:saveStore,message:"store created successfully"})
         .status(200);
     }catch(err){

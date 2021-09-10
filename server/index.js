@@ -22,7 +22,9 @@ app.use(express.json()); //body-parser alternate
 app.use(pino);
 
 //Route MiddleWares
-app.use('/uploads',express.static('./uploads'));//making uploads folder accessible
+app.use(express.static('public'));
+app.use('/server/uploads',express.static('./server/uploads'));//making uploads folder accessible
+
 app.use('/api/user',    userRoute);
 app.use('/api/products',productsRoute);
 app.use('/api/stores',  storeRoute);

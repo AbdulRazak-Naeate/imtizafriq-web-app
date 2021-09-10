@@ -32,8 +32,12 @@ export const Sidebar = () => {
                          <PermIdentity className="sidebarIcon"/>
                          Users
                      </li></Link>
-                    <Link to="/dashboard/products"  className="link">
+                    <Link to="/dashboard/stores"  className="link">
                     <li className="sidebarListItem">
+                         <Storefront className="sidebarIcon"/>
+                         Store
+                     </li>  
+                       <li className="sidebarListItem">
                          <Storefront className="sidebarIcon"/>
                          Products
                      </li>  

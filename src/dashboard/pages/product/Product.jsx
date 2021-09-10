@@ -3,8 +3,14 @@ import {Link} from "react-router-dom";
 import { Chart } from '../../components/charts/Chart';
 import { productData } from '../../dummyData';
 import { Publish } from '@material-ui/icons';
+import QueryParams from '../../QueryParams';
 
 export default function Product() {
+    const query=QueryParams();
+    
+    const storeid=query.get('storeId');
+    const storename=query.get('storeName');
+    const productid=query.get('productId');
 
     return (
         <div className="product">

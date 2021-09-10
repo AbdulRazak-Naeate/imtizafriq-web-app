@@ -112,3 +112,8 @@ export const userData = [
     { id: 14, name: 'Apple Airpods', image: 'https://images.pexels.com/photos/3780681/pexels-photo-3780681.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260" alt=""', stock:124,status:"active",price:"$650.32" },
   
   ]; 
+
+  export  const storeRows = [
+ 
+    { id: 1, name: 'Naeate Studios',userId:'ueudsaduhadpaoaqidx23ww',country:'Ghana',state:'Northern',city:'Tamale',phone:'+23305898291',email:'abdulrazaknaeate@gmail.com', image: 'https://images.pexels.com/photos/3780681/pexels-photo-3780681.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260" alt=""' ,storeCategoryId:'0001', date:'10.22.2021',validStatus:'VALID', },   { id: 2, name: 'Naeate Studios',userId:'ueudsaduhadpaoaqidx23ww',country:'Ghana',state:'Northern',city:'Tamale',phone:'+23305898291',email:'abdulrazaknaeate@gmail.com', image: 'https://images.pexels.com/photos/3780681/pexels-photo-3780681.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260" alt=""' ,storeCategoryId:'0001', date:'10.22.2021',validStatus:'VALID', },
+  ]; 

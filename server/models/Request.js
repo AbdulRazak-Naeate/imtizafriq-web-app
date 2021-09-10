@@ -35,7 +35,7 @@ const RequestSchema  =  new mongoose.Schema({
     },
     date:{
         type:String,
-        default:Date.now
+        default:Date.now()
     },
     status:{
         type:String,
@@ -44,7 +44,7 @@ const RequestSchema  =  new mongoose.Schema({
     paymentMethod:{
         type:String,
         required:true
-    },
+    }
 
 }); 
 

@@ -1,14 +1,25 @@
 .productsList{
     flex:4;
+    padding: 10px 20px;
 }
-.userList{
-    flex: 4;
+.productsTitle{
+    border: none;
+    background-color:rgb(228, 228, 250);
+    padding: 5px 10px;
+    height: 34px;
+    border-radius: 5px;
+    font-weight: 600;
 }
 .productListItem{
     display: flex;
     align-items: center;
 
 }
+.productsTitleContainer{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    }
 .productListImg{
     width: 32px;
     height: 32px;

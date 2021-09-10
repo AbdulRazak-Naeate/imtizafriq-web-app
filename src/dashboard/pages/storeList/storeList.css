@@ -1,0 +1,43 @@
+.storesList{
+    flex:4;
+   
+}
+.MuiTablePagination-caption,.MuiTablePagination-actions,.MuiDataGrid-cellCheckbox,.MuiDataGrid-columnHeaderCheckbox{
+   display: none !important;
+}
+.storeListItem{
+    display: flex;
+    align-items: center;
+
+}
+.storeListImg{
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+.storelistEdit{
+    border:none;
+    border-radius: 10px;
+    padding: 5px 10px; 
+    background-color: #3bb077;
+    color: white;
+    cursor: pointer;
+    margin-right: 10px;
+
+}
+.storelistAddProduct{
+    border:none;
+    border-radius: 10px;
+    padding: 5px 10px; 
+    background-color: darkblue;
+    color: white;
+    cursor: pointer;
+    margin-right: 10px;
+
+}
+.storelistDelete{
+    color: red;
+    cursor: pointer;
+}

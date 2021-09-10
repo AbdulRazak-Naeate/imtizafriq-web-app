@@ -51,7 +51,7 @@ function UserList(){
                 return(
                    <>
                     <Link to={"/dashboard/user/"+params.row.id}>
-                    <button className="userlistEdit">Edit</button>
+                    <span className="userlistEdit link">Edit</span>
                     </Link>
                     <DeleteOutline className="userlistDelete" onClick={() => {handleDelete(params.row.id)}}/>
                    </>

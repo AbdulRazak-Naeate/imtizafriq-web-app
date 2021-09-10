@@ -80,6 +80,8 @@ const loginValidation = data =>{
       specification:Joi.string().min(4).required(),
       price:Joi.string().min(1).required(),
       storeId:Joi.string().min(18).required(),
+      stock:Joi.string().min(1),
+      active:Joi.string().min(2),
       color:Joi.any(),
       size:Joi.any(),
       image:Joi.any(),
