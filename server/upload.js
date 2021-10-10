@@ -10,13 +10,15 @@ const uploadImage = (uploadpath)=>{
         cb(null, uploadpath);
     },
     filename: function (req,file,cb) {
-        cb(null,file.originalname);
+         
+         var filename=req.body.name+'-'+Date.now()+'.'+file.originalname.split('.').pop();
+        cb(null,filename);
     }
   });
 
    //upload image file
     const uploadImage = multer({storage:storage}).array('image',3);
-   return uploadImage; 
+    return uploadImage; 
   }
 
 module.exports.uploadImage=uploadImage;

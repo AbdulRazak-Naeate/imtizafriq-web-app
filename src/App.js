@@ -4,15 +4,18 @@ import  Dashboard from './dashboard/Dashboard'
 import './App.css';
 import LogIn from "./pages/login/LogIn";
 import SignUp from './pages/signup/SignUp';
+import Topbar from './components/topbar/Topbar';
 function App() {
-
-     
 
   return (
        <Router>
+       
        <Switch>
        <Route path="/" exact>
-           Home
+           <Topbar/>
+        <Switch>
+
+        </Switch> 
          </Route>
          <Route path="/login">
            <LogIn/>

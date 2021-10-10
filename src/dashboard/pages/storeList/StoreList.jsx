@@ -55,6 +55,7 @@ export default function StoreList() {
     getStores();
 
   },[]);
+  
     const handleDelete=(id)=>{
         setStores(stores.filter((item) => item.id !==id))
     }

@@ -6,6 +6,16 @@ const jwt= require('jsonwebtoken');
 
 
 //Get a  specific user
+router.get('/',async(req,res)=>{
+  try{
+      const users= await User.find();
+      res.send({users:users,message:"successful"});
+  
+  }catch(err){
+      res.json({message:err});
+  }
+});
+//Get a  specific user
 router.get('/:userId',async(req,res)=>{
   try{
       const user= await User.findOne({_Id:req.body.userId});

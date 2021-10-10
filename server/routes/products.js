@@ -4,7 +4,10 @@ const Product  = require('../models/Product');
 const verify   = require('./verifyToken');
 const Store    = require('../models/Store');
 const {uploadImage}   = require('../upload');
-
+const fs = require('fs');
+const { promisify } = require('util');
+const path = require('path')
+var mongoose=require('mongoose');
 
 const {productValidation} = require('../validation');
 
@@ -63,8 +66,9 @@ router.post('/',uploadImage('./server/uploads/products'),verify, async(req,res)=
 
 //get specific product
 router.get('/:productId', async (req,res)=>{
+    
     try{
-        const product = await Product.findById(req.params.productId);
+        const product = await Product.findById({_id:req.params.productId});
         res.json(product);
     }catch(err){
         res.json({message:err})
@@ -77,18 +81,28 @@ router.get('/store/:storeId', async (req,res)=>{
         const product = await Product.find()
         .where('storeId')
         .in(req.params.storeId);
-        res.json(product);
+        res.json({product:product,message:"successfully loaded",status:200});
     }catch(err){
-        res.json({message:err})
+        res.json({message:err,status:400})
     }
-});
+})
 
 //delete Specific product
 
 router.delete('/:productId', async (req,res)=>{
-     try{
-          const removeProduct = await Product.remove({_id:req.params.productId});
+     try{ 
+          const product = await Product.findById({_id:req.params.productId});
+          console.log(product.image)
+          const removeProduct = await Product.deleteOne({_id:req.params.productId});
+          console.log(removeProduct)
+        
+          // Delete the file like normal
+          const unlinkAsync = promisify(fs.unlink);
+          //console.log(__dirname)
+           const filepath= path.join(__dirname,'./server/uploads/products/'+product.image[0].filename)
+          for (var i=0;i<3;i++){ await unlinkAsync('./'+product.image[0].filename)}
           res.json(removeProduct);
+
      }catch(err){
          res.json({message:err
         });
@@ -98,13 +112,29 @@ router.delete('/:productId', async (req,res)=>{
 //update Product
 router.patch('/:productId',async (req,res)=> {
     try{
-        const updateProduct = await Product.updateOne(
-            {_id: req.params.productId},
-            {$set:{name:req.body.name},
-             $set:{description:req.body.description},
-             $set:{price:req.body.price},
-            });
 
+        var oId= new mongoose.Types.ObjectId(req.params.productId);
+        var query= {
+            stock:req.body.stock,
+            price:req.body.price,
+            active:req.body.active
+         };
+         //console.log(req.body)
+        const updateProduct = await Product.findOneAndUpdate(
+            {_id:oId},
+            {$set:
+                 query
+             },
+             {new:true,useFindAndModify:false}
+              
+            );
+            var newData= {
+                stock:updateProduct.stock,
+                price:updateProduct.price,
+                active:updateProduct.active
+             };
+             var updated=JSON.stringify(query)===JSON.stringify(newData)
+             if(!updated) return res.status(400).send("product not modified");
             res.json(updateProduct);
     }catch(err){
         res.json({message:err});

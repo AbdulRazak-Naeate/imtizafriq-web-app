@@ -118,8 +118,7 @@ class Specification extends React.Component {
    
     render() {
         return (
-
-            <CRow mb={12} className="product-col-size-specs">
+            <CRow md={8} className="product-col-size-specs">
                 <CCol md="6">
                     <CCard className="mb-4">
                         <CCardHeader>
@@ -180,7 +179,6 @@ class Specification extends React.Component {
 
                     </CCard>
                 </CCol>
-
             </CRow>
 
         )

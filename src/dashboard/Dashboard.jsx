@@ -14,13 +14,14 @@ import Product from "./pages/product/Product";
 import NewProduct from "./pages/newProduct/NewProduct";
 
  function Dashboard() {
+ 
   return (
     <Router>
     <Topbar/>
      <div className="content">
      <Sidebar/>
      <Switch>
-       <Route exact path="/dashboard">
+     <Route exact path="/dashboard">
          <Home/>
        </Route>
        <Route path="/dashboard/users">
@@ -61,4 +62,5 @@ import NewProduct from "./pages/newProduct/NewProduct";
     </Router>
   )
 }
+
 export default Dashboard

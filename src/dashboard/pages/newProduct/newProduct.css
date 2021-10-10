@@ -1,10 +1,12 @@
 .newProduct{
    flex: 4;
    padding: 20px;
+   border: 0px solid;
 }
 .addProductTitleContainer{
 display: flex;
 justify-content: space-between;
+
 }
 
 .addproductStoreTitle{
@@ -26,6 +28,7 @@ justify-content: space-between;
     padding: 10px 20px;
 }
 .addProductFormContainer{
+    border: 0px solid;
     padding: 20px 40px;
 }
 .addProductForm{

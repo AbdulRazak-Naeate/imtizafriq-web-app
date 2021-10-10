@@ -21,7 +21,7 @@ export default function NewProduct() {
     let query=QueryParams();
     const storeid= query.get('storeId');
     const storename =query.get("storeName");
-      const onSpecificationChange = (e) => {
+        const onSpecificationChange = (e) => {
         setSpecification(e.target.value)
         if(e.target.value==="NONE"){
           setShowSpeicification(false)
@@ -154,6 +154,7 @@ export default function NewProduct() {
           </Link>
 
           </div>
+          
           <div className="addProductFormContainer">
            <form className="addProductForm" onSubmit={onFormSubmit}>
                <div className="productFormTop">
@@ -164,8 +165,8 @@ export default function NewProduct() {
                   <input type="text" placeholder="Name" required onChange={(e)=>{setName(e.target.value)}} />
                 </div>
                 <div className="addProductItem">
-          <label >Price</label>
-           <input type="number"  placeholder="100 pi" required onChange={(e)=>{setPrice(e.target.value)}} />
+            <label >Price</label>
+             <input type="number"  placeholder="100 pi" required onChange={(e)=>{setPrice(e.target.value)}} />
          </div>
 
          <div className="addProductItem">
@@ -222,8 +223,9 @@ export default function NewProduct() {
         
       
          </div>
-   </div>
-               <ImagesContainer handleImages={handleImages}/>
+        </div>
+               
+              <ImagesContainer handleImages={handleImages}/>
               {showSpecification ? <Specification/> :<></>}
 
         <div className="addProductItem">
