@@ -1,8 +1,13 @@
 import { useState } from 'react';
+import {Link} from 'react-router-dom'
 import './newstore.css'
 import {Publish} from '@material-ui/icons';
 import {post} from 'axios';
 import thumbnail from '../../../assets/icons/thumbnail-wide.png';
+import Alert from 'react-s-alert';
+import 'react-s-alert/dist/s-alert-default.css';
+import 'react-s-alert/dist/s-alert-css-effects/stackslide.css';
+import 'react-s-alert/dist/s-alert-css-effects/jelly.css';
 
 export default function NewStore() {
     const [storeImage, setStoreImage] = useState({});
@@ -28,6 +33,19 @@ export default function NewStore() {
   
       UploadImageAndCreateStore(storeImage, user).then((response) => {
         console.log(response.data.message);
+        if (response.status===200){
+          Alert.success('store created', {
+            position: 'top-right',
+            effect: 'stackslide'
+
+        }); 
+        }else{
+          Alert.error('update was unsuccessfully', {
+            position: 'top-right',
+            effect: 'jelly'
+
+        }); 
+        }
         //addToast(exampleToast(response.data.message));
       })
     }
@@ -81,8 +99,13 @@ export default function NewStore() {
     }
   return (
     <div className="newstore">
-             <div className="addnewStoreTile">
+              <Alert stack={{limit: 3}} />
+
+             <div className="addnewStoreTitleContainer">
                  <h1 className="addNewStoreTitle">Add New Store</h1>
+                 <Link to="/dashboard/stores">
+                 <button className="storeAddButton">Stores</button>
+              </Link>
              </div>
             <form action="" className="newStoreForm" onSubmit={handleSubmit}>
                  <div className="newStoreFormContainer">

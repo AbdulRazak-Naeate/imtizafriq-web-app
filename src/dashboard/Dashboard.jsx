@@ -7,6 +7,7 @@ import {BrowserRouter as Router,Switch,Route
 import UserList from "./pages/userList/UserList";
 import User from "./pages/user/User";
 import NewUser from "./pages/newUser/NewUser";
+import Store from "./pages/store/Store"
 import StoreList from "./pages/storeList/StoreList";
 import NewStore from "./pages/newStore/NewStore";
 import ProductsList from "./pages/productlist/ProductsList";
@@ -30,10 +31,12 @@ import NewProduct from "./pages/newProduct/NewProduct";
        <Route path="/dashboard/user/:userId">
         <User/>
        </Route>
-
        <Route path="/dashboard/newUser/">
         <NewUser/>
        </Route>
+       <Route path="/dashboard/store">
+         <Store/>
+         </Route>
 
        <Route path="/dashboard/stores">
         <StoreList/>

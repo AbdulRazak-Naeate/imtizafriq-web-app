@@ -35,11 +35,11 @@ router.post('/',uploadImage('./server/uploads/products'),verify, async(req,res)=
     //Validation
     const {error} = productValidation(req.body);
 
-    if (error) return  res.status(400).send(error.details[0].message);
+    if (error) return  res.json({status:400,message:error.details[0].message});
 
     //check if product name already exist
     const productnameExist = await Product.findOne({name:req.body.name});
-    if (productnameExist) return res.status(400).send("Product name already taken");
+    if (productnameExist) return res.json({status:400,message:"Product name already taken"});
     console.log(req.files);
     const product = new Product({
         color:req.body.color,
@@ -47,6 +47,7 @@ router.post('/',uploadImage('./server/uploads/products'),verify, async(req,res)=
         name:req.body.name,
         description:req.body.description,
         specification:req.body.specification,
+        stock:req.body.stock,
         price:req.body.price,
         likes:req.body.likes,
         storeId:req.body.storeId,
@@ -58,7 +59,7 @@ router.post('/',uploadImage('./server/uploads/products'),verify, async(req,res)=
     try{
 
        const saveProduct = await product.save();
-        res.json({product:saveProduct,status:200});
+        res.json({product:saveProduct,status:200,message:"product successfully created"});
     }catch(err){
         res.json({message:err})
     }
@@ -81,7 +82,7 @@ router.get('/store/:storeId', async (req,res)=>{
         const product = await Product.find()
         .where('storeId')
         .in(req.params.storeId);
-        res.json({product:product,message:"successfully loaded",status:200});
+        res.json({products:product,message:"successfully loaded",status:200});
     }catch(err){
         res.json({message:err,status:400})
     }
@@ -92,15 +93,29 @@ router.get('/store/:storeId', async (req,res)=>{
 router.delete('/:productId', async (req,res)=>{
      try{ 
           const product = await Product.findById({_id:req.params.productId});
-          console.log(product.image)
+          var images=product.image;
+          console.log(images)
+          
           const removeProduct = await Product.deleteOne({_id:req.params.productId});
-          console.log(removeProduct)
+        //  console.log(removeProduct)
         
+          /**const unlinkAsync = promisify(fs.unlink);
+                 await unlinkAsync('server/uploads/products/'+image.filename);**/ 
+
           // Delete the file like normal
-          const unlinkAsync = promisify(fs.unlink);
-          //console.log(__dirname)
-           const filepath= path.join(__dirname,'./server/uploads/products/'+product.image[0].filename)
-          for (var i=0;i<3;i++){ await unlinkAsync('./'+product.image[0].filename)}
+          images.forEach( image=>{
+             
+            fs.unlink('server/uploads/products/'+image.filename,(err) =>{
+              if(err){
+                  console.error(err)
+                  return
+              }
+ 
+          })
+
+         
+          })
+
           res.json(removeProduct);
 
      }catch(err){

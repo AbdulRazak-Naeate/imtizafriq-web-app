@@ -27,7 +27,8 @@ export default function Product() {
                      setStock(response.data.stock);
                      setPrice(response.data.price);
                      setActive(response.data.active);
-                     console.log(response);                  setProductUpdated(!productUpdated)
+                     console.log(response);              
+                    setProductUpdated(!productUpdated)
 }
                
 

@@ -2,7 +2,6 @@ import './productsList.css'
 import {DataGrid} from '@material-ui/data-grid';
 import { DeleteOutline,EditOutlined } from '@material-ui/icons';
 import QueryParams from '../../QueryParams';
-
 import { Link ,useHistory} from 'react-router-dom';
 import {useState,useEffect} from "react";
 import {FormatDate} from '../../../utils/Utils';
@@ -49,10 +48,10 @@ export default function ProductsList() {
 
         const fetchProducts = async ()=>{
               try{
-                 const res = await fetch(`http://localhost:3001/api/products/`);
+                 const res = await fetch(`http://localhost:3001/api/products/store/${storeid}`);
                  const data=await res.json();
                        console.log(data);
-                       return data;
+                       return data.products;
               }catch(error){
 
               }
@@ -179,9 +178,10 @@ export default function ProductsList() {
           </Link> 
          
           </div>
-       <DataGrid rows={products} getRowId={(row) => row._id} columns={columns} pageSize={8} checkboxSelection
-        disableSelectionOnClick
-      />
+       <DataGrid rows={products} getRowId={(row) => row._id} columns={columns} 
+       pageSize={5}
+       checkboxSelection
+       disableSelectionOnClick/>
         </div>
     )
 }

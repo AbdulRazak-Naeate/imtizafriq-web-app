@@ -4,7 +4,7 @@ const Store= require('../models/Store');
 const verify =require('./verifyToken');
 const {storeValidation} = require('../validation');
 const {uploadImage}= require('../upload');
-
+const mongoose = require('mongoose')
 //Get all stores
 router.get('/',async(req,res)=>{
     try{
@@ -57,9 +57,10 @@ router.post('/',uploadImage('./server/uploads/stores'),verify,async(req,res)=>{
 //get specific store
 router.get('/:storeId', async (req,res)=>{
     try{
-        const store = await Store.findById(req.params.storeId);
-        res.json(store);
+        const store = await Store.findById({_id:req.params.storeId});
+        res.json({store:store});
     }catch(err){
+
         res.json({message:err})
     }
 });
@@ -91,13 +92,35 @@ router.delete('/:storeId', async (req,res)=>{
 //update Store
 router.patch('/:storeId',async (req,res)=> {
     try{
-        const updateStore = await Store.updateOne(
-            {_id: req.params.storeId},
-            {$set:{name:req.body.name},
-             $set:{description:req.body.description},
-             $set:{price:req.body.price},
-            });
+        var oId= new mongoose.Types.ObjectId(req.params.storeId);
+        var query= {
+            name:req.body.name,
+            email:req.body.email,
+            description:req.body.description,
+            phone:req.body.phone,
+            country:req.body.country,
+            state:req.body.state,
+            city:req.body.city
 
+         };
+        const updateStore = await Store.findOneAndUpdate(
+            {_id: oId},
+              {
+                $set: query  
+              },{new:true,useFindAndModify:false}
+
+              );
+            var newData={
+                name:updateStore.name,
+                email:updateStore.email,
+                description:updateStore.description,
+                phone:updateStore.phone,
+                country:updateStore.country,
+                state:updateStore.state,
+                city:updateStore.city
+            }
+            var updated=JSON.stringify(query)===JSON.stringify(newData)
+            if(!updated) return res.status(400).send("store not modified");
             res.json(updateStore);
     }catch(err){
         res.json({message:err});

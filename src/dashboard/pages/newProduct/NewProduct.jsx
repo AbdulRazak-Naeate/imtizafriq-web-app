@@ -1,10 +1,15 @@
-import { useState } from 'react';
+import { React,useState } from 'react';
 import {Link} from 'react-router-dom';
 import './newProduct.css';
 import QueryParams from '../../QueryParams';
 import ImagesContainer from './ImagesContainer';
 import Specification from './Specification';
 import { post } from 'axios';
+import thumbnail from './ImagesContainer/thumbnail-wide.png';
+import Alert from 'react-s-alert';
+import 'react-s-alert/dist/s-alert-default.css';
+import 'react-s-alert/dist/s-alert-css-effects/stackslide.css';
+import 'react-s-alert/dist/s-alert-css-effects/jelly.css';
 
 export default function NewProduct() {
     
@@ -21,9 +26,10 @@ export default function NewProduct() {
     let query=QueryParams();
     const storeid= query.get('storeId');
     const storename =query.get("storeName");
+
         const onSpecificationChange = (e) => {
         setSpecification(e.target.value)
-        if(e.target.value==="NONE"){
+        if(e.target.value==="no"){
           setShowSpeicification(false)
         }else{
           setShowSpeicification(true)
@@ -31,11 +37,27 @@ export default function NewProduct() {
         }
         console.log(e.target.value)
       }
+      const onstockChange =(e)=>{
+          setStock(e.target.value)
+      }
       const onAddProductCLick =()=>{
         //  let storeid=document.getElementById("storeselect").value
          // console.log(storeid)
           //setStoreId(storeid)
         
+      }    
+      
+
+      const clearFields = () =>{
+        setName('')
+        setDescription('')
+        setStock(0)
+        setActive('no')
+        setPrice('0')
+        var img1=document.getElementById("product-image0").src=thumbnail;
+        document.getElementById("product-image1").src=thumbnail;
+        document.getElementById("product-image2").src=thumbnail;
+
       }
     
     
@@ -43,7 +65,7 @@ export default function NewProduct() {
         setdigitalProductUrl(e.target.value);
       }
       const onDigitalProuctInputChange = (e)=>{
-            if(e.target.value==="NONE"){
+            if(e.target.value==="no"){
              setShowDigitalProductFileInput(false)
             }else{
              setShowDigitalProductFileInput(true)
@@ -78,7 +100,7 @@ export default function NewProduct() {
       }
 
       const onFormSubmit = (e) => {
-
+       
         const form = e.currentTarget
         if (form.checkValidity() === false) {
           e.stopPropagation()
@@ -88,11 +110,21 @@ export default function NewProduct() {
         initiateAndCreateProduct().then((response) => {
           console.log(response.data);
          if (response.data.status===200){
-          
+          Alert.success(response.data.message, {
+            position: 'top-right',
+            effect: 'stackslide'
+
+        });
            // let product=[temp.name,temp.id,temp.price,temp.size,temp.likes,temp.comments,temp.date];
           // console.log([...products,response.data.product])
            // onAddProduct(products,response.data.product);
-            // alert(response.data.product);
+            clearFields();
+         }else if (response.data.status===400){ 
+          Alert.error(response.data.message, {
+            position: 'top-right',
+            effect: 'jelly'
+
+        });
          }
         })
       }
@@ -143,6 +175,8 @@ export default function NewProduct() {
    
     return (
         <div className="newProduct">
+           <Alert stack={{limit: 3}} />
+
     <span className="addproductStoreTitle">{storename}
                 </span> 
           <div className="addProductTitleContainer">
@@ -162,24 +196,25 @@ export default function NewProduct() {
 
                 <div className="addProductItem">
                 <label>Name</label>
-                  <input type="text" placeholder="Name" required onChange={(e)=>{setName(e.target.value)}} />
+                  <input type="text" placeholder="Name" value={name} required onChange={(e)=>{setName(e.target.value)}} />
                 </div>
                 <div className="addProductItem">
             <label >Price</label>
-             <input type="number"  placeholder="100 pi" required onChange={(e)=>{setPrice(e.target.value)}} />
+             <input type="number"  placeholder="100 pi" value={price} required onChange={(e)=>{setPrice(e.target.value)}} />
          </div>
 
          <div className="addProductItem">
              <label>Active</label>
-             <select name="active" id="active" className="active" value="" onChange={(e)=>{setActive(e.target.value)}}>
-             <option value="yes">Yes</option>
+             <select name="active" id="active" className="active" value={active} onChange={(e)=>{setActive(e.target.value)}}>
+               <option value=""></option>
+               <option value="yes">Yes</option>
                <option value="no">No</option>
               </select>
             </div>
             <div className="addProductItem">
               <label htmlFor="validationTextarea">Description</label>
         <textarea id="description" name="description" rows="5"
-         placeholder="Describe the product you are selling"
+         placeholder="Describe the product you are selling" value={description}
          required onChange={(e)=>{setDescription(e.target.value)}}></textarea>
          </div>
       </div>
@@ -190,24 +225,24 @@ export default function NewProduct() {
 
       <div className="addProductItem">
              <label>Stock</label>
-             <input type="text" placeholder="123" required onChange={(e)=>{setStock(e.target.value)}} />
+             <input type="number" placeholder="123" required setStock={stock} onChange={onstockChange} />
            </div>
       <div className="addProductItem">
           
       </div>
       <div className="addProductItem">
            <label htmlFor="validationCustom04">Specification</label>
-          <select id="validationCustom04" onChange={onSpecificationChange}>
-             <option>NONE</option>
-             <option>SPECIFIED</option>
+          <select id="validationCustom04" value={specification} onChange={onSpecificationChange}>
+             <option>no</option>
+             <option>yes</option>
           </select> 
       </div>
        <div className="addProductItem">
           { !showSpecification ? <>
          <label htmlFor="validationCustom05">Digital Product</label>
            <select id="validationCustom05" onChange={onDigitalProuctInputChange}>
-              <option>NONE</option>
-              <option>SPECIFIED</option>
+              <option>no</option>
+              <option>yes</option>
              </select></>:''}  
           </div>
 

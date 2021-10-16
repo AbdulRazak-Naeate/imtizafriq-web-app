@@ -2,9 +2,7 @@
     flex:4;
    
 }
-.MuiTablePagination-caption,.MuiTablePagination-actions,.MuiDataGrid-cellCheckbox,.MuiDataGrid-columnHeaderCheckbox{
-   display: none !important;
-}
+
 .storeListItem{
     display: flex;
     align-items: center;

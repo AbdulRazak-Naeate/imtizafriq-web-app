@@ -1,0 +1,137 @@
+.store{
+    flex:4;
+    padding: 40px;
+}
+.storeTitleContainer{
+   display: flex ;
+   align-items: center;
+   justify-content: space-between;
+}
+.storeAddButton{ 
+ width: 80px;
+ border: none;
+ padding: 5px;
+ background-color: teal;
+ border-radius: 5px;
+ cursor: pointer;
+ color: white;
+ font-size: 16px;
+}
+.storeContainer{
+    display: flex;
+    margin-top: 20px;
+    
+}
+.storeShow{
+    flex: 1;
+    padding: 20px;
+    box-shadow:0px 0px 15px -10px rgb(0,0,0.75);
+    -webkit-box-shadow:0px 0px 15px -10px rgb(0,0,0.75);
+    
+}
+.storeUpdate{
+    flex:2;
+    padding: 20px;
+    box-shadow:0px 0px 15px -10px rgb(0,0,0.75);
+    -webkit-box-shadow:0px 0px 15px -10px rgb(0,0,0.75);
+    margin-left: 20px;
+}
+.storeShowTop{
+    display: flex;
+    align-items: center;
+}
+.storeShowImg{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.storeShowTopTitle{
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+}
+.storeShowstorename{
+    font-weight: 600;
+}
+.storeShowstoreTitle{
+    font-weight: 300;
+}
+.storeShowTitle{
+    font-size: 14px;
+    font-weight: 600;
+    color: rgb(175, 170, 170);
+}
+.storeShowBottom{
+    margin-top: 20px;
+}
+.storeShowInfo{
+    display: flex;
+    align-items: center;
+    margin: 20px 0px;
+    color: #444;
+}
+.storeShowIcon{
+    font-size: 16px !important;
+}
+.storeShowInfoTitle{
+    margin-left: 10px;
+}
+.storeUpdateForm{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+.storeUpdateImg{
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    margin-right: 10px;
+}
+.storeUpdateTitle{
+  font-size: 24px;
+  font-weight: 600;
+}
+.storeUpdateItem{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+.storeUpdateItem>label{
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+.storeUpdateInput{
+    border: none;
+    width: 250px;
+    height: 30px;
+    border-bottom: 1px solid gray;
+}
+
+.storeUpdateTextarea{
+    border: none;
+    width: 250px;
+    height: 80px;
+    border-bottom: 1px solid gray;
+}
+.storeUpdateRight{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.storeUpdateUpload{
+    display: flex;
+    align-items: center;
+}
+.storeUpdateIcon{
+    cursor: pointer;
+}
+.storeUpDateButton{
+    border-radius: 5px;
+    border: none;
+    padding:5px;
+    cursor: pointer;
+    background-color: darkblue;
+    color: white;
+    font-weight: 600;
+}

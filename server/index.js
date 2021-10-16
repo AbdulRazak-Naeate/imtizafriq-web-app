@@ -38,9 +38,15 @@ app.use('/api/carts',carts);
  })
 
 //Connect to DB
-mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true ,useUnifiedTopology: true }, ()=>{
-    console.log('connected to DB!')
-})
+mongoose.connect(process.env.DB_COMMUNITY_CON, { useNewUrlParser: true ,useUnifiedTopology: true })
+
+    const db =mongoose.connection
+    db.once('open', _ =>{
+         console.log('Database connected : ')
+    })  
+    db.on('error',err =>{
+        console.error('connection eror: ',err)
+     })
 
 //Start lestening to the server
 app.set('PORT',3001 ||process.env.PORT);

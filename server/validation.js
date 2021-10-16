@@ -77,7 +77,7 @@ const loginValidation = data =>{
     const schema = Joi.object({
       name:Joi.string().min(6).required(),
       description:Joi.string().min(20).required(),
-      specification:Joi.string().min(4).required(),
+      specification:Joi.string().min(2).required(),
       price:Joi.string().min(1).required(),
       storeId:Joi.string().min(18).required(),
       stock:Joi.string().min(1),

@@ -59,7 +59,7 @@ function LogIn() {
                         </div>
                          <div className="signUpLoginItem">
                          <button className="btnLogIn">LogIn</button>
-                       <Link path="/signup" className="link">
+                       <Link to="/signup" className="link">
                        <button className="btnSignUp">SignUp</button>
                        </Link>
 
