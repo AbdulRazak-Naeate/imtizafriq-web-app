@@ -1,6 +1,6 @@
 .productsList{
     flex:4;
-    padding: 10px 20px;
+    padding: 20px;
 }
 .productsTitle{
     border: none;
@@ -11,14 +11,13 @@
     font-weight: 600;
 }
 .AddProductButton{
-    margin-top: 10px;
-    padding: 7px 10px;
-   
     border: none;
-    border-radius: 10px;
+    padding:5px 10px ;
     background-color: teal;
     color: white;
     cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
 }
 .productListItem{
     display: flex;
@@ -27,8 +26,9 @@
 }
 .productsTitleContainer{
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 5px;
+    align-items: center;
+    justify-content:space-between;
+    padding: 10px 5px;
     }
 .productListImg{
     width: 32px;

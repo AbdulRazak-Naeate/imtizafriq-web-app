@@ -104,7 +104,7 @@ export default function NewStore() {
              <div className="addnewStoreTitleContainer">
                  <h1 className="addNewStoreTitle">Add New Store</h1>
                  <Link to="/dashboard/stores">
-                 <button className="storeAddButton">Stores</button>
+                 <button className="storeListButton">Stores</button>
               </Link>
              </div>
             <form action="" className="newStoreForm" onSubmit={handleSubmit}>

@@ -3,8 +3,8 @@ const router = express.Router();
 const Store= require('../models/Store');
 const verify =require('./verifyToken');
 const {storeValidation} = require('../validation');
-const {uploadImage}= require('../upload');
-const mongoose = require('mongoose')
+const {uploadImage,updateStoreImage}= require('../upload');
+const mongoose = require('mongoose');
 //Get all stores
 router.get('/',async(req,res)=>{
     try{
@@ -88,7 +88,15 @@ router.delete('/:storeId', async (req,res)=>{
          res.json({message:err})
      }
 });
+  
+router.post('/updateImage/:storeId',updateStoreImage('./server/uploads/stores'),async (req,res)=>{
+    try{
 
+    }catch(err){
+
+        res.json({message:err})
+    }
+})
 //update Store
 router.patch('/:storeId',async (req,res)=> {
     try{
@@ -100,7 +108,7 @@ router.patch('/:storeId',async (req,res)=> {
             phone:req.body.phone,
             country:req.body.country,
             state:req.body.state,
-            city:req.body.city
+            city:req.body.city,
 
          };
         const updateStore = await Store.findOneAndUpdate(
@@ -117,11 +125,13 @@ router.patch('/:storeId',async (req,res)=> {
                 phone:updateStore.phone,
                 country:updateStore.country,
                 state:updateStore.state,
-                city:updateStore.city
-            }
-            var updated=JSON.stringify(query)===JSON.stringify(newData)
-            if(!updated) return res.status(400).send("store not modified");
-            res.json(updateStore);
+                city:updateStore.city,
+                }
+           
+             var updated=JSON.stringify(query)===JSON.stringify(newData)
+             if(!updated) return res.status(400).send("store not modified");
+
+             res.json(updateStore);
     }catch(err){
         res.json({message:err});
     }

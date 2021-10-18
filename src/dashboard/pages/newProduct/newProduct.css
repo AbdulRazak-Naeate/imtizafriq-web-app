@@ -1,11 +1,12 @@
 .newProduct{
    flex: 4;
    padding: 20px;
-   border: 0px solid;
 }
 .addProductTitleContainer{
 display: flex;
+align-items: center;
 justify-content: space-between;
+padding: 10px 5px;
 
 }
 
@@ -60,7 +61,6 @@ margin-bottom: 5px;
     cursor: pointer;
 }
 .ProductListButton{
-    width: 80px;
     border: none;
     padding: 5px 10px;
     background-color: teal;

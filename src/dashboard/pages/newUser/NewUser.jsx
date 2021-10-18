@@ -1,9 +1,14 @@
 import './newUser.css'
-
+import {Link} from 'react-router-dom'
 export default function NewUser() {
     return (
         <div className="newUser">
+            <div className="newUserTitleContainer">
             <h1 className="newUserTitle">New User</h1>
+            <Link to="/dashboard/users">
+              <button className="userAddButton">Users</button>
+              </Link>
+            </div>
             <form action="" className="newUserForm">
             <div className="newUserItem">
                 <label>Username</label>
@@ -46,7 +51,9 @@ export default function NewUser() {
                <option value="no">No</option>
                </select>
             </div>
-            <button className="newUserButton">Create</button>
+           <div className="newUserItem">
+           <button className="newUserButton">Create</button>
+           </div>
             </form>
         </div>
     )

@@ -3,7 +3,7 @@ import { useEffect,useState } from 'react';
 import {Link} from 'react-router-dom';
 import { CalendarToday, LocationSearching, MailOutline, PermIdentity, PhoneAndroid, Publish } from '@material-ui/icons'
 import QueryParams from '../../QueryParams';
-import {patch} from 'axios';
+import {patch,post} from 'axios';
 import Alert from 'react-s-alert';
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/stackslide.css';
@@ -22,7 +22,27 @@ export default function Store() {
      const [state,setState]=useState(store.state)
      const [city,setCity]=useState(store.city)
      const [storeUpdated,setStoreUpdated]=useState(false);
+     const [onStoreImageChange,setOnstoreImageChange]=useState(false);
+     const [image,setImage]=useState(null);
+     const [imagename,setImageName]=useState(store.image[0].filename)
 
+     function onFileInputChange(e) {
+        var file = e.target.files[0];
+        var reader = new FileReader();
+        reader.onloadend = function (e) {
+         document.getElementById('store-image').src = e.target.result
+         setOnstoreImageChange(!onStoreImageChange);
+         console.log(file)
+         setImage(file);
+        };
+
+        try {
+            reader.readAsDataURL(file)
+
+        } catch (error) {
+            console.log({ readAsDataURLError: error })
+        }
+    }
 
      const handleUpdate=(e)=>{
         e.preventDefault();
@@ -35,14 +55,27 @@ export default function Store() {
                  setCountry(response.data.country);
                  setState(response.data.state);
                  setCity(response.data.city);
-
+                 
                  Alert.success('update successfully', {
                     position: 'top-right',
                     effect: 'stackslide'
-        
-                }); 
-                            
-                setStoreUpdated(!storeUpdated)
+                    
+                });
+                if (onStoreImageChange){
+
+                    UploadStoreImage(image).then((response) => {
+                        console.log(response.data.message);
+                        if (response.status===200){
+                          Alert.success('store image updated', {
+                            position: 'top-right',
+                            effect: 'stackslide'
+                
+                        }); 
+                        }
+                        //addToast(exampleToast(response.data.message));
+                      })
+                } 
+                setStoreUpdated(!storeUpdated);
                
            }else{
             Alert.error('update was unsuccessful', {
@@ -56,10 +89,29 @@ export default function Store() {
         });
   }
 
+  const UploadStoreImage = (file) => {
+    //const url = process.env.STORE_URL;
+
+    const formData = new FormData();
+      formData.append('imagename',imagename);
+      formData.append('image', file);
+    
+
+    const config = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGQ4N2FkODExNzM0MTU3NmMwOGYzYjciLCJpYXQiOjE2MjQ5OTg3MDd9.d8KtF6Q2KFQrvDQNOPzVN_4S8Iaz47vH5GHSm2cI0Eg',
+      }
+
+    }
+    return post(`http://localhost:3001/api/stores/updateImage/${store._id}`, formData, config)
+  }
+  
   const updateStore =()=>{
      
     const url = `http://localhost:3001/api/stores/${store._id}`;
- 
+   
+
     const body={
              storeId:store._id,
              name:name,
@@ -68,10 +120,12 @@ export default function Store() {
              description:description,
              country:country,
              state:state,
-             city:city
+             city:city,
+             image:image
     }
     const config = {
         headers: {
+            'Content-Type':'Application/json',
             'auth-token':
               'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGQwNjc4YWY2NzA3ZTI1YzAyODBiNmQiLCJpYXQiOjE2MjQyNzA3NjN9.YGbjKlP3gQTGY_-3Epsik8N6QCWmtTYrOABFm7Iu2fY',
           },
@@ -180,9 +234,9 @@ export default function Store() {
                         </div> 
                     <div className="storeUpdateRight">
                         <div className="storeUpdateUpload">
-                            <img src={`http://localhost:3001/server/uploads/stores/${store.image[0].filename}`} alt="" className="storeUpdateImg" />
+                            <img src={`http://localhost:3001/server/uploads/stores/${store.image[0].filename}`} alt="" className="storeUpdateImg" id="store-image" />
                             <label htmlFor="file"> <Publish className="storeUpdateIcon"/> </label>
-                                <input type="file" id="file" style={{display:"none"}}/>
+                                <input type="file" id="file" onChange={onFileInputChange} style={{display:"none"}}/>
                        </div>
                        <button className="storeUpDateButton">Update</button>
                     </div>

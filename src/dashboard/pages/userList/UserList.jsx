@@ -106,6 +106,12 @@ function UserList(){
     
     return (
         <div className="userList">
+          <div className="userListTitleContainer">
+              <h1 className="userListTitle">User List</h1>
+              <Link to="/dashboard/newUser">
+              <button className="addNewUserButton">New User</button>
+              </Link>
+          </div>
           <DataGrid rows={users} columns={columns} pageSize={8} checkboxSelection
         disableSelectionOnClick
       />

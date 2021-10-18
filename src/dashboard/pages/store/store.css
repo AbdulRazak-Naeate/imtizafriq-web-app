@@ -1,21 +1,21 @@
 .store{
     flex:4;
-    padding: 40px;
+    padding: 20px;
 }
 .storeTitleContainer{
    display: flex ;
    align-items: center;
    justify-content: space-between;
+   padding: 10px 5px;
 }
 .storeAddButton{ 
- width: 80px;
- border: none;
- padding: 5px;
- background-color: teal;
- border-radius: 5px;
- cursor: pointer;
- color: white;
- font-size: 16px;
+    border: none;
+    padding:5px 10px ;
+    background-color: teal;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
 }
 .storeContainer{
     display: flex;

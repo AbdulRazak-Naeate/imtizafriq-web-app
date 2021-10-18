@@ -171,8 +171,11 @@ export default function ProductsList() {
     return (
         <div className="productsList"> 
             <AlertDailog open={open} handleClickOpen={handleClickOpen} handleClose={handleClose} title="Are you sure you want to delete!"DeleteOutline={DeleteOutline}/>
-       <div className="productsTitleContainer">
-         <span className="productsTitle">{storename}  </span> 
+          <span className="productsTitle">{storename}  </span> 
+
+         <div className="productsTitleContainer">
+         <h1 className="addProductTitle">Products </h1>
+
          <Link to={`/dashboard/newProduct?storeId=${storeid}&storeName=${storename}`}>
           <button className="AddProductButton">Add Products</button>
           </Link> 

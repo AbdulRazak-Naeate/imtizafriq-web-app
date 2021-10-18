@@ -1,10 +1,27 @@
 .userList{
     flex: 4;
+    padding: 20px;
+}
+.userListTitleContainer{
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 5px;
 }
 .userListUser{
     display: flex;
     align-items: center;
 
+}
+.addNewUserButton{
+    width: 80px;
+    border: none;
+    padding: 5px ;
+    background-color: teal;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
 }
 .userListImg{
     width: 32px;

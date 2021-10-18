@@ -137,7 +137,7 @@ export default function StoreList() {
               disableSelectionOnClick
               
             />:<div> 
-                <Link to="/newStore">
+                <Link to="/dashboard/newStore">
                  <div className="addStoreButton link">Add New Store</div>
                 </Link>
             </div>
