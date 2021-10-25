@@ -177,7 +177,7 @@ export default function ProductsList() {
          <h1 className="addProductTitle">Products </h1>
 
          <Link to={`/dashboard/newProduct?storeId=${storeid}&storeName=${storename}`}>
-          <button className="AddProductButton">Add Products</button>
+          <button className="AddProductButton">New Product</button>
           </Link> 
          
           </div>

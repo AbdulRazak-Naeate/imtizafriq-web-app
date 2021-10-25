@@ -3,7 +3,7 @@ const router = express.Router();
 const Store= require('../models/Store');
 const verify =require('./verifyToken');
 const {storeValidation} = require('../validation');
-const {uploadImage,updateStoreImage}= require('../upload');
+const {uploadImage,updateImage}= require('../upload');
 const mongoose = require('mongoose');
 //Get all stores
 router.get('/',async(req,res)=>{
@@ -89,14 +89,8 @@ router.delete('/:storeId', async (req,res)=>{
      }
 });
   
-router.post('/updateImage/:storeId',updateStoreImage('./server/uploads/stores'),async (req,res)=>{
-    try{
 
-    }catch(err){
 
-        res.json({message:err})
-    }
-})
 //update Store
 router.patch('/:storeId',async (req,res)=> {
     try{
@@ -109,7 +103,6 @@ router.patch('/:storeId',async (req,res)=> {
             country:req.body.country,
             state:req.body.state,
             city:req.body.city,
-
          };
         const updateStore = await Store.findOneAndUpdate(
             {_id: oId},
@@ -138,5 +131,12 @@ router.patch('/:storeId',async (req,res)=> {
 
     
 });
+router.post('/updateImage/:storeId',updateImage('./server/uploads/stores'),async (req,res)=>{
+    try{
+      res.json({message:"image updated",status:200})
+    }catch(err){
 
+        res.json({message:err})
+    }
+});
 module.exports = router ;

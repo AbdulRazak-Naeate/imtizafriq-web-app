@@ -22,7 +22,7 @@ const uploadImage = (uploadpath)=>{
   }
 
   
-const updateStoreImage = (uploadpath)=>{
+const updateImage = (uploadpath)=>{
 
   //Images Upload path and file names
 const storage = multer.diskStorage({
@@ -32,7 +32,7 @@ const storage = multer.diskStorage({
   },
   filename: function (req,file,cb) {
        
-       var filename=req.body.imagename+'.'+file.originalname.split('.').pop();
+       var filename=req.body.imagename
       cb(null,filename);
   }
 });
@@ -43,4 +43,4 @@ const storage = multer.diskStorage({
 }
 
 module.exports.uploadImage=uploadImage;
-module.exports.updateStoreImage=updateStoreImage;
+module.exports.updateImage=updateImage;

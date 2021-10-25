@@ -22,9 +22,9 @@ export default function SignUp() {
       const user = response.data;
       localStorage.setItem('_id', user._id);
       localStorage.setItem('user', JSON.stringify(user));
-      localStorage.setItem('auth-token',response.headers)
+     // localStorage.setItem('auth-token',response.headers)
 
-      console.log(response.headers[2]);
+      console.log(response.headers);
        
       history.push("/dashboard");
      }
@@ -54,7 +54,10 @@ export default function SignUp() {
     }
     return post(url,  {
       name:username,
+      fullname:'null',
       email: email ,
+      phone:'null',
+      location:'null',
       password: password,
     })
   

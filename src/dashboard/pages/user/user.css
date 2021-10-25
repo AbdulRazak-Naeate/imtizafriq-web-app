@@ -55,6 +55,7 @@
     font-weight: 600;
 }
 .userShowUserTitle{
+    font-size: small;
     font-weight: 300;
 }
 .userShowTitle{
@@ -118,6 +119,12 @@
 }
 .userUpdateIcon{
     cursor: pointer;
+}
+
+.offline{
+    background-color: red;
+    border: 1px solid red;
+    border: 90px;
 }
 .userUpDateButton{
     border-radius: 5px;

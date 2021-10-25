@@ -18,6 +18,7 @@ export default function Product() {
     const [active,setActive]=useState(product.active);
     const [price,setPrice]=useState(product.price);
     const [productUpdated,setProductUpdated]=useState(false);
+    const[user]=useState(JSON.parse(localStorage.getItem('user')));
 
       const handleUpdate=(e)=>{
             e.preventDefault();
@@ -36,7 +37,6 @@ export default function Product() {
       }
 
       const editProduct =()=>{
-         
         const url = `http://localhost:3001/api/products/${productid}`;
      
         const body={
@@ -48,7 +48,7 @@ export default function Product() {
         const config = {
             headers: {
                 'auth-token':
-                  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGQwNjc4YWY2NzA3ZTI1YzAyODBiNmQiLCJpYXQiOjE2MjQyNzA3NjN9.YGbjKlP3gQTGY_-3Epsik8N6QCWmtTYrOABFm7Iu2fY',
+                  user.auth_token,
               },
         }
         return patch(url, body,config)

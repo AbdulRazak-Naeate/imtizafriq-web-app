@@ -37,6 +37,8 @@ export const Sidebar = () => {
                          <Storefront className="sidebarIcon"/>
                          Store
                      </li>  
+                     </Link>
+                     <Link to="/dashboard/products" className="link">
                        <li className="sidebarListItem">
                          <Storefront className="sidebarIcon"/>
                          Products

@@ -30,8 +30,9 @@ export default function Store() {
         var file = e.target.files[0];
         var reader = new FileReader();
         reader.onloadend = function (e) {
-         document.getElementById('store-image').src = e.target.result
-         setOnstoreImageChange(!onStoreImageChange);
+            document.getElementById('store-image').src = e.target.result
+            document.getElementById('store-show-img').src = e.target.result
+            setOnstoreImageChange(!onStoreImageChange);
          console.log(file)
          setImage(file);
         };
@@ -61,11 +62,10 @@ export default function Store() {
                     effect: 'stackslide'
                     
                 });
-                if (onStoreImageChange){
+                /***/if (onStoreImageChange){
 
                     UploadStoreImage(image).then((response) => {
-                        console.log(response.data.message);
-                        if (response.status===200){
+                        if (response.data.status===200){
                           Alert.success('store image updated', {
                             position: 'top-right',
                             effect: 'stackslide'
@@ -106,11 +106,21 @@ export default function Store() {
     }
     return post(`http://localhost:3001/api/stores/updateImage/${store._id}`, formData, config)
   }
-  
+
   const updateStore =()=>{
      
     const url = `http://localhost:3001/api/stores/${store._id}`;
    
+    const formData=new FormData();
+          formData.append("storeId",store._id);
+          formData.append("name",name);
+          formData.append("email",email);
+          formData.append("phone",phone);
+          formData.append("description",description);
+          formData.append("country",country);
+          formData.append("state",state);
+          formData.append("city",city);
+          formData.append("image",image);
 
     const body={
              storeId:store._id,
@@ -121,14 +131,15 @@ export default function Store() {
              country:country,
              state:state,
              city:city,
-             image:image
     }
     const config = {
         headers: {
-            'Content-Type':'Application/json',
+            'Content-Type':'application/json',
             'auth-token':
               'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGQwNjc4YWY2NzA3ZTI1YzAyODBiNmQiLCJpYXQiOjE2MjQyNzA3NjN9.YGbjKlP3gQTGY_-3Epsik8N6QCWmtTYrOABFm7Iu2fY',
           },
+         
+          
     }
     return patch(url, body,config)
   
@@ -175,7 +186,7 @@ export default function Store() {
             <div className="storeContainer">
                 <div className="storeShow">
                     <div className="storeShowTop">
-                        <img src={`http://localhost:3001/server/uploads/stores/${store.image[0].filename}`} alt="" className="storeShowImg" />
+                        <img src={`http://localhost:3001/server/uploads/stores/${store.image[0].filename}`} id="store-show-img" alt="" className="storeShowImg" />
                        <div className="storeShowTopTitle">
                            <span className="storeShowstorename">{name}</span>
                            <span className="storeShowstoreTitle">{description}</span>

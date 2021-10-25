@@ -4,7 +4,6 @@ import { DeleteOutline } from '@material-ui/icons';
 import { Link ,useHistory} from 'react-router-dom';
 import {useState , useEffect} from "react";
 import {FormatDate} from '../../../utils/Utils';
-import styles from './styles.module.css';
 export default function StoreList() {
 
     const [stores, setStores] = useState([]);
@@ -45,29 +44,6 @@ export default function StoreList() {
      }
     };
    
-    const convertObject = (responseData) => { //convert response data to Jasvscripts array
-      const data = [];
-      console.log(responseData)
-      const convertoDateString=(ms)=>{
-        var dateFormat = "Y-m-d H:i:s.v";
-        return FormatDate(ms, dateFormat);
-      }
-
-      for (let i = 0; i < responseData.length; i++) {
-        
-        data.push({
-           id:i,
-           name:responseData[i].name,
-           _id:responseData[i]._id,
-           phone:responseData[i].phone,
-           email:responseData[i].email,
-           image:`http://localhost:3001/server/uploads/stores/${responseData[i].image[0].filename}`,
-           date:convertoDateString(responseData[i].date),
-           validStatus:responseData[i].validStatus});
-      }
-      console.log(data)
-      return data;
-    };
     getStores();
 
   },[]);
@@ -115,7 +91,7 @@ export default function StoreList() {
         {
             field:"action",
             headerName:"Action",
-            width:210,
+            width:230,
             renderCell: (params)=>{
                 return(
                   <div>
@@ -132,6 +108,15 @@ export default function StoreList() {
       ];
     return (
         <div className="storesList"> 
+               <div className="pageTitleContainer">
+              <h1 className="pageTitle">Stores</h1>
+            
+            
+          <Link to={`/dashboard/newStore?`}>
+          <button className="pageTitleButton">New Store</button>
+          </Link>
+
+          </div>
              {
               stores.length>0 ?  <DataGrid rows={stores} getRowId={(row) => row._id} columns={columns} pageSize={8} checkboxSelection
               disableSelectionOnClick

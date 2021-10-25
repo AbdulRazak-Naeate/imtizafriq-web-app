@@ -211,22 +211,25 @@ export default function NewProduct() {
                <option value="no">No</option>
               </select>
             </div>
-            <div className="addProductItem">
+       
+      </div>
+         <div className="productFormMiddle">
+          <div className="addProductItem">
               <label htmlFor="validationTextarea">Description</label>
-        <textarea id="description" name="description" rows="5"
+        <textarea id="description" name="description" rows="4"
          placeholder="Describe the product you are selling" value={description}
          required onChange={(e)=>{setDescription(e.target.value)}}></textarea>
          </div>
-      </div>
-
-    <div className="productFormTopRight">
-
-     
-
-      <div className="addProductItem">
+          <div className="addProductItem">
              <label>Stock</label>
              <input type="number" placeholder="123" required setStock={stock} onChange={onstockChange} />
            </div>
+           </div>
+        <div className="productFormTopRight">
+         
+     
+
+    
       <div className="addProductItem">
           
       </div>
@@ -256,12 +259,12 @@ export default function NewProduct() {
            }
             </div>
         
-      
          </div>
         </div>
-               
-              <ImagesContainer handleImages={handleImages}/>
+            <div className="imagesContainerWrapper">
+            <ImagesContainer handleImages={handleImages}/>
               {showSpecification ? <Specification/> :<></>}
+            </div>
 
         <div className="addProductItem">
         <button className="addProductButton" type="submit" onClick={onAddProductCLick}>Create</button>

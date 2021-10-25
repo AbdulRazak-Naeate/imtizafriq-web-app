@@ -91,7 +91,7 @@ export default function NewStore() {
       const config = {
         headers: {
           'Content-Type': 'multipart/form-data',
-          'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGQ4N2FkODExNzM0MTU3NmMwOGYzYjciLCJpYXQiOjE2MjQ5OTg3MDd9.d8KtF6Q2KFQrvDQNOPzVN_4S8Iaz47vH5GHSm2cI0Eg',
+          'auth-token': user.auth_token,
         }
   
       }

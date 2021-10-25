@@ -125,7 +125,7 @@ router.delete('/:productId', async (req,res)=>{
 });
 
 //update Product
-router.patch('/:productId',async (req,res)=> {
+router.patch('/:productId',verify,async (req,res)=> {
     try{
 
         var oId= new mongoose.Types.ObjectId(req.params.productId);

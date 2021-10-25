@@ -6,6 +6,7 @@ import { Link,useHistory } from 'react-router-dom';
 function LogIn() {
           const [email,setEmail]=useState('');
           const [password,setPassword]=useState('');
+          const [error,setError]=useState(false);
           const history=useHistory();
 
           const onFormSubmit=(e)=>{
@@ -16,13 +17,13 @@ function LogIn() {
               const user = response.data;
               localStorage.setItem('_id', user._id);
               localStorage.setItem('user', JSON.stringify(user));
-              localStorage.setItem('auth-token',response.headers)
+             // localStorage.setItem('auth-token',response.headers)
       
-              console.log(response.headers[2]);
+              //console.log(response.headers[2]);
                
               history.push("/dashboard");
             }).catch((error) =>{
-      
+               setError(true);
               console.log(error)
             });
             
@@ -56,6 +57,9 @@ function LogIn() {
                         <div className="loginItem">
                             <label>Password</label>
                             <input type="password"  className="loginInput" required onChange={(e)=>{setPassword(e.target.value)}}/>
+                        </div>
+                        <div className="loginItem">
+                        <label className="error">{!error?'':'email or password incorrect'}</label>
                         </div>
                          <div className="signUpLoginItem">
                          <button className="btnLogIn">LogIn</button>

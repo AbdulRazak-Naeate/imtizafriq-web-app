@@ -29,9 +29,13 @@ function UserList(){
  const getUsers = async () => {
   try {
    const usersFromserver = await fetchUsers();  
+    let tmp =[];
+    for(let i=0;i<usersFromserver.length;i++){
+      tmp.push(usersFromserver[i]);
+      
+    }
+  setUsers(tmp)
 
-    console.log(usersFromserver);
-  setUsers(convertObject(usersFromserver))
   } catch (error) {
     console.log({message:error})
   }
@@ -49,10 +53,12 @@ function UserList(){
     data.push({
        id:i,
        name:responseData[i].name,
+       fullname:responseData[i].fullname,
        _id:responseData[i]._id,
-       //phone:responseData[i].phone,
+       phone:responseData[i].phone,
        email:responseData[i].email,
-       avatar:``,
+       location:responseData[i].location,
+       avatar:`http://localhost:3001/server/uploads/users/${responseData[i].image[0].filename}`,
        //date:convertoDateString(responseData[i].date),
        status:'active'});
   }
@@ -65,7 +71,7 @@ function UserList(){
         setData(data.filter((item) => item.id !==id))
     }
     const columns = [
-        { field: '_id', headerName: 'ID', width: 210 },
+        { field: '_id', headerName: 'Id', width: 210 },
         {
           field: 'name',
           headerName: 'User',
@@ -73,7 +79,7 @@ function UserList(){
           renderCell:(params)=>{
               return(
                   <div className="userListUser">
-                      <img className="userListImg" src={params.row.avatar} alt=""/>
+                      <img className="userListImg" src={`http://localhost:3001/server/uploads/users/${params.row.image[0].filename}`} alt=""/>
                       {params.row.name}
                   </div>
               )
@@ -94,7 +100,7 @@ function UserList(){
             renderCell: (params)=>{
                 return(
                    <>
-                    <Link to={"/dashboard/user/"+params.row._id}>
+                    <Link to={{pathname:`/dashboard/user/_id=${params.row._id}`,search:`user=${JSON.stringify(params.row)}`}}>
                     <span className="userlistEdit link">Edit</span>
                     </Link>
                     <DeleteOutline className="userlistDelete" onClick={() => {handleDelete(params.row._id)}}/>
@@ -112,7 +118,7 @@ function UserList(){
               <button className="addNewUserButton">New User</button>
               </Link>
           </div>
-          <DataGrid rows={users} columns={columns} pageSize={8} checkboxSelection
+          <DataGrid rows={users} getRowId={(row) => row._id} columns={columns} pageSize={8} checkboxSelection
         disableSelectionOnClick
       />
         </div>
