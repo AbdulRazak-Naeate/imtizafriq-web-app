@@ -1,9 +1,14 @@
-import React from 'react'
+import React ,{useState,useEffect}from 'react';
 import "./topbar.css"
 import {NotificationsNone,ShoppingCartOutlined,AccountCircleOutlined } from '@material-ui/icons';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import {useHistory} from 'react-router-dom';
  const Topbar = () => {
+  //const [user] = useState(JSON.parse(localStorage.getItem('user')));
+  const [loggedin] = useState(JSON.parse(localStorage.getItem('loggedin')));
+  
+  const history=useHistory();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     // eslint-disable-next-line no-unused-vars
@@ -13,6 +18,12 @@ import MenuItem from '@mui/material/MenuItem';
     const handleClose = () => {
       setAnchorEl(null);
     };
+     useEffect(()=>{
+       console.log(loggedin);
+       if (!loggedin){
+          window.location.href="http://localhost:3000/login"
+       }
+     });
     return (
         <div className="topbar">
             <div className="topbarWrapper">

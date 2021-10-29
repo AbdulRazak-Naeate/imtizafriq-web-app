@@ -1,10 +1,10 @@
 import { Sidebar } from "./components/sidebar/Sidebar";
 import { Topbar } from "./components/topbar/Topbar";
 import "./dashboard.css"
-import Home from "./pages/home/Home";
 import {BrowserRouter as Router,Switch,Route
 } from "react-router-dom";
 
+import Home from "./pages/home/Home";
 import UserList from "./pages/userList/UserList";
 import User from "./pages/user/User";
 import NewUser from "./pages/newUser/NewUser";
@@ -15,8 +15,8 @@ import ProductsList from "./pages/productlist/ProductsList";
 import Product from "./pages/product/Product";
 import NewProduct from "./pages/newProduct/NewProduct";
 import Transactions from "./pages/transactions/Transactions";
-import Login from "../pages/login/LogIn";
-import SignUp from '../pages/signup/SignUp';
+import Login from "./pages/login/LogIn";
+import SignUp from "./pages/signup/SignUp";
  function Dashboard() {
  
   return (
@@ -59,20 +59,20 @@ import SignUp from '../pages/signup/SignUp';
         <Product/>
        </Route>
 
-       <Route path="/dashboard/newProduct/">
+       <Route path="/dashboard/newProduct">
         <NewProduct/>
        </Route>
 
-       <Route path="/dashboard/transactions/">
+       <Route path="/dashboard/transactions">
         <Transactions/>
        </Route>
 
-       <Route path="/login">
+       <Route path="dashboard/login">
          <Login/>
        </Route>
-     <Route path="/signup">
-       <SignUp/>
-     </Route>
+       <Route path="dashboard/signup">
+         <SignUp/>
+       </Route>
      </Switch>
     
     </div>

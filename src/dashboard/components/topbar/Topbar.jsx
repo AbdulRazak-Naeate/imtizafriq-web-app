@@ -16,9 +16,22 @@ import Logout from '@mui/icons-material/Logout';
 
 export const Topbar = () => {
     const [user] = useState(JSON.parse(localStorage.getItem('user')));
+    const [imagefilename,setImageFilename]=useState('');
+    const [userId,setuserId]=useState(null)
+    try{
+      setImageFilename(user.image[0].filename);
+      setuserId(user._id);
+    }catch(err){
+      
+      console.log({error:err})
+    }
     const history=useHistory();
     const imgonLoadError=(e)=>{
+      try{
         e.target.onerror = null; e.target.src = imgAvatar
+      }catch(error){
+        console.log({error:error});
+      }
     }
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
@@ -56,7 +69,7 @@ export const Topbar = () => {
                     <div className="topbarIonContainer">
                         <Settings/>
                     </div>
-                    <img src={`http://localhost:3001/server/uploads/users/${user.image[0].filename}`} onClick={handleClick}  id="avatar"  onError={imgonLoadError} alt=""  className="topAvatar" /> 
+                    <img src={`http://localhost:3001/server/uploads/users/${imagefilename}`} onClick={handleClick}  id="avatar"  onError={imgonLoadError} alt=""  className="topAvatar" /> 
                 </div>
                 <React.Fragment>
          <Menu
@@ -100,7 +113,7 @@ export const Topbar = () => {
           },
         }}
       >
-        <Link className="link" to={{pathname:`/dashboard/user/_id=${user._id}`,search:`user=${JSON.stringify(user)}`}}>
+        <Link className="link" to={{pathname:`/dashboard/user/_id=${userId}`,search:`user=${JSON.stringify(user)}`}}>
         <MenuItem onClick={handleClose}><ListItemIcon> <Person fontSize="small" /> </ListItemIcon>Profile</MenuItem></Link>
         <MenuItem onClick={handleClose}><ListItemIcon><Store/></ListItemIcon>  My Stores</MenuItem>
         <Divider />
