@@ -17,11 +17,13 @@ function LogIn() {
               const user = response.data;
               localStorage.setItem('_id', user._id);
               localStorage.setItem('user', JSON.stringify(user));
+              localStorage.setItem('loggedin',true);
+
              // localStorage.setItem('auth-token',response.headers)
       
               //console.log(response.headers[2]);
                
-              history.push("/dashboard");
+              history.replace("/dashboard");
             }).catch((error) =>{
                setError(true);
               console.log(error)

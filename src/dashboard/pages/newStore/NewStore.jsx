@@ -153,11 +153,7 @@ export default function NewStore() {
                     <label>city</label>
                     <input type="text" name="city" required placeholder="" onChange={(e)=>{setCity(e.target.value)}}/>
                 </div>
-              
-               
-               
-               
-                        <div className="newStoreUpload">
+               <div className="newStoreUpload">
                             <img src={thumbnail} alt="" className="newStoreUploadImg"  id="storeimg"/>
                             <label htmlFor="file"> <Publish className="newStoreUploadIcon"/>Click to upload store logo</label>
                                 <input type="file" id="file" style={{display:"none"}}  onChange={onFileChange}/>
@@ -169,8 +165,8 @@ export default function NewStore() {
                </div>
                <div className="newStoreFormRight">
                     
-                    </div>
-                    </div> 
+               </div>
+               </div> 
                   
             </form>
        

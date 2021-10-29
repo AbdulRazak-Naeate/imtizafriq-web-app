@@ -114,7 +114,7 @@ router.delete('/:productId', async (req,res)=>{
           })
 
          
-          })
+          });
 
           res.json(removeProduct);
 

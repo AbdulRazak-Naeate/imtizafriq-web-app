@@ -4,6 +4,7 @@ import "./dashboard.css"
 import Home from "./pages/home/Home";
 import {BrowserRouter as Router,Switch,Route
 } from "react-router-dom";
+
 import UserList from "./pages/userList/UserList";
 import User from "./pages/user/User";
 import NewUser from "./pages/newUser/NewUser";
@@ -13,7 +14,9 @@ import NewStore from "./pages/newStore/NewStore";
 import ProductsList from "./pages/productlist/ProductsList";
 import Product from "./pages/product/Product";
 import NewProduct from "./pages/newProduct/NewProduct";
-
+import Transactions from "./pages/transactions/Transactions";
+import Login from "../pages/login/LogIn";
+import SignUp from '../pages/signup/SignUp';
  function Dashboard() {
  
   return (
@@ -22,7 +25,7 @@ import NewProduct from "./pages/newProduct/NewProduct";
      <div className="content">
      <Sidebar/>
      <Switch>
-     <Route exact path="/dashboard">
+     <Route exact  path="/dashboard">
          <Home/>
        </Route>
        <Route path="/dashboard/users">
@@ -59,6 +62,17 @@ import NewProduct from "./pages/newProduct/NewProduct";
        <Route path="/dashboard/newProduct/">
         <NewProduct/>
        </Route>
+
+       <Route path="/dashboard/transactions/">
+        <Transactions/>
+       </Route>
+
+       <Route path="/login">
+         <Login/>
+       </Route>
+     <Route path="/signup">
+       <SignUp/>
+     </Route>
      </Switch>
     
     </div>

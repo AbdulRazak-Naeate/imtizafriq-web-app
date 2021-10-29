@@ -8,6 +8,8 @@ import Alert from 'react-s-alert';
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/stackslide.css';
 import 'react-s-alert/dist/s-alert-css-effects/jelly.css';
+import Avatar from '../../../assets/icons/user_96px.png';
+
 export default function User() {
     const query =QueryParams();    
     const [user,setUser] = useState(JSON.parse(query.get('user')));
@@ -22,6 +24,9 @@ export default function User() {
     const[onuserUpdated,setonuserUpdated]=useState(false);
     const[onImageChanged,setOnImageChanged]=useState(false)
      
+    const imgonLoadError=(e)=>{
+        e.target.onerror = null; e.target.src = Avatar
+    }
     
     function onFileInputChange(e) {
         var file = e.target.files[0];
@@ -56,7 +61,8 @@ export default function User() {
                  setEmail(response.data.email);
                  setFullname(response.data.fullname);
                  setPhone(response.data.phone);
-                 setLocation(response.data.location)
+                 setLocation(response.data.location);
+                 localStorage.setItem('user',JSON.stringify(response.data));
                  Alert.success('user updated successfully', {
                     position: 'top-right',
                     effect: 'stackslide'
@@ -134,7 +140,7 @@ export default function User() {
             <div className="userContainer">
                 <div className="userShow">
                     <div className="userShowTop">
-                        <img src={`http://localhost:3001/server/uploads/users/${user.image[0].filename}`} id="avatar" alt="" className="userShowImg" />
+                        <img src={`http://localhost:3001/server/uploads/users/${user.image[0].filename}`}  id="avatar"  onError={imgonLoadError} alt="" className="userShowImg" />
                         
                        <div className="userShowTopTitle">
                            <span className="userShowUsername">{username}</span>  <span className="active"></span>
@@ -195,7 +201,7 @@ export default function User() {
                         </div> 
                     <div className="userUpdateRight">
                         <div className="userUpdateUpload">
-                            <img src={`http://localhost:3001/server/uploads/users/${user.image[0].filename}`} alt=""  id="user-image"className="userUpdateImg" />
+                            <img src={`http://localhost:3001/server/uploads/users/${user.image[0].filename}`} onError={imgonLoadError} alt=""  id="user-image"className="userUpdateImg" />
                             <label htmlFor="file"> <Publish className="userUpdateIcon"/> </label>
                                 <input type="file" onChange={onFileInputChange} id="file" style={{display:"none"}}/>
                        </div>

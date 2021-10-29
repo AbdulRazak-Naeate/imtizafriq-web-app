@@ -1,7 +1,43 @@
-import React from 'react'
+import React , {useState} from 'react';
+import {Link, useHistory} from 'react-router-dom';
 import "./topbar.css"
-import {NotificationsNone,  Language,Settings} from '@material-ui/icons'
+import imgAvatar from '../../../assets/icons/user_96px.png';
+import {NotificationsNone,Language} from '@material-ui/icons'
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Store from '@mui/icons-material/Store';
+import Avatar from '@mui/material/Avatar';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import Divider from '@mui/material/Divider';
+import Person from '@mui/icons-material/Person';
+import PersonAdd from '@mui/icons-material/PersonAdd';
+import Settings from '@mui/icons-material/Settings';
+import Logout from '@mui/icons-material/Logout';
+
 export const Topbar = () => {
+    const [user] = useState(JSON.parse(localStorage.getItem('user')));
+    const history=useHistory();
+    const imgonLoadError=(e)=>{
+        e.target.onerror = null; e.target.src = imgAvatar
+    }
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+    };
+      const handleClose = () => {
+        setAnchorEl(null);
+      };
+      const handleLogout=()=>{
+         setAnchorEl(null);
+         localStorage.setItem('loggedin',false);
+         localStorage.setItem('_id', '');
+         localStorage.setItem('user', {});
+         history.push('/login');
+      
+        
+      }
+      
     return (
         <div className="topbar">
             <div className="topbarWrapper">
@@ -20,9 +56,68 @@ export const Topbar = () => {
                     <div className="topbarIonContainer">
                         <Settings/>
                     </div>
-                    <img src="https://images.pexels.com/photos/4620866/pexels-photo-4620866.jpeg?cs=srgb&dl=pexels-cottonbro-4620866.jpg&fm=jpg" alt="" className="topAvatar" />
+                    <img src={`http://localhost:3001/server/uploads/users/${user.image[0].filename}`} onClick={handleClick}  id="avatar"  onError={imgonLoadError} alt=""  className="topAvatar" /> 
                 </div>
-
+                <React.Fragment>
+         <Menu
+        id="demo-positioned-menu"
+        aria-labelledby="demo-positioned-button"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+        PaperProps={{
+          elevation: 0,
+          sx: {
+            overflow: 'visible',
+            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+            mt: 1.5,
+            '& .MuiAvatar-root': {
+              width: 32,
+              height: 32,
+              ml: -0.5,
+              mr: 1,
+            },
+            '&:before': {
+              content: '""',
+              display: 'block',
+              position: 'absolute',
+              top: 0,
+              right: 14,
+              width: 10,
+              height: 10,
+              bgcolor: 'background.paper',
+              transform: 'translateY(-50%) rotate(45deg)',
+              zIndex: 0,
+            },
+          },
+        }}
+      >
+        <Link className="link" to={{pathname:`/dashboard/user/_id=${user._id}`,search:`user=${JSON.stringify(user)}`}}>
+        <MenuItem onClick={handleClose}><ListItemIcon> <Person fontSize="small" /> </ListItemIcon>Profile</MenuItem></Link>
+        <MenuItem onClick={handleClose}><ListItemIcon><Store/></ListItemIcon>  My Stores</MenuItem>
+        <Divider />
+        <MenuItem>
+          <ListItemIcon>
+            <PersonAdd fontSize="small" />
+          </ListItemIcon>
+          Add another account
+        </MenuItem>
+        <MenuItem onClick={handleLogout}>
+          <ListItemIcon>
+            <Logout fontSize="small" />
+          </ListItemIcon>
+          Logout
+        </MenuItem>
+      </Menu>
+      </React.Fragment>
             </div>
         </div>
     )

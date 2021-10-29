@@ -3,7 +3,7 @@ const User = require('../models/User');
 const {registerValidation,loginValidation} = require('../validation');
 const bcrypt = require('bcryptjs');
 const jwt= require('jsonwebtoken');
-const {uploadImage,updateImage}= require('../upload');
+const {updateImage}= require('../upload');
 var mongoose=require('mongoose');
 
 //Get a  specific user
@@ -30,7 +30,7 @@ router.post('/register',async (req,res) => {
 
     //VALIDATION
     const {error}=registerValidation(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
+    if (error) return res.status(400).send({message:error.details[0].message});
  
     //checkid user is already exist
    const emailExist = await User.findOne({email:req.body.email});
@@ -49,20 +49,8 @@ router.post('/register',async (req,res) => {
        phone:'',
        password:hashPassword,
        location:'',
-       image:[
-        {
-          "fieldname": "image",
-          "originalname": "ntslogo21.png",
-          "encoding": "7bit",
-          "mimetype": "image/png",
-          "destination": "./server/uploads/stores",
-          "filename": "Naeate Computers and Accessories-1635194834134.png",
-          "path": "server\\uploads\\stores\\Naeate Computers and Accessories-1635194834134.png",
-          "size": 12915
-        }
-      ],
+       image:[{}],
    });
-   console.log(user)
    try{
        const savedUser = await  user.save();
      // res.send(savedUser);
@@ -77,12 +65,12 @@ router.post('/register',async (req,res) => {
                phone:user.phone,
                email:user.email,
                location:user.location,
-              
+               image:user.image,
                status:200}).status(200);
 
    }catch(err){
        res.status(400).send(err);
-      console.log(err);
+       console.log(err);
       res.send(err);
   }
 });
@@ -111,6 +99,7 @@ router.post('/login',async (req,res)=>{
       email:user.email,
       phone:user.phone,
       location:user.location,
+      image:user.image
     }).status(400);
    // res.send('Logged in!');
 

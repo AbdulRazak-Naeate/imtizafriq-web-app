@@ -1,5 +1,5 @@
 import { React,useState } from 'react';
-import {Link} from 'react-router-dom';
+import {Link,useHistory} from 'react-router-dom';
 import './newProduct.css';
 import QueryParams from '../../QueryParams';
 import ImagesContainer from './ImagesContainer';
@@ -23,14 +23,18 @@ export default function NewProduct() {
     const [specification,setSpecification] = useState('none');
     const [showSpecification,setShowSpeicification]=useState(false);
     const [showDigitalProductFileInput,setShowDigitalProductFileInput] = useState(false);
+    const [onSubmit,setOnsubmit]=useState(false);
+
+    const[user]=useState(JSON.parse(localStorage.getItem('user')));
     let query=QueryParams();
     const storeid= query.get('storeId');
     const storename =query.get("storeName");
-
+    const history =useHistory();
+    
         const onSpecificationChange = (e) => {
         setSpecification(e.target.value)
         if(e.target.value==="no"){
-          setShowSpeicification(false)
+          setShowSpeicification(false);
         }else{
           setShowSpeicification(true)
           setShowDigitalProductFileInput(false) //Specification is set SPECIFIED ,hide Digital product file input
@@ -54,10 +58,14 @@ export default function NewProduct() {
         setStock(0)
         setActive('no')
         setPrice('0')
-        var img1=document.getElementById("product-image0").src=thumbnail;
+
+        document.getElementById("product-image0").src=thumbnail;
         document.getElementById("product-image1").src=thumbnail;
         document.getElementById("product-image2").src=thumbnail;
-
+       setShowSpeicification(false);
+       setShowDigitalProductFileInput(false);
+       setProductImages(null);
+     
       }
     
     
@@ -107,26 +115,25 @@ export default function NewProduct() {
         }
         
         e.preventDefault()// Stop form default submit
-        initiateAndCreateProduct().then((response) => {
-          console.log(response.data);
-         if (response.data.status===200){
-          Alert.success(response.data.message, {
-            position: 'top-right',
-            effect: 'stackslide'
+        
+            initiateAndCreateProduct().then((response) => {
+              console.log(response.data);
+             if (response.data.status===200){
+              window.location.reload();
+               
+               setOnsubmit(true);
+                clearFields();
+             }else if (response.data.status===400){ 
 
-        });
-           // let product=[temp.name,temp.id,temp.price,temp.size,temp.likes,temp.comments,temp.date];
-          // console.log([...products,response.data.product])
-           // onAddProduct(products,response.data.product);
-            clearFields();
-         }else if (response.data.status===400){ 
-          Alert.error(response.data.message, {
-            position: 'top-right',
-            effect: 'jelly'
-
-        });
-         }
-        })
+              Alert.error(response.data.message, {
+                position: 'top-right',
+                effect: 'jelly'
+    
+            });
+            history.go(0);
+             }
+            });
+           
       }
      const initiateAndCreateProduct =()=>{
         
@@ -165,7 +172,7 @@ export default function NewProduct() {
           headers: {
             'Content-Type': 'multipart/form-data',
             'auth-token':
-              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGQwNjc4YWY2NzA3ZTI1YzAyODBiNmQiLCJpYXQiOjE2MjQyNzA3NjN9.YGbjKlP3gQTGY_-3Epsik8N6QCWmtTYrOABFm7Iu2fY',
+              user.auth_token,
           },
         }
         return post(url, formData, config)
@@ -262,10 +269,10 @@ export default function NewProduct() {
          </div>
         </div>
             <div className="imagesContainerWrapper">
-            <ImagesContainer handleImages={handleImages}/>
+             {<ImagesContainer handleImages={handleImages} onSubmit={onSubmit} setOnsubmit={setOnsubmit}/>}
               {showSpecification ? <Specification/> :<></>}
             </div>
-
+           
         <div className="addProductItem">
         <button className="addProductButton" type="submit" onClick={onAddProductCLick}>Create</button>
 

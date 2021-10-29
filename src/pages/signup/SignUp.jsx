@@ -22,13 +22,15 @@ export default function SignUp() {
       const user = response.data;
       localStorage.setItem('_id', user._id);
       localStorage.setItem('user', JSON.stringify(user));
-     // localStorage.setItem('auth-token',response.headers)
+      //localStorage.setItem('auth-token',response.headers)
 
       console.log(response.headers);
        
-      history.push("/dashboard");
+      history.replace("/dashboard");
      }
-    })
+    }).catch((error)=>{
+       console.log(error.request)
+    });
   }
 }
 
@@ -44,14 +46,7 @@ export default function SignUp() {
     formData.append('phone', phone);
     formData.append('password', repeatPassword);
    
-    //console.log(JSON.stringify(formData));
  
-
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }
     return post(url,  {
       name:username,
       fullname:'null',
@@ -74,25 +69,25 @@ export default function SignUp() {
                     <form  className="signupForm" onSubmit={onFormSubmit}>
                         <div className="signupItem">
                             <label>UserName</label>
-                            <input type="text"  className="signupInput" required onChange={(e)=>{setUsername(e.target.value)}}/>
+                            <input type="text"  className="signupInput" required value={username} onChange={(e)=>{setUsername(e.target.value)}}/>
                         </div>
 
                         <div className="signupItem">
                             <label>Email</label>
-                            <input type="text"  className="signupInput" required onChange={(e)=>{setEmail(e.target.value)}}/>
+                            <input type="text"  className="signupInput" required  value={email}  onChange={(e)=>{setEmail(e.target.value)}}/>
                         </div>
                         <div className="signupItem">
                             <label>Phone</label>
-                            <input type="text"  className="signupInput" required onChange={(e)=>{setPhone(e.target.value)}}/>
+                            <input type="text"  className="signupInput" required  value={phone}  onChange={(e)=>{setPhone(e.target.value)}}/>
                         </div>
 
                         <div className="signupItem">
                             <label>Password</label>
-                            <input type="password"  className="signupInput" required onChange={(e)=>{setPassword(e.target.value)}}/>
+                            <input type="password"  className="signupInput" required  value={password}  onChange={(e)=>{setPassword(e.target.value)}}/>
                         </div>
                         <div className="signupItem">
                             <label>Repeat Password</label>
-                            <input type="password"  className="signupInput" required onChange={(e)=>{setRepeatPassword(e.target.value)}}/>
+                            <input type="password"  className="signupInput" required  value={repeatPassword}  onChange={(e)=>{setRepeatPassword(e.target.value)}}/>
                         </div>
                          <div className="signUpsignupItem">
                          <button className="btnsignup" >Signup</button>

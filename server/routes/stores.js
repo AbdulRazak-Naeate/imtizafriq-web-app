@@ -4,6 +4,7 @@ const Store= require('../models/Store');
 const verify =require('./verifyToken');
 const {storeValidation} = require('../validation');
 const {uploadImage,updateImage}= require('../upload');
+const fs = require('fs');
 const mongoose = require('mongoose');
 //Get all stores
 router.get('/',async(req,res)=>{
@@ -81,8 +82,23 @@ router.get('/user/:userId', async (req,res)=>{
 //delete Specific store
 
 router.delete('/:storeId', async (req,res)=>{
-     try{
+     try{ 
+          const store =await Store.findById({_id:req.params.storeId});
+          var images=store.image;
           const removeStore = await Store.remove({_id:req.params.storeId});
+
+          images.forEach( image=>{
+             
+            fs.unlink('server/uploads/stores/'+image.filename,(err) =>{
+              if(err){
+                  console.error(err)
+                  return
+              }
+ 
+          })
+
+         
+          });
           res.json(removeStore);
      }catch(err){
          res.json({message:err})

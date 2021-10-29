@@ -38,16 +38,17 @@ export const Sidebar = () => {
                          Store
                      </li>  
                      </Link>
-                     <Link to="/dashboard/products" className="link">
+                    { /* <Link to="/dashboard/products" className="link">
                        <li className="sidebarListItem">
                          <Storefront className="sidebarIcon"/>
                          Products
-                     </li>  
-                    </Link>
-                     <li className="sidebarListItem">
+                     </li> </Link>*/}
+                       <Link to="/dashboard/transactions" className="link"> 
+                       <li className="sidebarListItem">
                          <AttachMoney className="sidebarIcon"/>
                          Transactions
                      </li>
+                       </Link>
                      <li className="sidebarListItem">
                          <BarChart className="sidebarIcon"/>
                          Reports

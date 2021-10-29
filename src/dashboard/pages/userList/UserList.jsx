@@ -1,17 +1,16 @@
 import { useState,useEffect } from "react";
 import './userList.css'
 import {DataGrid} from '@material-ui/data-grid'
-import { ContactSupportOutlined, DeleteOutline } from '@material-ui/icons';
+import { DeleteOutline, Edit } from '@material-ui/icons';
 import {userRows} from '../../dummyData';
-import { Link } from 'react-router-dom';
-import {FormatDate} from '../../../utils/Utils';
+import { Link} from 'react-router-dom';
 
 function UserList(){
     const [data,setData]=useState(userRows);
     const [users,setUsers]=useState([]);
+    const [pageSize, setPageSize] = useState(5);
 
     useEffect(() => {
-   //const user = JSON.parse(localStorage.getItem('user'));
  
    const fetchUsers = async () => {//get User Stores 
  
@@ -40,33 +39,10 @@ function UserList(){
     console.log({message:error})
   }
  };
- const convertObject = (responseData) => { //convert response data to Jasvscripts array
-  let data = [];
-
-  const convertoDateString=(ms)=>{
-    var dateFormat = "Y-m-d H:i:s.v";
-    return FormatDate(ms, dateFormat);
-  }
-
-  for (let i = 0; i < responseData.length; i++) {
-    
-    data.push({
-       id:i,
-       name:responseData[i].name,
-       fullname:responseData[i].fullname,
-       _id:responseData[i]._id,
-       phone:responseData[i].phone,
-       email:responseData[i].email,
-       location:responseData[i].location,
-       avatar:`http://localhost:3001/server/uploads/users/${responseData[i].image[0].filename}`,
-       //date:convertoDateString(responseData[i].date),
-       status:'active'});
-  }
-  console.log(data)
-  return data;
-};
+ 
  getUsers()
  },[]);
+    
     const handleDelete=(id)=>{
         setData(data.filter((item) => item.id !==id))
     }
@@ -87,6 +63,12 @@ function UserList(){
           editable: true,
         },
         {
+          field: 'fullname',
+          headerName: 'Full Name',
+          width: 220,
+          editable: true,
+        },
+        {
           field: 'email',
           headerName: 'Email',
           width: 220,
@@ -100,8 +82,10 @@ function UserList(){
             renderCell: (params)=>{
                 return(
                    <>
+
                     <Link to={{pathname:`/dashboard/user/_id=${params.row._id}`,search:`user=${JSON.stringify(params.row)}`}}>
-                    <span className="userlistEdit link">Edit</span>
+                    <Edit className="userlistDelete storeListIcons" />
+
                     </Link>
                     <DeleteOutline className="userlistDelete" onClick={() => {handleDelete(params.row._id)}}/>
                    </>
@@ -118,7 +102,12 @@ function UserList(){
               <button className="addNewUserButton">New User</button>
               </Link>
           </div>
-          <DataGrid rows={users} getRowId={(row) => row._id} columns={columns} pageSize={8} checkboxSelection
+          <DataGrid rows={users} getRowId={(row) => row._id} columns={columns}
+           pageSize={pageSize}
+           onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+           rowsPerPageOptions={[5, 10, 20]}
+           pagination
+          checkboxSelection
         disableSelectionOnClick
       />
         </div>

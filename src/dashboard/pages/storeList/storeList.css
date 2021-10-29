@@ -58,7 +58,13 @@
     margin-right: 10px;
 
 }
+.storelistDelete,.iconEditstoreProduct,.iconEditstoreProduct,.iconAddstoreProduct,.iconListstoreProducts{
+    cursor: pointer;
+}
 .storelistDelete{
     color: red;
-    cursor: pointer;
+    
+}
+.storeListIcons{
+    color:lightslategrey
 }

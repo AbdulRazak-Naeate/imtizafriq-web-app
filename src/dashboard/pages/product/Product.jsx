@@ -5,7 +5,7 @@ import { Chart } from '../../components/charts/Chart';
 import { productData } from '../../dummyData';
 import { Publish } from '@material-ui/icons';
 import QueryParams from '../../QueryParams';
-import {post,patch}from 'axios';
+import {patch}from 'axios';
 
 export default function Product() {
     const query=QueryParams();
@@ -64,7 +64,7 @@ export default function Product() {
             <span>{storename}</span>
             <div className="productTitleContainer">
                 <h1 className="productTitle">Product</h1>
-                <Link to="/dashboard/newproduct">
+                <Link to={`/dashboard/newproduct?storeId=${storeid}&storeName=${storename}`}>
                 <button className="productAddButon">Create</button>
                 </Link>
             </div>

@@ -1,16 +1,15 @@
 import './store.css';
 import { useEffect,useState } from 'react';
 import {Link} from 'react-router-dom';
-import { CalendarToday, LocationSearching, MailOutline, PermIdentity, PhoneAndroid, Publish } from '@material-ui/icons'
-import QueryParams from '../../QueryParams';
+import { LocationSearching, MailOutline, PhoneAndroid, Publish } from '@material-ui/icons'
 import {patch,post} from 'axios';
 import Alert from 'react-s-alert';
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/stackslide.css';
 import 'react-s-alert/dist/s-alert-css-effects/jelly.css';
 
+
 export default function Store() {
-    const query=QueryParams();
 
     
      const [store,setStore]=useState(JSON.parse(localStorage.getItem('store')));
@@ -24,7 +23,7 @@ export default function Store() {
      const [storeUpdated,setStoreUpdated]=useState(false);
      const [onStoreImageChange,setOnstoreImageChange]=useState(false);
      const [image,setImage]=useState(null);
-     const [imagename,setImageName]=useState(store.image[0].filename)
+     const [imagename]=useState(store.image[0].filename)
 
      function onFileInputChange(e) {
         var file = e.target.files[0];
@@ -172,7 +171,7 @@ export default function Store() {
            getStore();
         
           
-    },[]);
+    },[store]);
   return (
     <div className="store">
         <Alert stack={{limit: 3}} />
@@ -186,7 +185,7 @@ export default function Store() {
             <div className="storeContainer">
                 <div className="storeShow">
                     <div className="storeShowTop">
-                        <img src={`http://localhost:3001/server/uploads/stores/${store.image[0].filename}`} id="store-show-img" alt="" className="storeShowImg" />
+                        <img src={`http://localhost:3001/server/uploads/stores/${store.image[0].filename}` } id="store-show-img" alt="" className="storeShowImg" />
                        <div className="storeShowTopTitle">
                            <span className="storeShowstorename">{name}</span>
                            <span className="storeShowstoreTitle">{description}</span>

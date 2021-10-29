@@ -1,24 +1,24 @@
 import './productsList.css'
 import {DataGrid} from '@material-ui/data-grid';
 import { DeleteOutline,EditOutlined } from '@material-ui/icons';
+import {Tooltip} from '@material-ui/core';
 import QueryParams from '../../QueryParams';
 import { Link ,useHistory} from 'react-router-dom';
 import {useState,useEffect} from "react";
-import {FormatDate} from '../../../utils/Utils';
-import AlertDailog from '../../components/alertdialog/AlertDialog'
+import AlertDialog from '../../components/alertdialog/AlertDialog'
 import axios from 'axios';
 
 export default function ProductsList() {   
     const query=QueryParams();
     const history=useHistory();
     const [products,setProducts]=useState([]);
+    const [pageSize, setPageSize] =useState(5);
 
-    const [storeid,setStoreId]=useState(query.get("storeId"));
-    const [storename,setStoreName] =useState(query.get("storeName"));
+    const [storeid]=useState(query.get("storeId"));
+    const [storename] =useState(query.get("storeName"));
      
     //alert Dialog
     const [open,setOpen]=useState(false);
-    const [action,setAction]=useState(false);
     const [productId,setProductId]=useState('');
     const handleClickOpen = () => {
       setOpen(true);
@@ -72,7 +72,7 @@ export default function ProductsList() {
         }
          
         getProducts();
-      },[]);
+      },[storeid]);
        
       async function deleteProduct(_id) {
         try {
@@ -87,29 +87,7 @@ export default function ProductsList() {
         }
       }
 
-      const convertObject = (responseData) => { //convert response data to Jasvscripts array
-        let data = [];
       
-        const convertoDateString=(ms)=>{
-          var dateFormat = "Y-m-d H:i:s.v";
-          return FormatDate(ms, dateFormat);
-        }
-      
-        for (let i = 0; i < responseData.length; i++) {
-          
-          data.push({
-             id:i,
-             name:responseData[i].name,
-             _id:responseData[i]._id,
-             stock:responseData[i].stock,
-             active:responseData[i].active,
-             image:`http://localhost:3001/server/uploads/products/${responseData[i].image[0].filename}`,
-             price:"$"+responseData[i].price});
-        }
-        console.log(data)
-        return data;
-      };
-
  
 
     const columns = [
@@ -117,7 +95,7 @@ export default function ProductsList() {
         {
           field: 'name',
           headerName: 'Product',
-          width: 200,
+          width: 330,
           renderCell:(params)=>{
               return(
                   <div className="productListItem">
@@ -131,7 +109,7 @@ export default function ProductsList() {
         {
           field: 'stock',
           headerName: 'Stock',
-          width: 220,
+          width: 120,
           editable: true,
         },
         {
@@ -143,7 +121,7 @@ export default function ProductsList() {
         {
           field: 'price',
           headerName: 'Price',
-          width: 220,
+          width: 120,
           renderCell:(params)=>{
             return(
               <>
@@ -155,22 +133,24 @@ export default function ProductsList() {
         {
             field:"action",
             headerName:"Action",
-            width:150,
+            width:160,
             renderCell: (params)=>{
                 return(
                    <>
-                 
+                    <Tooltip title="edit product"  enterDelay={500} leaveDelay={200}>
                     <EditOutlined className="productlistEditIcon" onClick={()=>{handleEdit(params)}}>Edit</EditOutlined>
-                  
+                  </Tooltip>
+                  <Tooltip title="delete product" enterDelay={500} leaveDelay={200}>
                     <DeleteOutline className="productlistDelete" onClick={() => {handleDelete(params.row._id)}}/>
-                   </>
+                  </Tooltip> 
+                  </>
                 )
             }
         }
       ];
     return (
         <div className="productsList"> 
-            <AlertDailog open={open} handleClickOpen={handleClickOpen} handleClose={handleClose} title="Are you sure you want to delete!"DeleteOutline={DeleteOutline}/>
+            <AlertDialog open={open} handleClickOpen={handleClickOpen} handleClose={handleClose} title="Are you sure you want to delete!"DeleteOutline={DeleteOutline}/>
           <span className="productsTitle">{storename}  </span> 
 
          <div className="productsTitleContainer">
@@ -181,10 +161,15 @@ export default function ProductsList() {
           </Link> 
          
           </div>
-       <DataGrid rows={products} getRowId={(row) => row._id} columns={columns} 
-       pageSize={5}
-       checkboxSelection
-       disableSelectionOnClick/>
+          <div className="" style={{ height: 400, width: '100%' }}>
+           <DataGrid rows={products} getRowId={(row) => row._id} columns={columns} 
+           pageSize={pageSize}
+           onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+            rowsPerPageOptions={[5, 10, 20,50]}
+            pagination
+           checkboxSelection
+            disableSelectionOnClick />
+            </div>
         </div>
     )
 }
