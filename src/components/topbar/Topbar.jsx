@@ -18,12 +18,7 @@ import {useHistory} from 'react-router-dom';
     const handleClose = () => {
       setAnchorEl(null);
     };
-     useEffect(()=>{
-       console.log(loggedin);
-       if (!loggedin){
-          window.location.href="http://localhost:3000/login"
-       }
-     });
+    
     return (
         <div className="topbar">
             <div className="topbarWrapper">

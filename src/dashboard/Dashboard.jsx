@@ -1,9 +1,10 @@
+import { useState } from "react";
+import React from 'react';
 import { Sidebar } from "./components/sidebar/Sidebar";
 import { Topbar } from "./components/topbar/Topbar";
 import "./dashboard.css"
 import {BrowserRouter as Router,Switch,Route
 } from "react-router-dom";
-
 import Home from "./pages/home/Home";
 import UserList from "./pages/userList/UserList";
 import User from "./pages/user/User";
@@ -15,18 +16,31 @@ import ProductsList from "./pages/productlist/ProductsList";
 import Product from "./pages/product/Product";
 import NewProduct from "./pages/newProduct/NewProduct";
 import Transactions from "./pages/transactions/Transactions";
-import Login from "./pages/login/LogIn";
+import LogIn from "./pages/login/LogIn";
 import SignUp from "./pages/signup/SignUp";
  function Dashboard() {
- 
+ const [showSidebar,setShowSideBar]=useState(true);
+
+ const handletoggleSideBar=(bol)=>{
+   setShowSideBar(bol);
+ }
+  const toggleSideBar=()=>{
+    setShowSideBar(!showSidebar);
+  }
   return (
     <Router>
     <Topbar/>
      <div className="content">
-     <Sidebar/>
+    <div>
+       {showSidebar && <Sidebar/>} 
+    </div>
+   
+      
+     <div className="toggleSidebarButton" onClick={toggleSideBar}></div>
+    
      <Switch>
      <Route exact  path="/dashboard">
-         <Home/>
+         <Home toggleSideBar={handletoggleSideBar}/>
        </Route>
        <Route path="/dashboard/users">
         <UserList/>
@@ -67,11 +81,11 @@ import SignUp from "./pages/signup/SignUp";
         <Transactions/>
        </Route>
 
-       <Route path="dashboard/login">
-         <Login/>
+       <Route path="/dashboard/login" >
+         <LogIn toggleSideBar={handletoggleSideBar}/>
        </Route>
-       <Route path="dashboard/signup">
-         <SignUp/>
+       <Route path="/dashboard/signup">
+         <SignUp  toggleSideBar={handletoggleSideBar} />
        </Route>
      </Switch>
     

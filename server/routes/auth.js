@@ -43,12 +43,12 @@ router.post('/register',async (req,res) => {
     
     //create new user
    const user = new User({
-       name:req.body.name,
-       fullname:'',
+       username:req.body.username,
+       firstname:req.body.firstname,
+       lastname:req.body.lastname,
        email:req.body.email,
-       phone:'',
+       phone:req.body.phone,
        password:hashPassword,
-       location:'',
        image:[{}],
    });
    try{
@@ -60,8 +60,9 @@ router.post('/register',async (req,res) => {
      res.header('auth-token',token).send({
                auth_token:token,
                _id:user._id,
-               name:user.name,
-               fullanme:user.fullname,
+               username:user.username,
+               firstname:user.firstname,
+               lastname:user.lastname,
                phone:user.phone,
                email:user.email,
                location:user.location,
@@ -94,8 +95,10 @@ router.post('/login',async (req,res)=>{
    const token = jwt.sign({_id:user.id},process.env.TOKEN_SECRET);
     res.header('auth-token',token).send({
       auth_token:token,
-      _id:user.id,name:user.name,
-      fullname:user.fullname,
+      _id:user.id,
+      username:user.username,
+      firstname:user.firstname,
+      lastname:user.lastname,
       email:user.email,
       phone:user.phone,
       location:user.location,
@@ -111,7 +114,8 @@ router.patch('/:userId',async (req,res)=> {
 
       var oId= new mongoose.Types.ObjectId(req.params.userId);
       var query= {
-          fullname:req.body.fullname,
+          firstname:req.body.firstname,
+          lastname:req.body.lastname,
           email:req.body.email,
           phone:req.body.phone,
           location:req.body.location
@@ -126,7 +130,8 @@ router.patch('/:userId',async (req,res)=> {
             
           );
           var newData= {   
-              fullname:updateUser.fullname,
+              firstname:updateUser.firstname,
+              lastname:updateUser.lastname,
               email:updateUser.email,
               phone:updateUser.phone,
               location:updateUser.location

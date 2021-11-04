@@ -23,7 +23,7 @@ function LogIn() {
       
               //console.log(response.headers[2]);
                
-              history.replace("/dashboard");
+              history.push("/dashboard");
             }).catch((error) =>{
                setError(true);
               console.log(error)

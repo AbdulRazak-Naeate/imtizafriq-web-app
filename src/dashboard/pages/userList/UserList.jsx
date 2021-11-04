@@ -56,7 +56,7 @@ function UserList(){
               return(
                   <div className="userListUser">
                       <img className="userListImg" src={`http://localhost:3001/server/uploads/users/${params.row.image[0].filename}`} alt=""/>
-                      {params.row.name}
+                      {params.row.username}
                   </div>
               )
           },
@@ -67,6 +67,11 @@ function UserList(){
           headerName: 'Full Name',
           width: 220,
           editable: true,
+          renderCell:(params)=>{
+             return(
+              <div>{`${params.row.firstname} ${params.row.lastname}`}</div>
+             )
+          }
         },
         {
           field: 'email',

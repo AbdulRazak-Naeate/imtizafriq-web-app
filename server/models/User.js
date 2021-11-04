@@ -2,14 +2,20 @@ const mongoose = require('mongoose');
 
 
 const userSchema = new mongoose.Schema({
-    name:{
+    username:{
         type:String,
         required:true,
         min:6,
         max:255
 
     },
-    fullname:{
+    firstname:{
+        type:String,
+        required:false,
+        max:255,
+        default:''
+    },
+    lastname:{
         type:String,
         required:false,
         max:255,
@@ -28,11 +34,16 @@ const userSchema = new mongoose.Schema({
         max:14,
         default:''
     },
-     location:{
-        type:String,
+     address:{
+        type:Object,
         required:false,
-        max:50,
-        default:''
+        default:{
+            country:'',
+            state:'',
+            city:'',
+            area:'',
+            
+        }
     },
     password:{
         type:String,

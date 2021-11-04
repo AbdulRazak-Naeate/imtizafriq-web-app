@@ -1,9 +1,10 @@
+
 import './login.css'
 import axios from 'axios';
-import {useState} from'react';
+import {useState,useEffect} from'react';
 import { Link,useHistory } from 'react-router-dom';
 
-function LogIn() {
+function LogIn({toggleSideBar}) {
           const [email,setEmail]=useState('');
           const [password,setPassword]=useState('');
           const [error,setError]=useState(false);
@@ -42,6 +43,9 @@ function LogIn() {
          });
           
          };
+         useEffect(()=>{
+          toggleSideBar(false);
+         },[toggleSideBar]);
   return (
     <div className="login">
       <div className="logInLeft"></div>
@@ -64,10 +68,10 @@ function LogIn() {
                         <label className="error">{!error?'':'email or password incorrect'}</label>
                         </div>
                          <div className="signUpLoginItem">
-                         <button className="btnLogIn">LogIn</button>
-                       <Link to="/signup" className="link">
+                       <Link to="/dashboard/signup" className="link">
                        <button className="btnSignUp">SignUp</button>
                        </Link>
+                         <button className="btnLogIn">LogIn</button>
 
                          </div>
                     </form>

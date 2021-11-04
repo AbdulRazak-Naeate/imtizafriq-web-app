@@ -40,7 +40,7 @@ const mongoose = require('mongoose');
         default:'0'
     },
     comments:{
-        type:String,
+        type:Number,
         default:'0'
     },
     date:{
@@ -48,8 +48,12 @@ const mongoose = require('mongoose');
         default:Date.now()
     },
     stock:{
-        type:String,
-        default:'0'
+        type:Object,
+        default:{currentstock:0,alltimestock:0}
+    },
+    alltimestock:{
+        type:Number,
+        default:0
     },
     active:{
         type:String,

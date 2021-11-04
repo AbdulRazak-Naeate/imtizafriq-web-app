@@ -14,7 +14,8 @@ export default function Product() {
     const [storename]=useState(query.get('storeName'));
     const [productid]=useState(product._id); 
     const [productname]=useState(product.name);
-    const [stock,setStock]=useState(product.stock);
+    const [stock,setStock]=useState(product.stock.currentstock);
+    const [addStock,setaddStock]=useState(0);
     const [active,setActive]=useState(product.active);
     const [price,setPrice]=useState(product.price);
     const [productUpdated,setProductUpdated]=useState(false);
@@ -25,12 +26,12 @@ export default function Product() {
             editProduct().then((response)=>{
                 if(response.status===200){
                      setProduct(response.data)
-                     setStock(response.data.stock);
+                     setStock(response.data.stock.currentstock);
                      setPrice(response.data.price);
                      setActive(response.data.active);
                      console.log(response);              
-                    setProductUpdated(!productUpdated)
-}
+                     setProductUpdated(!productUpdated)
+}                    setaddStock(0);
                
 
             });
@@ -38,11 +39,11 @@ export default function Product() {
 
       const editProduct =()=>{
         const url = `http://localhost:3001/api/products/${productid}`;
-     
+         console.log(addStock)
         const body={
                  productId:productid,
                  price:price,
-                 stock:stock,
+                 stock:addStock,
                  active:active
         }
         const config = {
@@ -56,8 +57,8 @@ export default function Product() {
       };
       
       useEffect(()=>{
-         //var stockinput = document.getElementById('stock');
-        // stockinput.innerText=product.stock;
+         //var addStockput = document.getElementById('stock');
+        // addStockput.innerText=product.stock;
       })
     return (
         <div className="product">
@@ -92,7 +93,7 @@ export default function Product() {
                         </span>
                         <span className="productInfoItem">
                             <span className="productInfoKey">in stock:</span>
-                            <label className="productInfoValue" >{stock}</label>
+                            <label className="productInfoValue" >{product.stock.currentstock}</label>
                         </span>
                         <span className="productInfoItem">
                             <span className="productInfoKey">price:</span>
@@ -108,8 +109,8 @@ export default function Product() {
                         <input type="text" value={product.name}placeholder="Apple Airpod"/>
                         <label>Price</label>
                         <input type="text" placeholder="π10.00"value={price}onChange={(e)=>{setPrice(e.target.value)}}/>
-                        <label>In Stock</label>
-                        <input type="text" id="stock" value={stock}  placeholder="0" onChange={(e)=>{setStock(e.target.value)}}/>
+                        <label>Add Stock</label>
+                        <input type="text" id="stock" value={addStock}   placeholder="0" onChange={(e)=>{setaddStock(e.target.value)}}/>
                         <label>Active</label>
                         <select name="active" id="" className="active" onChange={(e)=>{setActive(e.target.value)}}>
                             <option selected='selected'>{product.active}</option>

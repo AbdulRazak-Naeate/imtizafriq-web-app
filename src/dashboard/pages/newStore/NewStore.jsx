@@ -22,7 +22,18 @@ export default function NewStore() {
     const [phone, setPhone] = useState('');
     const [storeCategory, setStoreCategory] = useState('');
    // const [ghPostGps, setGhPostGps] = useState('');
-  
+    const clearfields =()=>{
+      setStoreName('');
+      setDescription('')
+      setPhone('');
+      setEmail('');
+      setCountry('');
+      setState('');
+      setCity('');
+      setStoreCategory('');
+      document.getElementById("storeimg").src=thumbnail;
+
+    }
     const handleSubmit = (event) => {
       const form = event.currentTarget
       if (form.checkValidity() === false) {
@@ -39,6 +50,7 @@ export default function NewStore() {
             effect: 'stackslide'
 
         }); 
+        clearfields();
         }else{
           Alert.error('update was unsuccessfully', {
             position: 'top-right',
@@ -112,15 +124,15 @@ export default function NewStore() {
                <div className="newStoreFormLeft">
                <div className="newStoreFormItem">
                     <label>Name</label>
-                    <input type="text" name="name" placeholder="Naeate Computers" onChange={(e)=>{setStoreName(e.target.value)}} required/>
+                    <input type="text" name="name" placeholder="Naeate Computers" value={storeName} onChange={(e)=>{setStoreName(e.target.value)}} required/>
                 </div>
                 <div className="newStoreFormItem">
                     <label>Description</label>
-                    <textarea type="text" name="description" rows="5" placeholder="What are the products are you selling "onChange={(e)=>{setDescription(e.target.value)}} required/>
+                    <textarea type="text" name="description" rows="5" placeholder="What are the products are you selling " value={description} onChange={(e)=>{setDescription(e.target.value)}} required/>
                 </div>
                 <div className="newStoreFormItem">
                     <label>Store Category</label>
-                    <select type="text" name="storeCategory" onChange={(e)=>{setStoreCategory(e.target.value)}} required >
+                    <select type="text" name="storeCategory" value={storeCategory} onChange={(e)=>{setStoreCategory(e.target.value)}} required >
                     <option value="none" required></option>
                 <option value="1001">Clothen</option>
                 <option value="1002">Home & Appliances</option>
@@ -135,23 +147,23 @@ export default function NewStore() {
                 </div>  
                 <div className="newStoreFormItem">
                     <label>Store Phone</label>
-                    <input type="phone" maximum={13} name="email" placeholder="" onChange={(e)=>{setPhone(e.target.value)}}/>
+                    <input type="phone" maximum={13} name="email" placeholder="" value={phone} onChange={(e)=>{setPhone(e.target.value)}}/>
                 </div>
                 <div className="newStoreFormItem">
                     <label>Store Email</label>
-                    <input type="email" name="email" placeholder="" onChange={(e)=>{setEmail(e.target.value)}} />
+                    <input type="email" name="email" placeholder=""value={email} onChange={(e)=>{setEmail(e.target.value)}} />
                 </div>
                 <div className="newStoreFormItem">
                     <label>Country</label>
-                    <input type="text" name="country" placeholder="Ghana" required onChange={(e)=>{setCountry(e.target.value)}}/>
+                    <input type="text" name="country" placeholder="Ghana" required value={country} onChange={(e)=>{setCountry(e.target.value)}}/>
                 </div>
                 <div className="newStoreFormItem">
                     <label>State/Region</label>
-                    <input type="text" name="state" required placeholder="" onChange={(e)=>{setState(e.target.value)}}/>
+                    <input type="text" name="state" required placeholder="" value={state} onChange={(e)=>{setState(e.target.value)}}/>
                 </div>
                 <div className="newStoreFormItem">
                     <label>city</label>
-                    <input type="text" name="city" required placeholder="" onChange={(e)=>{setCity(e.target.value)}}/>
+                    <input type="text" name="city" required placeholder="" value={city} onChange={(e)=>{setCity(e.target.value)}}/>
                 </div>
                <div className="newStoreUpload">
                             <img src={thumbnail} alt="" className="newStoreUploadImg"  id="storeimg"/>

@@ -1,7 +1,5 @@
 .signup{
-    display: grid;
-    grid-template-columns: 35% auto 35%;
-    margin-top: 20px;
+   flex: 4;
 }
 .signupMiddle,.signupLeft,.signupRight{
    

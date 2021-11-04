@@ -8,8 +8,16 @@ const fs = require('fs');
 const { promisify } = require('util');
 const path = require('path')
 var mongoose=require('mongoose');
-
 const {productValidation} = require('../validation');
+
+const MongoClient = require('mongodb').MongoClient;
+const assert = require('assert');
+
+
+// Database Name
+const dbName = 'daabia';
+const client = new MongoClient(process.env.DB_COMMUNITY_CON,{ useUnifiedTopology: true });
+
 
 
 //Get all products
@@ -41,13 +49,15 @@ router.post('/',uploadImage('./server/uploads/products'),verify, async(req,res)=
     const productnameExist = await Product.findOne({name:req.body.name});
     if (productnameExist) return res.json({status:400,message:"Product name already taken"});
     console.log(req.files);
+    var stockvalue=parseInt(req.body.stock);
     const product = new Product({
         color:req.body.color,
         size:req.body.size,
         name:req.body.name,
         description:req.body.description,
         specification:req.body.specification,
-        stock:req.body.stock,
+        stock:{currentstock:stockvalue,
+               alltimestock:stockvalue},
         price:req.body.price,
         likes:req.body.likes,
         storeId:req.body.storeId,
@@ -129,16 +139,17 @@ router.patch('/:productId',verify,async (req,res)=> {
     try{
 
         var oId= new mongoose.Types.ObjectId(req.params.productId);
-        var query= {
-            stock:req.body.stock,
-            price:req.body.price,
-            active:req.body.active
-         };
-         //console.log(req.body)
+       
+        const value=parseInt(req.body.stock);    
+         
         const updateProduct = await Product.findOneAndUpdate(
             {_id:oId},
-            {$set:
-                 query
+            { 
+                $set:{ price:req.body.price,
+                       active:req.body.active
+                  },
+                $inc: {'stock.currentstock':value,
+                       'stock.alltimestock':value}
              },
              {new:true,useFindAndModify:false}
               
@@ -147,13 +158,40 @@ router.patch('/:productId',verify,async (req,res)=> {
                 stock:updateProduct.stock,
                 price:updateProduct.price,
                 active:updateProduct.active
+
              };
-             var updated=JSON.stringify(query)===JSON.stringify(newData)
-             if(!updated) return res.status(400).send("product not modified");
+             
+             // Use connect method to connect to the server
+          
             res.json(updateProduct);
     }catch(err){
         res.json({message:err});
     }
+
+    // eslint-disable-next-line no-unused-vars
+    const updateDocument = function(db, _id,callback) {
+           client.connect(function(err) {
+                assert.equal(null, err);
+               const db = client.db(dbName);
+   // Get the documents collection
+   const collection = db.collection('products');
+
+   const value=parseInt(req.body.stock.currentstock);
+    var params={
+                $set:{ price:req.body.price,
+                   active:req.body.active},
+               $inc: {'stock.currentstock':value,
+                      'stock.alltimestock':value}
+             }
+   collection.updateOne({ _id: oId }, params,{new:true, upsert: true },     function(err, result) {
+     assert.equal(err, null);
+     assert.equal(1, result.result.n);
+     console.log(result);
+     res.send(result);
+        });
+    });
+      
+      };
 });
 
 module.exports = router;

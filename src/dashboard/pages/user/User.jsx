@@ -15,7 +15,8 @@ export default function User() {
     const [user,setUser] = useState(JSON.parse(query.get('user')));
     
     const[username,setUsername]=useState(user.name);
-    const[fullname,setFullname]=useState(user.fullname);
+    const[firstname,setFirstname]=useState(user.firstname);
+    const[lastname,setLastname]=useState(user.lastname);
     const[email,setEmail]=useState(user.email);
     const[phone,setPhone]=useState(user.phone);
     const[location,setLocation]=useState(user.location);
@@ -59,7 +60,8 @@ export default function User() {
                  setUser(response.data)
                  setUsername(response.data.name);
                  setEmail(response.data.email);
-                 setFullname(response.data.fullname);
+                 setFirstname(response.data.firstname);
+                 setLastname(response.data.lastname);
                  setPhone(response.data.phone);
                  setLocation(response.data.location);
                  localStorage.setItem('user',JSON.stringify(response.data));
@@ -110,9 +112,10 @@ export default function User() {
  
     const body={
              userId:user._id,
-             name:username,
+             username:username,
              email:email,
-             fullname:fullname,
+             firstname:firstname,
+             lastname:lastname,
              phone:phone,
              location:location,
              imagename:imagename
@@ -144,7 +147,7 @@ export default function User() {
                         
                        <div className="userShowTopTitle">
                            <span className="userShowUsername">{username}</span>  <span className="active"></span>
-                           <span className="userShowUserTitle">{fullname}</span>
+                           <span className="userShowUserTitle">{username}</span>
                        </div>
                     
                     </div>
@@ -152,7 +155,7 @@ export default function User() {
                         <span className="userShowTitle">Account Details</span>
                         <div className="userShowInfo">
                              <PermIdentity className="userShowIcon"/>
-                        <span className="userShowInfoTitle">{fullname}</span>
+                        <span className="userShowInfoTitle">{`${firstname} ${lastname}`}</span>
                         </div>
                         <div className="userShowInfo">
                              <CalendarToday className="userShowIcon"/>
@@ -182,8 +185,12 @@ export default function User() {
                             <input type="text" placeholder="mardiaabu33" className="userUpdateInput" onChange={(e)=>{setUsername(e.target.value)}} value={username}/>
                         </div> */}
                         <div className="userUpdateItem">
-                            <label>Full Name</label> 
-                            <input type="text" placeholder="Mardia Abubakari" className="userUpdateInput" onChange={(e)=>{setFullname(e.target.value)}} value={fullname}/>
+                            <label>First Name</label> 
+                            <input type="text" placeholder="Mardia Abubakari" className="userUpdateInput" onChange={(e)=>{setFirstname(e.target.value)}} value={firstname}/>
+                        </div>
+                        <div className="userUpdateItem">
+                            <label>Last Name</label> 
+                            <input type="text" placeholder="Mardia Abubakari" className="userUpdateInput" onChange={(e)=>{setLastname(e.target.value)}} value={lastname}/>
                         </div>
                         <div className="userUpdateItem">
                             <label>Email</label>

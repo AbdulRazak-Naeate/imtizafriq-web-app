@@ -4,11 +4,12 @@ const Joi = require ('@hapi/joi');
 //VALIDATION
 const registerValidation = data =>{
   const schema = Joi.object({
-    name:Joi.string().min(6).required(),
-    fullname:Joi.string(),
+    username:Joi.string().min(6).required(),
+    firstname:Joi.string(),
+    lastname:Joi.string(),
     email:Joi.string().min(6).required().email(),
     phone:Joi.string(),
-    location:Joi.string(),
+    address:Joi.any(),
     password:Joi.string().min(6).required(),
     image:Joi.any()
    });
@@ -84,7 +85,7 @@ const loginValidation = data =>{
       specification:Joi.string().min(2).required(),
       price:Joi.string().min(1).required(),
       storeId:Joi.string().min(18).required(),
-      stock:Joi.string().min(1),
+      stock:Joi.any(),
       active:Joi.string().min(2),
       color:Joi.any(),
       size:Joi.any(),

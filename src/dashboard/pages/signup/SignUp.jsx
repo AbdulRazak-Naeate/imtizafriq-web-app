@@ -1,9 +1,9 @@
-import {useState} from 'react';
+import {useState,useEffect} from 'react';
 import {Link,useHistory} from 'react-router-dom';
 import './signup.css';
 import {post} from 'axios';
 
-export default function SignUp() {
+export default function SignUp({toggleSideBar}) {
   const [username,setUsername]=useState('');
   const [email,setEmail]=useState('');
   const [password,setPassword]=useState('');
@@ -31,9 +31,11 @@ export default function SignUp() {
     }).catch((error)=>{
        console.log(error.request)
     });
-  }
-}
-
+    }
+  } 
+  useEffect(()=>{
+    toggleSideBar(false);
+   },[toggleSideBar]);
   const SignUp =()=>{
         
     const url = 'http://localhost:3001/api/user/register';
@@ -49,7 +51,8 @@ export default function SignUp() {
  
     return post(url,  {
       name:username,
-      fullname:'null',
+      firstname:'null',
+      lastname:'null',
       email: email ,
       phone:'null',
       location:'null',
@@ -90,11 +93,11 @@ export default function SignUp() {
                             <input type="password"  className="signupInput" required  value={repeatPassword}  onChange={(e)=>{setRepeatPassword(e.target.value)}}/>
                         </div>
                          <div className="signUpsignupItem">
-                         <button className="btnsignup" >Signup</button>
-                       <Link to="/login" className="link">
+                        
+                       <Link to="/dashboard/login" className="link">
                        <button className="btnSignUp">Login</button>
                        </Link>
-
+                       <button className="btnsignup" >Signup</button>
                          </div>
                     </form>
                     </div>

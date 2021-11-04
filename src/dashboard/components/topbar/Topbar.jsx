@@ -1,4 +1,4 @@
-import React , {useState} from 'react';
+import React , {useState,useEffect} from 'react';
 import {Link, useHistory} from 'react-router-dom';
 import "./topbar.css"
 import imgAvatar from '../../../assets/icons/user_96px.png';
@@ -18,13 +18,8 @@ export const Topbar = () => {
     const [user] = useState(JSON.parse(localStorage.getItem('user')));
     const [imagefilename,setImageFilename]=useState('');
     const [userId,setuserId]=useState(null)
-    try{
-      setImageFilename(user.image[0].filename);
-      setuserId(user._id);
-    }catch(err){
-      
-      console.log({error:err})
-    }
+    const [loggedin]=useState(JSON.parse(localStorage.getItem('loggedin')));
+  
     const history=useHistory();
     const imgonLoadError=(e)=>{
       try{
@@ -44,12 +39,19 @@ export const Topbar = () => {
       const handleLogout=()=>{
          setAnchorEl(null);
          localStorage.setItem('loggedin',false);
-         localStorage.setItem('_id', '');
-         localStorage.setItem('user', {});
-         history.push('/login');
+         history.push('/dashboard/login');
       
         
       }
+      useEffect(()=>{
+        try{
+          loggedin ? setImageFilename(user.image[0].filename) : setImageFilename('');
+          loggedin ? setuserId(user._id):setImageFilename('');
+        }catch(err){
+          
+          console.log({error:err})
+        }
+      },[user,loggedin])
       
     return (
         <div className="topbar">
@@ -59,19 +61,19 @@ export const Topbar = () => {
                 </div>
                 <div className="topRight">
                     <div className="topbarIonContainer">
-                        <NotificationsNone/>
-                        <span className="topIconBadge">2</span>
+                        { loggedin && <>  <NotificationsNone/>
+                       <span className="topIconBadge">2</span> </>}
                     </div>
                     <div className="topbarIonContainer">
-                        <Language/>
-                        <span className="topIconBadge">2</span>
-                    </div> 
-                    <div className="topbarIonContainer">
-                        <Settings/>
+                      { loggedin && <> <Language/>
+                        <span className="topIconBadge">2</span> </>}
                     </div>
-                    <img src={`http://localhost:3001/server/uploads/users/${imagefilename}`} onClick={handleClick}  id="avatar"  onError={imgonLoadError} alt=""  className="topAvatar" /> 
+                    <div className="topbarIonContainer">
+                      <img src={`http://localhost:3001/server/uploads/users/${imagefilename}`} onClick={handleClick}  id="avatar"  onError={imgonLoadError} alt=""  className="topAvatar" /> 
+                    </div>
+                    
                 </div>
-                <React.Fragment>
+        {loggedin && <React.Fragment>
          <Menu
         id="demo-positioned-menu"
         aria-labelledby="demo-positioned-button"
@@ -130,7 +132,7 @@ export const Topbar = () => {
           Logout
         </MenuItem>
       </Menu>
-      </React.Fragment>
+      </React.Fragment>}
             </div>
         </div>
     )

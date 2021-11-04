@@ -7,6 +7,7 @@ import { Link ,useHistory} from 'react-router-dom';
 import {useState,useEffect} from "react";
 import AlertDialog from '../../components/alertdialog/AlertDialog'
 import axios from 'axios';
+import { RestaurantRounded } from '@mui/icons-material';
 
 export default function ProductsList() {   
     const query=QueryParams();
@@ -91,7 +92,7 @@ export default function ProductsList() {
  
 
     const columns = [
-        { field: '_id', headerName: 'Id', width: 120 },
+        { field: '_id', headerName: 'Id', width: 220 },
         {
           field: 'name',
           headerName: 'Product',
@@ -111,6 +112,11 @@ export default function ProductsList() {
           headerName: 'Stock',
           width: 120,
           editable: true,
+          renderCell:(params)=>{
+            return(
+              <div>{params.row.stock.currentstock}</div>
+            )
+          }
         },
         {
           field: 'active',
@@ -121,7 +127,7 @@ export default function ProductsList() {
         {
           field: 'price',
           headerName: 'Price',
-          width: 120,
+          width: 110,
           renderCell:(params)=>{
             return(
               <>
@@ -133,7 +139,7 @@ export default function ProductsList() {
         {
             field:"action",
             headerName:"Action",
-            width:160,
+            width:120,
             renderCell: (params)=>{
                 return(
                    <>
