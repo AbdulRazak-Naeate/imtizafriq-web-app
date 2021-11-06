@@ -1,4 +1,71 @@
+
 .transactions{
     flex: 4;
     padding: 20px;
+}
+.pageTitleContainer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 5px;
+    
+    }
+    
+    .pageTitle{
+        border: none;
+        padding: 5px 10px;
+        height: 34px;
+        border-radius: 5px;
+        font-weight: 600;
+    }
+    .pageTitleButton{
+        border: none;
+        padding: 5px 10px;
+        background-color: teal;
+        color: white;
+        cursor: pointer;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+.storeListItem{
+    display: flex;
+    align-items: center;
+
+}
+.storeListImg{
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+.storelistEdit{
+    border:none;
+    border-radius: 10px;
+    padding: 5px 10px; 
+    background-color: #3bb077;
+    color: white;
+    cursor: pointer;
+    margin-right: 10px;
+
+}
+.storelistAddProduct{
+    border:none;
+    border-radius: 10px;
+    padding: 5px 10px; 
+    background-color: darkblue;
+    color: white;
+    cursor: pointer;
+    margin-right: 10px;
+
+}
+.storelistDelete,.iconEditstoreProduct,.iconEditstoreProduct,.iconAddstoreProduct,.iconListstoreProducts{
+    cursor: pointer;
+}
+.storelistDelete{
+    color: red;
+    
+}
+.storeListIcons{
+    color:lightslategrey
 }

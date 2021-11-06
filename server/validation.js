@@ -28,16 +28,16 @@ const loginValidation = data =>{
      
   };
   
-  const requestValidation = data =>{
+  const orderValidation = data =>{
     const schema = Joi.object({
-    
+      name:Joi.string().required(),
       productId:Joi.string().min(20).required(),
       storeId:Joi.string().min(20).required(),
-      quantity:Joi.string().min(1).required(),
+      quantity:Joi.number().min(1).required(),
       color:Joi.string(),
       size:Joi.string(),
-      priceEach:Joi.string().required(),
-      totalPrice:Joi.string().required(),
+      priceEach:Joi.number().required(),
+      totalPrice:Joi.number().required(),
       status:Joi.string().required(), 
       userId:Joi.string().min(20).required(),
       paymentMethod:Joi.string().required(),
@@ -101,5 +101,5 @@ const loginValidation = data =>{
   module.exports.storeValidation    = storeValidation;
   module.exports.storeCategoryValidation    = storeCategoryValidation;
   module.exports.productValidation  = productValidation;
-  module.exports.requestValidation  = requestValidation;
+  module.exports.orderValidation  = orderValidation;
 

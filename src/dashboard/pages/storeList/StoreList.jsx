@@ -57,7 +57,8 @@ export default function StoreList() {
         tmp.push(storesFromserver[i]);
         
       }
-      setStores(tmp)
+      setStores(tmp);
+      localStorage.setItem('stores',JSON.stringify(tmp));
      } catch (error) {
        console.log({message:error})
      }
@@ -146,7 +147,7 @@ export default function StoreList() {
     return (
         <div className="storesList"> 
            <AlertDialog open={open} handleClickOpen={handleClickOpen} handleClose={handleClose} title="Are you sure you want to delete!"DeleteOutline={DeleteOutline}/>
-               <div className="pageTitleContainer">
+            <div className="pageTitleContainer">
               <h1 className="pageTitle">Stores</h1>
             
             

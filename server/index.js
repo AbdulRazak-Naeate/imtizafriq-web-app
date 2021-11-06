@@ -12,7 +12,7 @@ const productsRoute = require('./routes/products');
 const userRoute     = require('./routes/auth');
 const storeRoute    = require('./routes/stores');
 const storeCategory = require('./routes/storecategories');
-const requests      = require('./routes/requests');
+const orders      = require('./routes/orders');
 const carts         = require('./routes/carts');
 
 dotenv.config();
@@ -29,7 +29,7 @@ app.use('/api/user',    userRoute);
 app.use('/api/products',productsRoute);
 app.use('/api/stores',  storeRoute);
 app.use('/api/storecategory', storeCategory);
-app.use('/api/requests',requests);
+app.use('/api/orders',orders);
 app.use('/api/carts',carts);
 
 //Home Routes

@@ -67,6 +67,7 @@ export default function SignUp() {
                     <h1 className="title">Signup</h1>
                   </div>
                     <form  className="signupForm" onSubmit={onFormSubmit}>
+                      
                         <div className="signupItem">
                             <label>UserName</label>
                             <input type="text"  className="signupInput" required value={username} onChange={(e)=>{setUsername(e.target.value)}}/>

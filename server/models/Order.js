@@ -1,8 +1,11 @@
 const mongoose = require('mongoose');
 
 
-const RequestSchema  =  new mongoose.Schema({
-
+const OrderSchema  =  new mongoose.Schema({
+     name:{
+         type:String,
+         required:true
+     },
      storeId:{
          type:String,
          required:true
@@ -12,7 +15,7 @@ const RequestSchema  =  new mongoose.Schema({
         required:true
     },
     quantity:{
-        type:String,
+        type:Number,
         required:true
     },
     color:{
@@ -22,12 +25,12 @@ const RequestSchema  =  new mongoose.Schema({
         type:String,
     },
     priceEach:{
-        type:String,
+        type:Number,
         required:true
     },
     totalPrice:{
-        type:String,
-        required:true
+        type:Number,
+        required:true,
     },
     userId:{
         type:String,
@@ -39,7 +42,7 @@ const RequestSchema  =  new mongoose.Schema({
     },
     status:{
         type:String,
-        default:"Requested"
+        default:"Pending"
     },
     paymentMethod:{
         type:String,
@@ -48,4 +51,4 @@ const RequestSchema  =  new mongoose.Schema({
 
 }); 
 
-module.exports=mongoose.model('Request',RequestSchema);
+module.exports=mongoose.model('Order',OrderSchema);

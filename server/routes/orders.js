@@ -1,29 +1,30 @@
 const express= require('express');
+const mongoose = require('mongoose');
 const router = express.Router();
-const Request= require('../models/Request');
+const Order= require('../models/Order');
 const Store  =  require('../models/Store');
 const verify = require('../routes/verifyToken');
-const {requestValidation} = require('../validation');
+const {orderValidation} = require('../validation');
 
 
 
-//get all Request
+//get all Orders
 router.get('/', async(req,res)=>{
       try{
-        const request = await Request.find();
-        res.json(request);
+        const orders = await Order.find();
+        res.json({orders:orders,status:200});
 
       }catch(err){
         res.json({message:err})
       }
 });
 
-//submit request
+//submit order
 
 router.post('/',verify,async (req,res)=>{
       
     //Validation
-    const {error} = requestValidation(req.body);
+    const {error} = orderValidation(req.body);
     //check for errors
 
     if(error) return res.status(400).send(error.details[0].message);
@@ -34,7 +35,7 @@ router.post('/',verify,async (req,res)=>{
 
     const storeId = store._id; //get user store id
 
-      const request = new Request({
+      const order = new Order({
           name:req.body.name,
           storeId:storeId,
           productId:req.body.productId,
@@ -50,47 +51,48 @@ router.post('/',verify,async (req,res)=>{
       });
 
  try{
-    const savedRequest = await request.save();
+    const saveOrder = await order.save();
 
-       res.json(savedRequest);
+       res.json(saveOrder);
 
     }catch(err){
      res.json({message:err})
     }
 });
 
-//get specific request
-router.get('/:requestId', async (req,res)=>{
+//get specific order
+router.get('/:orderId', async (req,res)=>{
     try{
-        const request = await Request.findById(req.params.requestId);
-        res.json(request);
+        const order = await Order.findById(req.params.orderId);
+        res.json(order);
     }catch(err){
         res.json({message:err})
     }
 });
 
-//delete Specific request
+//delete Specific order
 
-router.delete('/:requestId', async (req,res)=>{
+router.delete('/:orderId', async (req,res)=>{
     try{
-         const removeRequest = await Request.remove({_id:req.params.requestId});
+         const removeOrder = await Order.remove({_id:req.params.orderId});
 
-         res.json(removeRequest);
+         res.json(removeOrder);
     }catch(err){
         res.json({message:err});
     }
 });
 
-//update request
-router.patch('/:requestId',async (req,res)=> {
+//update order
+router.patch('/:orderId',async (req,res)=> {
    try{
-       const updateRequest = await Request.updateOne(
-           {_id: req.params.requestId},
+        var oId= new mongoose.Types.ObjectId(req.params.orderId)
+       const updateOrder = await Order.updateOne(
+           {_id: oId},
            {
             $set:{status:req.body.status},
            });
 
-           res.json(updateRequest);
+           res.json(updateOrder);
    }catch(err){
        res.json({message:err});
    }
