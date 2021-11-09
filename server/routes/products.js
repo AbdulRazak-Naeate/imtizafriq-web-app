@@ -14,9 +14,9 @@ const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 
 
-// Database Name
+/* // Database Name
 const dbName = 'daabia';
-const client = new MongoClient(process.env.DB_COMMUNITY_CON,{ useUnifiedTopology: true });
+const client = new MongoClient(process.env.DB_COMMUNITY_CON,{ useUnifiedTopology: true }); */
 
 
 
@@ -154,12 +154,12 @@ router.patch('/:productId',verify,async (req,res)=> {
              {new:true,useFindAndModify:false}
               
             );
-            var newData= {
+           /*  var newData= {
                 stock:updateProduct.stock,
                 price:updateProduct.price,
                 active:updateProduct.active
 
-             };
+             }; */
              
              // Use connect method to connect to the server
           
@@ -168,7 +168,7 @@ router.patch('/:productId',verify,async (req,res)=> {
         res.json({message:err});
     }
 
-    // eslint-disable-next-line no-unused-vars
+    /* // eslint-disable-next-line no-unused-vars
     const updateDocument = function(db, _id,callback) {
            client.connect(function(err) {
                 assert.equal(null, err);
@@ -191,7 +191,7 @@ router.patch('/:productId',verify,async (req,res)=> {
         });
     });
       
-      };
+      }; */
 });
 
 module.exports = router;

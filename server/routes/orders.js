@@ -34,11 +34,13 @@ router.post('/',verify,async (req,res)=>{
     const store = await Store.findOne({userId:userId});//get user Store
 
     const storeId = store._id; //get user store id
-
+  
+    const ordernum=UniqueOrderNumber();
       const order = new Order({
           name:req.body.name,
           storeId:storeId,
           productId:req.body.productId,
+          orderNumber:ordernum,
           quantity:req.body.quantity,
           color:req.body.color,
           size:req.body.size,
@@ -86,16 +88,65 @@ router.delete('/:orderId', async (req,res)=>{
 router.patch('/:orderId',async (req,res)=> {
    try{
         var oId= new mongoose.Types.ObjectId(req.params.orderId)
-       const updateOrder = await Order.updateOne(
+       const updateOrder = await Order.findOneAndUpdate(
            {_id: oId},
            {
             $set:{status:req.body.status},
-           });
+           },
+           {new:true,useFindAndModify:false}
+           );
 
-           res.json(updateOrder);
+           res.json({data:updateOrder,status:200});
    }catch(err){
        res.json({message:err});
    }
 });
+
+//update many order
+router.patch('/many/:ids',async (req,res)=> {
+    try{
+        //console.log(req.body.ids)
+        var _ids=JSON.parse(req.body.ids);
+       
+         await Order.updateMany(
+            {
+                _id: {  $in:_ids}
+            },
+            {
+             $set:{status:req.body.status},
+            }
+            ).then(ret=>{
+                console.log(ret)
+                res.json({data:ret,statusString:req.body.status,status:200});
+            });
+ 
+           
+    }catch(err){
+        res.json({message:err});
+    }
+ });
+
+
+/* const orderNumber =()=>{
+   var min=10000;
+   var max=90000;
+
+   var orderNumber=Math.floor(Math.random()*min)+max;
+
+   return orderNumber;
+} */
+
+const UniqueOrderNumber= ()=> {//Unique Identifier
+    var result           = '';
+   // var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var characters       = '0123456789';
+
+    var charactersLength = characters.length;
+    for ( var i = 0; i < 8; i++ ) {
+       result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    console.log(result);
+    return result;
+  }
 
 module.exports = router;

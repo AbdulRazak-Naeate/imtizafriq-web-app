@@ -5,7 +5,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-function AlertDialog({open,handleClickOpen,handleClose,title,DeleteOutline}) {
+function AlertDialog({open,handleClickOpen,handleClose,title,textContent,DeleteOutline}) {
 
   return (
     <div>
@@ -16,13 +16,13 @@ function AlertDialog({open,handleClickOpen,handleClose,title,DeleteOutline}) {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">Alert</DialogTitle>
+        <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
         <DialogContent>
-          <DeleteOutline/> 
+      
           <DialogContentText id="alert-dialog-description">
-            {title}
+            {textContent}
           </DialogContentText>
-         
+             <DeleteOutline/> 
         </DialogContent>
         <DialogActions>
           <Button onClick={()=>{handleClose(false)}} color="primary">

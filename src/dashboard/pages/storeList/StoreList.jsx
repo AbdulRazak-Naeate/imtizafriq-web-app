@@ -146,7 +146,7 @@ export default function StoreList() {
       ];
     return (
         <div className="storesList"> 
-           <AlertDialog open={open} handleClickOpen={handleClickOpen} handleClose={handleClose} title="Are you sure you want to delete!"DeleteOutline={DeleteOutline}/>
+           <AlertDialog open={open} handleClickOpen={handleClickOpen} handleClose={handleClose} title="Delete Store" textContent="Are you sure you want to delete!"DeleteOutline={DeleteOutline}/>
             <div className="pageTitleContainer">
               <h1 className="pageTitle">Stores</h1>
             
