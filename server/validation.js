@@ -61,6 +61,7 @@ const loginValidation = data =>{
       userId:Joi.string().min(20).required(),
       storeCategoryId:Joi.string().min(4).required(),
       validStatus:Joi.string().min(5).required(),
+      currency:Joi.string().required(),
       ghPostGPS:Joi.string(),
       image:Joi.any()
     });

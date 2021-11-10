@@ -1,5 +1,5 @@
 
-.transactions{
+.sales{
     flex: 4;
     padding: 20px;
 }
@@ -9,8 +9,7 @@
     justify-content: space-between;
     padding: 10px 5px;
     
-    }
-    
+    }  
     .pageTitle{
         border: none;
         padding: 5px 10px;

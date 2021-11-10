@@ -16,6 +16,7 @@ import ProductsList from "./pages/productlist/ProductsList";
 import Product from "./pages/product/Product";
 import NewProduct from "./pages/newProduct/NewProduct";
 import Transactions from "./pages/transactions/Transactions";
+import Sales from './pages/sales/Sales';
 import LogIn from "./pages/login/LogIn";
 import SignUp from "./pages/signup/SignUp";
  function Dashboard() {
@@ -80,7 +81,9 @@ import SignUp from "./pages/signup/SignUp";
        <Route path="/dashboard/transactions">
         <Transactions/>
        </Route>
-
+       <Route path="/dashboard/sales">
+        <Sales/>
+       </Route>
        <Route path="/dashboard/login" >
          <LogIn toggleSideBar={handletoggleSideBar}/>
        </Route>

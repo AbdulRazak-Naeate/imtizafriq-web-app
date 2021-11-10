@@ -44,7 +44,8 @@ router.post('/',uploadImage('./server/uploads/stores'),verify,async(req,res)=>{
         image:req.files,
         storeCategoryId:req.body.storeCategoryId,
         ghPostGPS:req.body.ghPostGPS,
-        validStatus:req.body.validStatus
+        validStatus:req.body.validStatus,
+        currency:req.body.currency
     });
     try{
         const saveStore = await store.save();

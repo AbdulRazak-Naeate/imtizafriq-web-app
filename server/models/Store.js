@@ -48,6 +48,10 @@ const mongoose = require('mongoose');
         type:String,
         default:Date.now()
     },
+    currency:{
+        type:String,
+        default:"GHS"
+    },
        validStatus:{
         type:String,
         default:'NOT_VALID'

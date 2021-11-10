@@ -13,7 +13,6 @@ import Avatar from '../../../assets/icons/user_96px.png';
 export default function User() {
     const query =QueryParams();    
     const [user,setUser] = useState(JSON.parse(query.get('user')));
-    
     const[username,setUsername]=useState(user.name);
     const[firstname,setFirstname]=useState(user.firstname);
     const[lastname,setLastname]=useState(user.lastname);

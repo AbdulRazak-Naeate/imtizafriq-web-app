@@ -16,16 +16,10 @@ export const Sidebar = () => {
                          <LineStyle className="sidebarIcon"/>
                          DashBoard
                      </li>
-                     </Link>
-                     <li className="sidebarListItem">
-                         <Timeline className="sidebarIcon"/>
-                         Analytics
-                     </li>   <li className="sidebarListItem">
-                         <TrendingUp className="sidebarIcon"/>
-                         Sales
-                     </li>
+                     </Link><br/>
+                    
                  </ul>
-                 <h3 className="sidebarTitle">Quick menu</h3>
+                {/*  <h3 className="sidebarTitle">Quick menu</h3> */}
                  <ul className="sidebarList">
                   <Link to="/dashboard/users" className="link">
                   <li className="sidebarListItem">
@@ -47,6 +41,12 @@ export const Sidebar = () => {
                        <li className="sidebarListItem">
                          <AttachMoney className="sidebarIcon"/>
                          Transactions
+                     </li>
+                       </Link>
+                       <Link to="/dashboard/sales" className="link"> 
+                       <li className="sidebarListItem">
+                         <TrendingUp className="sidebarIcon"/>
+                         Sales
                      </li>
                        </Link>
                      <li className="sidebarListItem">

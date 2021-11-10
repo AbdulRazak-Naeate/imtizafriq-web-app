@@ -1,6 +1,6 @@
 import './storeList.css';
 import {DataGrid} from '@material-ui/data-grid'
-import { DeleteOutline,List, Add, Edit } from '@material-ui/icons';
+import { DeleteOutline,List, Add, Edit,Business } from '@material-ui/icons';
 import { Link ,useHistory} from 'react-router-dom';
 import {useState , useEffect} from "react";
 import {Tooltip} from '@material-ui/core';
@@ -80,6 +80,11 @@ export default function StoreList() {
    history.push(`/dashboard/products?storeId=${params.row._id}&storeName=${params.row.name}`);
    localStorage.setItem('store', JSON.stringify(params.row));       
     }
+    const handleTransactions=(params)=>{
+      //navigate to store Products
+      history.push(`/dashboard/transactions?storeId=${params.row._id}&storeName=${params.row.name}`);
+      localStorage.setItem('store', JSON.stringify(params.row));       
+       }
     const handleDelete=(_id)=>{
       setStoreid(_id);
       handleClickOpen();
@@ -136,6 +141,11 @@ export default function StoreList() {
                     <Tooltip title="show store products" enterDelay={500} leaveDelay={200}>
                     <List className="iconListstoreProducts storeListIcons" onClick={() => {handleList(params)}}/>
                     </Tooltip>
+
+                    <Tooltip title="show store transactions" enterDelay={500} leaveDelay={200}>
+                    <Business className="iconListstoreProducts storeListIcons" onClick={() => {handleTransactions(params)}}/>
+                    </Tooltip>
+
                     <Tooltip title="delete store" enterDelay={500} leaveDelay={200}>
                     <DeleteOutline className="storelistDelete" onClick={() => {handleDelete(params.row._id)}}/>
                     </Tooltip>

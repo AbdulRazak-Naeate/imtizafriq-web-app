@@ -8,7 +8,7 @@ const {orderValidation} = require('../validation');
 
 
 
-//get all Orders
+/* //get all Orders
 router.get('/', async(req,res)=>{
       try{
         const orders = await Order.find();
@@ -17,6 +17,27 @@ router.get('/', async(req,res)=>{
       }catch(err){
         res.json({message:err})
       }
+}); */
+//get all Orders base on Store Id
+router.get('/:storeId', async(req,res)=>{
+    try{
+      const orders = await Order.find({storeId:req.params.storeId});
+      res.json({orders:orders,status:200});
+
+    }catch(err){
+      res.json({message:err})
+    }
+});
+
+//get all Orders base on Store Id
+router.get('/approved/:storeId', async(req,res)=>{
+    try{
+      const orders = await Order.find({storeId:req.params.storeId,status:"Approved"});
+      res.json({orders:orders,status:200});
+
+    }catch(err){
+      res.json({message:err})
+    }
 });
 
 //submit order
@@ -88,15 +109,17 @@ router.delete('/:orderId', async (req,res)=>{
 router.patch('/:orderId',async (req,res)=> {
    try{
         var oId= new mongoose.Types.ObjectId(req.params.orderId)
-       const updateOrder = await Order.findOneAndUpdate(
+           await Order.findOneAndUpdate(
            {_id: oId},
            {
             $set:{status:req.body.status},
            },
            {new:true,useFindAndModify:false}
            );
-
-           res.json({data:updateOrder,status:200});
+           const Orders=await Order.find(
+               {storeId:req.body.storeId}
+           )
+           res.json({data:Orders,status:200});
    }catch(err){
        res.json({message:err});
    }
@@ -116,11 +139,15 @@ router.patch('/many/:ids',async (req,res)=> {
              $set:{status:req.body.status},
             }
             ).then(ret=>{
+                
                 console.log(ret)
-                res.json({data:ret,statusString:req.body.status,status:200});
+
+               
             });
- 
-           
+            const Orders=await Order.find(
+                {storeId:req.body.storeId}
+            )
+            res.json({data:Orders,status:200});
     }catch(err){
         res.json({message:err});
     }

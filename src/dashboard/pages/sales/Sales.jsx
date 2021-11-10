@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import './transactions.css';
+import './sales.css';
 import {DataGrid} from '@material-ui/data-grid';
 import { Stack } from '@mui/material';
 import { DeleteOutline,List, Add, Edit,Business } from '@material-ui/icons';
@@ -10,13 +10,13 @@ import AlertDialog from '../../components/alertdialog/AlertDialog'
 import axios ,{patch} from 'axios';
 import QueryParams from '../../QueryParams';
 
-const Transactions = () => {
+const Sales = () => {
   const query=QueryParams();
   const [transactions,setTransactions]=useState([]);
   const [pageSize, setPageSize] = useState(20);
   const [user]=useState(localStorage.getItem('user'));
   const [stores]=useState(JSON.parse(localStorage.getItem('stores')));
-  const [storeid,setStoreId]=useState(query.get('storeId'));
+  const [storeid,setStoreId]=useState(stores[0]._id);
   const [selectedRows,setSelectedRows]=useState([]);
   const [selected_Ids,setSelected_Id]=useState([]);
   const [selectionModel,setSelectionModel]=useState([])
@@ -120,16 +120,9 @@ return patch(url, body,config)
     const fetchOrders = async () => {//get Orders 
   
      try {
-       if (storeid===null){
-        try{
-          setStoreId(stores[0]._id)
-        }catch(err){
-          console.log(err)
-        }
-
-       }
+     
        
-    const res = await fetch(`http://localhost:3001/api/orders/${storeid}`);
+    const res = await fetch(`http://localhost:3001/api/orders/approved/${storeid}`);
     const data = await res.json();
     
     return data.orders;
@@ -186,7 +179,7 @@ return patch(url, body,config)
       headerName:"OrderNumber",
       width:170,
     },
-    {
+   /*  {
       field:'quantity',
       headerName:"Quantity",
       width:130
@@ -205,11 +198,14 @@ return patch(url, body,config)
       field:'priceEach',
       headerName:"Price Each",
       width:140
-    },
+    }, */
     {
       field:'totalPrice',
-      headerName:"Total Price",
-      width:140
+      headerName:"Amount",
+      width:140,
+      renderCell:(params)=>{
+          return(<div>{`π${params.row.totalPrice}`}</div>)
+      }
     },
   /*   {
       field: 'fullname',
@@ -272,7 +268,7 @@ return patch(url, body,config)
 
        <AlertDialog open={open} handleClickOpen={handleClickOpen} handleClose={handleClose} title="Mark transaction" textContent={`Are you sure you want to mark transaction status as ${status} !`}DeleteOutline={Edit}/>
        <div className="pageTitleContainer">
-           <h1 className="pageTitle">Transactions</h1>    
+           <h1 className="pageTitle">Sales</h1>    
             <div>
             { stores.length ?  <select  className="select-store" value={storeid} onChange={(e)=>{setStoreId(e.target.value)}}>
                   {stores.map((store,index)=>{
@@ -307,7 +303,7 @@ return patch(url, body,config)
         components={{
           NoRowsOverlay: () => (
             <Stack height="100%" alignItems="center" justifyContent="center">
-              No transactions recorded
+              No sales recorded
             </Stack>
           ),
           NoResultsOverlay: () => (
@@ -317,15 +313,15 @@ return patch(url, body,config)
           )
         }}
       />
-     <div className="actionButtonsContainer">
+  {/*    <div className="actionButtonsContainer">
      <button className="actionButtons" onClick={()=>{handleUpdateMany("Approved");         
 }}>Approve</button>
      <button className="actionButtons" onClick={()=>{handleUpdateMany("Pending")}}>Pending</button>
      <button className="actionButtons" onClick={()=>{handleUpdateMany("Declined")}}>Decline</button>
-     </div>
+     </div> */}
     </div>
   )
 }
 
-export default Transactions
+export default Sales
 
