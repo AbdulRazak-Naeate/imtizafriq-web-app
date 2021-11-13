@@ -42,6 +42,7 @@ const loginValidation = data =>{
       status:Joi.string().required(), 
       userId:Joi.string().min(20).required(),
       paymentMethod:Joi.string().required(),
+      user:Joi.object()
 
      });
   

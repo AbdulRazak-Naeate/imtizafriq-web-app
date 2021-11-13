@@ -275,7 +275,7 @@ return patch(url, body,config)
                   return(  <option key={index} value={store._id} className="opt">{store.name}</option>)
                   })}
               </select>:''}
-            <Link to={`/dashboard/newStore?`}>
+            <Link to={`/dashboard/sales?`}>
           <button className="pageTitleButton">Reports</button>
           </Link>
             </div>

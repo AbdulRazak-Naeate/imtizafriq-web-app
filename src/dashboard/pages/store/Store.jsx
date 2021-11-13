@@ -20,6 +20,8 @@ export default function Store() {
      const [country,setCountry]=useState(store.country)
      const [state,setState]=useState(store.state)
      const [city,setCity]=useState(store.city)
+     const [currency,setCurrency]=useState(store.currency)
+
      const [storeUpdated,setStoreUpdated]=useState(false);
      const [onStoreImageChange,setOnstoreImageChange]=useState(false);
      const [image,setImage]=useState(null);
@@ -130,6 +132,7 @@ export default function Store() {
              country:country,
              state:state,
              city:city,
+             currency:currency,
     }
     const config = {
         headers: {
@@ -236,9 +239,24 @@ export default function Store() {
                         <div className="storeUpdateItem">
                             <label>State</label>
                             <input type="text" value={state} onChange={(e)=>{setState(e.target.value)}}className="storeUpdateInput"/>
-                        </div><div className="storeUpdateItem">
+                        </div>
+                        <div className="storeUpdateItem">
                             <label>City</label>
                             <input type="text" value={city} onChange={(e)=>{setCity(e.target.value)}} className="storeUpdateInput"/>
+                        </div>
+
+                        <div className="storeUpdateItem">
+                            <label>Currency</label>
+                            <select type="text" name="currency" value={currency} onChange={(e)=>{setCurrency(e.target.value)}} className="storeUpdateInput" required >
+                          <option value="none" required></option>
+                          <option value="USD">USD Dollar $</option>
+                          <option value="GHS">Ghana ¢</option>
+                          <option value="EUR">Euro €</option>
+                          <option value="CAD">Canada $</option>
+                          <option value="GBP">UK £</option>
+                          <option value="JPY">Japanese Yen £</option>
+                          <option value="CNY">Chenese Yuan £</option>
+                    </select>
                         </div>
 
                         </div> 

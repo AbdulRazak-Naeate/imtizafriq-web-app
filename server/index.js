@@ -12,8 +12,8 @@ const productsRoute = require('./routes/products');
 const userRoute     = require('./routes/auth');
 const storeRoute    = require('./routes/stores');
 const storeCategory = require('./routes/storecategories');
-const orders      = require('./routes/orders');
-const carts         = require('./routes/carts');
+const orders        = require('./routes/orders');
+const cartRoute     = require('./routes/carts');
 
 dotenv.config();
 //MiddleWare
@@ -30,7 +30,7 @@ app.use('/api/products',productsRoute);
 app.use('/api/stores',  storeRoute);
 app.use('/api/storecategory', storeCategory);
 app.use('/api/orders',orders);
-app.use('/api/carts',carts);
+app.use('/api/carts',cartRoute);
 
 //Home Routes
  app.get('/',(req,res)=>{

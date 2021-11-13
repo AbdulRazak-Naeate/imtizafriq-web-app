@@ -21,6 +21,7 @@ export default function NewStore() {
     const [description, setDescription] = useState('');
     const [phone, setPhone] = useState('');
     const [storeCategory, setStoreCategory] = useState('');
+    const [currency,setCurrency] = useState('');
    // const [ghPostGps, setGhPostGps] = useState('');
     const clearfields =()=>{
       setStoreName('');
@@ -31,6 +32,7 @@ export default function NewStore() {
       setState('');
       setCity('');
       setStoreCategory('');
+      setCurrency('');
       document.getElementById("storeimg").src=thumbnail;
 
     }
@@ -93,6 +95,7 @@ export default function NewStore() {
       formData.append('phone', phone);
       formData.append('userId', user._id);
       formData.append('storeCategoryId', storeCategory);
+      formData.append('currency', currency);
   
       for (var i = 0; i <= files.length; i++) {
         formData.append('image', files[i]);
@@ -164,6 +167,19 @@ export default function NewStore() {
                 <div className="newStoreFormItem">
                     <label>city</label>
                     <input type="text" name="city" required placeholder="" value={city} onChange={(e)=>{setCity(e.target.value)}}/>
+                </div>
+                <div className="newStoreFormItem">
+                    <label>currency</label>
+                    <select type="text" name="currency" value={currency} onChange={(e)=>{setCurrency(e.target.value)}} required >
+                    <option value="none" required></option>
+                <option value="USD">USD Dollar $</option>
+                <option value="GHS">Ghana ¢</option>
+                <option value="EUR">Euro €</option>
+                <option value="CAD">Canada $</option>
+                <option value="GBP">UK £</option>
+                <option value="JPY">Japanese Yen £</option>
+                <option value="CNY">Chenese Yuan £</option>
+                    </select>
                 </div>
                <div className="newStoreUpload">
                             <img src={thumbnail} alt="" className="newStoreUploadImg"  id="storeimg"/>

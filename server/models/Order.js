@@ -51,6 +51,15 @@ const OrderSchema  =  new mongoose.Schema({
     paymentMethod:{
         type:String,
         required:true
+    },
+    user:{
+        type:Object(),
+        default:{"_id":"61782f2f391d5d0cd0c7af3b",
+                "username":"AbdulRazakNaeate",
+                "firstname":"Abdul Razak",
+                "lastname":"Abubakari",
+                "phone":" 233548496121",
+                }
     }
 
 }); 

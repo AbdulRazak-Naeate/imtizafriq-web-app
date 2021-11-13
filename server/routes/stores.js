@@ -120,6 +120,7 @@ router.patch('/:storeId',async (req,res)=> {
             country:req.body.country,
             state:req.body.state,
             city:req.body.city,
+            currency:req.body.currency,
          };
         const updateStore = await Store.findOneAndUpdate(
             {_id: oId},
@@ -136,6 +137,7 @@ router.patch('/:storeId',async (req,res)=> {
                 country:updateStore.country,
                 state:updateStore.state,
                 city:updateStore.city,
+                currency:updateStore.currency,
                 }
            
              var updated=JSON.stringify(query)===JSON.stringify(newData)

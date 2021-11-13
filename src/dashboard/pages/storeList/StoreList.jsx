@@ -125,6 +125,12 @@ export default function StoreList() {
             field: 'validStatus',
             headerName: 'Status',
             width: 120,
+            
+          },
+          {
+            field: 'currency',
+            headerName: 'Currency',
+            width: 140,
           },
         {
             field:"action",

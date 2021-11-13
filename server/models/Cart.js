@@ -6,18 +6,19 @@ const CartSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    storeId:{
-        type:String,
+    quantity:{
+        type:Number,
         required:true
     },
     userId:{
         type:String,
         required:true
     },
-    data:{
+    product:{
         type:Object,
-        required:true
+        rewuired:true
     },
+
     date:{
         type:Date,
         default:Date.now()

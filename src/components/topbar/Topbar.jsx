@@ -3,8 +3,8 @@ import "./topbar.css"
 import {NotificationsNone,ShoppingCartOutlined,AccountCircleOutlined } from '@material-ui/icons';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import {useHistory} from 'react-router-dom';
- const Topbar = () => {
+import {useHistory,useLocation,Link} from 'react-router-dom';
+ const Topbar = ({totalItems}) => {
   //const [user] = useState(JSON.parse(localStorage.getItem('user')));
   const [loggedin] = useState(JSON.parse(localStorage.getItem('loggedin')));
   
@@ -18,7 +18,13 @@ import {useHistory} from 'react-router-dom';
     const handleClose = () => {
       setAnchorEl(null);
     };
-    
+    useEffect(()=>{
+      var user =localStorage.getItem('user');
+       console.log("user "+user)
+       if (user===null){
+        // history.push('/dashboard/login'); 
+       }
+    })
     return (
         <div className="topbar">
             <div className="topbarWrapper">
@@ -31,8 +37,9 @@ import {useHistory} from 'react-router-dom';
                         <span className="topIconBadge">2</span>
                     </div>
                     <div className="topbarIonContainer">
-                        <ShoppingCartOutlined/>
-                        <span className="topIconBadge">2</span>
+                      <Link  to="/cart"><ShoppingCartOutlined className="link"/>
+                        <span className="topIconBadge" >{totalItems}</span>
+                        </Link>
                     </div> 
                     <div className="topbarIonContainer">
                         <AccountCircleOutlined/>

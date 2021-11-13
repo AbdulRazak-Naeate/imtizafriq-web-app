@@ -28,8 +28,12 @@ const Transactions = () => {
    // const history=useHistory();
      
 
- 
-    const handleClickOpen = (row) => {
+     const handleHover=()=>{
+       return(
+         <div>userDetails</div>
+       )
+     }
+     const handleClickOpen = (row) => {
            setOrderId(row._id);
        row.status==="Pending" ? setStatus('Approved') :setStatus('');
        row.status!=="Approved" ? setOpen(true):setOpen(false);
@@ -162,19 +166,23 @@ return patch(url, body,config)
   const columns = [
     { field: '_id', headerName: 'Id', width: 210 },
     {
+      field:'user',
+      headerName:"Customer",
+      width:200,
+        renderCell:(params)=>{
+          return(
+            <div className="userListUser">
+                {'params.row.user.username'}
+            </div>
+        )}, 
+    },
+    {
       field: 'name',
       headerName: 'Product',
       width: 200,
-     /*  renderCell:(params)=>{
-          return(
-              <div className="userListUser">
-                  <img className="userListImg" src={`http://localhost:3001/server/uploads/users/${params.row.image[0].filename}`} alt=""/>
-                  {params.row.username}
-              </div>
-          )
-      }, */
       editable: true,
     },
+    
     {
       field:'storeId',
       headerName:"Store Id",
@@ -204,12 +212,12 @@ return patch(url, body,config)
     {
       field:'priceEach',
       headerName:"Price Each",
-      width:140
+      width:160
     },
     {
       field:'totalPrice',
       headerName:"Total Price",
-      width:140
+      width:180
     },
   /*   {
       field: 'fullname',
@@ -279,7 +287,7 @@ return patch(url, body,config)
                   return(  <option key={index} value={store._id} className="opt">{store.name}</option>)
                   })}
               </select>:''}
-            <Link to={`/dashboard/newStore?`}>
+            <Link to={`/dashboard/transactions?`}>
           <button className="pageTitleButton">Reports</button>
           </Link>
             </div>
