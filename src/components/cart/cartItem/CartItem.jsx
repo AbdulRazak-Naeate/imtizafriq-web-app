@@ -13,9 +13,9 @@ const CartItem = ({item,onUpdateCartQty,onRemoveFromCart,calcSubTotal}) => {
     <div>
         <Card>
             <CardMedia image={`http://localhost:3001/server/uploads/products/${item.product.image[0].filename}`} alt={item.product.name} className={classes.media}/>
-            <CardContent>
+            <CardContent className={classes.cardContent}>
                 <Typography variant="h4">{item.product.name}</Typography>
-                <Typography variant="h5">{item.product.price}</Typography>
+                <Typography variant="h5">{`$${item.product.price}`}</Typography>
             </CardContent>
             <CardActions className={classes.CardActions}>
               <div className={classes.buttons}>

@@ -146,7 +146,7 @@ function App() {
     
     const fetchCart = async ()=>{
       try{
-         const res = await fetch(`http://localhost:3001/api/carts`);
+         const res = await fetch(`http://localhost:3001/api/carts/${userid}`);
          const data=await res.json();
                //console.log("cart res : "+data[0].items[0].product._id);
                //console.log("cart res : "+data[0].items[0].quantity);

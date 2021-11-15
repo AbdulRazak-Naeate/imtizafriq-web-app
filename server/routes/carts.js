@@ -15,6 +15,17 @@ router.get('/', async (req,res)=>{
     }
 });
 
+//get specific user carts
+
+router.get('/:userId', async (req,res)=>{
+    try{
+          const carts = await Cart.findOne({userId:req.params.userId});
+          res.json(carts)
+    }catch(error){
+
+        res.json({message:error});
+    }
+});
 // submit a Cart
 
 router.post('/',async (req,res)=>{
