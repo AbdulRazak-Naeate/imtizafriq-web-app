@@ -11,39 +11,44 @@ import Cart from './components/cart/Cart';
 import { useEffect } from 'react';
 import axios ,{post,patch} from 'axios';
 function App() {
+     const[userid,setUserId]=useState('');
+     const[tempUserId,setTempUserId]=useState('');
   const[products,setProducts]=useState([]);
   const[cart,setCart]=useState({});
-
+  
+    
   // eslint-disable-next-line no-unused-vars
-  const handleEmotyCart = async (cartid)=>{
+  const handleEmptyCart = async ()=>{
 
+      emptyCart().then((response)=>{
+         if (response.status===200){
+           console.log(response)
+           setCart(response.data.cart.items)
+         }
+      })
   }
   const  handleRemoveFromCart = async (productId)=>{
   
        deleteFromCart(productId).then((response)=>{
          if (response.status===200){
-           console.log(response)
+           //console.log(response)
            setCart(response.data.cart.items)
          }
        })
   }
   // eslint-disable-next-line no-unused-vars
-  const emptyCart =async (cartId)=>{
-    
-    const url = `http://localhost:3001/api/carts/${cartId}`;
+  const emptyCart = async () =>{
+    var userId='87y748u2re8y48u39949992'
+    const url = `http://localhost:3001/api/carts/${userid}`;
    
  
-    return axios.delete(url,  {
-      cartId:cartId,
-      userId:"87y748u2re8y48u39949992",
-     
-    })
+    return axios.patch(url)
   
   };
 
   const deleteFromCart =async (productId)=>{
-    
-    const url = `http://localhost:3001/api/carts/${productId}/87y748u2re8y48u39949992`;
+    var userId='87y748u2re8y48u39949992'
+    const url = `http://localhost:3001/api/carts/${productId}/${userid}`;
    
  
     return axios.delete(url)
@@ -67,7 +72,7 @@ function App() {
     return patch(url,  {
       productId:productId,
       quantity:quantity,
-      userId:"87y748u2re8y48u39949992",
+      userId:userid,
      
     })
   
@@ -99,20 +104,52 @@ function App() {
       productId:product._id,
       quantity:quantity,
       product:product,
-      userId:"87y748u2re8y48u39949992",
+      userId:userid,
      
     })
   
   };
 
    useEffect(() => {
+     
+  const createTempUserId= ()=>{
+    var result           = '';
+    // var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+     var characters       = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXZY';
+ 
+     var charactersLength = characters.length;
+     for ( var i = 0; i < 18; i++ ) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+     }
+     localStorage.setItem('temp_id',result)
 
+     console.log(result);
+     return result;
+  }
+   const checkandSetUserId =()=>{
+    let uid=localStorage.getItem('_id');
+    let tempuid=localStorage.getItem('temp_id');
+    if (uid===null && tempuid===null){//if user its first time comer and user has not sign In cretae temp id for the user and set it in localStorage
+        createTempUserId();
+        setUserId(localStorage.getItem('temp_id'));
+        console.log(userid)
+      }else{//user revisited 
+     
+        if (localStorage.getItem('loggedin')===true){ //if user signed In get user Id from locaStorage
+        setUserId(localStorage.getItem('_id'));
+        console.log(userid)
+     }else{//user revisited but not signIn Used temp_id
+        setUserId(localStorage.getItem('temp_id'));
+        console.log(userid);
+     }
+    }}
+    
     const fetchCart = async ()=>{
       try{
          const res = await fetch(`http://localhost:3001/api/carts`);
          const data=await res.json();
-               console.log("cart res : "+data[0].items[0].product._id);
-               console.log("cart res : "+data[0].items[0].quantity);
+               //console.log("cart res : "+data[0].items[0].product._id);
+               //console.log("cart res : "+data[0].items[0].quantity);
 
                setCart(data[0].items);
                return data;
@@ -144,10 +181,11 @@ function App() {
     }catch(error){
   
     }
-  }
+  } 
+    checkandSetUserId();
     getProducts();
     fetchCart()
-   },[])
+   },[userid])
   return (
        <Router>
          <Topbar totalItems={cart.length}/>
@@ -158,7 +196,8 @@ function App() {
        </Route>
        <Route exact path="/cart">
          {console.log(cart)}
-          <Cart cart={cart} handleUpdateCartQty={handleUpdateCartQty} handleRemoveFromCart={handleRemoveFromCart}/>
+          <Cart cart={cart} handleUpdateCartQty={handleUpdateCartQty} handleRemoveFromCart={handleRemoveFromCart}
+          handleEmptyCart={handleEmptyCart}/>
        </Route>
         </Switch> 
         

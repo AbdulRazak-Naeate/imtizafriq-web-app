@@ -118,6 +118,26 @@ router.patch('/quantity/:productId',async (req,res)=>{
 
 });
 
+//empty user Cart
+router.patch('/:userId', async (req,res)=>{
+    console.log(req.params.userId)
+
+   try{
+         const emptyUserCart= await Cart.findOneAndUpdate({userId:req.params.userId}
+               ,{
+                   $set:{items:[]}
+               },{useFindAndModify:false}).then(ret=>{
+            console.log(ret)
+
+         });
+   const  cart = await Cart.findOne({userId:req.params.userId});
+   res.json({cart:cart,status:200})
+   }catch(errr){
+        
+   }
+})
+
+//deletete Item from user Cart
 router.delete('/:productId/:userId', async (req,res)=>{
       console.log(req.params.userId)
 
