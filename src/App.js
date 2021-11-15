@@ -12,35 +12,49 @@ import { useEffect } from 'react';
 import axios ,{post,patch} from 'axios';
 function App() {
   const[products,setProducts]=useState([]);
-  const[cart,setCart]=useState([]);
+  const[cart,setCart]=useState({});
 
+  // eslint-disable-next-line no-unused-vars
+  const handleEmotyCart = async (cartid)=>{
 
+  }
   const  handleRemoveFromCart = async (productId)=>{
-
+  
        deleteFromCart(productId).then((response)=>{
          if (response.status===200){
-           setCart(response.data.cart)
+           console.log(response)
+           setCart(response.data.cart.items)
          }
        })
   }
-
-  const deleteFromCart =async (productId)=>{
+  // eslint-disable-next-line no-unused-vars
+  const emptyCart =async (cartId)=>{
     
-    const url = `http://localhost:3001/api/carts/${productId}`;
+    const url = `http://localhost:3001/api/carts/${cartId}`;
    
  
     return axios.delete(url,  {
-      productId:productId,
+      cartId:cartId,
       userId:"87y748u2re8y48u39949992",
      
     })
+  
+  };
+
+  const deleteFromCart =async (productId)=>{
+    
+    const url = `http://localhost:3001/api/carts/${productId}/87y748u2re8y48u39949992`;
+   
+ 
+    return axios.delete(url)
   
   };
   const handleUpdateCartQty = async (productId,quantity)=>{
              console.log(quantity)
             updateCartQty(productId,quantity).then((response)=>{
              if (response.status===200){
-                setCart(response.data.cart)
+               console.log(response.data.cart.items)
+               setCart(response.data.cart.items)
               } 
             })
   }
@@ -63,7 +77,8 @@ function App() {
     addtoCart(productId,quantity).then((response) => {
       console.log(response.data);
       if (response.status===200){
-         setCart(response.data.cart)
+        
+         setCart(response.data.cart.items)
       }else{
        
       
@@ -96,8 +111,10 @@ function App() {
       try{
          const res = await fetch(`http://localhost:3001/api/carts`);
          const data=await res.json();
-               console.log(data);
-               setCart(data);
+               console.log("cart res : "+data[0].items[0].product._id);
+               console.log("cart res : "+data[0].items[0].quantity);
+
+               setCart(data[0].items);
                return data;
       }catch(error){
   
@@ -137,9 +154,10 @@ function App() {
        <Switch>
        <Route exact path="/" >
        <Products products={products} onAddToCart={handleAddtoCart} />
-
+      
        </Route>
        <Route exact path="/cart">
+         {console.log(cart)}
           <Cart cart={cart} handleUpdateCartQty={handleUpdateCartQty} handleRemoveFromCart={handleRemoveFromCart}/>
        </Route>
         </Switch> 

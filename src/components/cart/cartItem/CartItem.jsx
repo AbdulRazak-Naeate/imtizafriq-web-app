@@ -8,14 +8,14 @@ const CartItem = ({item,onUpdateCartQty,onRemoveFromCart,calcSubTotal}) => {
     var qty =item.quantity;
 
     console.log(qty)
-    calcSubTotal(item.product.price*qty);
+    //calcSubTotal(item.product.price*qty);
   return (
     <div>
         <Card>
             <CardMedia image={`http://localhost:3001/server/uploads/products/${item.product.image[0].filename}`} alt={item.product.name} className={classes.media}/>
             <CardContent>
                 <Typography variant="h4">{item.product.name}</Typography>
-                <Typography variant="h5">{item.product.price*item.quantity}</Typography>
+                <Typography variant="h5">{item.product.price}</Typography>
             </CardContent>
             <CardActions className={classes.CardActions}>
               <div className={classes.buttons}>

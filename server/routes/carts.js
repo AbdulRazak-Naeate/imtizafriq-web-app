@@ -22,28 +22,68 @@ router.post('/',async (req,res)=>{
           var oId = mongoose.Types.ObjectId(req.body.productId);
           console.log(req.body.productId)
           var pId =req.body.productId;
-         const productAllreadyAdded= await Cart.findOne({productId:req.body.productId});
-        if (productAllreadyAdded) {//product Exist increase quantity
-            console.log('product exist in cart inc qty')
-            const updateCartQuantity =await Cart.findOneAndUpdate(
-                {productId:pId},
-                {
-                    $inc: {'quantity':1}
-                },   
-               { new:true,useFindAndModify:false}
-                
-            );
+         const userCartAllreadyAdded= await Cart.findOne({userId:req.body.userId});
+        if (userCartAllreadyAdded) {//product Exist increase quantity
+            console.log('usercart cart exist ')
+
+                var query={productId:req.body.productId}
+                let pid=req.body.productId
+                const itemAlreadyExistInCart = await Cart.find(
+                      {
+                    items:{$elemMatch:{productId:pid}}
+                        }
+                      );
+                 var ret=JSON.stringify(itemAlreadyExistInCart);
+                 console.log(ret)
+                if (ret!=='[]'){
+                    
+                    console.log('product exist in cart inc qty')
+                    const updateCartQuantity =await Cart.findOneAndUpdate({
+                        items:{
+                            $elemMatch:{productId:req.body.productId}
+                             }
+                            },
+                        {
+                            $inc: {'items.$.quantity':1}
+                        },   
+                        { new:true,useFindAndModify:false}
+                        
+            )
         }else{
+                console.log('add new product into cart')
+               const addtoCart = await Cart.findOneAndUpdate({userId:req.body.userId},{
+                      $push:{items:{
+               
+                        productId:req.body.productId,
+                        quantity:req.body.quantity,
+                        product:req.body.product
+                     
+                }}
+              });
+              console.log(addtoCart)
+
+            }
+          }else{
+            console.log('user cart not exist creating new one')
+
+            var pid=req.body.productId
+            var cartItem={};
+             cartItem={
+               
+                    productId:req.body.productId,
+                    quantity:req.body.quantity,
+                    product:req.body.product
+                 
+            }
              const _cart = new Cart({
-            productId:req.body.productId,
-            quantity:req.body.quantity,
             userId:req.body.userId,
-            product:req.body.product}
+            items:[cartItem]}
             ); 
+            
             const savedCart = await _cart.save();
         }
 
-      const cart = await Cart.find();
+      const cart = await Cart.findOne({userId:req.body.userId});
       res.json({cart:cart,status:200});
 
     }catch(error){
@@ -57,19 +97,20 @@ router.patch('/quantity/:productId',async (req,res)=>{
     try{
         var pId =req.body.productId;
         var value= parseInt(req.body.quantity);
-         await Cart.findOneAndUpdate(
-            {productId:pId},
+        Cart.findOneAndUpdate({
+            items:{
+                $elemMatch:{productId:req.body.productId}
+                 }
+                },
             {
-                $set:{ quantity:req.body.quantity},
+                $set: {'items.$.quantity':req.body.quantity}
             },   
-           { new:true,useFindAndModify:false}
-            
-        ).then(ret=>{
+            { new:true,useFindAndModify:false}).then(ret=>{
             //res.json(ret)
         });
 
      //return the whole cart 
-       const cart = await Cart.find();
+       const  cart = await Cart.findOne({userId:req.body.userId});
        res.json({cart:cart,status:200})
     }catch(err){
         console.log(err);
@@ -77,14 +118,24 @@ router.patch('/quantity/:productId',async (req,res)=>{
 
 });
 
-router.delete('/:productId',async(req,res)=>{
-    var oId = mongoose.Types.ObjectId(req.params.productId);
-     try{
-           const deletecart= await Cart.deleteOne({productId:req.params.productId})
-           const cart =await Cart.find();
-            res.json({cart:cart,status:200})
-     }catch(errr){
+router.delete('/:productId/:userId', async (req,res)=>{
+      console.log(req.params.userId)
 
+     try{
+           const deleteFromCart= await Cart.updateOne({
+            items:{
+                $elemMatch:{productId:req.params.productId}
+                 }},{
+                     $pull:{items:{productId:req.params.productId}}
+                 },{multi:true}).then(ret=>{
+              console.log(ret)
+ 
+           });
+           console.log(req.params.productId)
+     const  cart = await Cart.findOne({userId:req.params.userId});
+     res.json({cart:cart,status:200})
+     }catch(errr){
+          
      }
 })
 
