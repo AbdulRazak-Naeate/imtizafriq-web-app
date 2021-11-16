@@ -20,7 +20,7 @@ import {useHistory,useLocation,Link} from 'react-router-dom';
     };
     useEffect(()=>{
       var user =localStorage.getItem('user');
-       console.log("user "+user)
+       //console.log("user "+user)
        if (user===null){
         // history.push('/dashboard/login'); 
        }

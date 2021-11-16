@@ -5,7 +5,7 @@ const mongoose= require('mongoose');
 
 //get all carts
 
-router.get('/', async (req,res)=>{
+/**/ router.get('/', async (req,res)=>{
     try{
           const carts = await Cart.find();
           res.json(carts);
@@ -13,14 +13,14 @@ router.get('/', async (req,res)=>{
 
         res.json({message:error});
     }
-});
+}); 
 
 //get specific user carts
 
 router.get('/:userId', async (req,res)=>{
     try{
           const carts = await Cart.findOne({userId:req.params.userId});
-          res.json(carts)
+          res.json({cart:carts,status:200})
     }catch(error){
 
         res.json({message:error});
@@ -30,23 +30,22 @@ router.get('/:userId', async (req,res)=>{
 
 router.post('/',async (req,res)=>{
     try{
-          var oId = mongoose.Types.ObjectId(req.body.productId);
           console.log(req.body.productId)
-          var pId =req.body.productId;
          const userCartAllreadyAdded= await Cart.findOne({userId:req.body.userId});
         if (userCartAllreadyAdded) {//product Exist increase quantity
             console.log('usercart cart exist ')
 
-                var query={productId:req.body.productId}
                 let pid=req.body.productId
-                const itemAlreadyExistInCart = await Cart.find(
-                      {
-                    items:{$elemMatch:{productId:pid}}
-                        }
-                      );
+                const itemAlreadyExistInCart = await Cart.findOne(
+                       {
+                        userId:req.body.userId,
+                        items:{$elemMatch:{productId:pid}}
+                        },
+                      
+                      )
                  var ret=JSON.stringify(itemAlreadyExistInCart);
-                 console.log(ret)
-                if (ret!=='[]'){
+                 
+                if (itemAlreadyExistInCart){
                     
                     console.log('product exist in cart inc qty')
                     const updateCartQuantity =await Cart.findOneAndUpdate({
@@ -59,7 +58,9 @@ router.post('/',async (req,res)=>{
                         },   
                         { new:true,useFindAndModify:false}
                         
-            )
+                   ).then((ret=>{
+                       console.log(ret);
+                   }))
         }else{
                 console.log('add new product into cart')
                const addtoCart = await Cart.findOneAndUpdate({userId:req.body.userId},{
@@ -70,7 +71,7 @@ router.post('/',async (req,res)=>{
                         product:req.body.product
                      
                 }}
-              });
+              },{new:true,useFindAndModify:false});
               console.log(addtoCart)
 
             }
@@ -78,6 +79,8 @@ router.post('/',async (req,res)=>{
             console.log('user cart not exist creating new one')
 
             var pid=req.body.productId
+            var product=req.body.product
+            //var line_item_sub_price=req.body.quantity*product.price
             var cartItem={};
              cartItem={
                

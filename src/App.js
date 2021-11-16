@@ -22,7 +22,7 @@ function App() {
 
       emptyCart().then((response)=>{
          if (response.status===200){
-           console.log(response)
+           //console.log(response)
            setCart(response.data.cart.items)
          }
       })
@@ -38,7 +38,7 @@ function App() {
   }
   // eslint-disable-next-line no-unused-vars
   const emptyCart = async () =>{
-    var userId='87y748u2re8y48u39949992'
+
     const url = `http://localhost:3001/api/carts/${userid}`;
    
  
@@ -47,7 +47,7 @@ function App() {
   };
 
   const deleteFromCart =async (productId)=>{
-    var userId='87y748u2re8y48u39949992'
+
     const url = `http://localhost:3001/api/carts/${productId}/${userid}`;
    
  
@@ -55,10 +55,9 @@ function App() {
   
   };
   const handleUpdateCartQty = async (productId,quantity)=>{
-             console.log(quantity)
             updateCartQty(productId,quantity).then((response)=>{
              if (response.status===200){
-               console.log(response.data.cart.items)
+              // console.log(response.data.cart.items)
                setCart(response.data.cart.items)
               } 
             })
@@ -80,7 +79,7 @@ function App() {
   const handleAddtoCart = async (productId,quantity)=>{
 
     addtoCart(productId,quantity).then((response) => {
-      console.log(response.data);
+     // console.log(response.data);
       if (response.status===200){
         
          setCart(response.data.cart.items)
@@ -110,6 +109,8 @@ function App() {
   
   };
 
+
+  
    useEffect(() => {
      
   const createTempUserId= ()=>{
@@ -122,31 +123,45 @@ function App() {
         result += characters.charAt(Math.floor(Math.random() * charactersLength));
      }
      localStorage.setItem('temp_id',result)
+     setUserId(result);
 
-     console.log(result);
+   //  console.log(result);
      return result;
+  } 
+  if (localStorage.getItem('temp_id')===null){
+     createTempUserId();
+     
   }
    const checkandSetUserId =()=>{
     let uid=localStorage.getItem('_id');
     let tempuid=localStorage.getItem('temp_id');
-    if (uid===null && tempuid===null){//if user its first time comer and user has not sign In cretae temp id for the user and set it in localStorage
-        createTempUserId();
-        setUserId(localStorage.getItem('temp_id'));
-        console.log(userid)
-      }else{//user revisited 
-     
-        if (localStorage.getItem('loggedin')===true){ //if user signed In get user Id from locaStorage
-        setUserId(localStorage.getItem('_id'));
-        console.log(userid)
-     }else{//user revisited but not signIn Used temp_id
-        setUserId(localStorage.getItem('temp_id'));
-        console.log(userid);
-     }
-    }}
+    let loggedin=localStorage.getItem('loggedin');
+   // console.log('loggedin '+loggedin+' uid '+uid +"temp_id "+ tempuid);
+      if (loggedin!==null){
+         if (loggedin===true){ //if user signed In get user Id from locaStorage
+        setUserId(uid); 
+       //localStorage.removeItem('temp_id');
+
+      }else if(loggedin===false){
+       setUserId(localStorage.getItem('temp_id'));
+
+      }
+      }else{
+
+         //if user its first time comer and user has not sign In cretae temp id for the user and set it in localStorage
+         var id=localStorage.getItem('temp_id');
+         setUserId(id);
+         //console.log(localStorage.getItem('temp_id'));
+
+      }
+   }
+
+  
     
     const fetchCart = async ()=>{
+      var url =`http://localhost:3001/api/carts/${userid}`;
       try{
-         const res = await fetch(`http://localhost:3001/api/carts/${userid}`);
+         const res = await fetch(url);
          const data=await res.json();
                //console.log("cart res : "+data[0].items[0].product._id);
                //console.log("cart res : "+data[0].items[0].quantity);
@@ -161,7 +176,7 @@ function App() {
       try{
          const res = await fetch(`http://localhost:3001/api/products`);
          const data=await res.json();
-               console.log(data);
+              // console.log(data);
                return data;
       }catch(error){
   
@@ -177,14 +192,44 @@ function App() {
             
           }
        setProducts(tmp);
-       console.log(tmp);
+       //console.log(tmp);
     }catch(error){
   
     }
   } 
+  
+  const handlegetCart = async ()=>{
+
+    getCart().then((response) => {
+      //console.log(response.data[0].items);
+      if (response.status===200){
+        try{
+          setCart(response.data.cart.items)
+
+        }catch(err){
+          console.log(err)
+        }
+      }else{
+       
+      
+      }
+      //addToast(exampleToast(response.data.message));
+    })
+}
+
+
+  
+
+  const getCart =()=>{
+
+    const url = `http://localhost:3001/api/carts/${userid}`;
+    
+    return axios.get(url)
+  
+  };
     checkandSetUserId();
     getProducts();
-    fetchCart()
+    handlegetCart();
    },[userid])
   return (
        <Router>
