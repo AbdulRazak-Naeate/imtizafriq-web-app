@@ -43,50 +43,67 @@ router.post('/',async (req,res)=>{
                         },
                       
                       )
-                 var ret=JSON.stringify(itemAlreadyExistInCart);
-                 
+               
+                   var pQty=0;
+                   var matchItems=itemAlreadyExistInCart.items;
+                   for(let i=0;i<matchItems.length;i++){
+                       if (matchItems[i].productId===pid) {
+                          pQty=matchItems[i].quantity
+                          console.log(" q "+ pQty);
+                       }
+                   }
+                     console.log("Matched item "+itemAlreadyExistInCart.items[0]);
                 if (itemAlreadyExistInCart){
-                    
-                    console.log('product exist in cart inc qty')
+                    let product=req.body.product
+                    let line_item_sub_price=(pQty*parseInt(product.price))
+                   // console.log(req.body.quantity);
+                    console.log('product exist in cart inc qty, sub price :'+line_item_sub_price)
                     const updateCartQuantity =await Cart.findOneAndUpdate({
                         items:{
                             $elemMatch:{productId:req.body.productId}
                              }
                             },
                         {
-                            $inc: {'items.$.quantity':1}
+                            $inc: {'items.$.quantity':1},
+                            $set:{'items.$.line_item_sub_price':line_item_sub_price}
                         },   
                         { new:true,useFindAndModify:false}
                         
                    ).then((ret=>{
-                       console.log(ret);
+                       //console.log(ret);
                    }))
         }else{
+                 let product=req.body.product
+                 //let line_item_sub_price=req.body.quantity*product.price
+
                 console.log('add new product into cart')
+                var sub_price = parseInt(req.product.price)
                const addtoCart = await Cart.findOneAndUpdate({userId:req.body.userId},{
                       $push:{items:{
                
                         productId:req.body.productId,
                         quantity:req.body.quantity,
-                        product:req.body.product
+                        product:req.body.product,
+                        line_item_sub_price:sub_price
                      
                 }}
               },{new:true,useFindAndModify:false});
-              console.log(addtoCart)
+              //console.log(addtoCart)
 
             }
           }else{
             console.log('user cart not exist creating new one')
 
             var pid=req.body.productId
-            var product=req.body.product
-            //var line_item_sub_price=req.body.quantity*product.price
+            let subprice=parseInt(req.body.product.price)
+            //let line_item_sub_price=req.body.quantity*product.price
             var cartItem={};
              cartItem={
                
                     productId:req.body.productId,
                     quantity:req.body.quantity,
-                    product:req.body.product
+                    product:req.body.product,
+                    line_item_sub_price:subprice
                  
             }
              const _cart = new Cart({
