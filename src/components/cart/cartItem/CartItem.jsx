@@ -2,7 +2,7 @@ import React from 'react'
 import {Typography,Button,Card,CardActions,CardContent,CardMedia} from '@material-ui/core';
 import useStyles from './styles';
 
-const CartItem = ({item,onUpdateCartQty,onRemoveFromCart,calcSubTotal}) => {
+const CartItem = ({item,onUpdateCartQty,onRemoveFromCart}) => {
     const classes = useStyles();
     console.log(item)
     var qty =item.quantity;
@@ -19,9 +19,9 @@ const CartItem = ({item,onUpdateCartQty,onRemoveFromCart,calcSubTotal}) => {
             </CardContent>
             <CardActions className={classes.CardActions}>
               <div className={classes.buttons}>
-                <Button type="button" size="small" onClick={()=>{onUpdateCartQty(item.product._id,item.quantity-1)}}>-</Button>
+                <Button type="button" size="small" onClick={()=>{onUpdateCartQty(item.product._id,item.quantity-1,item.product.price)}}>-</Button>
                 <Typography>{item.quantity}</Typography>
-                <Button type="button" size="small"  color="secondary" onClick={()=>{onUpdateCartQty(item.product._id,item.quantity+1)}}>+</Button>
+                <Button type="button" size="small"  color="secondary" onClick={()=>{onUpdateCartQty(item.product._id,item.quantity+1,item.product.price)}}>+</Button>
               </div>
               <Button type="button"   variant="contained" color="secondary" onClick={()=>{onRemoveFromCart(item.product._id)}}>Remove</Button>
             </CardActions>

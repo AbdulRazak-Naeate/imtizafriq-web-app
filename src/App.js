@@ -54,16 +54,18 @@ function App() {
     return axios.delete(url)
   
   };
-  const handleUpdateCartQty = async (productId,quantity)=>{
-            updateCartQty(productId,quantity).then((response)=>{
-             if (response.status===200){
-              // console.log(response.data.cart.items)
-               setCart(response.data.cart.items)
-              } 
-            })
+  const handleUpdateCartQty = async (productId,quantity,price)=>{
+          if (quantity>=1){
+            updateCartQty(productId,quantity,price).then((response)=>{
+              if (response.status===200){
+               // console.log(response.data.cart.items)
+                setCart(response.data.cart.items)
+               } 
+             })
+          }
   }
   
-  const updateCartQty =(productId,quantity)=>{
+  const updateCartQty =(productId,quantity,price)=>{
     
     const url = `http://localhost:3001/api/carts/quantity/${productId}`;
    
@@ -71,6 +73,7 @@ function App() {
     return patch(url,  {
       productId:productId,
       quantity:quantity,
+      price:price,
       userId:userid,
      
     })
@@ -82,7 +85,7 @@ function App() {
      // console.log(response.data);
       if (response.status===200){
         
-         setCart(response.data.cart.items)
+        setCart(response.data.cart.items)
       }else{
        
       

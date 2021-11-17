@@ -36,26 +36,23 @@ router.post('/',async (req,res)=>{
             console.log('usercart cart exist ')
 
                 let pid=req.body.productId
+                console.log("productId "+pid);
                 const itemAlreadyExistInCart = await Cart.findOne(
                        {
                         userId:req.body.userId,
-                        items:{$elemMatch:{productId:pid}}
+                       
                         },
-                      
+                       { items:{$elemMatch:{productId:pid}}}
                       )
-               
-                   var pQty=0;
-                   var matchItems=itemAlreadyExistInCart.items;
-                   for(let i=0;i<matchItems.length;i++){
-                       if (matchItems[i].productId===pid) {
-                          pQty=matchItems[i].quantity
-                          console.log(" q "+ pQty);
-                       }
-                   }
-                     console.log("Matched item "+itemAlreadyExistInCart.items[0]);
-                if (itemAlreadyExistInCart){
+                    var matchItems=itemAlreadyExistInCart.items;
+                     console.log("mtachItems :"+itemAlreadyExistInCart)
+                     var pQty=exactMatchQuantity(matchItems,pid)
+                   
+                     console.log("Matched item qty "+pQty);
+                     console.log("Matched Items length : "+matchItems.length);
+                if (matchItems.length>0){
                     let product=req.body.product
-                    let line_item_sub_price=(pQty*parseInt(product.price))
+                    let line_item_sub_price=((pQty+1)*parseInt(product.price))
                    // console.log(req.body.quantity);
                     console.log('product exist in cart inc qty, sub price :'+line_item_sub_price)
                     const updateCartQuantity =await Cart.findOneAndUpdate({
@@ -77,7 +74,7 @@ router.post('/',async (req,res)=>{
                  //let line_item_sub_price=req.body.quantity*product.price
 
                 console.log('add new product into cart')
-                var sub_price = parseInt(req.product.price)
+                var sub_price = parseInt(req.body.product.price)
                const addtoCart = await Cart.findOneAndUpdate({userId:req.body.userId},{
                       $push:{items:{
                
@@ -127,14 +124,18 @@ router.patch('/quantity/:productId',async (req,res)=>{
 
     try{
         var pId =req.body.productId;
-        var value= parseInt(req.body.quantity);
+        var value= parseInt(req.body.quantity)
+        var subtotalqty=(value)*parseInt(req.body.price);
         Cart.findOneAndUpdate({
             items:{
                 $elemMatch:{productId:req.body.productId}
                  }
                 },
             {
-                $set: {'items.$.quantity':req.body.quantity}
+                $set: {
+                      'items.$.quantity':req.body.quantity,
+                      'items.$.line_item_sub_price':subtotalqty,
+                      }
             },   
             { new:true,useFindAndModify:false}).then(ret=>{
             //res.json(ret)
@@ -189,5 +190,16 @@ router.delete('/:productId/:userId', async (req,res)=>{
           
      }
 })
+
+const exactMatchQuantity =(matchItems,productId)=>{//search and get the exact cartItem usinf productId
+    var previuosQty=0;
+    for(let i=0;i<matchItems.length;i++){
+        if (matchItems[i].productId===productId) {
+            previuosQty=matchItems[i].quantity
+           console.log(" q "+ previuosQty);
+        }
+    return previuosQty+1 //gets cartItem provious qauntity and add 1 for increment
+}
+}
 
 module.exports = router;
