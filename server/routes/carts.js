@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const express = require('express');
 const router  = express.Router();
 const Cart    = require('../models/Cart');
@@ -30,13 +31,13 @@ router.get('/:userId', async (req,res)=>{
 
 router.post('/',async (req,res)=>{
     try{
-          console.log(req.body.productId)
+         
          const userCartAllreadyAdded= await Cart.findOne({userId:req.body.userId});
         if (userCartAllreadyAdded) {//product Exist increase quantity
             console.log('usercart cart exist ')
 
                 let pid=req.body.productId
-                console.log("productId "+pid);
+                //console.log("productId "+pid);
                 const itemAlreadyExistInCart = await Cart.findOne(
                        {
                         userId:req.body.userId,
@@ -44,31 +45,36 @@ router.post('/',async (req,res)=>{
                         },
                        { items:{$elemMatch:{productId:pid}}}
                       )
+
+                      
                     var matchItems=itemAlreadyExistInCart.items;
-                     console.log("mtachItems :"+itemAlreadyExistInCart)
+                    // console.log("mtachItems :"+itemAlreadyExistInCart)
                      var pQty=exactMatchQuantity(matchItems,pid)
                    
-                     console.log("Matched item qty "+pQty);
-                     console.log("Matched Items length : "+matchItems.length);
+                     //console.log("Matched item qty "+pQty);
+                     //console.log("Matched Items length : "+matchItems.length);
                 if (matchItems.length>0){
                     let product=req.body.product
-                    let line_item_sub_price=((pQty+1)*parseInt(product.price))
+                    let line_item_sub_price=((pQty)*parseInt(product.price))
                    // console.log(req.body.quantity);
                     console.log('product exist in cart inc qty, sub price :'+line_item_sub_price)
-                    const updateCartQuantity =await Cart.findOneAndUpdate({
+                    const updateCartQuantity =await Cart.findOneAndUpdate({//update item
                         items:{
                             $elemMatch:{productId:req.body.productId}
                              }
                             },
                         {
-                            $inc: {'items.$.quantity':1},
-                            $set:{'items.$.line_item_sub_price':line_item_sub_price}
+                            $inc: {'items.$.quantity':1},//increate quantity by 1
+                            $set:{'items.$.line_item_sub_price':line_item_sub_price}, //set subtotal price quantity by price
                         },   
                         { new:true,useFindAndModify:false}
                         
-                   ).then((ret=>{
+                   ).then((ret=>{   //sum all line_items_sub_price
+                           updateSubtotal(req);
                        //console.log(ret);
                    }))
+
+                   
         }else{
                  let product=req.body.product
                  //let line_item_sub_price=req.body.quantity*product.price
@@ -82,9 +88,13 @@ router.post('/',async (req,res)=>{
                         quantity:req.body.quantity,
                         product:req.body.product,
                         line_item_sub_price:sub_price
+                       
                      
                 }}
-              },{new:true,useFindAndModify:false});
+              },{new:true,useFindAndModify:false}
+              ).then((ret=>{
+               updateSubtotal(req);
+              }))
               //console.log(addtoCart)
 
             }
@@ -101,14 +111,19 @@ router.post('/',async (req,res)=>{
                     quantity:req.body.quantity,
                     product:req.body.product,
                     line_item_sub_price:subprice
-                 
+                   
             }
              const _cart = new Cart({
             userId:req.body.userId,
-            items:[cartItem]}
+            items:[cartItem],
+
+           }
             ); 
-            
-            const savedCart = await _cart.save();
+
+            const savedCart = await _cart.save();      
+            updateSubtotal(req);
+            //console.log(savedCart);
+
         }
 
       const cart = await Cart.findOne({userId:req.body.userId});
@@ -138,6 +153,7 @@ router.patch('/quantity/:productId',async (req,res)=>{
                       }
             },   
             { new:true,useFindAndModify:false}).then(ret=>{
+                updateSubtotal(req);
             //res.json(ret)
         });
 
@@ -200,6 +216,32 @@ const exactMatchQuantity =(matchItems,productId)=>{//search and get the exact ca
         }
     return previuosQty+1 //gets cartItem provious qauntity and add 1 for increment
 }
-}
 
+}
+const updateSubtotal =(req) =>{//sum all line_items_sub_price
+    Cart.aggregate([{$unwind:"$items"}, 
+    {
+        $group:{
+            "_id":"tempId",
+            "subTotal":{$sum:"$items.line_item_sub_price"}
+     
+          }
+   }]).then((ret=>{ //update subtotal 
+
+       console.log("aggr : "+ret[0].subTotal);
+       let subtotal = ret[0].subTotal
+        Cart.findOneAndUpdate({userId:req.body.userId},
+         {
+           $set:{subtotal:subtotal},
+         },   
+         { new:true,useFindAndModify:false}
+         ).then((ret=>{
+             console.log("update subtotal : "+ret)
+         }))
+
+
+   })).catch((err=>{
+       console.log(err);
+   }))
+}
 module.exports = router;

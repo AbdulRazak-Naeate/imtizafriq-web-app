@@ -10,7 +10,10 @@ const CartSchema = new mongoose.Schema({
         type:Array,
         required:true
     },
-
+    subtotal:{
+        type:Number,
+        default:0
+    },
     date:{
         type:Date,
         default:Date.now()
