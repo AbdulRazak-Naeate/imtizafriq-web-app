@@ -1,4 +1,4 @@
-import React ,{useState} from 'react'
+import React ,{useState,useEffect} from 'react'
  import{Container,Typography,Button, Grid} from '@material-ui/core';
  import useStyles from './styles';
  import CartItem from './cartItem/CartItem';
@@ -6,6 +6,14 @@ import React ,{useState} from 'react'
 const Cart = ({cart, handleUpdateCartQty,handleRemoveFromCart, handleEmptyCart}) => {
   
     const classes= useStyles();
+    const [itemsCount,setItemsCount]=useState(0);
+    useEffect(()=>{
+       try{
+        cart.items.length!==undefined?setItemsCount(cart.items.length):setItemsCount(cart.items.length)
+       }catch(err){
+           console.log(err)
+       }
+    },[cart,setItemsCount])
     const EmptyCart = ()=>(
         <Typography variant="subtitle1">You have no items in your shopping cart,
         <Link to="/" className={classes.link}>start adding some</Link>!
@@ -39,7 +47,7 @@ const Cart = ({cart, handleUpdateCartQty,handleRemoveFromCart, handleEmptyCart})
                 <div  className={classes.toolbar}/>
                 <Typography className={classes.title} variant="h3" gutterBottom>Your Shopping Cart</Typography>
                
-                {!cart.items.length ? EmptyCart(): FilledCart()}
+                {itemsCount===0 ? EmptyCart(): FilledCart()}
             </Container>
         </div>
     )

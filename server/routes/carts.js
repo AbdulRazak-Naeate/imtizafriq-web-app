@@ -141,24 +141,25 @@ router.patch('/quantity/:productId',async (req,res)=>{
         var pId =req.body.productId;
         var value= parseInt(req.body.quantity)
         var subtotalqty=(value)*parseInt(req.body.price);
-        Cart.findOneAndUpdate({
+        console.log("value "+subtotalqty)
+        Cart.findOneAndUpdate({userId:req.body.userId,
             items:{
                 $elemMatch:{productId:req.body.productId}
                  }
                 },
             {
                 $set: {
-                      'items.$.quantity':req.body.quantity,
+                      'items.$.quantity':value,
                       'items.$.line_item_sub_price':subtotalqty,
                       }
             },   
             { new:true,useFindAndModify:false}).then(ret=>{
-             /// console.log(ret)
-              let subtotal=0;
+             //console.log(ret)
+            /* let subtotal=0;
               ret.items.forEach(item=>{
                     subtotal+=item.line_item_sub_price
               });
-              console.log(subtotal) 
+              console.log(subtotal)*/
               updateSubtotal(req,res)
               
         });
@@ -194,21 +195,22 @@ router.patch('/:userId', async (req,res)=>{
 })
 
 //deletete Item from user Cart
-router.delete('/:productId/:userId', async (req,res)=>{
+router.patch('/removeitem/:userId', async (req,res)=>{
       console.log(req.params.userId)
 
      try{
            const deleteFromCart= await Cart.updateOne({
             items:{
-                $elemMatch:{productId:req.params.productId}
+                $elemMatch:{productId:req.body.productId}
                  }},{
-                     $pull:{items:{productId:req.params.productId}}
+                     $pull:{items:{productId:req.body.productId}}
                  },{multi:true}).then(ret=>{
               console.log(ret)
            });            
-           
-           updateSubtotal(req,res)
-/* 
+           updateSubtotal(req,res);
+ /*         
+
+ 
            console.log(req.params.productId)
      const  cart = await Cart.findOne({userId:req.params.userId});
      res.json({cart:cart,status:200}) */
@@ -233,7 +235,7 @@ const updateSubtotal = async (req,res) =>{//sum all line_items_sub_price
   const aggr= await Cart.aggregate([{$match:{userId:req.body.userId}},{$unwind:"$items"},
     {
         $group:{
-            "_id":0,
+            "_id":'0',
             "subTotal":{$sum:"$items.line_item_sub_price"}
      
           }

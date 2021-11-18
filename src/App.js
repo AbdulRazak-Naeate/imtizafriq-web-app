@@ -88,11 +88,14 @@ function App() {
   };
 
   const deleteFromCart =async (productId)=>{
-
-    const url = `http://localhost:3001/api/carts/${productId}/${userid}`;
+    console.log(productId)
+    const url = `http://localhost:3001/api/carts/removeitem/${userid}`;
    
  
-    return axios.delete(url)
+    return axios.patch(url,{
+      productId:productId,
+      userId:userid
+    })
   
   };
   const handleUpdateCartQty = async (productId,quantity,price)=>{
