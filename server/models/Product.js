@@ -15,7 +15,7 @@ const mongoose = require('mongoose');
         required:'none'
     },
     price:{
-        type:String,
+        type:Number,
         required:true
     },
     storeId:{
@@ -36,12 +36,12 @@ const mongoose = require('mongoose');
         default:''
     },
     likes:{
-        type:String,
-        default:'0'
+        type:Number,
+        default:0
     },
     comments:{
         type:Number,
-        default:'0'
+        default:0
     },
     date:{
         type:String,

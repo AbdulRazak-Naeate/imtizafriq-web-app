@@ -4,12 +4,7 @@ import React ,{useState} from 'react'
  import CartItem from './cartItem/CartItem';
  import {Link} from 'react-router-dom';
 const Cart = ({cart, handleUpdateCartQty,handleRemoveFromCart, handleEmptyCart}) => {
-    const [subtotal,setSubTotal]=useState(0);
   
-    const calcSubTotal = async (itemTotal)=>{
-       
-        setSubTotal(subtotal+itemTotal);
-    }
     const classes= useStyles();
     const EmptyCart = ()=>(
         <Typography variant="subtitle1">You have no items in your shopping cart,
@@ -19,14 +14,14 @@ const Cart = ({cart, handleUpdateCartQty,handleRemoveFromCart, handleEmptyCart})
     const  FilledCart =()=>(
           <>
             <Grid container spacing={3}> 
-                {cart.map((item)=>(
+                {cart.items.map((item)=>(
                     <Grid item xs={12} sm={4} key={item.porductId}>
                         <CartItem item={item} key={item.porductId} onUpdateCartQty={handleUpdateCartQty} onRemoveFromCart={handleRemoveFromCart} />
                     </Grid>
                 ))}
             </Grid>
             <div className={classes.cardDetails}>
-                <Typography variant="h4">Subtotal:{cart.subtotal}</Typography>
+                <Typography variant="h4">Subtotal: ${cart.subtotal}</Typography>
                 <div>
                 <Button className={classes.emptyButton} size="large" type="button" variant="contained" color="secondary" onClick={handleEmptyCart}>Empty Cart</Button> 
                  <Button component={Link} to="/checkout" className={classes.checkoutButton} size="large" type="button" variant="contained" color="primary">Check Out</Button>
@@ -44,7 +39,7 @@ const Cart = ({cart, handleUpdateCartQty,handleRemoveFromCart, handleEmptyCart})
                 <div  className={classes.toolbar}/>
                 <Typography className={classes.title} variant="h3" gutterBottom>Your Shopping Cart</Typography>
                
-                {!cart.length ? EmptyCart(): FilledCart()}
+                {!cart.items.length ? EmptyCart(): FilledCart()}
             </Container>
         </div>
     )

@@ -11,11 +11,48 @@ import Cart from './components/cart/Cart';
 import { useEffect } from 'react';
 import axios ,{post,patch} from 'axios';
 function App() {
-     const[userid,setUserId]=useState('');
-     const[tempUserId,setTempUserId]=useState('');
-  const[products,setProducts]=useState([]);
-  const[cart,setCart]=useState({});
   
+   const createTempUserId= ()=>{
+     var id='';
+    if (localStorage.getItem('temp_id')===null){
+       var result = '';
+      // var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+     var characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXZY';
+ 
+     var charactersLength = characters.length;
+     for ( var i = 0; i < 18; i++ ) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+     }
+     id =result;
+     localStorage.setItem('temp_id',result);
+
+    }else{
+      let uid=localStorage.getItem('_id');
+      let loggedin=localStorage.getItem('loggedin');
+      if (loggedin!==null){
+        if (loggedin===true){ //if user signed In get user Id from locaStorage
+       setUserId(uid); 
+      //localStorage.removeItem('temp_id');
+
+     }else if(loggedin===false){
+      setUserId(localStorage.getItem('temp_id'));
+
+     }
+     }else{
+
+        //if user its first time comer and user has not sign In cretae temp id for the user and set it in localStorage
+         id=localStorage.getItem('temp_id');
+       
+     }
+    }
+     
+     return id;
+  }
+  const[userid,setUserId]=useState(createTempUserId());
+ 
+  const[products,setProducts]=useState([]);
+     const[cart,setCart]=useState({});
+     const[itemsCount,setItemsCount]=useState(0);
     
   // eslint-disable-next-line no-unused-vars
   const handleEmptyCart = async ()=>{
@@ -23,7 +60,9 @@ function App() {
       emptyCart().then((response)=>{
          if (response.status===200){
            //console.log(response)
-           setCart(response.data.cart.items)
+           setCart(response.data.cart)
+           setItemsCount(response.data.cart.items.length);
+
          }
       })
   }
@@ -32,7 +71,9 @@ function App() {
        deleteFromCart(productId).then((response)=>{
          if (response.status===200){
            //console.log(response)
-           setCart(response.data.cart.items)
+           setCart(response.data.cart)
+           setItemsCount(response.data.cart.items.length);
+
          }
        })
   }
@@ -59,7 +100,9 @@ function App() {
             updateCartQty(productId,quantity,price).then((response)=>{
               if (response.status===200){
                // console.log(response.data.cart.items)
-                setCart(response.data.cart.items)
+                setCart(response.data.cart)
+                setItemsCount(response.data.cart.items.length);
+
                } 
              })
           }
@@ -85,7 +128,9 @@ function App() {
      // console.log(response.data);
       if (response.status===200){
         
-        setCart(response.data.cart.items)
+        setCart(response.data.cart)
+        setItemsCount(response.data.cart.items.length);
+
       }else{
        
       
@@ -100,7 +145,6 @@ function App() {
   const addtoCart =(product,quantity)=>{
     
     const url = 'http://localhost:3001/api/carts';
-   
  
     return post(url,  {
       productId:product._id,
@@ -111,74 +155,14 @@ function App() {
     })
   
   };
-
-
   
+
    useEffect(() => {
-     
-  const createTempUserId= ()=>{
-    var result           = '';
-    // var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-     var characters       = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXZY';
- 
-     var charactersLength = characters.length;
-     for ( var i = 0; i < 18; i++ ) {
-        result += characters.charAt(Math.floor(Math.random() * charactersLength));
-     }
-     localStorage.setItem('temp_id',result)
-     setUserId(result);
-
-   //  console.log(result);
-     return result;
-  } 
-  if (localStorage.getItem('temp_id')===null){
-     createTempUserId();
-     
-  }
-   const checkandSetUserId =()=>{
-    let uid=localStorage.getItem('_id');
-    let tempuid=localStorage.getItem('temp_id');
-    let loggedin=localStorage.getItem('loggedin');
-   // console.log('loggedin '+loggedin+' uid '+uid +"temp_id "+ tempuid);
-      if (loggedin!==null){
-         if (loggedin===true){ //if user signed In get user Id from locaStorage
-        setUserId(uid); 
-       //localStorage.removeItem('temp_id');
-
-      }else if(loggedin===false){
-       setUserId(localStorage.getItem('temp_id'));
-
-      }
-      }else{
-
-         //if user its first time comer and user has not sign In cretae temp id for the user and set it in localStorage
-         var id=localStorage.getItem('temp_id');
-         setUserId(id);
-         //console.log(localStorage.getItem('temp_id'));
-
-      }
-   }
-
   
-    
-    const fetchCart = async ()=>{
-      var url =`http://localhost:3001/api/carts/${userid}`;
-      try{
-         const res = await fetch(url);
-         const data=await res.json();
-               //console.log("cart res : "+data[0].items[0].product._id);
-               //console.log("cart res : "+data[0].items[0].quantity);
-
-               setCart(data[0].items);
-               return data;
-      }catch(error){
-  
-      }
-  }
     const fetchProducts = async ()=>{
       try{
-         const res = await fetch(`http://localhost:3001/api/products`);
-         const data=await res.json();
+         const res  = await fetch(`http://localhost:3001/api/products`);
+         const data = await res.json();
               // console.log(data);
                return data;
       }catch(error){
@@ -202,22 +186,21 @@ function App() {
   } 
   
   const handlegetCart = async ()=>{
-
+   console.log("get cart"+userid)
+  
     getCart().then((response) => {
-      //console.log(response.data[0].items);
+      console.log(response.data);
       if (response.status===200){
         try{
-          setCart(response.data.cart.items)
-
+          setCart(response.data.cart)
+          setItemsCount(response.data.cart.items.length);
         }catch(err){
           console.log(err)
         }
-      }else{
-       
-      
       }
       //addToast(exampleToast(response.data.message));
     })
+  
 }
 
 
@@ -230,13 +213,13 @@ function App() {
     return axios.get(url)
   
   };
-    checkandSetUserId();
     getProducts();
     handlegetCart();
    },[userid])
   return (
        <Router>
-         <Topbar totalItems={cart.length}/>
+         
+         <Topbar totalItems={itemsCount}/>
        <Switch>
        <Route exact path="/" >
        <Products products={products} onAddToCart={handleAddtoCart} />
