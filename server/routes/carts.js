@@ -2,11 +2,9 @@
 const express = require('express');
 const router  = express.Router();
 const Cart    = require('../models/Cart');
-const mongoose= require('mongoose');
 
 //get all carts
-
-/**/ router.get('/', async (req,res)=>{
+router.get('/', async (req,res)=>{
     try{
           const carts = await Cart.find();
           res.json(carts);
@@ -126,22 +124,19 @@ router.post('/',async (req,res)=>{
 
         }
 
-      /* const cart = await Cart.findOne({userId:req.body.userId});
-      res.json({cart:cart,status:200}); */
-
     }catch(error){
        res.json(error);
     }
 });
 
-//update cart qty
+//update cart item qty and subprice
 router.patch('/quantity/:productId',async (req,res)=>{
 
     try{
         var pId =req.body.productId;
         var value= parseInt(req.body.quantity)
         var subtotalqty=(value)*parseInt(req.body.price);
-        console.log("value "+subtotalqty)
+       // console.log("value "+subtotalqty)
         Cart.findOneAndUpdate({userId:req.body.userId,
             items:{
                 $elemMatch:{productId:req.body.productId}
@@ -154,12 +149,7 @@ router.patch('/quantity/:productId',async (req,res)=>{
                       }
             },   
             { new:true,useFindAndModify:false}).then(ret=>{
-             //console.log(ret)
-            /* let subtotal=0;
-              ret.items.forEach(item=>{
-                    subtotal+=item.line_item_sub_price
-              });
-              console.log(subtotal)*/
+            
               updateSubtotal(req,res)
               
         });
@@ -175,10 +165,9 @@ router.patch('/quantity/:productId',async (req,res)=>{
 
 //empty user Cart
 router.patch('/:userId', async (req,res)=>{
-    console.log(req.params.userId)
 
    try{
-         const emptyUserCart= await Cart.findOneAndUpdate({userId:req.params.userId}
+         await Cart.findOneAndUpdate({userId:req.params.userId}
                ,{
                    $set:{items:[],subtotal:0},
                  
@@ -196,7 +185,6 @@ router.patch('/:userId', async (req,res)=>{
 
 //deletete Item from user Cart
 router.patch('/removeitem/:userId', async (req,res)=>{
-      console.log(req.params.userId)
 
      try{
            const deleteFromCart= await Cart.updateOne({
@@ -208,12 +196,7 @@ router.patch('/removeitem/:userId', async (req,res)=>{
               console.log(ret)
            });            
            updateSubtotal(req,res);
- /*         
-
- 
-           console.log(req.params.productId)
-     const  cart = await Cart.findOne({userId:req.params.userId});
-     res.json({cart:cart,status:200}) */
+         
      }catch(errr){
           
      }

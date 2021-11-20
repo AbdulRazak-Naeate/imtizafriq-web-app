@@ -2,10 +2,10 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(() => ({
   media: {
-    height: 260,
+    height: 200,
   },
   cardContent: {
-    height:120,
+    height:100,
     display: 'flex',
     justifyContent: 'space-between',
   },

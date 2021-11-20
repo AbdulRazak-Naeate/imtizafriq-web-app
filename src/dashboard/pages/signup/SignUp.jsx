@@ -190,7 +190,7 @@ const initiateCities = async (db,citiesJSON) =>{
                     <h1 className="title">Signup</h1>
                   </div>
                     <form  className="signupForm" onSubmit={onFormSubmit}>
-                  {/*  { <div className="signupItem">
+                   <div className="signupItem">
                         <select name="country" id="country"  onChange={onCountryChange} className="signupItemInput">
                              { 
                               countries.map((c ,index)=>(
@@ -214,7 +214,7 @@ const initiateCities = async (db,citiesJSON) =>{
                                ))
                              }
                         </select>
-                      </div>} */}
+                      </div>
                         <div className="signupItem">
                             <label>UserName</label>
                             <input type="text"  className="signupInput" required value={username} onChange={(e)=>{setUsername(e.target.value)}}/>

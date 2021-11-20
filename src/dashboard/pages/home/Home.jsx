@@ -9,7 +9,7 @@ import WidgetLg from "../../components/widgetLg/WidgetLg";
 function Home({toggleSideBar}) {
     useEffect(()=>{
         toggleSideBar(true);
-       },[]);
+       },[toggleSideBar]);
     return (
         <div className="home">
          <div className="widgetwrapper">

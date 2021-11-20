@@ -5,11 +5,10 @@ import  Dashboard from './dashboard/Dashboard'
 import './App.css';
 import LogIn from "./pages/login/LogIn";
 import SignUp from './pages/signup/SignUp';
-import Topbar from   './components/topbar/Topbar';
-import Products from './components/products/Products';
-import Cart from './components/cart/Cart';
+import {Topbar,Products,Cart } from   './components';
 import { useEffect } from 'react';
 import axios ,{post,patch} from 'axios';
+import CheckOut from './components/checkoutform/checkout/CheckOut';
 function App() {
   
    const createTempUserId= ()=>{
@@ -53,7 +52,9 @@ function App() {
   const[products,setProducts]=useState([]);
      const[cart,setCart]=useState({});
      const[itemsCount,setItemsCount]=useState(0);
-    
+     const [errorMessage,setErrorMessage]=useState('');
+     const [order,setOrder]=useState({});
+
   // eslint-disable-next-line no-unused-vars
   const handleEmptyCart = async ()=>{
 
@@ -158,6 +159,15 @@ function App() {
     })
   
   };
+  const handleCaptureCheckout =async (checkoutTokenId,newOrder)=>{
+    try{
+         
+           //setOrder(incomingorder);
+           //refreshCart();
+    }catch(error){
+           setErrorMessage(error.data.error.message);
+    }
+}
   
 
    useEffect(() => {
@@ -229,9 +239,11 @@ function App() {
       
        </Route>
        <Route exact path="/cart">
-         {console.log(cart)}
           <Cart cart={cart} handleUpdateCartQty={handleUpdateCartQty} handleRemoveFromCart={handleRemoveFromCart}
           handleEmptyCart={handleEmptyCart}/>
+       </Route>
+       <Route exact path="/checkout">
+         <CheckOut cart={cart}   order={order}  onCaptureCheckout={handleCaptureCheckout}/>
        </Route>
         </Switch> 
         
