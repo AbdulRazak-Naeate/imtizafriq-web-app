@@ -10,12 +10,20 @@ var loki = require('lokijs');
 
 const AddressForm = ({checkoutToken,next}) => {
     const methods=useForm();
+    const {register,
+      handleSubmit,
+      formState: { errors },
+    } = useForm();
+
     const [countries,setCountries]=useState([]);
     const [country,setCountry]=useState('');
+    const [countrylabel,setCountryLabel]=useState('');
     const [states,setStates]=useState([]);
     const [state,setState]=useState('');
+    const [stateLabel,setStateLabel]=useState('');
     const [cities,setCities]=useState([]);
     const [city,setCity]=useState('');
+    const [cityLabel,setCityLabel]=useState('');
 
     const _db = new loki('csc.db');
     const[db]=useState(_db);
@@ -23,21 +31,30 @@ const AddressForm = ({checkoutToken,next}) => {
     
     
   const onCountryChange=(e)=>{
-    var sid=e.target.value;
-    setCountry(sid);
+    var value=e.target.value;
+    var arr = value.split(" ");
+    setCountry(arr[0]);
+    setCountryLabel(arr[1])
+     var sid=parseInt(arr[0]);
+    console.log(arr)
      filterStates(sid,db);
   }
   const onStateChange=(e)=>{
-    var cid=e.target.value;
-    setState(cid)
+    var value=e.target.value;
+    var arr = value.split(" ");
+     var cid=parseInt(arr[0]);
+    setState(cid)  
+    setStateLabel(arr[1]);
      filterCities(cid,db);
   }
   const onCityChange=(e)=>{
-    var cid=e.target.value;
-    setCity(cid)
+    var value=e.target.value;
+    var arr = value.split(" ");
+    setCityLabel(arr[1])
+     var cid=parseInt(arr[0]);
+      setCity(cid)
   }
   const filterStates = async(cid,db)=> {
-    console.log(cid);
     let statesColl = db.getCollection("states");
    // console.log(statesColl.data)
     let states = await statesColl.find({ country_id: parseInt(cid) });
@@ -45,7 +62,6 @@ const AddressForm = ({checkoutToken,next}) => {
   
   }
   const filterCities = async(sid,db)=> {
-    console.log(sid);
     let citiesColl = db.getCollection("cities");
     console.log(citiesColl.data)
     let cities = await citiesColl.find({ state_id: parseInt(sid) });
@@ -127,21 +143,22 @@ const AddressForm = ({checkoutToken,next}) => {
   return (
     <>
       <Typography variant="h6" gutterBottom>Shipping Address</Typography>
-      <FormProvider {...methods} >
-          <form onSubmit = {methods.handleSubmit((data) => next({ ...data,country,state,city})) } >
+          <form onSubmit = {handleSubmit((data) =>{ 
+            next({...data,country,state,city})
+            }) } >
             <Grid container spacing={3}>
-                <FormInput name='firstName' label='First name'/>
-                <FormInput name='lastName' label='Last name'/>
-                <FormInput name='address1' label='Address'/>
-                <FormInput name='email'  label='Email'/>
-                <FormInput name='phone' label='Phone'/>
-                <FormInput name='city' label='City'/>
-                <FormInput name='zip' label='Zip/Postal code'/>
-              {/*   <Grid item xs={12} sm={6}>
+                <FormInput name='firstName'  label='First name' register={register}/>
+                <FormInput name='lastName'   label='Last name' register={register}/>
+                <FormInput name='address1'   label='Address' register={register}/>
+                <FormInput name='email'    label='Email' register={register} />
+                <FormInput name='phone' label='Phone' register={register}/>
+                <FormInput name='city'  label='City' register={register}/>
+                <FormInput name='zip'   label='Zip/Postal code' register={register}/>
+                <Grid item xs={12} sm={6}>
                     <InputLabel>Shipping Country</InputLabel>
-                    <Select value={country}  fullWidth onChange={onCountryChange}>
+                    <Select value={country} name="country" fullWidth onChange={onCountryChange}>
                     {countries.map((c)=>(
-                       <MenuItem key={c.id} value={c.id}>
+                       <MenuItem key={c.id} value={`${c.id} ${c.name}`}>
                             {c.name}
                        </MenuItem>
                    ))}
@@ -152,7 +169,7 @@ const AddressForm = ({checkoutToken,next}) => {
                     <InputLabel>Shipping State</InputLabel>
                     <Select value={state}  fullWidth onChange={onStateChange}>
                     {states.map((s)=>(
-                       <MenuItem key={s.id} value={s.id}>
+                       <MenuItem key={s.id} value={`${s.id} ${s.name}`}>
                             {s.name}
                        </MenuItem>
                    ))}
@@ -162,22 +179,20 @@ const AddressForm = ({checkoutToken,next}) => {
                     <InputLabel>Shipping City</InputLabel>
                     <Select value={city}  fullWidth onChange={onCityChange}>
                     {cities.map((c)=>(
-                       <MenuItem key={c.id} value={c.id}>
+                       <MenuItem key={c.id} value={`${c.id} ${c.name}`}>
                             {c.name}
                        </MenuItem>
                    ))}
                    </Select>
-                </Grid> */}
+                </Grid>
             </Grid>
             <br/>
               <div style={{display:'flex',justifyContent:'space-between' }}>
-                        <Button component={Link} to="/" variant='outlined'>Back to Cart</Button>
+                        <Button component={Link} to="/cart" variant='outlined'>Back to Cart</Button>
                         <Button type="submit" variant="contained" color="primary">Next</Button>
             </div>
           </form>
-
-      </FormProvider>
-    </>
+            </>
   )
 }
 

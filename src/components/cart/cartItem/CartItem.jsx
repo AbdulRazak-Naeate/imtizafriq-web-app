@@ -4,11 +4,6 @@ import useStyles from './styles';
 
 const CartItem = ({item,onUpdateCartQty,onRemoveFromCart}) => {
     const classes = useStyles();
-    console.log(item)
-    var qty =item.quantity;
-
-    console.log(qty)
-    //calcSubTotal(item.product.price*qty);
   return (
     <div>
         <Card>
