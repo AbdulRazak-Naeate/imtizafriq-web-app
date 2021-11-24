@@ -11,7 +11,7 @@ export default makeStyles(() => ({
   },
   cardActions: {
     border:'0px solid',
-    height:200,
+    height:'auto',
     display:'flex',
     flexDirection:'column',
     justifyContent: 'space-between',

@@ -117,7 +117,7 @@ function App() {
   const updateCartQty =(productId,quantity,price)=>{
     
     const url = `http://localhost:3001/api/carts/quantity/${productId}`;
-   
+     
  
     return patch(url,  {
       productId:productId,
@@ -125,6 +125,32 @@ function App() {
       price:price,
       userId:userid,
      
+    })
+  
+  };
+
+  const handleUpdateSpecs = async (productId,type,value)=>{
+  
+      updateSpecs(productId,type,value).then((response)=>{
+        if (response.status===200){
+         // console.log(response.data.cart.items)
+          setCart(response.data.cart)
+          setItemsCount(response.data.cart.items.length);
+
+         } 
+       })
+    
+   }
+  const updateSpecs =(productId,type,value)=>{
+    
+    const url = `http://localhost:3001/api/carts/specs`;
+     
+ 
+    return patch(url,  {
+      productId:productId,
+      type:type,
+      value:value,
+      userId:userid,
     })
   
   };
@@ -298,7 +324,7 @@ function App() {
       
        </Route>
        <Route exact path="/cart">
-          <Cart cart={cart} handleUpdateCartQty={handleUpdateCartQty} handleRemoveFromCart={handleRemoveFromCart}
+          <Cart cart={cart} handleUpdateCartQty={handleUpdateCartQty} handleUpdateSpecs={handleUpdateSpecs} handleRemoveFromCart={handleRemoveFromCart}
           handleEmptyCart={handleEmptyCart}/>
        </Route>
        <Route exact path="/checkout">

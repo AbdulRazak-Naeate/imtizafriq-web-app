@@ -2,7 +2,7 @@ import React,{useState} from 'react'
 import {Typography,Button,Card,CardActions,CardContent,CardMedia} from '@material-ui/core';
 import useStyles from './styles';
 
-const CartItem = ({item,onUpdateCartQty,onRemoveFromCart}) => {
+const CartItem = ({cartitem,onUpdateCartQty,onUpdateSpecs,onRemoveFromCart}) => {
     const classes = useStyles();
     const[color,setColor]=useState('');
     const[size,setSize]=useState('');
@@ -16,14 +16,14 @@ const CartItem = ({item,onUpdateCartQty,onRemoveFromCart}) => {
       console.log(item)
       
  }
-    const ColorGridList= ({list}) =>(
+    const ColorGridList= ({list,onUpdateSpecs}) =>(
           <>
           <span>{`Select Color`}</span>
          <div class={classes.specsListWrapper} >
           <div className={classes.gridSpecsList} >                        
                <div className={classes.specsGrid} > 
                 {list.map((item,index)=>(
-                  <div key={index} className={`${classes.gridSpecsItem} ${color===item ? classes.select:classes.disSelect}`} onClick={()=>{onGridColorItemClick(item)}}>{item}</div>
+                  <div key={index} className={`${classes.gridSpecsItem} ${color===item ? classes.select:classes.disSelect}`} onClick={()=>{onUpdateSpecs(cartitem.product._id,'color',item);onGridColorItemClick(item)}}>{item}</div>
                
                 ))}
                 </div>
@@ -32,14 +32,14 @@ const CartItem = ({item,onUpdateCartQty,onRemoveFromCart}) => {
   </>
     )
 
-    const SizeGridList= ({list}) =>(
+    const SizeGridList= ({list ,onUpdateSpecs}) =>(
       <>
       <span>{`Select Size`}</span>
      <div class={classes.specsListWrapper} >
       <div className={classes.gridSpecsList} >                        
            <div className={classes.specsGrid} > 
             {list.map((item,index)=>(
-              <div key={index} className={`${classes.gridSpecsItem} ${size===item ? classes.select:classes.disSelect}`} onClick={()=>{onGridSizeItemClick(item)}}>{item}</div>
+              <div key={index} className={`${classes.gridSpecsItem} ${size===item ? classes.select:classes.disSelect}`} onClick={()=>{onUpdateSpecs(cartitem.product._id,'size',item);onGridSizeItemClick(item)}}>{item}</div>
            
             ))}
             </div>
@@ -52,21 +52,23 @@ const CartItem = ({item,onUpdateCartQty,onRemoveFromCart}) => {
   return (
     <div>
         <Card>
-            <CardMedia image={`http://localhost:3001/server/uploads/products/${item.product.image[0].filename}`} alt={item.product.name} className={classes.media}/>
+            <CardMedia image={`http://localhost:3001/server/uploads/products/${cartitem.product.image[0].filename}`} alt={cartitem.product.name} className={classes.media}/>
             <CardContent className={classes.cardContent}>
-             <Typography variant="h5">{item.product.name}</Typography>
-             <Typography variant="h6">{`$${item.line_item_sub_price}`}</Typography>
+             <Typography variant="h5">{cartitem.product.name}</Typography>
+             <Typography variant="h6">{`$${cartitem.line_item_sub_price}`}</Typography>
             </CardContent>
             <CardActions className={classes.cardActions}>
              <div className={classes.specifications}>
-             <ColorGridList type={"color"} list={item.product.color}/>
-             <SizeGridList type={"size"} list={item.product.size}/>
+              {cartitem.product.color.length>0 ?  <ColorGridList type={"color"} onUpdateSpecs={onUpdateSpecs} list={cartitem.product.color}/>:''}
+              {
+                cartitem.product.size.length>0 ?  <SizeGridList type={"size"} onUpdateSpecs={onUpdateSpecs} list={cartitem.product.size}/>:''
+              }
              </div>
               <div className={classes.buttons}>
-                <Button type="button" size="small" onClick={()=>{onUpdateCartQty(item.product._id,item.quantity-1,item.product.price)}}>-</Button>
-                <Typography>{item.quantity}</Typography>
-                <Button type="button" size="small"  color="secondary" onClick={()=>{onUpdateCartQty(item.product._id,item.quantity+1,item.product.price)}}>+</Button>
-                   <Button type="button"   variant="contained" color="secondary" onClick={()=>{onRemoveFromCart(item.product._id)}}>Remove</Button>
+                <Button type="button" size="small" onClick={()=>{onUpdateCartQty(cartitem.product._id,cartitem.quantity-1,cartitem.product.price)}}>-</Button>
+                <Typography>{cartitem.quantity}</Typography>
+                <Button type="button" size="small"  color="secondary" onClick={()=>{onUpdateCartQty(cartitem.product._id,cartitem.quantity+1,cartitem.product.price)}}>+</Button>
+                   <Button type="button"   variant="contained" color="secondary" onClick={()=>{onRemoveFromCart(cartitem.product._id)}}>Remove</Button>
               </div>
            
             </CardActions>

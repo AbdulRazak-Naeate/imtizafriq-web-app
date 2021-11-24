@@ -117,6 +117,8 @@ router.post('/',async (req,res)=>{
                
                     productId:req.body.productId,
                     quantity:req.body.quantity,
+                    color:'null',
+                    size:'null',
                     product:req.body.product,
                     line_item_sub_price:subprice
                    
@@ -163,6 +165,57 @@ router.patch('/quantity/:productId',async (req,res)=>{
               updateSubtotal(req,res)
               
         });
+        
+           
+
+     
+    }catch(err){
+        console.log(err);
+    }
+
+});
+
+//update cart item specs eg size and color
+router.patch('/specs',async (req,res)=>{
+
+    try{
+        var pId =req.body.productId;
+        var value= req.body.value
+        var type=  req.body.type;
+        
+        if (type ==='color'){
+            Cart.findOneAndUpdate({userId:req.body.userId,
+                items:{
+                    $elemMatch:{productId:req.body.productId}
+                     }
+                    },
+                {
+                    $set: {
+                          'items.$.color':value,
+                          }
+                },   
+                { new:true,useFindAndModify:false}).then(ret=>{
+                
+                  updateSubtotal(req,res)
+                  
+            });
+        }else{
+            Cart.findOneAndUpdate({userId:req.body.userId,
+                items:{
+                    $elemMatch:{productId:req.body.productId}
+                     }
+                    },
+                {
+                    $set: {
+                          'items.$.size':value,
+                          }
+                },   
+                { new:true,useFindAndModify:false}).then(ret=>{
+                
+                  updateSubtotal(req,res)
+                  
+            });
+        }
         
            
 
