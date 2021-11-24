@@ -16,43 +16,45 @@ const AddressForm = ({checkoutToken,next}) => {
     } = useForm();
 
     const [countries,setCountries]=useState([]);
-    const [country,setCountry]=useState('');
+    const [country,setCountry]=useState(0);
     const [countrylabel,setCountryLabel]=useState('');
     const [states,setStates]=useState([]);
     const [state,setState]=useState('');
-    const [stateLabel,setStateLabel]=useState('');
+    const [statelabel,setStateLabel]=useState('');
     const [cities,setCities]=useState([]);
     const [city,setCity]=useState('');
-    const [cityLabel,setCityLabel]=useState('');
-
+    const [citylabel,setCityLabel]=useState('');
+    const [orderNumber,setOrderNumber]=useState('');
     const _db = new loki('csc.db');
     const[db]=useState(_db);
 
     
-    
-  const onCountryChange=(e)=>{
-    var value=e.target.value;
-    var arr = value.split(" ");
-    setCountry(arr[0]);
-    setCountryLabel(arr[1])
-     var sid=parseInt(arr[0]);
-    console.log(arr)
-     filterStates(sid,db);
+  const onCountryChange =(e)=>{
+    let countryColl = db.getCollection("countries");
+    // console.log(statesColl.data)
+     
+    var cid=e.target.value;
+    let country= countryColl.find({id: parseInt(cid) });
+      console.log(country[0].name)
+    setCountry(cid);
+    setCountryLabel(country[0].name)
+     filterStates(cid,db);
   }
   const onStateChange=(e)=>{
-    var value=e.target.value;
-    var arr = value.split(" ");
-     var cid=parseInt(arr[0]);
-    setState(cid)  
-    setStateLabel(arr[1]);
-     filterCities(cid,db);
+    let stateColl = db.getCollection("states");
+    var cid=e.target.value;
+    let city= stateColl.find({id: parseInt(cid) });
+    setState(cid)
+    setStateLabel(city[0].name);
+    filterCities(cid,db);
   }
   const onCityChange=(e)=>{
-    var value=e.target.value;
-    var arr = value.split(" ");
-    setCityLabel(arr[1])
-     var cid=parseInt(arr[0]);
-      setCity(cid)
+    let citiesColl = db.getCollection("cities");
+    
+    var sid=e.target.value;
+    let city= citiesColl.find({id: parseInt(sid) });
+    setCityLabel(city[0].name)
+      setCity(sid)
   }
   const filterStates = async(cid,db)=> {
     let statesColl = db.getCollection("states");
@@ -137,14 +139,29 @@ const AddressForm = ({checkoutToken,next}) => {
 
 
       }
+      
+      const uniqueOrderNumber= ()=> {//Unique Identifier
+      var result           = '';
+     // var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      var characters       = '0123456789';
+  
+      var charactersLength = characters.length;
+      for ( var i = 0; i < 8; i++ ) {
+         result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      }
+      console.log(result);
+      setOrderNumber(result)
+      return result;
+    }
+    uniqueOrderNumber()
       init();
     },[db]);
-
+    
   return (
     <>
       <Typography variant="h6" gutterBottom>Shipping Address</Typography>
           <form onSubmit = {handleSubmit((data) =>{ 
-            next({...data,country,state,city})
+            next({...data,countrylabel,statelabel,citylabel,orderNumber})
             }) } >
             <Grid container spacing={3}>
                 <FormInput name='firstName'  label='First name' register={register}/>
@@ -152,13 +169,12 @@ const AddressForm = ({checkoutToken,next}) => {
                 <FormInput name='address1'   label='Address' register={register}/>
                 <FormInput name='email'    label='Email' register={register} />
                 <FormInput name='phone' label='Phone' register={register}/>
-                <FormInput name='city'  label='City' register={register}/>
                 <FormInput name='zip'   label='Zip/Postal code' register={register}/>
                 <Grid item xs={12} sm={6}>
                     <InputLabel>Shipping Country</InputLabel>
                     <Select value={country} name="country" fullWidth onChange={onCountryChange}>
                     {countries.map((c)=>(
-                       <MenuItem key={c.id} value={`${c.id} ${c.name}`}>
+                       <MenuItem key={c.id} value={c.id}>
                             {c.name}
                        </MenuItem>
                    ))}
@@ -169,7 +185,7 @@ const AddressForm = ({checkoutToken,next}) => {
                     <InputLabel>Shipping State</InputLabel>
                     <Select value={state}  fullWidth onChange={onStateChange}>
                     {states.map((s)=>(
-                       <MenuItem key={s.id} value={`${s.id} ${s.name}`}>
+                       <MenuItem key={s.id} value={s.id}>
                             {s.name}
                        </MenuItem>
                    ))}
@@ -179,7 +195,7 @@ const AddressForm = ({checkoutToken,next}) => {
                     <InputLabel>Shipping City</InputLabel>
                     <Select value={city}  fullWidth onChange={onCityChange}>
                     {cities.map((c)=>(
-                       <MenuItem key={c.id} value={`${c.id} ${c.name}`}>
+                       <MenuItem key={c.id} value={c.id}>
                             {c.name}
                        </MenuItem>
                    ))}

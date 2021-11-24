@@ -18,15 +18,19 @@ const OrderSchema  =  new mongoose.Schema({
         type:String,
         required:true
     },
-    quantity:{
-        type:Number,
-        required:true
-    },
     color:{
-        type:String
+        type:String,
+        required:false,
+        default:null,
     },
     size:{
         type:String,
+        required:false,
+        default:null
+    },
+    quantity:{
+        type:Number,
+        required:true
     },
     priceEach:{
         type:Number,
@@ -52,14 +56,21 @@ const OrderSchema  =  new mongoose.Schema({
         type:String,
         required:true
     },
-    user:{
+    customer:{
         type:Object(),
-        default:{"_id":"61782f2f391d5d0cd0c7af3b",
-                "username":"AbdulRazakNaeate",
-                "firstname":"Abdul Razak",
-                "lastname":"Abubakari",
-                "phone":" 233548496121",
+        default:{
+                username:"",
+                firstname:"Abdul Razak",
+                lastname:"Abubakari",
+                phone:"233548496121",
                 }
+    },
+    shippingData:{
+            type:Object(),
+            default:{
+                country:"",
+                state:"",
+                city:""}
     }
 
 }); 

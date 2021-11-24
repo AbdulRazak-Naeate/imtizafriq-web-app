@@ -1,13 +1,15 @@
 import React,{useState} from 'react'
 import {Typography,List,ListItem,ListItemText} from '@material-ui/core';
 const Review = ({checkoutToken}) => {
-    console.log(checkoutToken.items)
+   // console.log(checkoutToken.items)
     const[checkoutCart]=useState(checkoutToken);
     const[items]=useState(checkoutToken.items);
-  return (
-    <>
+    const[refresh,setRefresh]=useState(false);
+   
+    return (
+      <>
       <Typography variant="h6" >Order Summary</Typography>
-      <List disablePadding>
+     {checkoutToken!==undefined? <List disablePadding>
           {
             items.map((item)=>(
              <ListItem style={{padding:'10px 0px'}} key={item.product._id}>
@@ -23,7 +25,8 @@ const Review = ({checkoutToken}) => {
             <Typography variant="subtitle1">{`$${checkoutCart.subtotal}`}</Typography>
           </ListItem>
 
-      </List>
+      </List>:setRefresh(!refresh)
+      }
     </>
   )
 }

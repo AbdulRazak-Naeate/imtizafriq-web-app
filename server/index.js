@@ -14,6 +14,7 @@ const storeRoute    = require('./routes/stores');
 const storeCategory = require('./routes/storecategories');
 const orders        = require('./routes/orders');
 const cartRoute     = require('./routes/carts');
+const fwverifyRoute = require('./routes/fwVerify');
 
 dotenv.config();
 //MiddleWare
@@ -31,6 +32,7 @@ app.use('/api/stores',  storeRoute);
 app.use('/api/storecategory', storeCategory);
 app.use('/api/orders',orders);
 app.use('/api/carts',cartRoute);
+app.use('/api/verifypayment',fwverifyRoute);
 
 //Home Routes
  app.get('/',(req,res)=>{

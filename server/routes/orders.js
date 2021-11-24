@@ -5,6 +5,8 @@ const Order= require('../models/Order');
 const Store  =  require('../models/Store');
 const verify = require('../routes/verifyToken');
 const {orderValidation} = require('../validation');
+const jwt =require('jsonwebtoken');
+
 
 
 
@@ -42,41 +44,56 @@ router.get('/approved/:storeId', async(req,res)=>{
 
 //submit order
 
-router.post('/',verify,async (req,res)=>{
+router.post('/',async (req,res)=>{
       
     //Validation
     const {error} = orderValidation(req.body);
     //check for errors
 
     if(error) return res.status(400).send(error.details[0].message);
-
+     /* 
     const userId = req.user._id; //get userid
 
     const store = await Store.findOne({userId:userId});//get user Store
 
-    const storeId = store._id; //get user store id
+    const storeId = store._id; //get user store id */
   
-    const ordernum=UniqueOrderNumber();
+  //  const ordernum=UniqueOrderNumber();
+
+  console.log("body "+req.body.name);
+  var customer={
+  firstname:req.body.firstname,
+  lastname:req.body.lastname,
+  email:req.body.email,
+  phone:req.body.phone,
+  }
+  var shippingData={
+        country:req.body.country,
+        state:req.body.state,
+        city:req.body.city
+  }
       const order = new Order({
           name:req.body.name,
-          storeId:storeId,
+          storeId:req.body.storeId,
           productId:req.body.productId,
-          orderNumber:ordernum,
+          orderNumber:req.body.orderNumber,
           quantity:req.body.quantity,
           color:req.body.color,
           size:req.body.size,
           priceEach:req.body.priceEach,
           totalPrice:req.body.totalPrice,
-          userId:userId,
+          userId:req.body.userId,
           date:req.body.date,
           status:req.body.status,
-          paymentMethod:req.body.paymentMethod
+          paymentMethod:req.body.paymentMethod,
+          customer:customer,
+          shippingData:shippingData
       });
 
  try{
-    const saveOrder = await order.save();
-
-       res.json(saveOrder);
+      await order.save();
+    const newOrders = await Order.find({orderNumber:req.body.orderNumber,userId:req.body.userId});
+      res.json(newOrders);
 
     }catch(err){
      res.json({message:err})

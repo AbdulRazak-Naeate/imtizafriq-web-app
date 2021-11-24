@@ -2,7 +2,17 @@
 const express = require('express');
 const router  = express.Router();
 const Cart    = require('../models/Cart');
+const jwt = require('jsonwebtoken');
 
+
+
+router.get('/generate_token',async(req,res)=>{
+    //Create and asigned a token
+  const token = jwt.sign({_id:req.body.cartId},process.env.TOKEN_SECRET);
+  const  cart = await Cart.findOne({userId:req.body.userId});
+  res.json({token:token,cart:cart})
+
+})
 //get all carts
 router.get('/', async (req,res)=>{
     try{

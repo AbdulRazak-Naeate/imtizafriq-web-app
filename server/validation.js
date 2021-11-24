@@ -30,19 +30,27 @@ const loginValidation = data =>{
   
   const orderValidation = data =>{
     const schema = Joi.object({
-      name:Joi.string().required(),
-      productId:Joi.string().min(20).required(),
-      storeId:Joi.string().min(20).required(),
+      name:Joi.string(),
+      firstname:Joi.string(),
+      lastname:Joi.string(),
+      email:Joi.string(),
+      phone:Joi.string(),
+      country:Joi.string(),
+      state:Joi.string(),
+      city:Joi.string(),
+      productId:Joi.string().min(20),
+      storeId:Joi.string().min(20),
       orderNumber:Joi.string().min(8),
-      quantity:Joi.number().min(1).required(),
-      color:Joi.string(),
-      size:Joi.string(),
-      priceEach:Joi.number().required(),
-      totalPrice:Joi.number().required(),
-      status:Joi.string().required(), 
-      userId:Joi.string().min(20).required(),
-      paymentMethod:Joi.string().required(),
-      user:Joi.object()
+      quantity:Joi.number().min(1),
+      size:Joi.string().min(0),
+      color:Joi.string().min(0),
+      priceEach:Joi.number(),
+      totalPrice:Joi.number(),
+      status:Joi.string(), 
+      userId:Joi.string().min(20),
+      paymentMethod:Joi.string(),
+      customer:Joi.object(),
+      shippingData:Joi.object()
 
      });
   

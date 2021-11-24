@@ -19,7 +19,7 @@ function App() {
      var characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXZY';
  
      var charactersLength = characters.length;
-     for ( var i = 0; i < 18; i++ ) {
+     for ( var i = 0; i < 20; i++ ) {
         result += characters.charAt(Math.floor(Math.random() * charactersLength));
      }
      id =result;
@@ -54,6 +54,8 @@ function App() {
      const[itemsCount,setItemsCount]=useState(0);
      const [errorMessage,setErrorMessage]=useState('');
      const [order,setOrder]=useState({});
+     const[myOrder,setMyOrders]=useState([]);
+
 
   // eslint-disable-next-line no-unused-vars
   const handleEmptyCart = async ()=>{
@@ -159,10 +161,67 @@ function App() {
     })
   
   };
-  const handleCaptureCheckout =async (checkoutTokenId,newOrder)=>{
-    try{
+
+
+     
+   
+  const incomingOrder = async (newOrder)=>{
+    console.log(newOrder)
+    let customer=newOrder.customer;
+    let items=newOrder.line_items
+    let shippingData=newOrder.shipping
+    console.log(newOrder.line_items)
+    
+    
+
+    const url = 'http://localhost:3001/api/orders';
+   var response='';
+      for(let i=0;i<items.length;i++){
          
-           //setOrder(incomingorder);
+
+      await  post(url,  {
+          name:items[i].product.name,
+          storeId:items[i].product.storeId,
+          productId:items[i].product._id,
+          orderNumber:shippingData.orderNumber,
+          quantity:items[i].quantity,
+          color:'null',
+          size:'null',
+          priceEach:items[i].product.price,
+          totalPrice:items[i].line_item_sub_price,
+          userId:userid,
+          paymentMethod:"flutterwave",
+          firstname:customer.firstname,
+          lastname:customer.lastname,
+          email:customer.email,
+          phone:customer.phone,
+          country:shippingData.country,
+          state:shippingData.county_state,
+          city:shippingData.town_city
+         
+        // eslint-disable-next-line no-loop-func
+        },).then(ret=>{
+          console.log(ret)
+          response= ret;
+        })
+      }
+
+      return response
+  
+
+
+    
+  }
+ 
+  const handleCaptureCheckout =async (checkoutTokenId,newOrder)=>{
+   
+    try{ 
+          incomingOrder(newOrder).then((response)=>{
+           console.log(response.data)
+           setMyOrders(response.Data);
+         })
+          console.log(newOrder)
+          setOrder(newOrder);
            //refreshCart();
     }catch(error){
            setErrorMessage(error.data.error.message);
@@ -176,7 +235,7 @@ function App() {
       try{
          const res  = await fetch(`http://localhost:3001/api/products`);
          const data = await res.json();
-              // console.log(data);
+               console.log(data);
                return data;
       }catch(error){
   
