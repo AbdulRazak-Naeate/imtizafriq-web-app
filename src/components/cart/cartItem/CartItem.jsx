@@ -18,7 +18,7 @@ const CartItem = ({cartitem,onUpdateCartQty,onUpdateSpecs,onRemoveFromCart}) => 
  }
     const ColorGridList= ({list,onUpdateSpecs}) =>(
           <>
-          <span>{`Select Color`}</span>
+          <Typography variant="body2">{`Select Color`}</Typography>
          <div class={classes.specsListWrapper} >
           <div className={classes.gridSpecsList} >                        
                <div className={classes.specsGrid} > 
@@ -34,7 +34,7 @@ const CartItem = ({cartitem,onUpdateCartQty,onUpdateSpecs,onRemoveFromCart}) => 
 
     const SizeGridList= ({list ,onUpdateSpecs}) =>(
       <>
-      <span>{`Select Size`}</span>
+      <Typography variant="body2">{`Select Size`}</Typography>
      <div class={classes.specsListWrapper} >
       <div className={classes.gridSpecsList} >                        
            <div className={classes.specsGrid} > 
