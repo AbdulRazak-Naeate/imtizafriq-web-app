@@ -26,6 +26,7 @@ export default makeStyles(() => ({
    flexDirection:'column',
    border:'0px solid',
    width:'100%',
+   marginBottom:'5px'
   },
   gridSpecsList:{
     width:'100%',
@@ -49,9 +50,9 @@ export default makeStyles(() => ({
   }
  ,select:{
     padding:'3px 5px',
-    border:'1px solid red',
+    border:'1px solid #f50057',
     borderRadius:'30px',
-    backgroundColor:'red',
+    backgroundColor:'#f50057',
     color:'white'
   }
 }));

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React , {useState,useEffect} from 'react';
 import {Link, useHistory} from 'react-router-dom';
 import "./topbar.css"
@@ -44,14 +45,27 @@ export const Topbar = () => {
         
       }
       useEffect(()=>{
-        try{
-          loggedin ? setImageFilename(user.image[0].filename) : setImageFilename('');
-          loggedin ? setuserId(user._id):setImageFilename('');
-        }catch(err){
-          
-          console.log({error:err})
-        }
-      },[user,loggedin])
+      
+          var user =localStorage.getItem('user');
+           //console.log("user "+user)
+           if (user!==null){
+             if (localStorage.getItem('loggedin'!==false)){
+               try{
+                loggedin ? setImageFilename(user.image[0].filename) : setImageFilename('');
+                loggedin ? setuserId(user._id):setImageFilename('');
+                }catch(err){ 
+                  console.log({error:err})
+                }
+
+             }
+
+
+           }else{
+                history.push('/dashboard/login'); 
+           }
+      
+       
+      },[user,loggedin,history])
       
     return (
         <div className="topbar">

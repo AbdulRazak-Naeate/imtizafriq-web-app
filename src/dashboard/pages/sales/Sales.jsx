@@ -204,7 +204,7 @@ return patch(url, body,config)
       headerName:"Amount",
       width:140,
       renderCell:(params)=>{
-          return(<div>{`π${params.row.totalPrice}`}</div>)
+          return(<div>{`${params.row.totalPrice}`}</div>)
       }
     },
   /*   {
@@ -262,7 +262,9 @@ return patch(url, body,config)
         }
     } */
   ];
-
+    const handleStoreChange = (e)=>{
+       setStoreId(e.target.value)
+    }
   return (
     <div className="transactions">
 
@@ -270,9 +272,9 @@ return patch(url, body,config)
        <div className="pageTitleContainer">
            <h1 className="pageTitle">Sales</h1>    
             <div>
-            { stores.length ?  <select  className="select-store" value={storeid} onChange={(e)=>{setStoreId(e.target.value)}}>
+            { stores.length ?  <select  className="select-store" value={storeid} onChange={(e)=>{handleStoreChange(e)}}>
                   {stores.map((store,index)=>{
-                  return(  <option key={index} value={store._id} className="opt">{store.name}</option>)
+                  return(  <option key={index} value={store._id} className="opt">{`${store.name} ${store.currency}`}</option>)
                   })}
               </select>:''}
             <Link to={`/dashboard/sales?`}>

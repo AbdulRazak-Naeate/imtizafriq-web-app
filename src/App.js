@@ -5,7 +5,7 @@ import  Dashboard from './dashboard/Dashboard'
 import './App.css';
 import LogIn from "./pages/login/LogIn";
 import SignUp from './pages/signup/SignUp';
-import {Topbar,Products,Cart } from   './components';
+import {Topbar,Products,Cart,Orders } from   './components';
 import { useEffect } from 'react';
 import axios ,{post,patch} from 'axios';
 import CheckOut from './components/checkoutform/checkout/CheckOut';
@@ -29,12 +29,13 @@ function App() {
       let uid=localStorage.getItem('_id');
       let loggedin=localStorage.getItem('loggedin');
       if (loggedin!==null){
-        if (loggedin===true){ //if user signed In get user Id from locaStorage
-       setUserId(uid); 
+        if (loggedin==='true'){ //if user signed In get user Id from locaStorage
+          console.log(uid)
+       id=uid; 
       //localStorage.removeItem('temp_id');
 
-     }else if(loggedin===false){
-      setUserId(localStorage.getItem('temp_id'));
+     }else if(loggedin==='false'){
+      id=localStorage.getItem('temp_id');
 
      }
      }else{
@@ -47,17 +48,16 @@ function App() {
      
      return id;
   }
-  const[userid,setUserId]=useState(createTempUserId());
+  const[userid]=useState(createTempUserId());
  
   const[products,setProducts]=useState([]);
      const[cart,setCart]=useState({});
      const[itemsCount,setItemsCount]=useState(0);
      const [errorMessage,setErrorMessage]=useState('');
      const [order,setOrder]=useState({});
-     const[myOrder,setMyOrders]=useState([]);
+     const[myOrders,setMyOrders]=useState([]);
 
 
-  // eslint-disable-next-line no-unused-vars
   const handleEmptyCart = async ()=>{
 
       emptyCart().then((response)=>{
@@ -68,7 +68,27 @@ function App() {
 
          }
       })
+  } 
+  
+  const refreshCart = async ()=>{
+    const url=`http://localhost:3001/api/carts/${userid}`
+    return axios.patch(url).then((response)=>{
+      // eslint-disable-next-line no-cond-assign
+      if(response.status=200){
+        setCart(response.data.cart);
+        setItemsCount(response.data.cart.items.length);
+
+      }
+    });
   }
+  const emptyCart = async () =>{
+
+    const url = `http://localhost:3001/api/carts/${userid}`;
+   
+ 
+    return axios.patch(url)
+  
+  };
   const  handleRemoveFromCart = async (productId)=>{
   
        deleteFromCart(productId).then((response)=>{
@@ -80,15 +100,7 @@ function App() {
          }
        })
   }
-  // eslint-disable-next-line no-unused-vars
-  const emptyCart = async () =>{
-
-    const url = `http://localhost:3001/api/carts/${userid}`;
-   
  
-    return axios.patch(url)
-  
-  };
 
   const deleteFromCart =async (productId)=>{
     console.log(productId)
@@ -159,7 +171,6 @@ function App() {
     addtoCart(productId,quantity).then((response) => {
      // console.log(response.data);
       if (response.status===200){
-        
         setCart(response.data.cart)
         setItemsCount(response.data.cart.items.length);
 
@@ -211,8 +222,9 @@ function App() {
           productId:items[i].product._id,
           orderNumber:shippingData.orderNumber,
           quantity:items[i].quantity,
-          color:'null',
-          size:'null',
+          color:items[i].color,
+          size:items[i].size,
+          filename:items[i].product.image[0].filename,
           priceEach:items[i].product.price,
           totalPrice:items[i].line_item_sub_price,
           userId:userid,
@@ -248,7 +260,7 @@ function App() {
          })
           console.log(newOrder)
           setOrder(newOrder);
-           //refreshCart();
+           refreshCart();
     }catch(error){
            setErrorMessage(error.data.error.message);
     }
@@ -311,17 +323,36 @@ function App() {
     return axios.get(url)
   
   };
+
+  const getOrders =()=>{
+
+    const url = `http://localhost:3001/api/orders/user/${userid}`;
+    
+    return axios.get(url).then((response)=>{
+       try{
+         if (response.status===200){
+           setMyOrders(response.data.orders)
+         }
+
+       }catch(err){
+          console.log(err)
+       }
+    })
+  
+  };
     getProducts();
     handlegetCart();
+    getOrders();
    },[userid])
   return (
+     <>
        <Router>
-         
+         <Route exact path={['/','/cart','/checkout','/orders']}>
          <Topbar totalItems={itemsCount}/>
-       <Switch>
-       <Route exact path="/" >
+         </Route>
+       <Switch>   
+       <Route exact path="/" >   
        <Products products={products} onAddToCart={handleAddtoCart} />
-      
        </Route>
        <Route exact path="/cart">
           <Cart cart={cart} handleUpdateCartQty={handleUpdateCartQty} handleUpdateSpecs={handleUpdateSpecs} handleRemoveFromCart={handleRemoveFromCart}
@@ -330,9 +361,10 @@ function App() {
        <Route exact path="/checkout">
          <CheckOut cart={cart}   order={order}  onCaptureCheckout={handleCaptureCheckout}/>
        </Route>
-        </Switch> 
-        
-         <Switch>
+        <Route exact path="/orders">
+        <Orders orders={myOrders}/>
+         </Route>
+    
          <Route path="/login">
            <LogIn/>
          </Route>
@@ -344,6 +376,7 @@ function App() {
          </Route>
        </Switch>
        </Router>
+     </>
   );
 }
 

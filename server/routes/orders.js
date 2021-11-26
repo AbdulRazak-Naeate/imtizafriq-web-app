@@ -31,6 +31,17 @@ router.get('/:storeId', async(req,res)=>{
     }
 });
 
+//get all Orders base on user Id
+router.get('/user/:userId', async(req,res)=>{
+  try{
+    const orders = await Order.find({userId:req.params.userId});
+    res.json({orders:orders,status:200});
+
+  }catch(err){
+    res.json({message:err})
+  }
+});
+
 //get all Orders base on Store Id
 router.get('/approved/:storeId', async(req,res)=>{
     try{
@@ -80,6 +91,7 @@ router.post('/',async (req,res)=>{
           quantity:req.body.quantity,
           color:req.body.color,
           size:req.body.size,
+          filename:req.body.filename,
           priceEach:req.body.priceEach,
           totalPrice:req.body.totalPrice,
           userId:req.body.userId,

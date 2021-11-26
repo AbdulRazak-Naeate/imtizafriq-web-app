@@ -18,6 +18,10 @@
     font-style: 13px;
     color: rgb(187,186,186);
 }
+.sidebarlink{
+    text-decoration: none;
+    color: #555;
+}
 .sidebarList{
     list-style: none;
     padding: 5px;
@@ -37,3 +41,4 @@
 margin-right: 5px;
 font-size: 20px !important;
 }
+

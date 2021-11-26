@@ -23,7 +23,7 @@ const CartItem = ({cartitem,onUpdateCartQty,onUpdateSpecs,onRemoveFromCart}) => 
           <div className={classes.gridSpecsList} >                        
                <div className={classes.specsGrid} > 
                 {list.map((item,index)=>(
-                  <div key={index} className={`${classes.gridSpecsItem} ${color===item ? classes.select:classes.disSelect}`} onClick={()=>{onUpdateSpecs(cartitem.product._id,'color',item);onGridColorItemClick(item)}}>{item}</div>
+                 item!=='' ? <div key={index} className={`${classes.gridSpecsItem} ${color===item ? classes.select:classes.disSelect}`} onClick={()=>{onUpdateSpecs(cartitem.product._id,'color',item);onGridColorItemClick(item)}}>{item}</div>:''
                
                 ))}
                 </div>
@@ -39,7 +39,7 @@ const CartItem = ({cartitem,onUpdateCartQty,onUpdateSpecs,onRemoveFromCart}) => 
       <div className={classes.gridSpecsList} >                        
            <div className={classes.specsGrid} > 
             {list.map((item,index)=>(
-              <div key={index} className={`${classes.gridSpecsItem} ${size===item ? classes.select:classes.disSelect}`} onClick={()=>{onUpdateSpecs(cartitem.product._id,'size',item);onGridSizeItemClick(item)}}>{item}</div>
+             item!==''? <div key={index} className={`${classes.gridSpecsItem} ${size===item ? classes.select:classes.disSelect}`} onClick={()=>{onUpdateSpecs(cartitem.product._id,'size',item);onGridSizeItemClick(item)}}>{item}</div>:''
            
             ))}
             </div>
@@ -54,7 +54,7 @@ const CartItem = ({cartitem,onUpdateCartQty,onUpdateSpecs,onRemoveFromCart}) => 
         <Card>
             <CardMedia image={`http://localhost:3001/server/uploads/products/${cartitem.product.image[0].filename}`} alt={cartitem.product.name} className={classes.media}/>
             <CardContent className={classes.cardContent}>
-             <Typography variant="h5">{cartitem.product.name}</Typography>
+             <Typography variant="h6">{cartitem.product.name}</Typography>
              <Typography variant="h6">{`$${cartitem.line_item_sub_price}`}</Typography>
             </CardContent>
             <CardActions className={classes.cardActions}>

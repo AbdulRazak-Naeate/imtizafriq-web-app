@@ -1,0 +1,23 @@
+.Approved{
+    background-color: #e5faf2;
+    color:#3bb077 ;
+    padding: 3px 4px;
+  }
+  .Processing{
+    background-color: #fff0f1;
+    color:#d6c32fc0 ;
+    padding: 3px 4px;
+
+  }
+  .Declined{
+    background-color: #fff0f1;
+    color:#f50057 ;
+    padding: 3px 4px;
+   
+  }
+.Pending{
+    background-color: #ebf1fe;
+    color:#2a7ade ;
+    padding: 3px 4px;
+
+  }

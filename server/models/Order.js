@@ -28,6 +28,10 @@ const OrderSchema  =  new mongoose.Schema({
         required:false,
         default:null
     },
+    filename:{
+        type:String,
+        required:true
+    },
     quantity:{
         type:Number,
         required:true

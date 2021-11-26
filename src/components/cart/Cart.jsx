@@ -16,7 +16,7 @@ const Cart = ({cart, handleUpdateCartQty,handleUpdateSpecs,handleRemoveFromCart,
     },[cart,setItemsCount])
     const EmptyCart = ()=>(
         <Typography variant="subtitle1">You have no items in your shopping cart,
-        <Link to="/" className={classes.link}>start adding some</Link>!
+        <Link to="/" className={classes.link}>start adding some !</Link>
         </Typography>
     );
     const  FilledCart =()=>(
@@ -44,9 +44,9 @@ const Cart = ({cart, handleUpdateCartQty,handleUpdateSpecs,handleRemoveFromCart,
     return (
         <div>
             <Container>
-                <div  className={classes.toolbar}/>
-                <Typography className={classes.title} variant="h3" gutterBottom>Your Shopping Cart</Typography>
-               
+                <div  className={classes.toolbar}>
+                <Typography className={classes.title} variant="h4" gutterBottom>Your Shopping Cart</Typography>
+                </div>
                 {itemsCount===0 ? EmptyCart(): FilledCart()}
             </Container>
         </div>

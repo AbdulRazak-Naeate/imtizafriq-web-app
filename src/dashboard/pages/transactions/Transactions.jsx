@@ -135,7 +135,7 @@ return patch(url, body,config)
        
     const res = await fetch(`http://localhost:3001/api/orders/${storeid}`);
     const data = await res.json();
-    
+    console.log(data)
     return data.orders;
    
     } catch (error) {
@@ -172,7 +172,7 @@ return patch(url, body,config)
         renderCell:(params)=>{
           return(
             <div className="userListUser">
-                {'params.row.user.username'}
+                {`${params.row.customer.firstname} ${params.row.customer.lastname}`}
             </div>
         )}, 
     },

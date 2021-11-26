@@ -1,9 +1,9 @@
 import React ,{useState,useEffect}from 'react';
 import "./topbar.css"
-import {NotificationsNone,ShoppingCartOutlined,AccountCircleOutlined } from '@material-ui/icons';
+import {NotificationsNone,ShoppingCartOutlined,AccountCircleOutlined,ListAltOutlined, ListOutlined } from '@material-ui/icons';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import {useHistory,useLocation,Link} from 'react-router-dom';
+import {useHistory,Link} from 'react-router-dom';
  const Topbar = ({totalItems}) => {
   //const [user] = useState(JSON.parse(localStorage.getItem('user')));
   const [loggedin] = useState(JSON.parse(localStorage.getItem('loggedin')));
@@ -29,11 +29,20 @@ import {useHistory,useLocation,Link} from 'react-router-dom';
         <div className="topbar">
             <div className="topbarWrapper">
                 <div className="topLeft">
-                    <span className="logo">Daabia</span>
+                   <Link to ="/" className="link">
+                   <span className="logo">Daabia</span>
+                   </Link>
                 </div>
                 <div className="topRight">
                     <div className="topbarIonContainer">
                         <NotificationsNone/>
+                        <span className="topIconBadge">2</span>
+                    </div>
+
+                    <div className="topbarIonContainer">
+                       <Link to="/orders" className="link">
+                       <ListOutlined/>
+                       </Link>
                         <span className="topIconBadge">2</span>
                     </div>
                     <div className="topbarIonContainer">

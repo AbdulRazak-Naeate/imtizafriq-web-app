@@ -3,15 +3,17 @@ import { LineStyle,Timeline,TrendingUp
     ,PermIdentity,MailOutline,AttachMoney 
     ,Storefront,BarChart,DynamicFeed,
     ChatBubbleOutline,WorkOutline,Report } from '@material-ui/icons'
-import { Link } from 'react-router-dom'
+import { Link} from 'react-router-dom';
+
 export const Sidebar = () => {
+    
     return (
         <div className="sidebar">
          <div className="sidebarWrapper">
              <div className="sidebarMenu">
                  <h3 className="sidebarTitle">Dashboard</h3>
                  <ul className="sidebarList">
-                     <Link to="/dashboard" className="link">
+                     <Link to="/dashboard" className="sidebarlink">
                      <li className="sidebarListItem active">
                          <LineStyle className="sidebarIcon"/>
                          DashBoard
@@ -21,12 +23,12 @@ export const Sidebar = () => {
                  </ul>
                 {/*  <h3 className="sidebarTitle">Quick menu</h3> */}
                  <ul className="sidebarList">
-                  <Link to="/dashboard/users" className="link">
+                  <Link to="/dashboard/users" className="sidebarlink">
                   <li className="sidebarListItem">
                          <PermIdentity className="sidebarIcon"/>
                          Users
                      </li></Link>
-                    <Link to="/dashboard/stores"  className="link">
+                    <Link to="/dashboard/stores"  className="sidebarlink">
                     <li className="sidebarListItem">
                          <Storefront className="sidebarIcon"/>
                          Store
@@ -37,13 +39,13 @@ export const Sidebar = () => {
                          <Storefront className="sidebarIcon"/>
                          Products
                      </li> </Link>*/}
-                       <Link to="/dashboard/transactions" className="link"> 
+                       <Link to="/dashboard/transactions" className="sidebarlink"> 
                        <li className="sidebarListItem">
                          <AttachMoney className="sidebarIcon"/>
                          Transactions
                      </li>
                        </Link>
-                       <Link to="/dashboard/sales" className="link"> 
+                       <Link to="/dashboard/sales" className="sidebarlink"> 
                        <li className="sidebarListItem">
                          <TrendingUp className="sidebarIcon"/>
                          Sales
