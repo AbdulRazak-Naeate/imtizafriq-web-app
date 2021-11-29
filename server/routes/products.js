@@ -80,7 +80,8 @@ router.get('/:productId', async (req,res)=>{
     
     try{
         const product = await Product.findById({_id:req.params.productId});
-        res.json(product);
+        res.json({product:product,status:200,message:"product successfully created"});
+
     }catch(err){
         res.json({message:err})
     }

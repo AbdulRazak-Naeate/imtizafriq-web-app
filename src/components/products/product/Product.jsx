@@ -3,11 +3,17 @@ import {Card,CardMedia,CardContent,CardActions,Typography,IconButton} from '@mat
 
 import useStyles from './styles';
 import { AddShoppingCart } from '@material-ui/icons';
+import {useHistory} from 'react-router-dom';
 const Product = ({product,onAddToCart}) => {
     const classes=useStyles();
+    const history=useHistory();
+
+    const handleProductOnClick=(productid)=>{
+       history.push(`/proceedcheckout?productId=${productid}`)
+    }
   return ( 
     <div>
-    <Card className={classes.root}>
+    <Card className={classes.root} onClick={()=>{handleProductOnClick(product._id)}}>
              <CardMedia className={classes.media}  image={`http://localhost:3001/server/uploads/products/${product.image[0].filename}`} title={product.name}/>
               <CardContent className={classes.cardContent}>
                   <div className={classes.cardContentSub}>

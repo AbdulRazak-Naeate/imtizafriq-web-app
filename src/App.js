@@ -5,10 +5,11 @@ import  Dashboard from './dashboard/Dashboard'
 import './App.css';
 import LogIn from "./pages/login/LogIn";
 import SignUp from './pages/signup/SignUp';
-import {Topbar,Products,Cart,Orders } from   './components';
+import {Topbar,Products,Cart,Orders,ProceedCheckOut } from   './components';
 import { useEffect } from 'react';
 import axios ,{post,patch} from 'axios';
 import CheckOut from './components/checkoutform/checkout/CheckOut';
+
 function App() {
   
    const createTempUserId= ()=>{
@@ -51,6 +52,7 @@ function App() {
   const[userid]=useState(createTempUserId());
  
   const[products,setProducts]=useState([]);
+  const[product,setProduct]=useState([]);
      const[cart,setCart]=useState({});
      const[itemsCount,setItemsCount]=useState(0);
      const [errorMessage,setErrorMessage]=useState('');
@@ -266,6 +268,34 @@ function App() {
     }
 }
   
+const handlegetProduct = async (productid)=>{
+           
+  fetchProduct(productid).then((response) => {
+    console.log(response.data);
+    if (response.status===200){
+       
+      try{
+        setProduct(response.data.product)
+       
+      }catch(err){
+        console.log(err)
+      }
+    }
+    //addToast(exampleToast(response.data.message));
+  })
+
+}
+
+
+
+
+const fetchProduct =(productid)=>{
+
+  const url = `http://localhost:3001/api/products/${productid}`;
+  
+  return axios.get(url)
+
+};
 
    useEffect(() => {
   
@@ -294,6 +324,7 @@ function App() {
   
     }
   } 
+
   
   const handlegetCart = async ()=>{
    console.log("get cart"+userid)
@@ -347,7 +378,7 @@ function App() {
   return (
      <>
        <Router>
-         <Route exact path={['/','/cart','/checkout','/orders']}>
+         <Route exact path={['/','/cart','/checkout','/orders','/proceedcheckout']}>
          <Topbar totalItems={itemsCount}/>
          </Route>
        <Switch>   
@@ -364,7 +395,9 @@ function App() {
         <Route exact path="/orders">
         <Orders orders={myOrders}/>
          </Route>
-    
+        <Route exact path="/proceedcheckout">
+          <ProceedCheckOut/>
+        </Route>
          <Route path="/login">
            <LogIn/>
          </Route>

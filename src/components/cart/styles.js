@@ -7,7 +7,7 @@ export default makeStyles((theme) => ({
   },
   emptyButton: {
     minWidth: '150px',
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('xs')]:{
       marginBottom: '5px',
     },
     [theme.breakpoints.up('xs')]: {

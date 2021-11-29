@@ -35,14 +35,14 @@ export default makeStyles(()=>({
     },
 
     color:{
-        padding:'2px 4px',
+        padding:'3px 4px',
     border:'1px solid #f50057',
     borderRadius:'30px',
     backgroundColor:'#f50057',
     color:'white'
       },
       size:{
-        padding:'2px 4px',
+        padding:'3px 4px',
         border:'1px solid #f50057',
         borderRadius:'30px',
         backgroundColor:'#f50057',

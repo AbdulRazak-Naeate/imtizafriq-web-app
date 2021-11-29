@@ -40,8 +40,8 @@ import {useHistory,Link} from 'react-router-dom';
                     </div>
 
                     <div className="topbarIonContainer">
-                       <Link to="/orders" className="link">
-                       <ListOutlined/>
+                       <Link to="/orders" >
+                       <ListOutlined className="link"/>
                        </Link>
                         <span className="topIconBadge">2</span>
                     </div>
