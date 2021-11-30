@@ -6,10 +6,11 @@ export default makeStyles((theme) => ({
       marginTop: '4%',
     },
    container:{
+     marginTop:'40px',
        display:'flex',
        justifyContent:'space-between',
-       alignItems:'center',
-       border:'1px solid'
+       alignItems:'start',
+       border:'0px solid'
    },
   
 }))

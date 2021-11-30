@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import useStyles from './styles';
 import ImageView from './imageview/ImageView';
+import ProductDetails from './productDetails/ProductDetails';
 import QueryParams from '../../QueryParams';
 import axios from 'axios'
 
@@ -10,7 +11,6 @@ const ProceedcheckOut = () => {
     const[productid]=useState(query.get('productId'));
     const[product,setProduct]=useState([]);
     const[images,setImages]=useState([])
-    const[isloaded,setIsloaded]=useState(false);
 
 
     useEffect(()=>{
@@ -20,13 +20,13 @@ const ProceedcheckOut = () => {
         const getProduct = async ()=>{
            
              fetchProduct().then((response) => {
-              // console.log(response.data);
+              console.log(response.data);
                if (response.status===200){
                    
                  try{
                   let tmp =[];
-                    
-                   setProduct(tmp)
+                     
+                   setProduct(response.data.product)
                    setImages(response.data.product.image)
                   
                  }catch(err){
@@ -55,7 +55,10 @@ const ProceedcheckOut = () => {
   return (
       
     <div className={classes.container}>
-     { product ? <ImageView images={images}/> : ''}
+     { product ? <>
+      <ImageView images={images}/> 
+     <ProductDetails product={product}/></>
+     : ''}
      </div>
   )
 }
