@@ -5,7 +5,7 @@ import ProductDetails from './productDetails/ProductDetails';
 import QueryParams from '../../QueryParams';
 import axios from 'axios'
 
-const ProceedcheckOut = () => {
+const ProceedcheckOut = ({onAddToCart}) => {
     const query =QueryParams()
     const classes = useStyles();
     const[productid]=useState(query.get('productId'));
@@ -57,7 +57,7 @@ const ProceedcheckOut = () => {
     <div className={classes.container}>
      { product ? <>
       <ImageView images={images}/> 
-     <ProductDetails product={product}/></>
+     <ProductDetails product={product} onAddToCart={onAddToCart}/></>
      : ''}
      </div>
   )

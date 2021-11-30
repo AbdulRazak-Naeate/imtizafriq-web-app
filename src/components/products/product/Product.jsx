@@ -13,8 +13,8 @@ const Product = ({product,onAddToCart}) => {
     }
   return ( 
     <div>
-    <Card className={classes.root} onClick={()=>{handleProductOnClick(product._id)}}>
-             <CardMedia className={classes.media}  image={`http://localhost:3001/server/uploads/products/${product.image[0].filename}`} title={product.name}/>
+    <Card className={classes.root} >
+             <CardMedia className={classes.media}  image={`http://localhost:3001/server/uploads/products/${product.image[0].filename}`} title={product.name} onClick={()=>{handleProductOnClick(product._id)}}/>
               <CardContent className={classes.cardContent}>
                   <div className={classes.cardContentSub}>
                     <Typography variant='h5' gutterBottom>

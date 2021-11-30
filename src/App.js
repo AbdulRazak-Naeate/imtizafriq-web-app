@@ -168,9 +168,9 @@ function App() {
     })
   
   };
-  const handleAddtoCart = async (productId,quantity)=>{
+  const handleAddtoCart = async (product,quantity)=>{
 
-    addtoCart(productId,quantity).then((response) => {
+    addtoCart(product,quantity).then((response) => {
      // console.log(response.data);
       if (response.status===200){
         setCart(response.data.cart)
@@ -396,7 +396,7 @@ const fetchProduct =(productid)=>{
         <Orders orders={myOrders}/>
          </Route>
         <Route exact path="/proceedcheckout">
-          <ProceedCheckOut/>
+          <ProceedCheckOut onAddToCart={handleAddtoCart}/>
         </Route>
          <Route path="/login">
            <LogIn/>
