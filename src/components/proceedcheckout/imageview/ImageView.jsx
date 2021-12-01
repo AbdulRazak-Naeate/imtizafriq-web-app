@@ -27,7 +27,7 @@ const ImageView = ({images}) => {
      </div>
 
      <div className={classes.previewContainer}>
-           <Card className={classes.root}>
+           <Card>
             <CardMedia className={classes.mediaPreview} id="img-preview"  image={`http://localhost:3001/server/uploads/products/${images[imageIndex].filename}`} title={images[imageIndex].name}/>
             </Card>
      </div>
@@ -38,7 +38,7 @@ const ImageView = ({images}) => {
 
  
   return (
-    <div>{
+    <div className={classes.container}>{
        images.length>0?  <FilledProduct/>:'loading ...'
       }
    </div>

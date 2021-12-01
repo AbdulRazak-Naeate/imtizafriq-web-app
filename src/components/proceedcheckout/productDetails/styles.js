@@ -1,16 +1,19 @@
 import {makeStyles} from '@material-ui/core/styles';
 
-export default  makeStyles(()=>({
-    root:{  
-        padding:'10px 20px',
-        height:440,
-        width:'100%',
-        border:'0px solid',
-        justifyContent:'flex-start',
-        alignItems:'start'
+export default  makeStyles((theme)=>({
+    root:{ 
+       justifyContent:'flex-start',
+        alignItems:'start' ,
+        [theme.breakpoints.down(620)]:{
+            padding:'20px',
+           },
     },
     card:{
-      height:'100%'
+       height:440,
+       [theme.breakpoints.down(620)]:{
+        height:280,
+        width:'100%'
+       },
     },
     cardContent:{
      height:'100%',

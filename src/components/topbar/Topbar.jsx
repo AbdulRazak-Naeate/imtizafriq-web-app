@@ -1,10 +1,11 @@
 import React ,{useState,useEffect}from 'react';
 import "./topbar.css"
-import {NotificationsNone,ShoppingCartOutlined,AccountCircleOutlined,ListAltOutlined, ListOutlined } from '@material-ui/icons';
+import {NotificationsNone,ShoppingCartOutlined,AccountCircleOutlined,ShoppingBasketOutlined, ListOutlined } from '@material-ui/icons';
+import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import {useHistory,Link} from 'react-router-dom';
- const Topbar = ({totalItems}) => {
+ const Topbar = ({totalItems,totalOrders}) => {
   //const [user] = useState(JSON.parse(localStorage.getItem('user')));
   const [loggedin] = useState(JSON.parse(localStorage.getItem('loggedin')));
   
@@ -40,10 +41,10 @@ import {useHistory,Link} from 'react-router-dom';
                     </div>
 
                     <div className="topbarIonContainer">
-                       <Link to="/orders" >
-                       <ListOutlined className="link"/>
+                       <Link to="/orders">
+                       <ShoppingBagOutlinedIcon className="link"/>
                        </Link>
-                        <span className="topIconBadge">2</span>
+                        <span className="topIconBadge">{totalOrders}</span>
                     </div>
                     <div className="topbarIonContainer">
                       <Link  to="/cart"><ShoppingCartOutlined className="link"/>

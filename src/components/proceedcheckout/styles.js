@@ -5,12 +5,24 @@ export default makeStyles((theme) => ({
     title: {
       marginTop: '4%',
     },
-   container:{
-     marginTop:'40px',
+   content:{
+      height:'auto',
+       marginTop:'40px',
        display:'flex',
        justifyContent:'space-between',
        alignItems:'start',
-       border:'0px solid'
+       [theme.breakpoints.down(620)]:{
+        marginTop:'1px',
+       }
    },
+   slider:{
+    [theme.breakpoints.up(620)]:{
+      display:'none',
+     },
+     [theme.breakpoints.down(620)]:{
+      display:'block',
+     }
+   },
+   
   
 }))

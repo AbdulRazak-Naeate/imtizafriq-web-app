@@ -58,6 +58,7 @@ function App() {
      const [errorMessage,setErrorMessage]=useState('');
      const [order,setOrder]=useState({});
      const[myOrders,setMyOrders]=useState([]);
+     const[orderCount,setMyOrderCount]=useState(0);
 
 
   const handleEmptyCart = async ()=>{
@@ -259,6 +260,7 @@ function App() {
           incomingOrder(newOrder).then((response)=>{
            console.log(response.data)
            setMyOrders(response.Data);
+           setMyOrderCount(response.Data.length)
          })
           console.log(newOrder)
           setOrder(newOrder);
@@ -363,6 +365,7 @@ const fetchProduct =(productid)=>{
        try{
          if (response.status===200){
            setMyOrders(response.data.orders)
+           setMyOrderCount(response.data.orders.length)
          }
 
        }catch(err){
@@ -379,7 +382,7 @@ const fetchProduct =(productid)=>{
      <>
        <Router>
          <Route exact path={['/','/cart','/checkout','/orders','/proceedcheckout']}>
-         <Topbar totalItems={itemsCount}/>
+         <Topbar totalItems={itemsCount} totalOrders={orderCount}/>
          </Route>
        <Switch>   
        <Route exact path="/" >   

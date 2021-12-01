@@ -3,7 +3,16 @@ import {makeStyles} from '@material-ui/core/styles'
 export default makeStyles((theme)=>({
     root:{
         maxWidth:'100%',
-        margin:'0px 20px 20px 40px'
+        margin:'0px 20px 20px 0px',
+        
+    },
+    container:{
+        [theme.breakpoints.up(620)]:{
+            display:'block',
+           },
+           [theme.breakpoints.down(620)]:{
+            display:'none',
+           }
     },
     thumbnailContainer:{
         flex:'1',
@@ -15,8 +24,8 @@ export default makeStyles((theme)=>({
         border:'0px solid'
     },
     mediaThumbnail:{
-        height:120,
-        width:120,
+        height:100,
+        width:100,
        
     },
     disSelect:{
@@ -27,21 +36,22 @@ export default makeStyles((theme)=>({
         border:'2px solid #f50057',
       },
     previewContainer:{
-        flex:'4',
+        flex:'5',
         margin:'0px 40px'
     },
     mediaPreview:{
-        height:420,
-        width:400,
+        height:440,
+        maxWidth:"100%",
         border:'0px solid'
+        
     },
     viewcontainer:{
         display:'flex',
-        padding:'10px 20px',
         border:'0px solid',
-        marginLeft:'10%',
+        marginLeft:'0%',
         justifyContent:'space-between',
        
          
     }
+    ,
 }))
