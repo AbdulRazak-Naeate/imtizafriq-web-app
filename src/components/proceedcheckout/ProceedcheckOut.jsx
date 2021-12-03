@@ -66,7 +66,7 @@ const Item = styled(Paper)(({ theme }) => ({
    <main className={classes.content}> { product ?
     <Grid container justifyContent="center" spacing={1} style={{marginTop:'40px'}}>
     
-    <Grid xs={10} sm={6} md={4} lg={5}>
+    <Grid xs={12} sm={6} md={4} lg={5}>
     <ImageView images={images} className={classes.imageView}/> 
     <Slider images={images} />
     </Grid>

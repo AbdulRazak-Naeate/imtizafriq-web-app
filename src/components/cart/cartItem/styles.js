@@ -5,7 +5,7 @@ export default makeStyles(() => ({
     height: 200,
   },
   cardContent: {
-    height:100,
+    height:'auto',
     display: 'flex',
     justifyContent: 'space-between',
   },
@@ -54,5 +54,28 @@ export default makeStyles(() => ({
     borderRadius:'30px',
     backgroundColor:'#f50057',
     color:'white'
+  }
+  ,measurementCard:{
+    height:'auto',
+  },
+  measurementForm:{
+    border:'1px solid',
+    borderRadius:'3px',
+    padding:'10px 10px',
+  },
+  measurementInputWrapper:{
+    display:'flex',
+    flexDirection:'column'
+  },
+  measurementInput:{
+    width:'80%',height:'40%' ,
+  }
+  ,
+  measuregridContainer:{
+    border:'1px solid  #afb4b0',
+    borderRadius:'4px',
+    padding:'10px 10px',
+    margin:'0px 0px 5px 0px'
+    
   }
 }));

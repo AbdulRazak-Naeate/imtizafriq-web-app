@@ -6,15 +6,29 @@ import useStyles from './styles';
 import {Link } from 'react-router-dom';
 
 
+const getFormatWithCurrencySymbol =(amount,currency)=>{
+  // Create GH Cedi currency symbol.
+var formatter = new Intl.NumberFormat('en-GH', {
+    style: 'currency', 
+    currency: currency, //   currency: 'GHS',
+  });
+  return formatter.format(amount)
+}
 const ProductDetails = ({product,onAddToCart}) => {
     const classes =useStyles();
-    console.log(product)
+
   return (
     <div className={classes.root} >
        <Card className={classes.card}>
         <CardContent className={classes.cardContent}>
          <div className={classes.contentSub}>
-         <Typography variant="h4" className={classes.descrption}>
+        <div className={classes.priceWrapper}>
+        <Typography variant="h4" className={classes.price}>
+              {getFormatWithCurrencySymbol(product.price,'GHS')}
+          </Typography>
+        </div>
+         
+         <Typography variant="h4">
               {product.name}
           </Typography>
          

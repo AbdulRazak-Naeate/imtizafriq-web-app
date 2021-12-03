@@ -35,7 +35,6 @@ export default  makeStyles((theme)=>({
        color:'#fff'
     },
     priceWrapper:{
-        backgroundColor:'#dddd3d'
     }
     ,price:{
         color:'red'

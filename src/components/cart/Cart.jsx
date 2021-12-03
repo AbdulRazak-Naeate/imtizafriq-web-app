@@ -47,6 +47,7 @@ const Cart = ({cart, handleUpdateCartQty,handleUpdateSpecs,handleRemoveFromCart,
                 <div  className={classes.toolbar}>
                 <Typography className={classes.title} variant="h4" gutterBottom>Your Shopping Cart</Typography>
                 </div>
+                
                 {itemsCount===0 ? EmptyCart(): FilledCart()}
             </Container>
         </div>
