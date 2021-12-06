@@ -5,12 +5,12 @@ import FormInput from '../../checkoutform/CustomTextField';
 import Select from '../../checkoutform/CustomSelectField';
 import {useForm , Controller} from 'react-hook-form';
 import { Grid } from '@material-ui/core';
-const CartItem = ({cartitem,onUpdateCartQty,onUpdateSpecs,onUpdateMeasurement,onRemoveFromCart}) => {
+const CartItem = ({cartitem,onUpdateCartQty,onUpdateColorSize,onUpdateMeasurement,onRemoveFromCart}) => {
     const classes = useStyles();
     const[color,setColor]=useState(cartitem.color);
     const[size,setSize]=useState(cartitem.size);
-    const[measurement,setMeasurment]=useState(cartitem.measurement)
-    const [sleeve,setSleeve]=useState('');
+    const[measurement]=useState(cartitem.measurement)
+    const [sleeve,setSleeve]=useState(measurement.sleeve);
 
     const sleeves = [
       {
@@ -50,14 +50,14 @@ const methods=useForm();
       console.log(item)
       
  }
-    const ColorGridList= ({list,onUpdateSpecs}) =>(
+    const ColorGridList= ({list,onUpdateColorSize}) =>(
           <>
           <Typography variant="body2">{`Select Color`}</Typography>
          <div class={classes.specsListWrapper} >
           <div className={classes.gridSpecsList} >                        
                <div className={classes.specsGrid} > 
                 {list.map((item,index)=>(
-                 item!=='' ? <div key={index} className={`${classes.gridSpecsItem} ${color===item ? classes.select:classes.disSelect}`} onClick={()=>{onUpdateSpecs(cartitem.product._id,'color',item);onGridColorItemClick(item)}}>{item}</div>:''
+                 item!=='' ? <div key={index} className={`${classes.gridSpecsItem} ${color===item ? classes.select:classes.disSelect}`} onClick={()=>{onUpdateColorSize(cartitem.product._id,'color',item);onGridColorItemClick(item)}}>{item}</div>:''
                
                 ))}
                 </div>
@@ -66,14 +66,14 @@ const methods=useForm();
   </>
     )
 
-    const SizeGridList= ({list ,onUpdateSpecs}) =>(
+    const SizeGridList= ({list ,onUpdateColorSize}) =>(
       <>
       <Typography variant="body2">{`Select Size`}</Typography>
      <div class={classes.specsListWrapper} >
       <div className={classes.gridSpecsList} >                        
            <div className={classes.specsGrid} > 
             {list.map((item,index)=>(
-             item!==''? <div key={index} className={`${classes.gridSpecsItem} ${size===item ? classes.select:classes.disSelect}`} onClick={()=>{onUpdateSpecs(cartitem.product._id,'size',item);onGridSizeItemClick(item)}}>{item}</div>:''
+             item!==''? <div key={index} className={`${classes.gridSpecsItem} ${size===item ? classes.select:classes.disSelect}`} onClick={()=>{onUpdateColorSize(cartitem.product._id,'size',item);onGridSizeItemClick(item)}}>{item}</div>:''
            
             ))}
             </div>
@@ -122,7 +122,7 @@ const methods=useForm();
              <TextField className={classes.measurementInput} key={`input3${productid}`} id={`input3${productid}`}
              label="Length"
              onChange={onMeasurementValueChange}
-             defaultValue={measurement.length}
+             defaultValue={measurement.shirtLength}
              inputProps={register('shirtLength', {
                required: 'Please enter sleeve',
              })}
@@ -164,8 +164,8 @@ const methods=useForm();
          <div className={classes.measurementInputWrapper} >
              <TextField className={classes.measurementInput} key={`input1${productid}`}  label="Length"
             onChange={onMeasurementValueChange}
-
-             inputProps={register('tlength', {
+             defaultValue={measurement.trouserLength}
+             inputProps={register('trouserLength', {
                required: 'Please enter back',
              })}  />
 
@@ -176,7 +176,7 @@ const methods=useForm();
              <TextField className={classes.measurementInput}key={`input2${productid}`} 
               label="Waist"
               onChange={onMeasurementValueChange}
-
+              defaultValue={measurement.waist}
               inputProps={register('waist', {
                 required: 'Please enter waist',
               })}
@@ -188,6 +188,7 @@ const methods=useForm();
           <div className={classes.measurementInputWrapper} >
              <TextField className={classes.measurementInput}key={`input2${productid}`} 
               label="Thigh"
+              defaultValue={measurement.thigh}
               onChange={onMeasurementValueChange}
               inputProps={register('thigh', {
                 required: 'Please enter thigh',
@@ -200,6 +201,7 @@ const methods=useForm();
            <div className={classes.measurementInputWrapper} >
              <TextField className={classes.measurementInput} key={`input3${productid}`} id={`input3${productid}`}
              label="bust"
+             defaultValue={measurement.bust}
              onChange={onMeasurementValueChange}
              inputProps={register('bust', {
                required: 'Please enter bust',
@@ -226,10 +228,11 @@ const methods=useForm();
             <CardActions className={classes.cardActions}>
              <div className={classes.specifications}>
                <Measurement productid={cartitem.product._id}/>
-              {cartitem.product.color.length>0 ?  <ColorGridList type={"color"} onUpdateSpecs={onUpdateSpecs} list={cartitem.product.color}/>:''}
               {
-                cartitem.product.size.length>0 ?  <SizeGridList type={"size"} onUpdateSpecs={onUpdateSpecs} list={cartitem.product.size}/>:''
+                cartitem.product.size.length>0 ?  <SizeGridList type={"size"} onUpdateColorSize={onUpdateColorSize} list={cartitem.product.size}/>:''
               }
+              {cartitem.product.color.length>0 ?  <ColorGridList type={"color"} onUpdateColorSize={onUpdateColorSize} list={cartitem.product.color}/>:''}
+            
              </div>
               <div className={classes.buttons}>
                 <Button type="button" size="small" onClick={()=>{onUpdateCartQty(cartitem.product._id,cartitem.quantity-1,cartitem.product.price)}}>-</Button>

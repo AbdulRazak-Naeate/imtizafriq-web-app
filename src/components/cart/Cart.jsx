@@ -3,7 +3,7 @@ import React ,{useState,useEffect} from 'react'
  import useStyles from './styles';
  import CartItem from './cartItem/CartItem';
  import {Link} from 'react-router-dom';
-const Cart = ({cart, handleUpdateCartQty,handleUpdateSpecs,handleupdateMeasurement,handleRemoveFromCart, handleEmptyCart}) => {
+const Cart = ({cart, handleUpdateCartQty,handleupdateColorSize,handleupdateMeasurement,handleRemoveFromCart, handleEmptyCart}) => {
   
     const classes= useStyles();
     const [itemsCount,setItemsCount]=useState(0);
@@ -24,7 +24,7 @@ const Cart = ({cart, handleUpdateCartQty,handleUpdateSpecs,handleupdateMeasureme
             <Grid container spacing={3}> 
                 {cart.items.map((item)=>(
                     <Grid item xs={12} sm={4} key={item.porductId}>
-                        <CartItem cartitem={item} key={item.porductId} onUpdateCartQty={handleUpdateCartQty} onUpdateSpecs={handleUpdateSpecs} onUpdateMeasurement={handleupdateMeasurement} onRemoveFromCart={handleRemoveFromCart} />
+                        <CartItem cartitem={item} key={item.porductId} onUpdateCartQty={handleUpdateCartQty} onUpdateColorSize={handleupdateColorSize} onUpdateMeasurement={handleupdateMeasurement} onRemoveFromCart={handleRemoveFromCart} />
                     </Grid>
                 ))}
             </Grid>

@@ -61,6 +61,7 @@ export default makeStyles(() => ({
   measurementFormWrapper:{
     border:'1px solid  #afb4b0',
     padding:'5px',
+    marginBottom:'5px'
 
   },
   measurementForm:{

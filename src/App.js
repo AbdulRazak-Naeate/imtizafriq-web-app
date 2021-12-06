@@ -144,9 +144,9 @@ function App() {
   
   };
 
-  const handleUpdateSpecs = async (productId,type,value)=>{
+  const handleupdateColorSize = async (productId,type,value)=>{
   
-      updateSpecs(productId,type,value).then((response)=>{
+    updateColorAndSizeSpecs(productId,type,value).then((response)=>{
         if (response.status===200){
          // console.log(response.data.cart.items)
           setCart(response.data.cart)
@@ -156,9 +156,9 @@ function App() {
        })
     
    }
-  const updateSpecs =(productId,type,value)=>{
+  const updateColorAndSizeSpecs =(productId,type,value)=>{
     
-    const url = `http://localhost:3001/api/carts/specs`;
+    const url = `http://localhost:3001/api/carts/specs/colorandsize`;
      
  
     return patch(url,  {
@@ -416,7 +416,7 @@ const fetchProduct =(productid)=>{
        <Products products={products} onAddToCart={handleAddtoCart} />
        </Route>
        <Route exact path="/cart">
-          <Cart cart={cart} handleUpdateCartQty={handleUpdateCartQty} handleUpdateSpecs={handleUpdateSpecs} handleupdateMeasurement={handleupdateMeasurement} handleRemoveFromCart={handleRemoveFromCart}
+          <Cart cart={cart} handleUpdateCartQty={handleUpdateCartQty} handleupdateColorSize={handleupdateColorSize} handleupdateMeasurement={handleupdateMeasurement} handleRemoveFromCart={handleRemoveFromCart}
           handleEmptyCart={handleEmptyCart}/>
        </Route>
        <Route exact path="/checkout">

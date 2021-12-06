@@ -95,7 +95,7 @@ router.post('/',async (req,res)=>{
                         quantity:req.body.quantity,
                         color:'null',
                         size:'null',
-                        measurement:{"back":"","chest":"","shirtLength":"","sleeve":"","tlength":"","waist":"","thigh":"","bust":""},
+                        measurement:{back:"",chest:"",shirtLength:"",sleeve:"",trouserLength:"",waist:"",thigh:"",bust:""},
                         product:req.body.product,
                         line_item_sub_price:sub_price
                        
@@ -122,7 +122,7 @@ router.post('/',async (req,res)=>{
                     quantity:req.body.quantity,
                     color:'null',
                     size:'null',
-                    measurement:{"back":"","chest":"","shirtLength":"","sleeve":"","tlength":"","waist":"","thigh":"","bust":""},
+                    measurement:{back:"",chest:"",shirtLength:"",sleeve:"",trouserLength:"",waist:"",thigh:"",bust:""},
                     product:req.body.product,
                     line_item_sub_price:subprice
                    
@@ -180,7 +180,7 @@ router.patch('/quantity/:productId',async (req,res)=>{
 });
 
 //update cart item specs eg size and color
-router.patch('/specs',async (req,res)=>{
+router.patch('/specs/colorandsize',async (req,res)=>{
 
     try{
         var pId =req.body.productId;
