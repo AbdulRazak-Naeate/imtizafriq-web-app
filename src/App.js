@@ -169,6 +169,33 @@ function App() {
     })
   
   };
+
+  
+  const handleupdateMeasurement = async (productId,measurement)=>{
+  
+    updateMeasurement(productId,measurement).then((response)=>{
+      console.log(measurement)
+        if (response.status===200){
+         // console.log(response.data.cart.items)
+          setCart(response.data.cart)
+          setItemsCount(response.data.cart.items.length);
+
+         } 
+       })
+    
+   }
+  const updateMeasurement =(productId,measurement)=>{
+    
+    const url = `http://localhost:3001/api/carts/specs/measurement`;
+     
+ 
+    return patch(url,  {
+      productId:productId,
+      measurement:measurement,
+      userId:userid,
+    })
+  
+  };
   const handleAddtoCart = async (product,quantity)=>{
 
     addtoCart(product,quantity).then((response) => {
@@ -389,7 +416,7 @@ const fetchProduct =(productid)=>{
        <Products products={products} onAddToCart={handleAddtoCart} />
        </Route>
        <Route exact path="/cart">
-          <Cart cart={cart} handleUpdateCartQty={handleUpdateCartQty} handleUpdateSpecs={handleUpdateSpecs} handleRemoveFromCart={handleRemoveFromCart}
+          <Cart cart={cart} handleUpdateCartQty={handleUpdateCartQty} handleUpdateSpecs={handleUpdateSpecs} handleupdateMeasurement={handleupdateMeasurement} handleRemoveFromCart={handleRemoveFromCart}
           handleEmptyCart={handleEmptyCart}/>
        </Route>
        <Route exact path="/checkout">

@@ -58,6 +58,11 @@ export default makeStyles(() => ({
   ,measurementCard:{
     height:'auto',
   },
+  measurementFormWrapper:{
+    border:'1px solid  #afb4b0',
+    padding:'5px',
+
+  },
   measurementForm:{
     border:'1px solid',
     borderRadius:'3px',

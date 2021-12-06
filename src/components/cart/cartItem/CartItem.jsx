@@ -5,11 +5,13 @@ import FormInput from '../../checkoutform/CustomTextField';
 import Select from '../../checkoutform/CustomSelectField';
 import {useForm , Controller} from 'react-hook-form';
 import { Grid } from '@material-ui/core';
-const CartItem = ({cartitem,onUpdateCartQty,onUpdateSpecs,onRemoveFromCart}) => {
+const CartItem = ({cartitem,onUpdateCartQty,onUpdateSpecs,onUpdateMeasurement,onRemoveFromCart}) => {
     const classes = useStyles();
-    const[color,setColor]=useState('');
-    const[size,setSize]=useState('');
-    const [sleeve,setSleeve]=useState('none');
+    const[color,setColor]=useState(cartitem.color);
+    const[size,setSize]=useState(cartitem.size);
+    const[measurement,setMeasurment]=useState(cartitem.measurement)
+    const [sleeve,setSleeve]=useState('');
+
     const sleeves = [
       {
         value: 'short',
@@ -27,12 +29,17 @@ const methods=useForm();
       formState: { errors },
     } = useForm();
 
-    const handleSleeveChange = (event) => {
-        setSleeve(event.target.value);    
-        console.log(event.target.value)
-       console.log("form data "+JSON.stringify(getValues()))
-    
+    const onMeasurementValueChange = (event) => {
+        console.log("form data "+JSON.stringify(getValues()))
+        onUpdateMeasurement(cartitem.product._id,JSON.stringify(getValues()))
     }
+    
+    const onSleeveChange = (event) => {
+      setSleeve(event.target.value);    
+      console.log(event.target.value)
+      console.log("form data "+JSON.stringify(getValues()))
+      onUpdateMeasurement(cartitem.product._id,JSON.stringify(getValues()))
+  }
     
      const onGridColorItemClick=(item)=>{
          setColor(item)
@@ -75,16 +82,21 @@ const methods=useForm();
     </>)
 
     const Measurement =({productid})=>(
-     <>
+     <div className={classes.measurementFormWrapper}>
       {/* <Card className={classes.measurementCard} key={`card${productid}`}>  
         <CardContent style={{height:'auto',border:'0px solid'}}> */}
-       
-        <form >
+         <Typography variant='body1'>{`Measurement`}</Typography>
+
+        <form>
         <div className={classes.measuregridContainer}>
+        <Typography variant='body1'>{`Top(Shirt)`}</Typography>
+
         <Grid container direction='row' justifyContent='space-between' spacing={1}>
          <Grid xs={2} sm={2} md={2} lg={2}>
          <div className={classes.measurementInputWrapper} >
              <TextField className={classes.measurementInput} key={`input1${productid}`}  label="Back"
+             onChange={onMeasurementValueChange}
+              defaultValue={measurement.back}
              inputProps={register('back', {
                required: 'Please enter back',
              })}  />
@@ -96,6 +108,8 @@ const methods=useForm();
           <div className={classes.measurementInputWrapper} >
              <TextField className={classes.measurementInput}key={`input2${productid}`} 
               label="Chest"
+              onChange={onMeasurementValueChange}
+              defaultValue={measurement.chest}
               inputProps={register('chest', {
                 required: 'Please enter chest',
               })}
@@ -107,6 +121,8 @@ const methods=useForm();
            <div className={classes.measurementInputWrapper} >
              <TextField className={classes.measurementInput} key={`input3${productid}`} id={`input3${productid}`}
              label="Length"
+             onChange={onMeasurementValueChange}
+             defaultValue={measurement.length}
              inputProps={register('shirtLength', {
                required: 'Please enter sleeve',
              })}
@@ -119,12 +135,12 @@ const methods=useForm();
              <TextField
           select
           fullWidth={false}
-          defaultValue="none"
+          defaultValue={sleeve}
           label="Sleeve"
           inputProps={register('sleeve', {
             required: 'Please enter sleeve',
           })}
-          onChange={handleSleeveChange}
+          onChange={onSleeveChange}
         >
           {sleeves.map((option) => (
             <MenuItem key={option.value} value={option.value}>
@@ -140,12 +156,15 @@ const methods=useForm();
           
           </Grid>
         </div>
-
+        
         <div className={classes.measuregridContainer}>
+          <Typography variant='body1'>{`Down(Trouser)`}</Typography>
         <Grid container direction='row' justifyContent='space-between' spacing={1}>
          <Grid xs={2} sm={2} md={2} lg={2}>
          <div className={classes.measurementInputWrapper} >
              <TextField className={classes.measurementInput} key={`input1${productid}`}  label="Length"
+            onChange={onMeasurementValueChange}
+
              inputProps={register('tlength', {
                required: 'Please enter back',
              })}  />
@@ -156,6 +175,8 @@ const methods=useForm();
           <div className={classes.measurementInputWrapper} >
              <TextField className={classes.measurementInput}key={`input2${productid}`} 
               label="Waist"
+              onChange={onMeasurementValueChange}
+
               inputProps={register('waist', {
                 required: 'Please enter waist',
               })}
@@ -167,6 +188,7 @@ const methods=useForm();
           <div className={classes.measurementInputWrapper} >
              <TextField className={classes.measurementInput}key={`input2${productid}`} 
               label="Thigh"
+              onChange={onMeasurementValueChange}
               inputProps={register('thigh', {
                 required: 'Please enter thigh',
               })}
@@ -178,6 +200,7 @@ const methods=useForm();
            <div className={classes.measurementInputWrapper} >
              <TextField className={classes.measurementInput} key={`input3${productid}`} id={`input3${productid}`}
              label="bust"
+             onChange={onMeasurementValueChange}
              inputProps={register('bust', {
                required: 'Please enter bust',
              })}
@@ -188,7 +211,7 @@ const methods=useForm();
           </Grid>
         </div>
       </form>
-        </>
+        </div>
        /*  </CardContent>
       </Card> */
     )

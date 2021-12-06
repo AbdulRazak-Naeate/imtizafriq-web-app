@@ -93,6 +93,9 @@ router.post('/',async (req,res)=>{
                
                         productId:req.body.productId,
                         quantity:req.body.quantity,
+                        color:'null',
+                        size:'null',
+                        measurement:{"back":"","chest":"","shirtLength":"","sleeve":"","tlength":"","waist":"","thigh":"","bust":""},
                         product:req.body.product,
                         line_item_sub_price:sub_price
                        
@@ -119,6 +122,7 @@ router.post('/',async (req,res)=>{
                     quantity:req.body.quantity,
                     color:'null',
                     size:'null',
+                    measurement:{"back":"","chest":"","shirtLength":"","sleeve":"","tlength":"","waist":"","thigh":"","bust":""},
                     product:req.body.product,
                     line_item_sub_price:subprice
                    
@@ -225,6 +229,40 @@ router.patch('/specs',async (req,res)=>{
     }
 
 });
+
+//update cart item specs eg measurement
+router.patch('/specs/measurement',async (req,res)=>{
+
+    try{
+        var pId =req.body.productId;
+      
+            var measurement= JSON.parse(req.body.measurement)
+            console.log(measurement.back)
+            Cart.findOneAndUpdate({userId:req.body.userId,
+                items:{
+                    $elemMatch:{productId:req.body.productId}
+                     }
+                    },
+                {
+                    $set: {
+                          'items.$.measurement':measurement,
+                          }
+                },   
+                { new:true,useFindAndModify:false}).then(ret=>{
+                
+                  updateSubtotal(req,res)
+                  
+            });
+    
+           
+
+     
+    }catch(err){
+        console.log(err);
+    }
+
+});
+
 
 //empty user Cart
 router.patch('/:userId', async (req,res)=>{
