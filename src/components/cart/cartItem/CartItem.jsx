@@ -1,16 +1,20 @@
 import React,{useState} from 'react'
 import {Typography,Button,Card,CardActions,CardContent,CardMedia,MenuItem,TextField} from '@material-ui/core';
 import useStyles from './styles';
-import FormInput from '../../checkoutform/CustomTextField';
-import Select from '../../checkoutform/CustomSelectField';
-import {useForm , Controller} from 'react-hook-form';
+import {useForm} from 'react-hook-form';
 import { Grid } from '@material-ui/core';
+import Collapse from '@mui/material/Collapse';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+import ListItemButton from '@mui/material/ListItemButton';
 const CartItem = ({cartitem,onUpdateCartQty,onUpdateColorSize,onUpdateMeasurement,onRemoveFromCart}) => {
     const classes = useStyles();
     const[color,setColor]=useState(cartitem.color);
     const[size,setSize]=useState(cartitem.size);
     const[measurement]=useState(cartitem.measurement)
     const [sleeve,setSleeve]=useState(measurement.sleeve);
+    const[open,setOpen]=useState(true);
+    const[colorSelectedList,setColorSelectedList]=useState([]);
 
     const sleeves = [
       {
@@ -22,38 +26,40 @@ const CartItem = ({cartitem,onUpdateCartQty,onUpdateColorSize,onUpdateMeasuremen
         label: 'Long',
       },
     ];
+    const handleClick=()=>{
+      setOpen(!open)
+    }
+    // eslint-disable-next-line no-unused-vars
+    const {register,getValues,formState: { errors },} = useForm();
     
-const methods=useForm();
-    const {register,
-      handleSubmit,getValues,control,
-      formState: { errors },
-    } = useForm();
-
-    const onMeasurementValueChange = (event) => {
-        console.log("form data "+JSON.stringify(getValues()))
+    const onMeasurementValueChange = () => {
         onUpdateMeasurement(cartitem.product._id,JSON.stringify(getValues()))
     }
     
     const onSleeveChange = (event) => {
       setSleeve(event.target.value);    
-      console.log(event.target.value)
-      console.log("form data "+JSON.stringify(getValues()))
+      //console.log("form data "+JSON.stringify(getValues()))
       onUpdateMeasurement(cartitem.product._id,JSON.stringify(getValues()))
   }
     
      const onGridColorItemClick=(item)=>{
          setColor(item)
-         console.log(item)
+         setColorSelectedList(selected=>[...selected,item])
+          console.log("color selected "+colorSelectedList)
+         //console.log(item)
      }
      const onGridSizeItemClick=(item)=>{
       setSize(item)
+      
       console.log(item)
       
  }
+   
     const ColorGridList= ({list,onUpdateColorSize}) =>(
           <>
+         <div className={classes.specsListWrapper} >
           <Typography variant="body2">{`Select Color`}</Typography>
-         <div class={classes.specsListWrapper} >
+ 
           <div className={classes.gridSpecsList} >                        
                <div className={classes.specsGrid} > 
                 {list.map((item,index)=>(
@@ -68,8 +74,9 @@ const methods=useForm();
 
     const SizeGridList= ({list ,onUpdateColorSize}) =>(
       <>
-      <Typography variant="body2">{`Select Size`}</Typography>
-     <div class={classes.specsListWrapper} >
+     <div className={classes.specsListWrapper} >
+     <Typography variant="body2">{`Select Size`}</Typography>
+
       <div className={classes.gridSpecsList} >                        
            <div className={classes.specsGrid} > 
             {list.map((item,index)=>(
@@ -85,14 +92,14 @@ const methods=useForm();
      <div className={classes.measurementFormWrapper}>
       {/* <Card className={classes.measurementCard} key={`card${productid}`}>  
         <CardContent style={{height:'auto',border:'0px solid'}}> */}
-         <Typography variant='body1'>{`Measurement`}</Typography>
-
+        {/*  <Typography variant='body1'>{`Measurement`}</Typography>
+ */}
         <form>
         <div className={classes.measuregridContainer}>
         <Typography variant='body1'>{`Top(Shirt)`}</Typography>
 
         <Grid container direction='row' justifyContent='space-between' spacing={1}>
-         <Grid xs={2} sm={2} md={2} lg={2}>
+         <Grid item={true} xs={2} sm={2} md={2} lg={2}>
          <div className={classes.measurementInputWrapper} >
              <TextField className={classes.measurementInput} key={`input1${productid}`}  label="Back"
              onChange={onMeasurementValueChange}
@@ -104,7 +111,7 @@ const methods=useForm();
            </div>
          </Grid>
 
-          <Grid xs={2} sm={2} md={2} lg={2}>
+          <Grid item={true} xs={2} sm={2} md={2} lg={2}>
           <div className={classes.measurementInputWrapper} >
              <TextField className={classes.measurementInput}key={`input2${productid}`} 
               label="Chest"
@@ -117,7 +124,7 @@ const methods=useForm();
 
            </div>
           </Grid>
-           <Grid xs={2} sm={2} md={2} lg={2}>
+           <Grid item={true} xs={2} sm={2} md={2} lg={2}>
            <div className={classes.measurementInputWrapper} >
              <TextField className={classes.measurementInput} key={`input3${productid}`} id={`input3${productid}`}
              label="Length"
@@ -130,7 +137,7 @@ const methods=useForm();
 
            </div>
            </Grid>
-          <Grid xs={4} sm={4} md={4} lg={4}>
+          <Grid item={true}xs={4} sm={4} md={4} lg={4}>
           <div className={classes.measurementInputWrapper} >
              <TextField
           select
@@ -160,7 +167,7 @@ const methods=useForm();
         <div className={classes.measuregridContainer}>
           <Typography variant='body1'>{`Down(Trouser)`}</Typography>
         <Grid container direction='row' justifyContent='space-between' spacing={1}>
-         <Grid xs={2} sm={2} md={2} lg={2}>
+         <Grid item={true} xs={2} sm={2} md={2} lg={2}>
          <div className={classes.measurementInputWrapper} >
              <TextField className={classes.measurementInput} key={`input1${productid}`}  label="Length"
             onChange={onMeasurementValueChange}
@@ -171,7 +178,7 @@ const methods=useForm();
 
            </div>
          </Grid>
-         <Grid xs={2} sm={2} md={2} lg={2}>
+         <Grid item={true} xs={2} sm={2} md={2} lg={2}>
           <div className={classes.measurementInputWrapper} >
              <TextField className={classes.measurementInput}key={`input2${productid}`} 
               label="Waist"
@@ -184,7 +191,7 @@ const methods=useForm();
 
            </div>
           </Grid>
-          <Grid xs={2} sm={2} md={2} lg={2}>
+          <Grid item={true} xs={2} sm={2} md={2} lg={2}>
           <div className={classes.measurementInputWrapper} >
              <TextField className={classes.measurementInput}key={`input2${productid}`} 
               label="Thigh"
@@ -197,7 +204,7 @@ const methods=useForm();
 
            </div>
           </Grid>
-           <Grid xs={2} sm={2} md={2} lg={2}>
+           <Grid  item={true} xs={2} sm={2} md={2} lg={2}>
            <div className={classes.measurementInputWrapper} >
              <TextField className={classes.measurementInput} key={`input3${productid}`} id={`input3${productid}`}
              label="bust"
@@ -227,7 +234,14 @@ const methods=useForm();
             </CardContent>
             <CardActions className={classes.cardActions}>
              <div className={classes.specifications}>
+             <ListItemButton onClick={handleClick}>
+              <Typography variant="body2">Measurement</Typography> {open ? <ExpandLess /> : <ExpandMore />}
+               </ListItemButton>
+             
+
+               <Collapse in={open} timeout="auto" unmountOnExit>
                <Measurement productid={cartitem.product._id}/>
+               </Collapse>
               {
                 cartitem.product.size.length>0 ?  <SizeGridList type={"size"} onUpdateColorSize={onUpdateColorSize} list={cartitem.product.size}/>:''
               }

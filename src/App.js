@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {useState}from 'react';
 import {BrowserRouter as Router,Switch,Route
 } from "react-router-dom";
@@ -5,7 +6,7 @@ import  Dashboard from './dashboard/Dashboard'
 import './App.css';
 import LogIn from "./pages/login/LogIn";
 import SignUp from './pages/signup/SignUp';
-import {Topbar,Products,Cart,Orders,ProceedCheckOut } from   './components';
+import {Topbar,Products,Cart,Orders,ProceedCheckOut } from './components';
 import { useEffect } from 'react';
 import axios ,{post,patch} from 'axios';
 import CheckOut from './components/checkoutform/checkout/CheckOut';
@@ -49,10 +50,9 @@ function App() {
      
      return id;
   }
-  const[userid]=useState(createTempUserId());
- 
-  const[products,setProducts]=useState([]);
-  const[product,setProduct]=useState([]);
+     const[userid]=useState(createTempUserId());
+     const[products,setProducts]=useState([]);
+     const[product,setProduct]=useState([]);
      const[cart,setCart]=useState({});
      const[itemsCount,setItemsCount]=useState(0);
      const [errorMessage,setErrorMessage]=useState('');
@@ -286,12 +286,17 @@ function App() {
     try{ 
           incomingOrder(newOrder).then((response)=>{
            console.log(response.data)
-           setMyOrders(response.Data);
-           setMyOrderCount(response.Data.length)
+           setMyOrders(response.data);
+           try{
+            setMyOrderCount(response.data.length)
+
+           }catch(error){
+             console.log(error)
+           }
          })
           console.log(newOrder)
           setOrder(newOrder);
-           refreshCart();
+          refreshCart();
     }catch(error){
            setErrorMessage(error.data.error.message);
     }

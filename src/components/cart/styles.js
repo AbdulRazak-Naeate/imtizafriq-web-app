@@ -17,14 +17,19 @@ export default makeStyles((theme) => ({
   checkoutButton: {
     minWidth: '150px',
   },
-  link: {
+  link:{
     textDecoration: 'none',
   },
-  cardDetails: {
+  cardDetails:{
     display: 'flex',
     marginTop: '10%',
     marginBottom:20,
     width: '100%',
-    justifyContent: 'space-between',
+    justifyContent:'space-between',
+  },
+  buttons: {
+    width:'100%',
+    display: 'flex',
+    alignItems: 'center',
   },
 }));

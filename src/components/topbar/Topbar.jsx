@@ -1,18 +1,18 @@
-import React ,{useState,useEffect}from 'react';
+import React ,{useEffect}from 'react';
 import "./topbar.css"
-import {NotificationsNone,ShoppingCartOutlined,AccountCircleOutlined,ShoppingBasketOutlined, ListOutlined } from '@material-ui/icons';
+import {NotificationsNone,ShoppingCartOutlined,AccountCircleOutlined} from '@material-ui/icons';
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import {useHistory,Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
  const Topbar = ({totalItems,totalOrders}) => {
-  //const [user] = useState(JSON.parse(localStorage.getItem('user')));
-  const [loggedin] = useState(JSON.parse(localStorage.getItem('loggedin')));
+   //const [user] = useState(JSON.parse(localStorage.getItem('user')));
+   // const [loggedin] = useState(JSON.parse(localStorage.getItem('loggedin')));
   
-  const history=useHistory();
+    //const history=useHistory();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
-    // eslint-disable-next-line no-unused-vars
+    //eslint-disable-next-line no-unused-vars
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
     };

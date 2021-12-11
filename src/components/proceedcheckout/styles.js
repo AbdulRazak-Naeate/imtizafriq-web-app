@@ -21,6 +21,8 @@ export default makeStyles((theme) => ({
      },
      [theme.breakpoints.down(620)]:{
       display:'block',
+      marginTop:'0px',
+
      }
    },
    

@@ -6,6 +6,9 @@ export default makeStyles((theme) => ({
     [theme.breakpoints.up(620)]:{
       display:'none',
      }
+   },
+   sliderItem:{
+    height:'330px',width:'100%'
    }
   
 }))

@@ -1,12 +1,9 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect,useRef} from 'react'
 import useStyles from './styles';
 import ImageView from './imageview/ImageView';
 import ProductDetails from './productDetails/ProductDetails';
 import QueryParams from '../../QueryParams';
 import axios from 'axios'
-import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Slider from './slider/Slider'
 
@@ -15,17 +12,18 @@ const ProceedcheckOut = ({onAddToCart}) => {
     const classes = useStyles();
     const[productid]=useState(query.get('productId'));
     const[product,setProduct]=useState([]);
-    const[images,setImages]=useState([])
+    const[images,setImages]=useState([]);
+    const isMountedRef =useRef(true)
 
-const Item = styled(Paper)(({ theme }) => ({
+/* const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
   padding: theme.spacing(1),
   textAlign: 'center',
   color: theme.palette.text.secondary,
-}));
+})); */
 
     useEffect(()=>{
-
+     isMountedRef.current=false
 
 
         const getProduct = async ()=>{
@@ -59,18 +57,20 @@ const Item = styled(Paper)(({ theme }) => ({
            
            };
 
+      if (productid){
         getProduct();
+      }
        
     },[productid])
   return (
-   <main className={classes.content}> { product ?
-    <Grid container justifyContent="center" spacing={1} style={{marginTop:'40px'}}>
+   <div className={classes.content}> { product ?
+    <Grid container justifyContent="center" spacing={1}>
     
-    <Grid xs={12} sm={6} md={4} lg={5}>
+    <Grid item={true} xs={12} sm={6} md={4} lg={5}>
     <ImageView images={images} className={classes.imageView}/> 
     <Slider images={images} />
     </Grid>
-    <Grid xs={12} sm={6} md={4} lg={5}>
+    <Grid item={true} xs={12} sm={6} md={4} lg={5}>
        <ProductDetails product={product} onAddToCart={onAddToCart}/>
      
     </Grid>
@@ -78,7 +78,7 @@ const Item = styled(Paper)(({ theme }) => ({
      </Grid>
      
      : ''}
-     </main>
+     </div>
   )
 }
 export default ProceedcheckOut

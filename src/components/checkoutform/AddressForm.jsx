@@ -65,7 +65,7 @@ const AddressForm = ({checkoutToken,next}) => {
   }
   const filterCities = async(sid,db)=> {
     let citiesColl = db.getCollection("cities");
-    console.log(citiesColl.data)
+    //console.log(citiesColl.data)
     let cities = await citiesColl.find({ state_id: parseInt(sid) });
         setCities(cities);
   
@@ -132,7 +132,7 @@ const AddressForm = ({checkoutToken,next}) => {
      //get cities data from server
       const citiesfromServer = await initiateCities(db,citiesJSON)
       setCities(citiesfromServer.data);
-     // console.log(citiesfromServer.data[0]);
+      console.log(citiesfromServer.data[0]);
        }catch(err){
          
        }
@@ -164,7 +164,7 @@ const AddressForm = ({checkoutToken,next}) => {
             next({...data,countrylabel,statelabel,citylabel,orderNumber})
             }) } >
             <Grid container spacing={3}>
-                <FormInput name='firstName'  label='First name' register={register}/>
+                <FormInput name='firstName' size="small" label='First name' register={register}/>
                 <FormInput name='lastName'   label='Last name' register={register}/>
                 <FormInput name='address1'   label='Address' register={register}/>
                 <FormInput name='email'    label='Email' register={register} />

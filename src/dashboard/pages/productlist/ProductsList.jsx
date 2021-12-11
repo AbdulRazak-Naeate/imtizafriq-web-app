@@ -7,7 +7,6 @@ import { Link ,useHistory} from 'react-router-dom';
 import {useState,useEffect} from "react";
 import AlertDialog from '../../components/alertdialog/AlertDialog'
 import axios from 'axios';
-import { RestaurantRounded } from '@mui/icons-material';
 
 export default function ProductsList() {   
     const query=QueryParams();

@@ -14,6 +14,7 @@ export default function Product() {
     const [storename]=useState(query.get('storeName'));
     const [productid]=useState(product._id); 
     const [productname]=useState(product.name);
+    // eslint-disable-next-line no-unused-vars
     const [stock,setStock]=useState(product.stock.currentstock);
     const [addStock,setaddStock]=useState(0);
     const [active,setActive]=useState(product.active);

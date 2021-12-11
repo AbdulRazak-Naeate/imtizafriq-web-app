@@ -10,7 +10,7 @@ const OrderItem = ({order}) => {
        return newDate
     }   
   return (
-    <div>
+    <div> 
       <Card className={classes.root}>
             <CardMedia className={classes.media} image={`http://localhost:3001/server/uploads/products/${order.filename}`}> </CardMedia>
 
@@ -39,10 +39,10 @@ const OrderItem = ({order}) => {
                         </Typography>
                     </div>
                     <div className={classes.orderDetails2}>
-                       {order.color!==null ?      <Typography variant="body2" className={classes.color}>
+                       {order.color!=='null' ?      <Typography variant="body2" className={classes.color}>
                           {order.color}  
                         </Typography>:''}
-                       {order.size!==null ? <Typography variant="body2" className={classes.size}>
+                       {order.size!=='null' ? <Typography variant="body2" className={classes.size}>
                           {order.size}  
                         </Typography>:''}
                         <Typography variant="body2">

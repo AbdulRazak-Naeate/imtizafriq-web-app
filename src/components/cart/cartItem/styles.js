@@ -5,7 +5,7 @@ export default makeStyles(() => ({
     height: 200,
   },
   cardContent: {
-    height:'auto',
+    height:80,
     display: 'flex',
     justifyContent: 'space-between',
   },
@@ -28,9 +28,11 @@ export default makeStyles(() => ({
    width:'100%',
    marginBottom:'5px'
   },
+  specsListWrapper:{
+    padding:'0px 14px',
+  },
   gridSpecsList:{
     width:'100%',
-    border:'0px solid'
   },
   specsGrid:{
     border:'0px solid #afb4b0',
