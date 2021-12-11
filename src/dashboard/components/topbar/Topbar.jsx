@@ -19,12 +19,13 @@ export const Topbar = () => {
     const [user] = useState(JSON.parse(localStorage.getItem('user')));
     const [imagefilename,setImageFilename]=useState('');
     const [userId,setuserId]=useState(null)
-    const [loggedin]=useState(JSON.parse(localStorage.getItem('loggedin')));
+    const [loggedin,setLoggedIn]=useState(JSON.parse(localStorage.getItem('loggedin')));
   
     const history=useHistory();
     const imgonLoadError=(e)=>{
       try{
-        e.target.onerror = null; e.target.src = imgAvatar
+        e.target.onerror = null; 
+        e.target.src = imgAvatar
       }catch(error){
         console.log({error:error});
       }
@@ -44,8 +45,12 @@ export const Topbar = () => {
       
         
       }
-      useEffect(()=>{
       
+      useEffect(()=>{
+        if (history.location.pathname==="/dashboard/login"||history.location.pathname==="/dashboard/signup"){
+          localStorage.setItem('loggedin',false);
+          setLoggedIn(false)
+        }
           var user =localStorage.getItem('user');
            //console.log("user "+user)
            if (user!==null){
