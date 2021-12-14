@@ -44,6 +44,7 @@ const loginValidation = data =>{
       quantity:Joi.number().min(1),
       size:Joi.string().min(0),
       color:Joi.string().min(0),
+      measurement:Joi.object(),
       filename:Joi.string(),
       priceEach:Joi.number(),
       totalPrice:Joi.number(),

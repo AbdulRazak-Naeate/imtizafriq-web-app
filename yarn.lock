@@ -10794,6 +10794,13 @@
     "raf" "^3.4.0"
     "react-transition-group" "2.9.0"
 
+"react-to-print@^2.14.1":
+  "integrity" "sha512-2PWKhONAYHpWELAiclcGbyN3xG0Li37hnMVdNtSwGyOT3O6BpB+GiqaT4pqnvuDTPFTZdfjL4fmvY6HxcdQ6sw=="
+  "resolved" "https://registry.npmjs.org/react-to-print/-/react-to-print-2.14.1.tgz"
+  "version" "2.14.1"
+  dependencies:
+    "prop-types" "^15.7.2"
+
 "react-transition-group@^4.4.0", "react-transition-group@^4.4.2":
   "integrity" "sha512-/RNYfRAMlZwDSr6z4zNKV6xu53/e2BuaBbGhbyYIXTrmgu/bGHzmqOs7mJSJBHy9Ud+ApHx3QjrkKSp1pxvlFg=="
   "resolved" "https://registry.npmjs.org/react-transition-group/-/react-transition-group-4.4.2.tgz"

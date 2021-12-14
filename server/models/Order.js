@@ -28,6 +28,10 @@ const OrderSchema  =  new mongoose.Schema({
         required:false,
         default:null
     },
+    measurement:{
+        type:Object,
+        required:false,
+    },
     filename:{
         type:String,
         required:true
@@ -49,7 +53,7 @@ const OrderSchema  =  new mongoose.Schema({
         required:true
     },
     date:{
-        type:String,
+        type:Date,
         default:Date.now()
     },
     status:{

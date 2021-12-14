@@ -91,6 +91,7 @@ router.post('/',async (req,res)=>{
           quantity:req.body.quantity,
           color:req.body.color,
           size:req.body.size,
+          measurement:req.body.measurement,
           filename:req.body.filename,
           priceEach:req.body.priceEach,
           totalPrice:req.body.totalPrice,

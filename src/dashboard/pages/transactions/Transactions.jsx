@@ -1,15 +1,16 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React,  { useRef } from 'react';
 import './transactions.css';
 import {DataGrid} from '@material-ui/data-grid';
-import { Stack } from '@mui/material';
+import { Stack,Button } from '@mui/material';
 import { DeleteOutline,List, Add, Edit,Business } from '@material-ui/icons';
 import { Link ,useHistory} from 'react-router-dom';
 import {useState , useEffect} from "react";
 import AlertDialog from '../../components/alertdialog/AlertDialog'
 import axios ,{patch} from 'axios';
 import QueryParams from '../../QueryParams';
-
+import TransacModal from  './modal/TransacModal'
+import ReactToPrint from 'react-to-print';
 const Transactions = () => {
   const query=QueryParams();
   const [transactions,setTransactions]=useState([]);
@@ -22,8 +23,9 @@ const Transactions = () => {
   const [selectionModel,setSelectionModel]=useState([])
   const [status,setStatus]=useState('Approved');
   const [open,setOpen]=useState(false);
+  const [openModal,setOpenModal]=useState(false)
   const [orderid,setOrderId]=useState('');
-
+  const [tranxData,setTranxData]=useState([]);
   
    // const history=useHistory();
      
@@ -40,6 +42,17 @@ const Transactions = () => {
        
 
       };
+    const handleOpenTransacModal =(data)=>{
+       setOpenModal(true);
+       var arr=[];
+           arr.push(data)
+       setTranxData(arr);
+      
+    }
+    const handleCloseTransacModal = () =>{ 
+      setOpenModal(false);
+    }
+
 
     const handleClose = (option) => {
       
@@ -164,7 +177,15 @@ return patch(url, body,config)
   
 
   const columns = [
-    { field: '_id', headerName: 'Id', width: 210 },
+    { field: '_id', headerName: 'Id', width: 210,
+     renderCell:(params)=>{
+        return(
+          <div style={{color:'cadetblue',cursor:'pointer'}} onClick={()=>{handleOpenTransacModal(params.row)}}>
+            {`${params.row._id}`}
+          </div>
+        )
+     },
+  },
     {
       field:'user',
       headerName:"Customer",
@@ -277,7 +298,7 @@ return patch(url, body,config)
 
   return (
     <div className="transactions">
-
+        <TransacModal openModal={openModal} handleCloseTransacModal={handleCloseTransacModal} tranxData={tranxData}/>
        <AlertDialog open={open} handleClickOpen={handleClickOpen} handleClose={handleClose} title="Mark transaction" textContent={`Are you sure you want to mark transaction status as ${status} !`}DeleteOutline={Edit}/>
        <div className="pageTitleContainer">
            <h1 className="pageTitle">Transactions</h1>    
@@ -292,6 +313,16 @@ return patch(url, body,config)
           </Link>
             </div>
           </div>
+      <div className="actionButtonsWrapper">
+     <button className="actionButtons" onClick={()=>{handleUpdateMany("Approved");         
+      }}>Approve</button>
+     <button className="actionButtons" onClick={()=>{handleUpdateMany("Pending")}}>Pending</button>
+     <button className="actionButtons" onClick={()=>{handleUpdateMany("Declined")}}>Decline</button>
+     <button className="actionButtons" onClick={()=>{
+       setOpenModal(true);
+       setTranxData(selectedRows);
+       }}>Print List</button>
+     </div>
           <DataGrid rows={transactions} getRowId={(row) => row._id}   columns={columns}
            pageSize={pageSize}
            onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
@@ -299,6 +330,7 @@ return patch(url, body,config)
            pagination
           checkboxSelection
           disableSelectionOnClick
+         
           onSelectionModelChange={(newSelection) => {
              setSelectionModel(newSelection)
              setSelected_Id(newSelection);
@@ -307,8 +339,7 @@ return patch(url, body,config)
             const selectedData=transactions.filter((trans)=>
                selectedIDs.has(trans._id)
             );
-            
-           console.log(selectedData)
+            console.log(selectedData)
            setSelectedRows(selectedData);
         }}
         selectionModel={selectionModel}
@@ -325,13 +356,9 @@ return patch(url, body,config)
           )
         }}
       />
-     <div className="actionButtonsContainer">
-     <button className="actionButtons" onClick={()=>{handleUpdateMany("Approved");         
-}}>Approve</button>
-     <button className="actionButtons" onClick={()=>{handleUpdateMany("Pending")}}>Pending</button>
-     <button className="actionButtons" onClick={()=>{handleUpdateMany("Declined")}}>Decline</button>
-     </div>
+   
     </div>
+   
   )
 }
 
