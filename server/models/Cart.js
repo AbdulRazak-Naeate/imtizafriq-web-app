@@ -17,6 +17,14 @@ const CartSchema = new mongoose.Schema({
     date:{
         type:Date,
         default:Date.now()
+    }, 
+    expires:{
+        type:Date,
+        default:function futureDate(params) {
+           var datenow= new Date()
+           var futureDate = new Date(datenow.setMonth(datenow.getMonth()+1))
+          return futureDate.toISOString()
+        }
     }
 
 });

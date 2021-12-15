@@ -53,7 +53,6 @@ const loginValidation = data =>{
       paymentMethod:Joi.string(),
       customer:Joi.object(),
       shippingData:Joi.object()
-
      });
   
      return  schema.validate(data);

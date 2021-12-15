@@ -331,6 +331,11 @@ function pad(numberString, size) {
 
   return (
     <div className="transactions">
+      {/* <button onClick={()=>{
+          var datenow= new Date()
+        var futureDate = new Date(datenow.setMonth(datenow.getMonth()+1))
+        console.log(futureDate.toISOString())
+      }}>future Date</button> */}
         <TransacModal openModal={openModal} handleCloseTransacModal={handleCloseTransacModal} tranxData={tranxData} />
        <AlertDialog open={open} handleClickOpen={handleClickOpen} handleClose={handleClose} title="Mark transaction" textContent={`Are you sure you want to mark transaction status as ${status} !`}DeleteOutline={Edit}/>
        <div className="pageTitleContainer">

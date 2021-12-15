@@ -79,6 +79,14 @@ const OrderSchema  =  new mongoose.Schema({
                 country:"",
                 state:"",
                 city:""}
+    },
+    expires:{
+        type:Date,
+        default:function futureDate(params) {
+           var datenow= new Date()
+           var futureDate = new Date(datenow.setMonth(datenow.getMonth()+1))
+          return futureDate.toISOString()   
+        }
     }
 
 }); 
