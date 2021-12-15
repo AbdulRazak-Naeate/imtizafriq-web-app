@@ -2,44 +2,40 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import {Grid,Typography} from '@mui/material';
 import { CalendarToday, LocationSearching, MailOutline, PermIdentity, PhoneAndroid, Publish,ShoppingBasketOutlined,AddShoppingCart,HeightOutlined,ColorLensOutlined ,PhoneAndroidOutlined} from '@material-ui/icons'
-import './modal.css'
 import ShoppingBagOutlined from '@mui/icons-material/ShoppingBagOutlined';
 import ReactToPrint from 'react-to-print';
 import React,{useRef} from 'react';
 
 const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: '90%',
+  position: 'relative',
+  width: '100%',
   bgcolor: 'background.paper',
-  border: '2px solid cadetblue',
+  border: '0px solid cadetblue',
   borderRadius:'4px',
-  boxShadow: 24,
   p: 4,
 };
 
- export const TransacModal =  React.forwardRef((props,ref) => {
+ export const PrintBox =  React.forwardRef((props,ref) => {
 
   console.log(props.tranxData)
   const componentRef = useRef();
+  const getDate =()=>{
+    var dateString = new Date();
+      var newDate= `${dateString.getFullYear()}-${dateString.getMonth()}-${dateString.getDate()} ${dateString.getHours()}:${dateString.getMinutes()}`
+      return newDate
+   } 
   return (
-    <div>
-      
-      <Modal
-        open={props.openModal}
-        onClose={props.handleCloseTransacModal}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style} ref={componentRef}>
+    <div style={{margin:'10px'}}>
+        <ReactToPrint
+        trigger={() => <button className='actionButtons'>Print List</button>}
+        documentTitle={`Processinglist-${getDate()}`}
+        content={() => componentRef.current}/>
+       <div style={{display:'none'}}>
+       <Box sx={style} ref={componentRef}>
           <span id="modal-modal-title" variant="h6" component="h2">
             Processing List
           </span>
-          <ReactToPrint
-        trigger={() => <button>Print this out!</button>}
-        content={() => componentRef.current}/>
+        
           <span id="modal-modal-description" sx={{ mt: 2 }}>
             
            <Grid container justifyContent='space-between' spacing={2}>  
@@ -152,7 +148,7 @@ const style = {
 
           </span>
         </Box>
-      </Modal>
+       </div>
     </div>
   );
  })

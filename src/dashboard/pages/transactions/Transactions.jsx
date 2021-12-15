@@ -9,8 +9,11 @@ import {useState , useEffect} from "react";
 import AlertDialog from '../../components/alertdialog/AlertDialog'
 import axios ,{patch} from 'axios';
 import QueryParams from '../../QueryParams';
-import TransacModal from  './modal/TransacModal'
+import {TransacModal} from  './modal/TransacModal'
+import { useReactToPrint } from 'react-to-print';
 import ReactToPrint from 'react-to-print';
+import {PrintBox} from './printbox/PrintBox.jsx';
+
 const Transactions = () => {
   const query=QueryParams();
   const [transactions,setTransactions]=useState([]);
@@ -28,8 +31,14 @@ const Transactions = () => {
   const [tranxData,setTranxData]=useState([]);
   
    // const history=useHistory();
-     
+  const componentRef = useRef();
 
+   const handlePrint = ()=>{
+    setOpenModal(true);
+    setTranxData(selectedRows);
+    
+   };
+  
      const handleHover=()=>{
        return(
          <div>userDetails</div>
@@ -174,7 +183,31 @@ return patch(url, body,config)
   };
   getOrders()
   },[storeid,stores]);
-  
+  const getDateNow =(dateNumber)=>{
+    var dateString = new Date(parseInt(dateNumber)*1000);
+      var newDate= `${dateString.getFullYear()}-${dateString.getMonth()}-${dateString.getDate()} ${dateString.getHours()}:${dateString.getMinutes()}`
+      return newDate
+   } 
+
+   function millisecondsToHuman(ms) {
+    const seconds = Math.floor((ms / 1000) % 60);
+    const minutes = Math.floor((ms / 1000 / 60) % 60);
+    const hours = Math.floor(ms / 1000 / 60 / 60);
+
+    const humanized = [
+       pad(hours.toString(), 2),
+       pad(minutes.toString(), 2),
+       pad(seconds.toString(), 2),
+    ].join(':');
+
+return humanized;
+}
+
+function pad(numberString, size) {
+   let padded = numberString;
+   while (padded.length < size) padded = `0${padded}`;
+   return padded;
+}
 
   const columns = [
     { field: '_id', headerName: 'Id', width: 210,
@@ -274,7 +307,7 @@ return patch(url, body,config)
       renderCell:(params)=>{
         return(
             <div>
-               {new Date(parseInt(params.row.date)).toUTCString()}
+               {params.row.date}
             </div>
         )
       }
@@ -298,7 +331,7 @@ return patch(url, body,config)
 
   return (
     <div className="transactions">
-        <TransacModal openModal={openModal} handleCloseTransacModal={handleCloseTransacModal} tranxData={tranxData}/>
+        <TransacModal openModal={openModal} handleCloseTransacModal={handleCloseTransacModal} tranxData={tranxData} />
        <AlertDialog open={open} handleClickOpen={handleClickOpen} handleClose={handleClose} title="Mark transaction" textContent={`Are you sure you want to mark transaction status as ${status} !`}DeleteOutline={Edit}/>
        <div className="pageTitleContainer">
            <h1 className="pageTitle">Transactions</h1>    
@@ -318,11 +351,13 @@ return patch(url, body,config)
       }}>Approve</button>
      <button className="actionButtons" onClick={()=>{handleUpdateMany("Pending")}}>Pending</button>
      <button className="actionButtons" onClick={()=>{handleUpdateMany("Declined")}}>Decline</button>
-     <button className="actionButtons" onClick={()=>{
+  {/*    <button className="actionButtons" onClick={()=>{
        setOpenModal(true);
        setTranxData(selectedRows);
-       }}>Print List</button>
-     </div>
+       }}>Print List</button> */}
+         
+     </div>    
+
           <DataGrid rows={transactions} getRowId={(row) => row._id}   columns={columns}
            pageSize={pageSize}
            onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
@@ -356,7 +391,10 @@ return patch(url, body,config)
           )
         }}
       />
-   
+      <div style={{marginBottom:'10%',top:10,border:'0px solid',overflow:'scroll'}}>
+      {selectedRows.length > 0 ? <PrintBox style={{display:'none'}} tranxData={selectedRows}/> : ''}
+      </div>
+
     </div>
    
   )

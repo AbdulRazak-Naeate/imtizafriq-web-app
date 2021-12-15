@@ -1,7 +1,7 @@
 .transactions{
     flex: 4;
     padding: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
    /*  background-color: darkslategrey; */
 }
 .pageTitleContainer{
@@ -64,11 +64,12 @@
   .actionButtonsWrapper{
     display:flex;
     justify-content:space-between;
-    width:30%;
+    width:20%;
     margin:10px
   }
   .actionButtons{
     border: 0px;
     background-color: #ebf1fe;
     color:#2a7ade ;
+    border-radius: 4px;
   }

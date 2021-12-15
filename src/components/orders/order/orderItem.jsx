@@ -4,11 +4,7 @@ import useStyles from './styles';
 import './styles.css';
 const OrderItem = ({order}) => {
     const classes=useStyles();
-    const getDate =(dateNumber)=>{
-     var dateString = new Date(parseInt(dateNumber));
-       var newDate= `${dateString.getFullYear()}-${dateString.getMonth()}-${dateString.getDate()} ${dateString.getHours()}:${dateString.getMinutes()}`
-       return newDate
-    }   
+     
   return (
     <div> 
       <Card className={classes.root}>
@@ -35,7 +31,7 @@ const OrderItem = ({order}) => {
                           {`$${order.totalPrice}`}  
                         </Typography>
                          <Typography variant="body2">
-                            {`${getDate(order.date)}`}
+                            {`${order.date}`}
                         </Typography>
                     </div>
                     <div className={classes.orderDetails2}>
