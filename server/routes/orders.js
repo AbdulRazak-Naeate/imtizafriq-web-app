@@ -183,6 +183,16 @@ router.patch('/many/:ids',async (req,res)=> {
     }
  });
 
+ router.delete('/delete/expiredorders', async (req,res)=>{
+  try{
+      var currentDate= new Date()
+      console.log(currentDate)
+      const deleteExpiredOrder =await Order.deleteMany({expires:{$lt:currentDate}})
+      res.json(deleteExpiredOrder)
+  }catch(err){
+    console.log(err)
+  }
+})
 
 /* const orderNumber =()=>{
    var min=10000;

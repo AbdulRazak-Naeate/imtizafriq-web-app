@@ -84,7 +84,7 @@ const OrderSchema  =  new mongoose.Schema({
         type:Date,
         default:function futureDate(params) {
            var datenow= new Date()
-           var futureDate = new Date(datenow.setMonth(datenow.getMonth()+1))
+           var futureDate = new Date(datenow.setMonth(datenow.getMonth()+6))
           return futureDate.toISOString()   
         }
     }

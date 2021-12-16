@@ -230,7 +230,7 @@ router.patch('/specs/colorandsize',async (req,res)=>{
 
 });
 
-//update cart item specs eg measurement
+//update cart item specs (measurement)
 router.patch('/specs/measurement',async (req,res)=>{
 
     try{
@@ -301,6 +301,17 @@ router.patch('/removeitem/:userId', async (req,res)=>{
      }catch(errr){
           
      }
+});
+
+router.delete('/delete/expiredcart', async (req,res)=>{
+   try{
+       var currentDate= new Date()
+       console.log(currentDate)
+       const deleteExpiredCart =await Cart.deleteMany({expires:{$lt:currentDate}})
+       res.json(deleteExpiredCart)
+   }catch(err){
+     console.log(err)
+   }
 })
 
 const exactMatchQuantity =(matchItems,productId)=>{//search and get the exact cartItem usinf productId
@@ -351,4 +362,5 @@ const updateSubtotal = async (req,res) =>{//sum all line_items_sub_price
 
    
 }
+
 module.exports = router;
