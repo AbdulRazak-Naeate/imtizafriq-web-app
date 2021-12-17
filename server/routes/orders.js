@@ -34,15 +34,20 @@ router.get('/:storeId', async(req,res)=>{
 //get all Orders base on user Id
 router.get('/user/:userId', async(req,res)=>{
   try{
-    const orders = await Order.find({userId:req.params.userId});
+    var currentDate= new Date()
+    const orders = await Order.find({
+      userId:req.params.userId,expires:{$gte:currentDate},
+      $and:[{$or:[{status:'Approved'},{status:'Pending'},{status:'Cancel'},{status:'Complete'}]}]
+       
+    }); //get order 
     res.json({orders:orders,status:200});
-
+    
   }catch(err){
     res.json({message:err})
   }
 });
 
-//get all Orders base on Store Id
+//get all Orders base on Store Id and Approved status to populates as sales records
 router.get('/approved/:storeId', async(req,res)=>{
     try{
       const orders = await Order.find({storeId:req.params.storeId,status:"Approved"});
@@ -183,16 +188,16 @@ router.patch('/many/:ids',async (req,res)=> {
     }
  });
 
- router.delete('/delete/expiredorders', async (req,res)=>{
+ /* router.delete('/delete/expiredorders', async (req,res)=>{
   try{
       var currentDate= new Date()
       console.log(currentDate)
-      const deleteExpiredOrder =await Order.deleteMany({expires:{$lt:currentDate}})
+      const deleteExpiredOrder =await Order.deleteMany({expires:{$gte:currentDate},  status:'Approved'})
       res.json(deleteExpiredOrder)
   }catch(err){
     console.log(err)
   }
-})
+}) */
 
 /* const orderNumber =()=>{
    var min=10000;
