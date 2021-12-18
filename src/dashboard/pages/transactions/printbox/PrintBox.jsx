@@ -27,17 +27,20 @@ const style = {
   return (
     <div style={{margin:'10px'}}>
         <ReactToPrint
-        trigger={() => <button className='actionButtons'>Print List</button>}
+        trigger={() => <button className='actionButtons'>Print Processing List</button>}
         documentTitle={`Processinglist-${getDate()}`}
         content={() => componentRef.current}/>
        <div style={{display:'none'}}>
        <Box sx={style} ref={componentRef}>
-          <span id="modal-modal-title" variant="h6" component="h2">
-            Processing List
+        <div style={{display:'flex',justifyContent:'space-between'}}>
+        <span id="modal-modal-title" variant="h6" component="h2">
+          {`  Processing List `}
           </span>
         
           <span id="modal-modal-description" sx={{ mt: 2 }}>
-            
+          {` ${getDate()}`}
+             </span>
+        </div>
            <Grid container justifyContent='space-between' spacing={2}>  
            {
               props.tranxData.length>0? props.tranxData.map((data,index)=>{
@@ -146,7 +149,7 @@ const style = {
              }
            </Grid>
 
-          </span>
+         
         </Box>
        </div>
     </div>

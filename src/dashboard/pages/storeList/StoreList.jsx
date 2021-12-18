@@ -100,7 +100,7 @@ export default function StoreList() {
           renderCell:(params)=>{
               return(
                   <div className="storeListItem">
-                      <img className="storeListImg" src={`http://localhost:3001/server/uploads/stores/${params.row.image[0].filename}`} alt=""/>
+                      <img className="storeListImg"  src={`http://localhost:3001/server/uploads/stores/${params.row.image[0].filename}`} onClick={() => {handleList(params)}}alt=""/>
                       {params.row.name}
                   </div>
               )

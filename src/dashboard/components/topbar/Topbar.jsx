@@ -134,16 +134,18 @@ export const Topbar = () => {
           },
         }}
       >
-        <Link className="link" to={{pathname:`/dashboard/user/_id=${userId}`,search:`user=${JSON.stringify(user)}`}}>
-        <MenuItem onClick={handleClose}><ListItemIcon> <Person fontSize="small" /> </ListItemIcon>Profile</MenuItem></Link>
-        <MenuItem onClick={handleClose}><ListItemIcon><Store/></ListItemIcon>  My Stores</MenuItem>
-        <Divider />
-        <MenuItem>
+        <Link className="topbarLink" to={{pathname:`/dashboard/user/_id=${userId}`,search:`user=${JSON.stringify(user)}`}}>
+        <MenuItem onClick={handleClose} className="topbarLink"><ListItemIcon> <Person fontSize="small" /> </ListItemIcon>Account</MenuItem></Link>
+        <Link className="topbarLink" to={{pathname:`/dashboard/stores`}}>
+        <MenuItem onClick={handleClose}><ListItemIcon><Store/></ListItemIcon>My Stores</MenuItem>
+        </Link>
+        <Divider/>
+      {/*<MenuItem>
           <ListItemIcon>
             <PersonAdd fontSize="small" />
           </ListItemIcon>
           Add another account
-        </MenuItem>
+        </MenuItem>*/}
         <MenuItem onClick={handleLogout}>
           <ListItemIcon>
             <Logout fontSize="small" />
