@@ -5,53 +5,62 @@ import './styles.css';
 const OrderItem = ({order}) => {
     const classes=useStyles();
      
+const truncateString=(str, num) => {
+  if(str.length>num){
+    return str.slice(0,num)+"...";
+  }else{
+    return str;
+  }
+}
   return (
     <div> 
       <Card className={classes.root}>
-            <CardMedia className={classes.media} image={`http://localhost:3001/server/uploads/products/${order.filename}`}> </CardMedia>
+           <CardMedia className={classes.media} image={`http://localhost:3001/server/uploads/products/${order.filename}`}> </CardMedia>
+    
 
                 <CardContent className={classes.cardContent}>
-                    <div className={classes.cardContentSub}>
-                        <Typography variant="h5" gutterBottom>
+                     <div className={classes.title}>
+                     <Typography noWrap={true} variant="h6" >
                             {order.name}
+                        </Typography>
+                     </div>
+                   <div className={classes.cardContentSub}>
+                   <div className={classes.contentSubdetailsWrapper}>
+                   <div className={classes.orderDetails}>
+                        <Typography variant="body1">
+                            {`$${order.priceEach}`}
+                        </Typography>
+                      <Typography variant="body2">
+                        Quantity :{order.quantity}  
+                      </Typography>
 
-                        </Typography>
-                        <Typography variant="h5">
-                            {`${order.priceEach}`}
-                        </Typography>
-                        
-                    </div>
-                    <div className={classes.orderDetails}>
-                      
-                        <Typography variant="body2">
-                          Quantity :{order.quantity}  
-                        </Typography>
+                      <Typography variant="body2">
+                       Total :{`$${order.totalPrice}`}  
+                      </Typography>
+                       <Typography variant="body2">
+                          {`${order.date}`}
+                     </Typography>
+                  </div>
+                  <div className={classes.orderDetails2}>
+                     {order.color!=='null' ?      <Typography variant="body2" className={classes.color}>
+                        {order.color}  
+                      </Typography>:''}
+                     {order.size!=='null' ? <Typography variant="body2" className={classes.size}>
+                        {order.size}  
+                      </Typography>:''}
+                      <Typography variant="body2">
+                      </Typography>
+                      <Typography variant="body2" className='orderNumber'>
+                        {`#${order.orderNumber}`}  
+                      </Typography>
 
-                        <Typography variant="body2">
-                          {`$${order.totalPrice}`}  
-                        </Typography>
-                         <Typography variant="body2">
-                            {`${order.date}`}
-                        </Typography>
-                    </div>
-                    <div className={classes.orderDetails2}>
-                       {order.color!=='null' ?      <Typography variant="body2" className={classes.color}>
-                          {order.color}  
-                        </Typography>:''}
-                       {order.size!=='null' ? <Typography variant="body2" className={classes.size}>
-                          {order.size}  
-                        </Typography>:''}
-                        <Typography variant="body2">
-                        </Typography>
-                        <Typography variant="body2" className='orderNumber'>
-                          {`#${order.orderNumber}`}  
-                        </Typography>
+                      <Typography variant="body2" className={order.status}>
+                        {order.status}  
+                      </Typography>
 
-                        <Typography variant="body2" className={order.status}>
-                          {order.status}  
-                        </Typography>
-
-                    </div>
+                  </div>
+                   </div>
+                   </div>
                 </CardContent>
 
            

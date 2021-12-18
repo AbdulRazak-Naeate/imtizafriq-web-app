@@ -16,7 +16,7 @@ const FilledOrder = ()=>(
      <Grid container justifyContent="center" spacing={3}>
          {
            orders.map((order)=>(
-             <Grid item key={order._id} xs={12} sm={6} md={4} lg={3}>
+             <Grid item key={order._id} xs={12} sm={6} md={4} lg={4}>
                <OrderItem order={order}></OrderItem>
                </Grid>
            ))

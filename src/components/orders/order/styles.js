@@ -2,12 +2,20 @@ import {makeStyles} from '@material-ui/core/styles'
 
 export default makeStyles(()=>({
     root:{
-        maxWidth:'100%',
+      display:'flex',
+      flexDirection:'row',
+      maxWidth:'100%',
+      height:'160px'
+    
+    },
+    title:{
+      height:'40px',
+      width:'100%',
+      border:'0px solid'
     },
     media:{
-        height:'10%',
-        paddingTop: '56.25%',
-        
+        height:160,
+        width:'28%',        
         
     },
     cardActions:{
@@ -15,35 +23,50 @@ export default makeStyles(()=>({
         justifyContent:'flex-end',
     },
     cardContent:{
-        height:'160px',
+        height:'100%',
+        width:'70%',
+        border:'0px solid',
+        padding: '1px !important'
     },
     cardContentSub:{
       display:'flex',
+      width:'100%',
+      flexDirection:'row',
       justifyContent:'space-between',
-      height:'70%'
+      padding:'0px',
+      border:"0px solid green"
+    },
+    contentSubdetailsWrapper:{
+      display:'flex',
+      border:'0px solid #ee2222'
     },
     orderDetails:{
         display:'flex',
+        flexDirection:'column',
         justifyContent:'space-between',
-        alignItems:'center'
+        alignItems:'left',
+        border:'0px solid #ee4322'
     },
     orderDetails2:{
-        top:'3px',
         display:'flex',
+        flexDirection:'column',
         justifyContent:'space-between',
-       
+        alignItems:'left',
+        border:'0px solid #ee4322'
     },
 
     color:{
-        padding:'3px 4px',
-    border:'1px solid #f50057',
+      padding:'2px 2px',
+      height:'22%',
+      alignItems:'center',
     borderRadius:'30px',
     backgroundColor:'#f50057',
     color:'white'
       },
       size:{
-        padding:'3px 4px',
-        border:'1px solid #f50057',
+        padding:'2px 2px',
+        height:'22%',
+        alignItems:'center',
         borderRadius:'30px',
         backgroundColor:'#f50057',
         color:'white'
