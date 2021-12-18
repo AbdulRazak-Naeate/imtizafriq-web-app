@@ -43,6 +43,10 @@ const OrderItem = ({order}) => {
                         </Typography>:''}
                         <Typography variant="body2">
                         </Typography>
+                        <Typography variant="body2" className='orderNumber'>
+                          {`#${order.orderNumber}`}  
+                        </Typography>
+
                         <Typography variant="body2" className={order.status}>
                           {order.status}  
                         </Typography>

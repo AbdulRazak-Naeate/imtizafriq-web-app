@@ -266,8 +266,7 @@ function App() {
           phone:customer.phone,
           country:shippingData.country,
           state:shippingData.county_state,
-          city:shippingData.town_city
-         
+          city:shippingData.town_city,         
         // eslint-disable-next-line no-loop-func
         },).then(ret=>{
           console.log(ret)
@@ -286,14 +285,10 @@ function App() {
    
     try{ 
           incomingOrder(newOrder).then((response)=>{
-           console.log(response.data)
-           setMyOrders(response.data);
-           try{
-            setMyOrderCount(response.data.length)
-
-           }catch(error){
-             console.log(error)
-           }
+           console.log(response)
+           setMyOrders(response.data.orders)
+           setMyOrderCount(response.data.orders.length)
+          
          })
           console.log(newOrder)
           setOrder(newOrder);

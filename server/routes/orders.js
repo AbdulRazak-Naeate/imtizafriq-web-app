@@ -35,11 +35,7 @@ router.get('/:storeId', async(req,res)=>{
 router.get('/user/:userId', async(req,res)=>{
   try{
     var currentDate= new Date()
-    const orders = await Order.find({
-      userId:req.params.userId,expires:{$gte:currentDate},
-      $and:[{$or:[{status:'Approved'},{status:'Pending'},{status:'Cancel'},{status:'Complete'}]}]
-       
-    }); //get order 
+    const orders = await Order.find({$or:[{userId:req.params.userId,expires:{$gt:currentDate}},{userId:req.params.userId,expires:{$gt:currentDate},status:'Pending'}]}); //get approved or completed order which are lessthan 6 months 
     res.json({orders:orders,status:200});
     
   }catch(err){
@@ -110,8 +106,10 @@ router.post('/',async (req,res)=>{
 
  try{
       await order.save();
-    const newOrders = await Order.find({orderNumber:req.body.orderNumber,userId:req.body.userId});
-      res.json(newOrders);
+      var currentDate= new Date()
+      const newOrders = await Order.find({$or:[{/* orderNumber:req.body.orderNumber, */userId:req.body.userId,expires:{$gt:currentDate}},{userId:req.body.userId,expires:{$gt:currentDate},status:'Pending'}]});
+
+    res.json({orders:newOrders,status:200});
 
     }catch(err){
      res.json({message:err})
