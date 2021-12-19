@@ -97,7 +97,8 @@ router.post('/',async (req,res)=>{
                         size:'null',
                         measurement:{back:"",chest:"",shirtLength:"",sleeve:"",trouserLength:"",waist:"",thigh:"",bust:""},
                         product:req.body.product,
-                        line_item_sub_price:sub_price
+                        line_item_sub_price:sub_price,
+                        selected:true
                        
                      
                 }}
@@ -124,7 +125,8 @@ router.post('/',async (req,res)=>{
                     size:'null',
                     measurement:{back:"",chest:"",shirtLength:"",sleeve:"",trouserLength:"",waist:"",thigh:"",bust:""},
                     product:req.body.product,
-                    line_item_sub_price:subprice
+                    line_item_sub_price:subprice,
+                    selected:true
                    
             }
              const _cart = new Cart({
@@ -169,6 +171,38 @@ router.patch('/quantity/:productId',async (req,res)=>{
               updateSubtotal(req,res)
               
         });
+        
+           
+
+     
+    }catch(err){
+        console.log(err);
+    }
+
+});
+//update cart item select eg true or false
+router.patch('/item/selection',async (req,res)=>{
+
+    try{
+        var pId =req.body.productId;
+        var value=  req.body.selected;
+     
+            Cart.findOneAndUpdate({userId:req.body.userId,
+                items:{
+                    $elemMatch:{productId:req.body.productId}
+                     }
+                    },
+                {
+                    $set: {
+                          'items.$.selected':value,
+                          }
+                },   
+                { new:true,useFindAndModify:false}).then(ret=>{
+                
+                  updateSubtotal(req,res)
+                  
+            });
+      
         
            
 
@@ -328,6 +362,7 @@ const exactMatchQuantity =(matchItems,productId)=>{//search and get the exact ca
 const updateSubtotal = async (req,res) =>{//sum all line_items_sub_price
      var subtotal = 0;
   const aggr= await Cart.aggregate([{$match:{userId:req.body.userId}},{$unwind:"$items"},
+        {$match:{'items.selected':true}},
     {
         $group:{
             "_id":'0',

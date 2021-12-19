@@ -3,7 +3,7 @@ import React ,{useState,useEffect} from 'react'
  import useStyles from './styles';
  import CartItem from './cartItem/CartItem';
  import {Link,useHistory} from 'react-router-dom';
-const Cart = ({cart, handleUpdateCartQty,handleupdateColorSize,handleupdateMeasurement,handleRemoveFromCart, handleEmptyCart}) => {
+const Cart = ({cart, handleUpdateCartQty,handleupdateColorSize,handleupdateMeasurement,handleRemoveFromCart, handleEmptyCart,handleupdateSelection}) => {
   
     const classes= useStyles();
     const [itemsCount,setItemsCount]=useState(0);
@@ -74,7 +74,7 @@ const Cart = ({cart, handleUpdateCartQty,handleupdateColorSize,handleupdateMeasu
             <Grid container spacing={3}> 
                 {cart.items.map((item,index)=>(
                     <Grid item xs={12} sm={4} key={`grid-${index}`}>
-                        <CartItem cartitem={item} key={`cartitem-${index}`} onUpdateCartQty={handleUpdateCartQty} onUpdateColorSize={handleupdateColorSize} onUpdateMeasurement={handleupdateMeasurement} onRemoveFromCart={handleRemoveFromCart} onHookFormError={onHookFormError} setOnhookFormError={setOnhookFormError} />
+                        <CartItem cartitem={item} key={`cartitem-${index}`} onUpdateCartQty={handleUpdateCartQty} onUpdateColorSize={handleupdateColorSize} onUpdateMeasurement={handleupdateMeasurement} onRemoveFromCart={handleRemoveFromCart} onHookFormError={onHookFormError} setOnhookFormError={setOnhookFormError} onUpdateSelect={handleupdateSelection}/>
                     </Grid>
                 ))}
             </Grid>

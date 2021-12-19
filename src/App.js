@@ -170,7 +170,34 @@ function App() {
   
   };
 
+  const handleupdateSelection = async (productId,value)=>{
   
+    updateSelection(productId,value).then((response)=>{
+        if (response.status===200){
+            try{
+           // console.log(response.data.cart.items)
+              setCart(response.data.cart)
+              setItemsCount(response.data.cart.items.length);
+
+            }catch(err){
+              console.log(err)
+            }
+         } 
+       })
+    
+   }
+  const updateSelection =(productId,value)=>{
+    console.log(value)
+    const url = `http://localhost:3001/api/carts/item/selection`;
+     
+ 
+    return patch(url,  {
+      productId:productId,
+      selected:value,
+      userId:userid,
+    })
+  
+  };
   const handleupdateMeasurement = async (productId,measurement)=>{
   
     updateMeasurement(productId,measurement).then((response)=>{
@@ -418,7 +445,7 @@ const fetchProduct =(productid)=>{
        </Route>
        <Route exact path="/cart">
           <Cart cart={cart} handleUpdateCartQty={handleUpdateCartQty} handleupdateColorSize={handleupdateColorSize} handleupdateMeasurement={handleupdateMeasurement} handleRemoveFromCart={handleRemoveFromCart}
-          handleEmptyCart={handleEmptyCart}/>
+          handleEmptyCart={handleEmptyCart} handleupdateSelection={handleupdateSelection}/>
        </Route>
        <Route exact path="/checkout">
          <CheckOut cart={cart}   order={order}  onCaptureCheckout={handleCaptureCheckout}/>

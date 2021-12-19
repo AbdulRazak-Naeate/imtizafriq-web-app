@@ -7,7 +7,9 @@ import Collapse from '@mui/material/Collapse';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import ListItemButton from '@mui/material/ListItemButton';
-const CartItem = ({cartitem,onUpdateCartQty,onUpdateColorSize,onUpdateMeasurement,onRemoveFromCart}) => {
+import Checkbox from '@mui/material/Checkbox';
+
+const CartItem = ({cartitem,onUpdateCartQty,onUpdateColorSize,onUpdateMeasurement,onRemoveFromCart,onUpdateSelect}) => {
     const classes = useStyles();
     const[color,setColor]=useState(cartitem.color);
     const[size,setSize]=useState(cartitem.size);
@@ -15,6 +17,9 @@ const CartItem = ({cartitem,onUpdateCartQty,onUpdateColorSize,onUpdateMeasuremen
     const [sleeve,setSleeve]=useState(measurement.sleeve);
     const[open,setOpen]=useState(true);
     const[colorSelectedList,setColorSelectedList]=useState([]);
+    const [checked, setChecked] = useState(cartitem.selected);
+
+    const label = { inputProps: { 'aria-label': 'Select item' } };
 
     const sleeves = [
       {
@@ -249,6 +254,9 @@ const CartItem = ({cartitem,onUpdateCartQty,onUpdateColorSize,onUpdateMeasuremen
             
              </div>
               <div className={classes.buttons}>
+              <Checkbox {...label} checked={checked} onChange={(e)=>{setChecked(e.target.checked); console.log(e.target.checked)
+                onUpdateSelect(cartitem.product._id,e.target.checked) }} />
+
                 <Button type="button" size="small" onClick={()=>{onUpdateCartQty(cartitem.product._id,cartitem.quantity-1,cartitem.product.price)}}>-</Button>
                 <Typography>{cartitem.quantity}</Typography>
                 <Button type="button" size="small"  color="secondary" onClick={()=>{onUpdateCartQty(cartitem.product._id,cartitem.quantity+1,cartitem.product.price)}}>+</Button>
