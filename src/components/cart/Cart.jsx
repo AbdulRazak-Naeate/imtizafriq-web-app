@@ -25,20 +25,23 @@ const Cart = ({cart, handleUpdateCartQty,handleupdateColorSize,handleupdateMeasu
       
        for(var i=0;i<cart.items.length;i++){
             var measurement=cart.items[i].measurement
-            var objValues=Object.values(measurement)
+            if (cart.items[i].selected===true){
+                var objValues=Object.values(measurement) //get values withen ,measurement object 
+            }
+           
             
-         
-            if (cart.items[i].product.color.length>=1 ){//if items has color specification provided by vendor add its user choice into the array 
+           console.log(cart.items[i].selected)
+            if (cart.items[i].product.color.length>=1 && cart.items[i].selected===true){//if items has color specification provided by vendor add its user choice into the array 
                  values.push(cart.items[i].color)
             }
-            if(cart.items[i].product.size.length>=1){//if items has size specification provided by vendor add its user choice into the array 
+            if(cart.items[i].product.size.length>=1 && cart.items[i].selected===true){//if items has size specification provided by vendor add its user choice into the array 
              values.push(cart.items[i].size)
             }
            
            
        }
         
-        //check through items to see if user has choosen a specc if not value will be null else the user choice is found 
+        //check through items  if user has choosen a specc if not value will be null else the user choice is found 
        if(values.includes('null')){  //Error null value is found user does selected some choice 
            colorSizeError=true
        }else{// no colorSizeError ,not single null value found withen the list

@@ -322,16 +322,17 @@ router.patch('/:userId', async (req,res)=>{
 router.patch('/removeitem/:userId', async (req,res)=>{
 
      try{
-           const deleteFromCart= await Cart.updateOne({
+           const removeFromCart= await Cart.findOneAndUpdate({userId:req.params.userId,
             items:{
                 $elemMatch:{productId:req.body.productId}
                  }},{
                      $pull:{items:{productId:req.body.productId}}
                  },{multi:true}).then(ret=>{
-              console.log(ret)
-           });            
+                 console.log(ret)
+           });
+
            updateSubtotal(req,res);
-         
+           
      }catch(errr){
           
      }
@@ -339,10 +340,9 @@ router.patch('/removeitem/:userId', async (req,res)=>{
 
 //refreshcart Item from user Cart
 router.patch('/refreshcart/:userId', async (req,res)=>{
-     console.log(req.params.userId)
-     var fmodified =0;
+    
     try{
-          const refreshCart= await Cart.updateOne({
+          const refreshCart = await Cart.findOneAndUpdate({userId:req.params.userId,
            items:{
                $elemMatch:{selected:true}
                 }},{
@@ -410,15 +410,12 @@ const updateSubtotal = async (req,res) =>{//sum all line_items_sub_price
        console.log("aggr : "+JSON.stringify(ret)+ " length :"+retLength);
        
         subtotal=ret[0].subTotal;
-
-       console.log("subTotal "+subtotal)
        }catch(err){
            console.log("subTotal Error : "+err)
        }
         
         
         })).then(()=>{
-            console.log("then again  subt "+subtotal)
 
              Cart.findOneAndUpdate({userId:req.body.userId},
         {
