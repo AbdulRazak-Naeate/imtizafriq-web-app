@@ -30,7 +30,7 @@ const Review = ({checkoutToken}) => {
       } */
     >
       {items.map((item,index)=>(
-        <>
+        item.selected==true ? <>
         <ListItemButton onClick={handleClick}  key={`lsb${index}`}>
          <ListItem key={item.product._id}>
          <ListItemText   primary={item.product.name} secondary={`Quantity ${item.quantity}  ${item.color!=='null'? ' , '+item.color+' , '+item.size:''}`} />   
@@ -50,7 +50,7 @@ const Review = ({checkoutToken}) => {
           </ListItemButton>
         </List>
       </Collapse>
-        </>
+        </>:''
       ))}
         <ListItem style={{padding:'10px 0'}}>
             <ListItemText primary="total"/>
@@ -58,7 +58,7 @@ const Review = ({checkoutToken}) => {
           </ListItem>
     </List>:setRefresh(!refresh)
       }
-    </>
+    </> 
   )
 }
 

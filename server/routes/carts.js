@@ -337,6 +337,39 @@ router.patch('/removeitem/:userId', async (req,res)=>{
      }
 });
 
+//refreshcart Item from user Cart
+router.patch('/refreshcart/:userId', async (req,res)=>{
+     console.log(req.params.userId)
+     var fmodified =0;
+    try{
+          const refreshCart= await Cart.updateOne({
+           items:{
+               $elemMatch:{selected:true}
+                }},{
+                    $pull:{items:{selected:true}}
+                },{multi:true}).then(ret=>{
+                    
+             console.log("refresh "+JSON.stringify(ret))
+                
+          });    
+        
+          Cart.findOneAndUpdate({userId:req.params.userId},
+            {
+              $set:{subtotal:0},
+            },   
+            { new:true,useFindAndModify:false}
+            ).then((ret=>{
+            //console.log("updateSub "+ret)
+           }))
+         //return the whole cart 
+         const  cart = await Cart.findOne({userId:req.params.userId});
+         res.json({cart:cart,status:200})
+        
+    }catch(errr){
+         
+    }
+});
+
 router.delete('/delete/expiredcart', async (req,res)=>{
    try{
        var currentDate= new Date()
@@ -371,25 +404,32 @@ const updateSubtotal = async (req,res) =>{//sum all line_items_sub_price
           }
    }]).then((ret=>{ 
        //update subtotal 
-       console.log("aggr : "+JSON.stringify(ret));
-      
-       try{
-        subtotal=ret[0].subTotal
+        
+    try{
+      var retLength=ret.length
+       console.log("aggr : "+JSON.stringify(ret)+ " length :"+retLength);
+       
+        subtotal=ret[0].subTotal;
+
+       console.log("subTotal "+subtotal)
        }catch(err){
-           console.log(err)
+           console.log("subTotal Error : "+err)
        }
         
         
-        }));
+        })).then(()=>{
+            console.log("then again  subt "+subtotal)
 
-       await  Cart.findOneAndUpdate({userId:req.body.userId},
+             Cart.findOneAndUpdate({userId:req.body.userId},
         {
           $set:{subtotal:subtotal},
         },   
         { new:true,useFindAndModify:false}
         ).then((ret=>{
         //console.log("updateSub "+ret)
-       }))
+       })) 
+        });
+      
   //return the whole cart 
   const  cart = await Cart.findOne({userId:req.body.userId});
   res.json({cart:cart,status:200})

@@ -8,6 +8,7 @@ import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import ListItemButton from '@mui/material/ListItemButton';
 import Checkbox from '@mui/material/Checkbox';
+import { pink,orange } from '@mui/material/colors';
 
 const CartItem = ({cartitem,onUpdateCartQty,onUpdateColorSize,onUpdateMeasurement,onRemoveFromCart,onUpdateSelect}) => {
     const classes = useStyles();
@@ -254,7 +255,12 @@ const CartItem = ({cartitem,onUpdateCartQty,onUpdateColorSize,onUpdateMeasuremen
             
              </div>
               <div className={classes.buttons}>
-              <Checkbox {...label} checked={checked} onChange={(e)=>{setChecked(e.target.checked); console.log(e.target.checked)
+              <Checkbox {...label}  sx={{
+          color: orange[800],
+          '&.Mui-checked': {
+            color: orange[600],
+          },
+        }} checked={checked} onChange={(e)=>{setChecked(e.target.checked); console.log(e.target.checked)
                 onUpdateSelect(cartitem.product._id,e.target.checked) }} />
 
                 <Button type="button" size="small" onClick={()=>{onUpdateCartQty(cartitem.product._id,cartitem.quantity-1,cartitem.product.price)}}>-</Button>

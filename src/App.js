@@ -74,13 +74,17 @@ function App() {
   } 
   
   const refreshCart = async ()=>{
-    const url=`http://localhost:3001/api/carts/${userid}`
+    const url=`http://localhost:3001/api/carts/refreshcart/${userid}`
     return axios.patch(url).then((response)=>{
       // eslint-disable-next-line no-cond-assign
       if(response.status=200){
+       try{
         setCart(response.data.cart);
         setItemsCount(response.data.cart.items.length);
 
+       }catch(err){
+         console.log(err)
+       }
       }
     });
   }
@@ -271,34 +275,36 @@ function App() {
     const url = 'http://localhost:3001/api/orders';
    var response='';
       for(let i=0;i<items.length;i++){
-         
+        if(items[i].selected){//make order fro only selected items
 
-      await  post(url,  {
-          name:items[i].product.name,
-          storeId:items[i].product.storeId,
-          productId:items[i].product._id,
-          orderNumber:shippingData.orderNumber,
-          quantity:items[i].quantity,
-          color:items[i].color,
-          size:items[i].size,
-          measurement:items[i].measurement,
-          filename:items[i].product.image[0].filename,
-          priceEach:items[i].product.price,
-          totalPrice:items[i].line_item_sub_price,
-          userId:userid,
-          paymentMethod:"flutterwave",
-          firstname:customer.firstname,
-          lastname:customer.lastname,
-          email:customer.email,
-          phone:customer.phone,
-          country:shippingData.country,
-          state:shippingData.county_state,
-          city:shippingData.town_city,         
-        // eslint-disable-next-line no-loop-func
-        },).then(ret=>{
-          console.log(ret)
-          response= ret;
-        })
+          await  post(url,  {
+            name:items[i].product.name,
+            storeId:items[i].product.storeId,
+            productId:items[i].product._id,
+            orderNumber:shippingData.orderNumber,
+            quantity:items[i].quantity,
+            color:items[i].color,
+            size:items[i].size,
+            measurement:items[i].measurement,
+            filename:items[i].product.image[0].filename,
+            priceEach:items[i].product.price,
+            totalPrice:items[i].line_item_sub_price,
+            userId:userid,
+            paymentMethod:"flutterwave",
+            firstname:customer.firstname,
+            lastname:customer.lastname,
+            email:customer.email,
+            phone:customer.phone,
+            country:shippingData.country,
+            state:shippingData.county_state,
+            city:shippingData.town_city,         
+          // eslint-disable-next-line no-loop-func
+          },).then(ret=>{
+            console.log(ret)
+            response= ret;
+          })
+        }
+
       }
 
       return response
