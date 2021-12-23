@@ -1,4 +1,6 @@
-import { CalendarToday, LocationSearching, MailOutline, PermIdentity, PhoneAndroid, Publish } from '@material-ui/icons';
+import { CalendarToday, LocationSearching, MailOutline, PermIdentity, PhoneAndroid, Publish,Done } from '@material-ui/icons';
+import CheckIcon from '@mui/icons-material/Check';
+
 import {Button} from '@mui/material';
 import './user.css'
 import {useState} from 'react';
@@ -173,10 +175,12 @@ export default function User() {
                              <PhoneAndroid className="userShowIcon"/>
                         <span className="userShowInfoTitle">{phone}</span>
                         </div>
-                        <div className="userShowInfo">
-                             <MailOutline className="userShowIcon"/>
-                        <span className="userShowInfoTitle">{email}</span>
-                        <Button  variant='outlined' color='primary' onClick={handleVerifyEmail}>verify</Button>
+                        <div className="userShowInfo ">
+                         <MailOutline className="userShowIcon"/>
+                         <div className="emailverify">
+                          <span className="userShowInfoTitle">{email}</span>
+                       {user.confirmed ? <CheckIcon style={{marginLeft:10}} color="success"/> :  <Button style={{marginLeft:10}}  variant='outlined' size="small" color='primary'  onClick={handleVerifyEmail}>verify</Button>}
+                          </div>  
                         </div>
                         <div className="userShowInfo">
                              <LocationSearching className="userShowIcon"/>

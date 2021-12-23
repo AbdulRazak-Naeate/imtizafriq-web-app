@@ -3,6 +3,19 @@ const sendEmail = require('./email.send')
 const msgs = require('./email.messages')
 const templates = require('./email.templates')
 
+exports.confirmOrder =(req,res)=>{
+  const { email,data } = req.body
+  
+  User.findOne({ email })
+    .then(user => {
+
+     // Send the user orderconfirmation email on successful order.
+    sendEmail(user.email, templates.confirmOrder(data))
+          .then(() => res.json({ msg: msgs.confirm }))
+          .catch(err => console.log(err))
+      }
+)}
+
 // The callback that is invoked when the user submits the form on the client.
 exports.collectEmail = (req, res) => {
   const { email } = req.body
@@ -13,7 +26,7 @@ exports.collectEmail = (req, res) => {
       // We have a new user! Send them a confirmation email.
       if (!user) {
         User.create({ email })
-          .then(newUser => sendEmail(newUser.email, templates.confirmOrder(newUser._id)))
+          .then(newUser => sendEmail(newUser.email, templates.confirmEmail(newUser._id)))
           .then(() => res.json({ msg: msgs.confirm }))
           .catch(err => console.log(err))
       }
@@ -21,7 +34,7 @@ exports.collectEmail = (req, res) => {
       // We have already seen this email address. But the user has not
       // clicked on the confirmation link. Send another confirmation email.
       else if (user && !user.confirmed) {
-        sendEmail(user.email, templates.confirm(user._id))
+        sendEmail(user.email, templates.confirmEmail(user._id))
           .then(() => res.json({ msg: msgs.resend }))
       }
 

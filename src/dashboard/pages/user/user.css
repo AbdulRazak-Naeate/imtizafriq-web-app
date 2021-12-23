@@ -71,7 +71,13 @@
     align-items: center;
     margin: 20px 0px;
     color: #444;
+
 }
+.emailverify{
+    width: '100%';
+
+}
+
 .userShowIcon{
     font-size: 16px !important;
 }

@@ -60,7 +60,14 @@ function App() {
      const[myOrders,setMyOrders]=useState([]);
      const[orderCount,setMyOrderCount]=useState(0);
     const paths=['/','/cart','/checkout','/orders','/proceedcheckout']
+    const sendConfirmationEmail = (_id,email)=>{
+     console.log("id "+_id + "email "+email)
+      const url = `http://localhost:3001/api/email/confirmorder/${_id}`;
 
+    post(url,{email:email}).then((response)=>{
+        console.log(response)
+    })
+  }
   const handleEmptyCart = async ()=>{
 
       emptyCart().then((response)=>{
@@ -325,6 +332,7 @@ function App() {
          })
           console.log(newOrder)
           setOrder(newOrder);
+          sendConfirmationEmail(userid,newOrder.customer.email)
           refreshCart();
     }catch(error){
            setErrorMessage(error.data.error.message);
