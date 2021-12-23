@@ -22,14 +22,25 @@ export default makeStyles((theme) => ({
   },
   cardDetails:{
     display: 'flex',
+    [theme.breakpoints.down('xs')]:{
+      flexDirection:'column',
+      width:'100%'
+    },
     marginTop: '10%',
     marginBottom:20,
     width: '100%',
     justifyContent:'space-between',
+    [theme.breakpoints.up('xs')]:{
+      justifyContent:'space-around',
+
+    },
+    border:'0px solid'
   },
   buttons: {
     width:'100%',
     display: 'flex',
+    justifyContent:'space-between',
     alignItems: 'center',
+    border:'0px solid'
   },
 }));

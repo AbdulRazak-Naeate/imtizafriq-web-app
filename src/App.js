@@ -59,7 +59,7 @@ function App() {
      const [order,setOrder]=useState({});
      const[myOrders,setMyOrders]=useState([]);
      const[orderCount,setMyOrderCount]=useState(0);
-
+    const paths=['/','/cart','/checkout','/orders','/proceedcheckout']
 
   const handleEmptyCart = async ()=>{
 
@@ -442,7 +442,7 @@ const fetchProduct =(productid)=>{
   return (
      <>
        <Router>
-         <Route exact path={['/','/cart','/checkout','/orders','/proceedcheckout']}>
+         <Route exact path={paths}>
          <Topbar totalItems={itemsCount} totalOrders={orderCount}/>
          </Route>
        <Switch>   

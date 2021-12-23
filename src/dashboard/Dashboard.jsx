@@ -2,6 +2,7 @@ import { useState } from "react";
 import React from 'react';
 import { Sidebar } from "./components/sidebar/Sidebar";
 import { Topbar } from "./components/topbar/Topbar";
+import Confirm from "./components/email/Confirm"
 import "./dashboard.css"
 import {BrowserRouter as Router,Switch,Route
 } from "react-router-dom";
@@ -28,16 +29,37 @@ import SignUp from "./pages/signup/SignUp";
   const toggleSideBar=()=>{
     setShowSideBar(!showSidebar);
   }
+  const paths =[ 
+    '/dashboard',
+    '/dashboard/users',
+    '/dashboard/user/:userId',
+    '/dashboard/newUser/',
+    '/dashboard/store',
+    '/dashboard/stores',
+    '/dashboard/store/:storeId',
+    '/dashboard/newStore/',
+    '/dashboard/products',
+    '/dashboard/product',
+    '/dashboard/newProduct',
+    '/dashboard/transactions',
+    '/dashboard/sales',]
   return (
     <Router>
-    <Topbar/>
+    <Route exact path={paths}>
+         <Topbar/>
+         </Route>
      <div className="content">
+
     <div>
-       {showSidebar && <Sidebar/>} 
+       {showSidebar &&
+       <Route exact path={paths}> <Sidebar/></Route>
+        } 
     </div>
    
-      
-     <div className="toggleSidebarButton" onClick={toggleSideBar}></div>
+      <Route exact path={paths}>
+        <div className="toggleSidebarButton" onClick={toggleSideBar}></div>
+      </Route>
+     
     
      <Switch>
      <Route exact  path="/dashboard">
@@ -89,6 +111,9 @@ import SignUp from "./pages/signup/SignUp";
        </Route>
        <Route path="/dashboard/signup">
          <SignUp  toggleSideBar={handletoggleSideBar} />
+       </Route>
+       <Route path="/dashboard/email/confirm">
+         <Confirm/>
        </Route>
      </Switch>
     

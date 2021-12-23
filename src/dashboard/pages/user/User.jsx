@@ -1,4 +1,5 @@
-import { CalendarToday, LocationSearching, MailOutline, PermIdentity, PhoneAndroid, Publish } from '@material-ui/icons'
+import { CalendarToday, LocationSearching, MailOutline, PermIdentity, PhoneAndroid, Publish } from '@material-ui/icons';
+import {Button} from '@mui/material';
 import './user.css'
 import {useState} from 'react';
 import {Link} from 'react-router-dom';
@@ -51,7 +52,14 @@ export default function User() {
             console.log({ readAsDataURLError: error })
         }
     }
+    const handleVerifyEmail = ()=>{
 
+        const url = `http://localhost:3001/api/email`;
+ 
+      post(url,{email:user.email}).then((response)=>{
+          console.log(response)
+      })
+    }
     const handleUpdate=(e)=>{
         e.preventDefault();
         editUser().then((response)=>{
@@ -168,6 +176,7 @@ export default function User() {
                         <div className="userShowInfo">
                              <MailOutline className="userShowIcon"/>
                         <span className="userShowInfoTitle">{email}</span>
+                        <Button  variant='outlined' color='primary' onClick={handleVerifyEmail}>verify</Button>
                         </div>
                         <div className="userShowInfo">
                              <LocationSearching className="userShowIcon"/>

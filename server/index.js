@@ -15,12 +15,20 @@ const storeCategory = require('./routes/storecategories');
 const orders        = require('./routes/orders');
 const cartRoute     = require('./routes/carts');
 const fwverifyRoute = require('./routes/fwVerify');
+const emailRouter   = require('./routes/email/email');
 
 dotenv.config();
 //MiddleWare
 app.use(cors()); // package to allow connections from outisde domains
 app.use(express.json()); //body-parser alternate
 app.use(pino);
+
+// This endpoint is pinged every 5 mins by uptimerobot.com to prevent 
+// free services like Heroku and Now.sh from letting the app go to sleep.
+// This endpoint is also pinged every time the client starts in the 
+// componentDidMount of App.js. Once the app is confirmed to be up, we allow 
+// the user to perform actions on the client.
+app.get('/wake-up', (req, res) => res.json('👌'))
 
 //Route MiddleWares
 app.use(express.static('public'));
@@ -33,14 +41,15 @@ app.use('/api/storecategory', storeCategory);
 app.use('/api/orders',orders);
 app.use('/api/carts',cartRoute);
 app.use('/api/verifypayment',fwverifyRoute);
+app.use('/api/email',emailRouter);
 
 //Home Routes
  app.get('/',(req,res)=>{
      res.send('Daabia Web App  version 0.1')
  })
-
+const options={ useNewUrlParser: true ,useUnifiedTopology: true }
 //Connect to DB
-mongoose.connect(process.env.DB_COMMUNITY_CON, { useNewUrlParser: true ,useUnifiedTopology: true })
+mongoose.connect(process.env.DB_COMMUNITY_CON, options)
 
     const db =mongoose.connection
     db.once('open', _ =>{

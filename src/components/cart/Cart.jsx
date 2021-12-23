@@ -13,12 +13,16 @@ const Cart = ({cart, handleUpdateCartQty,handleupdateColorSize,handleupdateMeasu
 
    const history=useHistory()
    const handleCheckOut=()=>{
+   try{
     checkError()
-     if (!colorSizeError && !measurementError){
-         history.push('/checkout')
-    }else{
-        
-    }
+    if (!colorSizeError && !measurementError){
+        history.push('/checkout')
+   }else{
+       
+   }
+   }catch(err){
+       console.log(err)
+   }
    } 
    const checkError=()=>{
        const values=[]
@@ -48,10 +52,9 @@ const Cart = ({cart, handleUpdateCartQty,handleupdateColorSize,handleupdateMeasu
            colorSizeError=false
        }
 
-       for (let i=0;i<objValues.length;i++){//if custome rdos not input measure value return colorSizeError
+       for (let i=0;i<objValues.length;i++){//if customer doeos not input measure value return measurement Error
         if (objValues[i]===""){
             measurementError=true
-            //console.log('measurement colorSizeError')
         }else{
             measurementError=false
         }
@@ -96,7 +99,7 @@ const Cart = ({cart, handleUpdateCartQty,handleupdateColorSize,handleupdateMeasu
     if (!cart) return 'Loading ...';
 
     return (
-        <div>
+        <div >
             <Container>
                 <div  className={classes.toolbar}>
                 <Typography className={classes.title} variant="h4" gutterBottom>Your Shopping Cart</Typography>

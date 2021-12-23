@@ -11,6 +11,7 @@ const registerValidation = data =>{
     phone:Joi.string(),
     address:Joi.any(),
     password:Joi.string().min(6).required(),
+    confirmed:Joi.string(),
     image:Joi.any()
    });
 

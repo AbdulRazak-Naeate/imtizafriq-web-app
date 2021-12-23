@@ -53,6 +53,10 @@ const userSchema = new mongoose.Schema({
         type:Object,
         required:false
     },
+    confirmed:{
+        type:Boolean,
+        default:false
+    },
     date:{
         type:Date,
         default:Date.now()
