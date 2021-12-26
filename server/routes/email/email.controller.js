@@ -5,7 +5,6 @@ const templates = require('./email.templates')
 
 exports.confirmOrder =(req,res)=>{
   const { email,data } = req.body
-  
   User.findOne({ email })
     .then(user => {
 

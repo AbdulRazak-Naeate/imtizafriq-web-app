@@ -164,14 +164,20 @@ const AddressForm = ({checkoutToken,next}) => {
             next({...data,countrylabel,statelabel,citylabel,orderNumber})
             }) } >
             <Grid container spacing={3}>
+               <Grid item xs={12} sm={6}>    
                 <FormInput name='firstName' size="small" label='First name' register={register}/>
+                </Grid>
+                <Grid item xs={12} sm={6}>    
                 <FormInput name='lastName'   label='Last name' register={register}/>
-                <FormInput name='address1'   label='Address' register={register}/>
+                </Grid>
+                <Grid item xs={12} sm={6}>    
                 <FormInput name='email'    label='Email' register={register} />
+                </Grid>
+                <Grid item xs={12} sm={6}>    
                 <FormInput name='phone' label='Phone' register={register}/>
-                <FormInput name='zip'   label='Zip/Postal code' register={register}/>
-                <Grid item xs={12} sm={6}>
-                    <InputLabel>Shipping Country</InputLabel>
+                </Grid>
+                <Grid item xs={12} sm={6}>    
+                <InputLabel>Shipping Country</InputLabel>
                     <Select value={country} name="country" fullWidth onChange={onCountryChange}>
                     {countries.map((c)=>(
                        <MenuItem key={c.id} value={c.id}>
@@ -179,6 +185,15 @@ const AddressForm = ({checkoutToken,next}) => {
                        </MenuItem>
                    ))}
                    </Select>
+                  </Grid>
+                   <Grid item xs={12} sm={6}>    
+                 <FormInput name='address1'   label='Street Address' register={register}/>
+</Grid>
+                 <Grid item xs={12} sm={6}>    
+                 <FormInput name='homeAddress'  label='Home Address'placeholder="Apartment,GHpost Number, suite,suite Unit" register={register}/>
+                 </Grid>
+                <Grid item xs={12} sm={6}>      
+                <FormInput name='zip'   label='Zip/Postal code' register={register}/>
                 </Grid>
 
                 <Grid item xs={12} sm={6}>
@@ -201,6 +216,9 @@ const AddressForm = ({checkoutToken,next}) => {
                    ))}
                    </Select>
                 </Grid>
+                {/* <Grid item xs={12} sm={6}>    
+                 <FormInput name='district'  label='District'placeholder="District" register={register}/>
+                 </Grid> */}
             </Grid>
             <br/>
               <div style={{display:'flex',justifyContent:'space-between' }}>

@@ -78,7 +78,9 @@ const OrderSchema  =  new mongoose.Schema({
             default:{
                 country:"",
                 state:"",
-                city:""}
+                city:"",
+                street:"",
+                homeAddress:""}
     },
     expires:{
         type:Date,

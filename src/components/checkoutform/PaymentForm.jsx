@@ -45,15 +45,18 @@ const PaymentForm = ({shippingData ,checkoutToken,backStep,onCaptureCheckout,nex
         event.preventDefault();
           const orderData={
                     line_items: checkoutToken.items,
+                    subtotal:checkoutToken.subtotal,
                     customer: {firstname:shippingData.firstName,lastname:shippingData.lastName,phone:shippingData.phone,
                     email:shippingData.email},
                     shipping:{name:'Primary',
                     street:shippingData.address1,
+                    home_address:shippingData.homeaddress,
                     town_city:shippingData.citylabel,
                     county_state:shippingData.statelabel,
                     postal_zip_code:shippingData.zip,
                     country:shippingData.countrylabel,
-                    orderNumber:shippingData.orderNumber 
+                    orderNumber:shippingData.orderNumber,
+                    date:new Date().toUTCString(),
                     }
                 } 
               //console.log(orderData)

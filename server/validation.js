@@ -39,6 +39,8 @@ const loginValidation = data =>{
       country:Joi.string(),
       state:Joi.string(),
       city:Joi.string(),
+      street:Joi.string(),
+      homeAddress:Joi.string(),
       productId:Joi.string().min(20),
       storeId:Joi.string().min(20),
       orderNumber:Joi.string().min(8),

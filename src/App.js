@@ -60,14 +60,17 @@ function App() {
      const[myOrders,setMyOrders]=useState([]);
      const[orderCount,setMyOrderCount]=useState(0);
     const paths=['/','/cart','/checkout','/orders','/proceedcheckout']
-    const sendConfirmationEmail = (_id,email)=>{
-     console.log("id "+_id + "email "+email)
+    const sendConfirmationEmail = (_id,newOrder)=>{
+     console.log("id "+_id + "email "+newOrder.customer.email)
       const url = `http://localhost:3001/api/email/confirmorder/${_id}`;
 
-    post(url,{email:email}).then((response)=>{
+    post(url,{email:newOrder.customer.email,data:newOrder}).then((response)=>{
         console.log(response)
     })
   }
+
+ 
+  
   const handleEmptyCart = async ()=>{
 
       emptyCart().then((response)=>{
@@ -235,6 +238,7 @@ function App() {
   
   };
   const handleAddtoCart = async (product,quantity)=>{
+  /*   sendConfirmationEmail(userid,"abdulrazakneate@gmail.com") */
 
     addtoCart(product,quantity).then((response) => {
      // console.log(response.data);
@@ -304,7 +308,9 @@ function App() {
             phone:customer.phone,
             country:shippingData.country,
             state:shippingData.county_state,
-            city:shippingData.town_city,         
+            city:shippingData.town_city,
+            street:shippingData.street,
+            homeAddress:shippingData.home_address    
           // eslint-disable-next-line no-loop-func
           },).then(ret=>{
             console.log(ret)
@@ -332,8 +338,8 @@ function App() {
          })
           console.log(newOrder)
           setOrder(newOrder);
-          sendConfirmationEmail(userid,newOrder.customer.email)
-          refreshCart();
+          sendConfirmationEmail(userid,newOrder)
+         // refreshCart();
     }catch(error){
            setErrorMessage(error.data.error.message);
     }
