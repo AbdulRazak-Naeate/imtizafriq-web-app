@@ -20,10 +20,12 @@
     color: darkblue;
     cursor: pointer;
 }
+.topLeft{
+    border:0px solid;
+}
 .topRight{
     display: flex;
     align-items: center;
-
 }
 .topbarIonContainer{
     position: relative;
@@ -54,4 +56,18 @@
 .link{
     text-decoration: none;
     color: #fff;
+}
+.searchfield{
+    border: 0px solid seashell;
+    width: 350px;
+}
+
+@media only screen and (max-device-width:620px) {
+    .topRight{
+      display:none;
+    }
+    .searchfield{
+        display: block;
+        width:65%;
+    }
 }

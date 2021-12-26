@@ -6,13 +6,15 @@ import  Dashboard from './dashboard/Dashboard'
 import './App.css';
 import LogIn from "./pages/login/LogIn";
 import SignUp from './pages/signup/SignUp';
-import {Topbar,Products,Cart,Orders,ProceedCheckOut } from './components';
-import { useEffect } from 'react';
+import {Topbar,BottomBar,Products,Cart,Orders,ProceedCheckOut } from './components';
+import React, { useEffect } from 'react';
 import axios ,{post,patch} from 'axios';
-import CheckOut from './components/checkoutform/checkout/CheckOut';
-
+import CheckOut from './components/checkoutform/checkout/CheckOut'
+import Box from '@mui/material/Box';
+import CssBaseline from '@mui/material/CssBaseline';
 function App() {
-  
+  const ref = React.useRef(null);
+
    const createTempUserId= ()=>{
      var id='';
     if (localStorage.getItem('temp_id')===null){
@@ -375,7 +377,8 @@ const fetchProduct =(productid)=>{
 };
 
    useEffect(() => {
-  
+    ref.current.ownerDocument.body.scrollTop = 0;
+
     const fetchProducts = async ()=>{
       try{
          const res  = await fetch(`http://localhost:3001/api/products`);
@@ -454,7 +457,8 @@ const fetchProduct =(productid)=>{
     getOrders();
    },[userid])
   return (
-     <>
+    <Box sx={{ pb: 7 }} ref={ref}>
+      <CssBaseline />
        <Router>
          <Route exact path={paths}>
          <Topbar totalItems={itemsCount} totalOrders={orderCount}/>
@@ -486,8 +490,9 @@ const fetchProduct =(productid)=>{
             <Dashboard/>
          </Route>
        </Switch>
+       <BottomBar/>
        </Router>
-     </>
+     </Box>
   );
 }
 

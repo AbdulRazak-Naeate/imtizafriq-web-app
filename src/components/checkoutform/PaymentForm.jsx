@@ -43,7 +43,7 @@ const PaymentForm = ({shippingData ,checkoutToken,backStep,onCaptureCheckout,nex
       const handleSubmit= async (event)=>{
 
         event.preventDefault();
-          const orderData={
+          const orderData={ //reorganize order data
                     line_items: checkoutToken.items,
                     subtotal:checkoutToken.subtotal,
                     customer: {firstname:shippingData.firstName,lastname:shippingData.lastName,phone:shippingData.phone,

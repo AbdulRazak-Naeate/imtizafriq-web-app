@@ -1,11 +1,14 @@
-import React ,{useEffect}from 'react';
+import React ,{useEffect,useState}from 'react';
 import "./topbar.css"
 import {NotificationsNone,ShoppingCartOutlined,AccountCircleOutlined} from '@material-ui/icons';
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import {Link} from 'react-router-dom';
+import SearchField from './searchfield/SearchField';
  const Topbar = ({totalItems,totalOrders}) => {
+
+   const[loggedin,setLoggedin]=useState(false);
    //const [user] = useState(JSON.parse(localStorage.getItem('user')));
    // const [loggedin] = useState(JSON.parse(localStorage.getItem('loggedin')));
   
@@ -34,6 +37,9 @@ import {Link} from 'react-router-dom';
                    <span className="logo">Daabia</span>
                    </Link>
                 </div>
+                <div className="searchfield">
+                  <SearchField/>
+                </div>
                 <div className="topRight">
                     <div className="topbarIonContainer">
                         <NotificationsNone/>
@@ -41,6 +47,7 @@ import {Link} from 'react-router-dom';
                     </div>
 
                     <div className="topbarIonContainer">
+                      
                        <Link to="/orders">
                        <ShoppingBagOutlinedIcon className="link"/>
                        </Link>
@@ -51,12 +58,12 @@ import {Link} from 'react-router-dom';
                         <span className="topIconBadge" >{totalItems}</span>
                         </Link>
                     </div> 
-                    <div className="topbarIonContainer">
-                        <AccountCircleOutlined/>
-                    </div>
-                    <img src="https://images.pexels.com/photos/4620866/pexels-photo-4620866.jpeg?cs=srgb&dl=pexels-cottonbro-4620866.jpg&fm=jpg" alt="" className="topAvatar" />
+                   
+                   
                 </div>
-                
+              { loggedin ?  <img src="https://images.pexels.com/photos/4620866/pexels-photo-4620866.jpeg?cs=srgb&dl=pexels-cottonbro-4620866.jpg&fm=jpg" alt="" className="topAvatar" />: <div className="topbarIonContainer">
+                        <AccountCircleOutlined/>
+                    </div>}
             </div>
             <Menu
         id="demo-positioned-menu"
