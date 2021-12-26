@@ -1,20 +1,20 @@
 /* eslint-disable no-unused-vars */
 import {useState}from 'react';
-import {BrowserRouter as Router,Switch,Route
+import {BrowserRouter as withRouter,Switch,Route,useHistory
 } from "react-router-dom";
-import  Dashboard from './dashboard/Dashboard'
+import  Dashboard from './dashboard/Dashboard';
 import './App.css';
 import LogIn from "./pages/login/LogIn";
 import SignUp from './pages/signup/SignUp';
-import {Topbar,BottomBar,Products,Cart,Orders,ProceedCheckOut } from './components';
+import {Topbar,BottomNav,Products,Cart,Orders,ProceedCheckOut } from './components';
 import React, { useEffect } from 'react';
 import axios ,{post,patch} from 'axios';
-import CheckOut from './components/checkoutform/checkout/CheckOut'
+import CheckOut from './components/checkoutform/checkout/CheckOut';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 function App() {
-  const ref = React.useRef(null);
-
+   const ref = React.useRef(null);
+   
    const createTempUserId= ()=>{
      var id='';
     if (localStorage.getItem('temp_id')===null){
@@ -62,6 +62,17 @@ function App() {
      const[myOrders,setMyOrders]=useState([]);
      const[orderCount,setMyOrderCount]=useState(0);
     const paths=['/','/cart','/checkout','/orders','/proceedcheckout']
+     let history = useHistory();
+     
+    const handleOnchange =(value) => {
+      if(value===0){
+        history.push('/')
+      }else if (value===1){
+        history.push('/cart')
+      }else if (value===2){
+        history.push('/account')
+      }
+    }
     const sendConfirmationEmail = (_id,newOrder)=>{
      console.log("id "+_id + "email "+newOrder.customer.email)
       const url = `http://localhost:3001/api/email/confirmorder/${_id}`;
@@ -459,7 +470,7 @@ const fetchProduct =(productid)=>{
   return (
     <Box sx={{ pb: 7 }} ref={ref}>
       <CssBaseline />
-       <Router>
+       
          <Route exact path={paths}>
          <Topbar totalItems={itemsCount} totalOrders={orderCount}/>
          </Route>
@@ -490,8 +501,9 @@ const fetchProduct =(productid)=>{
             <Dashboard/>
          </Route>
        </Switch>
-       <BottomBar/>
-       </Router>
+       <Route exact path={paths}>
+       <BottomNav onBottomNavChange={handleOnchange}/>
+         </Route>
      </Box>
   );
 }

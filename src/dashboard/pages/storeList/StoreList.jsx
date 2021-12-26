@@ -12,7 +12,7 @@ export default function StoreList() {
     const [stores, setStores] = useState([]);
     const [storeid,setStoreid]=useState(['']);
     const [open,setOpen]=useState(false);
-
+    
     const history=useHistory();
 
     const handleClickOpen = () => {
