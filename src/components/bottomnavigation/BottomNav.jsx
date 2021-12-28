@@ -8,8 +8,8 @@ import Paper from '@mui/material/Paper';
 import useStyles from './styles';
 
 
-const BottomNav = ({onBottomNavChange}) => {
-     const[value,setValue]=React.useState(0)
+const BottomNav = ({onBottomNavChange,tapPosition}) => {
+     const[value,setValue]=React.useState(tapPosition)
      const classes =useStyles();
      
 

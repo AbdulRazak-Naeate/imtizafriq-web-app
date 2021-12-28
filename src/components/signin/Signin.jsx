@@ -4,21 +4,7 @@ import {useState} from'react';
 import { Link,useHistory } from 'react-router-dom';
 import {Typography,Button}  from '@mui/material';
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
-
-function Signin({handleCloseModal}) {
+function Signin({handleCloseModal,handleSwitchForm}) {
           const [email,setEmail]=useState('');
           const [password,setPassword]=useState('');
           const [error,setError]=useState(false);
@@ -62,9 +48,8 @@ function Signin({handleCloseModal}) {
         
   return (
     <div className="login">
-      <div className="logInLeft"></div>
       <div className="logInMiddle">
-                    <div className="loginFormWrapper">
+                    <div className="FormWrapper">
                   <div className="logInTitle">
                     <h1 className="title">LogIn</h1>
                   </div>
@@ -82,17 +67,18 @@ function Signin({handleCloseModal}) {
                         <label className="error">{!error?'':'email or password incorrect'}</label>
                         </div>
                          <div className="signUpLoginItem">
-                         <Button type="submit" fullWidth variant="contained" color="primary" className="btnLogIn">LogIn</Button>
+                         <Button type="submit" fullWidth variant="contained" color="primary" >LogIn</Button>
                       {/*  <Link to="/signup" className="link">
                        <button className="btnSignUp">SignUp</button>
                        </Link>
- */}
-                         </div>
+ */}                  </div>       
+                  <div className="signUpLoginItem">
+                    <Typography variant="body2" color="primary" align="center" className="log" onClick={()=>{handleSwitchForm(false)}}>SignUp</Typography>
+                 </div>
                     </form>
                     </div>
               
       </div>
-      <div className="logInRight"></div>
     </div>
   )
 }

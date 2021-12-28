@@ -41,7 +41,8 @@ const userSchema = new mongoose.Schema({
             country:'',
             state:'',
             city:'',
-            area:'',
+            street:'',
+            aprt_hom_num:''
             
         }
     },

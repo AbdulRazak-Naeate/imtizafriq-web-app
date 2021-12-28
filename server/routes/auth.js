@@ -54,7 +54,8 @@ router.post('/register',async (req,res) => {
             country:'null',
             state:'null',
             city:'null',
-            area:'null',
+            street:'null',
+            aprt_suit_num:'null'
             
         },
    });
@@ -102,7 +103,7 @@ router.post('/login',async (req,res)=>{
    const validPass = await bcrypt.compare(req.body.password,user.password);
    if (!validPass) return res.status(401).send('Invalid password');
    
-   //Create and asigned a token
+   //LogIn and asigned a token
    const token = jwt.sign({_id:user.id},process.env.TOKEN_SECRET);
     res.header('auth-token',token).send({
       auth_token:token,
@@ -112,8 +113,10 @@ router.post('/login',async (req,res)=>{
       lastname:user.lastname,
       email:user.email,
       phone:user.phone,
-      location:user.location,
-      image:user.image
+      image:user.image,
+      address:user.address,
+      comfirmed:user.confirmed
+
     }).status(400);
    // res.send('Logged in!');
 
@@ -129,27 +132,31 @@ router.patch('/:userId',async (req,res)=> {
           lastname:req.body.lastname,
           email:req.body.email,
           phone:req.body.phone,
-          location:req.body.location
+          address:req.body.address
        };
-       //console.log(req.body)
-      const updateUser = await User.findOneAndUpdate(
+      // console.log(req.body)
+       await User.findOneAndUpdate(
           {_id:oId},
           {$set:
                query
            },
            {new:true,useFindAndModify:false}
             
-          );
-          var newData= {   
-              firstname:updateUser.firstname,
-              lastname:updateUser.lastname,
-              email:updateUser.email,
-              phone:updateUser.phone,
-              location:updateUser.location
+          ).then(ret=>{
+            //console.log(ret)
+             var newData = {   
+              firstname:ret.firstname,
+              lastname:ret.lastname,
+              email:ret.email,
+              phone:ret.phone,
+              address:ret.address
            };
            var updated=JSON.stringify(query)===JSON.stringify(newData)
            if(!updated) return res.status(400).send("user not modified");
-          res.json(updateUser);
+          res.json(ret);
+          });
+        
+         
   }catch(err){
       res.json({message:err});
   }
@@ -168,7 +175,7 @@ router.post('/updateImage/:userId',updateImage('./server/uploads/users'),async (
          {new:true,useFindAndModify:false}
           
         );
-    res.json({message:"image updated",status:200});
+    res.json({message:"image updated",status:200});//returning image not neccesory image already updated on user click
   }catch(err){
 
       res.json({message:err})

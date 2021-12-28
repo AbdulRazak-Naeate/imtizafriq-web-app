@@ -1,7 +1,10 @@
 import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
-import React,{useRef} from 'react';
+import {Modal,Typography} from '@mui/material';
+import React,{useState} from 'react';
 import SignIn from '../signin/Signin';
+import SignUp from '../signup/SignUp';
+import {Link} from 'react-router-dom';
+
 const style = {
   position: 'absolute',
   top: '50%',
@@ -17,7 +20,22 @@ const style = {
 };
 
  export const RModal =  React.forwardRef((props,ref) => {
-
+   const[isLoggedInForm,setIsLoggedInForm]=useState(true)
+   const handleSwitchForm =(option)=>{
+     setIsLoggedInForm(option)
+   }
+   function Copyright(props) {
+    return (
+      <Typography variant="body2" color="text.secondary" align="center" {...props}>
+        {'Copyright © '}
+        <Link color="inherit" href="https://localhost:3000/">
+          Daabia.com
+        </Link>{' '}
+        {new Date().getFullYear()}
+        {'.'}
+      </Typography>
+    );
+  }
   return (
     <div>
       
@@ -28,7 +46,10 @@ const style = {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style} ref={ref}>
-          <SignIn handleCloseModal={props.handleCloseModal}/> 
+         {
+           isLoggedInForm ===true ?  <SignIn handleCloseModal={props.handleCloseModal} handleSwitchForm={handleSwitchForm}/> : <SignUp handleCloseModal={props.handleCloseModal} handleSwitchForm={handleSwitchForm}/>
+         }
+         <Copyright/>
         </Box>
       </Modal>
     </div>

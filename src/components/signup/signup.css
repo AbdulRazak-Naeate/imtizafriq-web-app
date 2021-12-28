@@ -1,10 +1,7 @@
-.login{
-    display: grid;
-    grid-template-columns: 35% auto 35%;
-    margin-top: 20px;
+.signup{
 }
 
-.logInMiddle{
+.signupMiddle{
     display: flex;
     justify-content:column;
     padding: 20px;
@@ -15,36 +12,35 @@
     border-radius: 10px;
     margin-right: 10px;
 }
-.logInTitle{
+.signupTitle{
     display: flex;
     align-items: center;
-    justify-content: space-around;
   font-size: 24px;
   font-weight: 600;
 }
 .FormWrapper{  
-  padding:20px;
+  padding: 20px;
   width: 100%; 
   margin-bottom: 40px;
-   /*  border: none;
-     box-shadow:0px 0px 15px -10px rgb(0,0,0.75);
+    border: none;
+     /* box-shadow:0px 0px 15px -10px rgb(0,0,0.75);
     -webkit-box-shadow:0px 0px 15px -10px rgb(0,0,0.75); */
 }
-.loginForm{
+.signupForm{
    border: none;
 }
-.loginItem{
+.signupItem{
     display: flex;
     flex-direction: column;
     margin-top: 10px;
     
 }
 
-.loginItem>label{
+.signupItem>label{
     margin-bottom: 5px;
     font-size: 14px;
 }
-.loginInput{
+.signupInput{
     border: none;
     width:  100%;
     height: 30px;
@@ -61,23 +57,26 @@
 }
 .userUpdateIcon{
     cursor: pointer;
-}.signUpLoginItem{
+}.signUpsignupItem{
     display: flex;
     justify-content: space-between;
-    align-items: center;
-
+    margin-top: 10px;
+    padding: 10px 20px;
 }
-.btnLogIn ,.btnSignUp{
+.error{
+    color: lightcoral;
+}
+.btnsignup ,.btnSignUp{
     border-radius: 5px;
     border: none;
     margin-top: 20px;
     padding:5px;
-    width: 10%;
+    width: 80px;
     cursor: pointer;
     color: white;
     font-weight: 600;
 }
-.btnLogIn{
+.btnsignup{
     background-color: darkblue;
 }
 .btnSignUp{
@@ -85,7 +84,7 @@
 
 }
 @media only  screen and (max-width:620px){
-    .login{
+    .signup{
       grid-template-columns: auto;
     }
 }

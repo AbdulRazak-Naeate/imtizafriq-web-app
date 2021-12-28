@@ -79,10 +79,15 @@ function App() {
      const[myOrders,setMyOrders]=useState([]);
      const[orderCount,setMyOrderCount]=useState(0);
      const[openModal,setOpenModal]=useState(false)
-    const paths=['/','/cart','/checkout','/orders','/proceedcheckout','/account']
+    const paths=['/','/cart','/checkout','/orders','/proceedcheckout','/account'];
+    const[tapPosition,setTapPosition]=useState(0)
+  
      let history = useHistory();
      const handleCloseModal = () =>{ 
       setOpenModal(false);
+    }
+    const handleBottomNavPosition =(position) =>{
+        setTapPosition(position)
     }
     const handleOnchange =(value) => {
       if(value===0){
@@ -91,10 +96,10 @@ function App() {
         history.push('/cart')
       }else if (value===2){
         if (localStorage.getItem('loggedin')==="true"){
-        // history.push('/account') 
-         setOpenModal(true)
+        history.push('/account') 
         }else{
-         
+          setOpenModal(true)
+
         }
         
       }
@@ -527,14 +532,14 @@ const fetchProduct =(productid)=>{
            <SignUp/>
          </Route>
          <Route path="/account">
-           <Account/>
+           <Account handleBottomNavPosition={handleBottomNavPosition}/>
          </Route>
          <Route path="/dashboard">
             <Dashboard/>
          </Route>
        </Switch>
        <Route exact path={paths}>
-       <BottomNav onBottomNavChange={handleOnchange}/>
+       <BottomNav onBottomNavChange={handleOnchange} tapPosition={tapPosition}/>
          </Route>
      </Box>
      </ThemeProvider>
