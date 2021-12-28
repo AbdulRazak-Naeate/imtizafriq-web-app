@@ -52,9 +52,9 @@ export default makeStyles(() => ({
   }
  ,select:{
     padding:'3px 5px',
-    border:'1px solid #f50057',
+    border:'1px solid #ed9720',
     borderRadius:'30px',
-    backgroundColor:'#f50057',
+    backgroundColor:'#ed9720',
     color:'white'
   }
   ,measurementCard:{
@@ -76,9 +76,9 @@ export default makeStyles(() => ({
     flexDirection:'column'
   },
   measurementInput:{
-    width:'80%',height:'40%' ,
+    width:'100%',height:'25%' ,textAlign:'center'
   }
-  ,
+ ,
   measuregridContainer:{
     border:'1px solid  #afb4b0',
     borderRadius:'4px',

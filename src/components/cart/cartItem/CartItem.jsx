@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import {Typography,Button,Card,CardActions,CardContent,CardMedia,MenuItem,TextField} from '@material-ui/core';
+import {Typography,Button,Card,CardActions,CardContent,CardMedia,MenuItem,TextField} from '@mui/material';
 import useStyles from './styles';
 import {useForm} from 'react-hook-form';
 import { Grid } from '@material-ui/core';
@@ -107,7 +107,7 @@ const CartItem = ({cartitem,onUpdateCartQty,onUpdateColorSize,onUpdateMeasuremen
         <Grid container direction='row' justifyContent='space-between' spacing={1}>
          <Grid item={true} xs={2} sm={2} md={2} lg={2}>
          <div className={classes.measurementInputWrapper} >
-             <TextField className={classes.measurementInput} key={`input1${productid}`}  label="Back"
+             <TextField variant="standard"  key={`input1${productid}`}  label="Back"
              onChange={onMeasurementValueChange}
               defaultValue={measurement.back}
              inputProps={register('back', {
@@ -119,7 +119,7 @@ const CartItem = ({cartitem,onUpdateCartQty,onUpdateColorSize,onUpdateMeasuremen
 
           <Grid item={true} xs={2} sm={2} md={2} lg={2}>
           <div className={classes.measurementInputWrapper} >
-             <TextField className={classes.measurementInput}key={`input2${productid}`} 
+             <TextField variant="standard" palceholder="0"className={classes.measurementInput}key={`input2${productid}`} 
               label="Chest"
               onChange={onMeasurementValueChange}
               defaultValue={measurement.chest}
@@ -132,7 +132,7 @@ const CartItem = ({cartitem,onUpdateCartQty,onUpdateColorSize,onUpdateMeasuremen
           </Grid>
            <Grid item={true} xs={2} sm={2} md={2} lg={2}>
            <div className={classes.measurementInputWrapper} >
-             <TextField className={classes.measurementInput} key={`input3${productid}`} id={`input3${productid}`}
+             <TextField variant="standard"  className={classes.measurementInput}  key={`input3${productid}`} id={`input3${productid}`}
              label="Length"
              onChange={onMeasurementValueChange}
              defaultValue={measurement.shirtLength}
@@ -143,9 +143,9 @@ const CartItem = ({cartitem,onUpdateCartQty,onUpdateColorSize,onUpdateMeasuremen
 
            </div>
            </Grid>
-          <Grid item={true}xs={4} sm={4} md={4} lg={4}>
+          <Grid item={true}xs={3} sm={3} md={3} lg={3}>
           <div className={classes.measurementInputWrapper} >
-             <TextField
+             <TextField variant="standard"
           select
           fullWidth={false}
           defaultValue={sleeve}
@@ -172,10 +172,10 @@ const CartItem = ({cartitem,onUpdateCartQty,onUpdateColorSize,onUpdateMeasuremen
         
         <div className={classes.measuregridContainer}>
           <Typography variant='body1'>{`Down(Trouser)`}</Typography>
-        <Grid container direction='row' justifyContent='space-between' spacing={1}>
+        <Grid container direction='row' justifyContent='space-evenly' spacing={1}>
          <Grid item={true} xs={2} sm={2} md={2} lg={2}>
          <div className={classes.measurementInputWrapper} >
-             <TextField className={classes.measurementInput} key={`input1${productid}`}  label="Length"
+             <TextField variant="standard" className={classes.measurementInput} key={`input1${productid}`}  label="Length"
             onChange={onMeasurementValueChange}
              defaultValue={measurement.trouserLength}
              inputProps={register('trouserLength', {
@@ -186,7 +186,7 @@ const CartItem = ({cartitem,onUpdateCartQty,onUpdateColorSize,onUpdateMeasuremen
          </Grid>
          <Grid item={true} xs={2} sm={2} md={2} lg={2}>
           <div className={classes.measurementInputWrapper} >
-             <TextField className={classes.measurementInput}key={`input2${productid}`} 
+             <TextField variant="standard" className={classes.measurementInput}key={`input2${productid}`} 
               label="Waist"
               onChange={onMeasurementValueChange}
               defaultValue={measurement.waist}
@@ -199,7 +199,7 @@ const CartItem = ({cartitem,onUpdateCartQty,onUpdateColorSize,onUpdateMeasuremen
           </Grid>
           <Grid item={true} xs={2} sm={2} md={2} lg={2}>
           <div className={classes.measurementInputWrapper} >
-             <TextField className={classes.measurementInput}key={`input2${productid}`} 
+             <TextField variant="standard" className={classes.measurementInput}key={`input2${productid}`} 
               label="Thigh"
               defaultValue={measurement.thigh}
               onChange={onMeasurementValueChange}
@@ -212,7 +212,7 @@ const CartItem = ({cartitem,onUpdateCartQty,onUpdateColorSize,onUpdateMeasuremen
           </Grid>
            <Grid  item={true} xs={2} sm={2} md={2} lg={2}>
            <div className={classes.measurementInputWrapper} >
-             <TextField className={classes.measurementInput} key={`input3${productid}`} id={`input3${productid}`}
+             <TextField variant="standard" className={classes.measurementInput} key={`input3${productid}`} id={`input3${productid}`}
              label="bust"
              defaultValue={measurement.bust}
              onChange={onMeasurementValueChange}

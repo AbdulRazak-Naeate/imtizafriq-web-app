@@ -4,7 +4,7 @@ export default makeStyles((theme) => ({
   root:{
     color: "darkgray",
     "&.Mui-selected": {
-      color: "orange"
+      color: "#ed9720"
     },
 
      /* Styles applied to the root element if selected. */

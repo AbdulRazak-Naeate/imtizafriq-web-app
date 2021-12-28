@@ -2,7 +2,23 @@ import './login.css'
 import axios from 'axios';
 import {useState} from'react';
 import { Link,useHistory } from 'react-router-dom';
-function LogIn() {
+import {Typography,Button}  from '@mui/material';
+
+function Copyright(props) {
+  return (
+    <Typography variant="body2" color="text.secondary" align="center" {...props}>
+      {'Copyright © '}
+      <Link color="inherit" href="https://mui.com/">
+        Your Website
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
+
+
+function Signin({handleCloseModal}) {
           const [email,setEmail]=useState('');
           const [password,setPassword]=useState('');
           const [error,setError]=useState(false);
@@ -22,7 +38,8 @@ function LogIn() {
       
               //console.log(response.headers[2]);
                
-              history.push("/dashboard");
+              handleCloseModal();
+             history.push("/account");
             }).catch((error) =>{
                setError(true);
               console.log(error)
@@ -65,11 +82,11 @@ function LogIn() {
                         <label className="error">{!error?'':'email or password incorrect'}</label>
                         </div>
                          <div className="signUpLoginItem">
-                         <button className="btnLogIn">LogIn</button>
-                       <Link to="/signup" className="link">
+                         <Button type="submit" fullWidth variant="contained" color="primary" className="btnLogIn">LogIn</Button>
+                      {/*  <Link to="/signup" className="link">
                        <button className="btnSignUp">SignUp</button>
                        </Link>
-
+ */}
                          </div>
                     </form>
                     </div>
@@ -80,4 +97,4 @@ function LogIn() {
   )
 }
 
-export default LogIn
+export default Signin

@@ -1,4 +1,4 @@
-import React ,{useEffect,useState}from 'react';
+import React ,{useEffect,useState,useRef}from 'react';
 import "./topbar.css"
 import {NotificationsNone,ShoppingCartOutlined,AccountCircleOutlined} from '@material-ui/icons';
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
@@ -6,8 +6,8 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import {Link} from 'react-router-dom';
 import SearchField from './searchfield/SearchField';
- const Topbar = ({totalItems,totalOrders}) => {
 
+ const Topbar = ({totalItems,totalOrders}) => {
    const[loggedin,setLoggedin]=useState(false);
    //const [user] = useState(JSON.parse(localStorage.getItem('user')));
    // const [loggedin] = useState(JSON.parse(localStorage.getItem('loggedin')));

@@ -6,15 +6,32 @@ import  Dashboard from './dashboard/Dashboard';
 import './App.css';
 import LogIn from "./pages/login/LogIn";
 import SignUp from './pages/signup/SignUp';
-import {Topbar,BottomNav,Products,Cart,Orders,ProceedCheckOut } from './components';
+import {Topbar,BottomNav,Products,Cart,Orders,ProceedCheckOut,Account } from './components';
 import React, { useEffect } from 'react';
 import axios ,{post,patch} from 'axios';
 import CheckOut from './components/checkoutform/checkout/CheckOut';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
+import {RModal} from './components/modal/RModal'
+import { blue, orange } from '@mui/material/colors';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+
+
 function App() {
-   const ref = React.useRef(null);
-   
+
+  const ref = React.useRef(null);
+  const theme = createTheme({
+    palette: {
+      primary:{
+        main:blue[500],
+      /*   main:"#3f51b5", */
+      },
+        secondary: {
+            main:orange[500],
+            contrastText:'#fff'
+        }
+      },
+});   
    const createTempUserId= ()=>{
      var id='';
     if (localStorage.getItem('temp_id')===null){
@@ -61,16 +78,25 @@ function App() {
      const [order,setOrder]=useState({});
      const[myOrders,setMyOrders]=useState([]);
      const[orderCount,setMyOrderCount]=useState(0);
-    const paths=['/','/cart','/checkout','/orders','/proceedcheckout']
+     const[openModal,setOpenModal]=useState(false)
+    const paths=['/','/cart','/checkout','/orders','/proceedcheckout','/account']
      let history = useHistory();
-     
+     const handleCloseModal = () =>{ 
+      setOpenModal(false);
+    }
     const handleOnchange =(value) => {
       if(value===0){
         history.push('/')
       }else if (value===1){
         history.push('/cart')
       }else if (value===2){
-        history.push('/account')
+        if (localStorage.getItem('loggedin')==="true"){
+        // history.push('/account') 
+         setOpenModal(true)
+        }else{
+         
+        }
+        
       }
     }
     const sendConfirmationEmail = (_id,newOrder)=>{
@@ -468,13 +494,16 @@ const fetchProduct =(productid)=>{
     getOrders();
    },[userid])
   return (
+    <ThemeProvider theme={theme}>
     <Box sx={{ pb: 7 }} ref={ref}>
       <CssBaseline />
        
          <Route exact path={paths}>
          <Topbar totalItems={itemsCount} totalOrders={orderCount}/>
          </Route>
+         <RModal openModal={openModal} handleCloseModal={handleCloseModal} ref={ref}/>
        <Switch>   
+        
        <Route exact path="/" >   
        <Products products={products} onAddToCart={handleAddtoCart} />
        </Route>
@@ -497,6 +526,9 @@ const fetchProduct =(productid)=>{
           <Route path="/signup">
            <SignUp/>
          </Route>
+         <Route path="/account">
+           <Account/>
+         </Route>
          <Route path="/dashboard">
             <Dashboard/>
          </Route>
@@ -505,6 +537,7 @@ const fetchProduct =(productid)=>{
        <BottomNav onBottomNavChange={handleOnchange}/>
          </Route>
      </Box>
+     </ThemeProvider>
   );
 }
 

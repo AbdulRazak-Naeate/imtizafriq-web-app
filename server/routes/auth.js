@@ -50,6 +50,13 @@ router.post('/register',async (req,res) => {
        phone:req.body.phone,
        password:hashPassword,
        image:[{}],
+       address:{
+            country:'null',
+            state:'null',
+            city:'null',
+            area:'null',
+            
+        },
    });
    try{
        const savedUser = await  user.save();
@@ -67,6 +74,7 @@ router.post('/register',async (req,res) => {
                email:user.email,
                location:user.location,
                image:user.image,
+               address:user.address,
                status:200}).status(200);
 
    }catch(err){
