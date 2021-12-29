@@ -86,9 +86,7 @@ function App() {
      const handleCloseModal = () =>{ 
       setOpenModal(false);
     }
-    const handleBottomNavPosition =(position) =>{
-        setTapPosition(position)
-    }
+   
     const handleOnchange =(value) => {
       if(value===0){
         history.push('/')
@@ -417,10 +415,19 @@ const fetchProduct =(productid)=>{
   return axios.get(url)
 
 };
+const handleBottomNavPosition = () =>{
+     if(history.location.pathname==='/cart'){
+        setTapPosition(1)
+      }else if(history.location.pathname==='/account'){
+        setTapPosition(2)
+      }
+    console.log(tapPosition)
+  }
 
+  
    useEffect(() => {
     ref.current.ownerDocument.body.scrollTop = 0;
-
+    
     const fetchProducts = async ()=>{
       try{
          const res  = await fetch(`http://localhost:3001/api/products`);
@@ -532,14 +539,14 @@ const fetchProduct =(productid)=>{
            <SignUp/>
          </Route>
          <Route path="/account">
-           <Account handleBottomNavPosition={handleBottomNavPosition}/>
+           <Account/>
          </Route>
          <Route path="/dashboard">
             <Dashboard/>
          </Route>
        </Switch>
        <Route exact path={paths}>
-       <BottomNav onBottomNavChange={handleOnchange} tapPosition={tapPosition}/>
+       <BottomNav onBottomNavChange={handleOnchange}  totalItems={itemsCount} tapPosition={tapPosition}/>
          </Route>
      </Box>
      </ThemeProvider>

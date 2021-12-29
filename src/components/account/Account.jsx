@@ -14,7 +14,7 @@ import 'react-s-alert/dist/s-alert-css-effects/stackslide.css';
 import 'react-s-alert/dist/s-alert-css-effects/jelly.css';
 import Avatar from '../../assets/icons/user_96px.png';
 import useStyles from './styles'
-const Account = ({handleBottomNavPosition}) => {
+const Account = () => {
    const classes = useStyles()
   const query =QueryParams();    
   const [user,setUser] = useState(JSON.parse(localStorage.getItem('user')));
@@ -66,7 +66,6 @@ function onFileInputChange(e) {
   const handleLogOut =()=>{
     localStorage.setItem('user', null);
     localStorage.setItem('loggedin',false);
-    handleBottomNavPosition(0);
     history.push('/')
   }
 const handleVerifyEmail = ()=>{
@@ -195,7 +194,7 @@ return patch(url, body,config)
                          <MailOutline className="userShowIcon"/>
                          <div className="emailverify">
                           <span className="userShowInfoTitle">{email}</span>
-                       {confirmed ? <CheckIcon style={{marginLeft:10}} color="success"/> :  <Button style={{marginLeft:10}}  variant='outlined' size="small" color='primary'  onClick={handleVerifyEmail}>verify</Button>}
+                       {/* {confirmed ? <CheckIcon style={{marginLeft:10}} color="success"/> :  <Button style={{marginLeft:10}}  variant='outlined' size="small" color='primary'  onClick={handleVerifyEmail}>verify</Button>} */}
                           </div>  
                         </div>
                         <div className="userShowInfo">
