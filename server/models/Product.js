@@ -43,6 +43,10 @@ const mongoose = require('mongoose');
         type:Number,
         default:0
     },
+    category:{
+        type:String,
+        required:true
+    },
     date:{
         type:String,
         default:Date.now()
@@ -62,7 +66,7 @@ const mongoose = require('mongoose');
     
 
 
- });
+ }).index({name:"text",description:"text"});
 
- module.exports =mongoose.model('Product',ProductSchema);
+ module.exports = mongoose.model('Product',ProductSchema);
  

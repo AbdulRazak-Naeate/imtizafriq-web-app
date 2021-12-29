@@ -7,7 +7,7 @@ import MenuItem from '@mui/material/MenuItem';
 import {Link} from 'react-router-dom';
 import SearchField from './searchfield/SearchField';
 
- const Topbar = ({totalItems,totalOrders}) => {
+ const Topbar = ({totalItems,totalOrders,handlesearchProduct}) => {
    const[loggedin,setLoggedin]=useState(false);
    //const [user] = useState(JSON.parse(localStorage.getItem('user')));
    // const [loggedin] = useState(JSON.parse(localStorage.getItem('loggedin')));
@@ -38,7 +38,7 @@ import SearchField from './searchfield/SearchField';
                    </Link>
                 </div>
                 <div className="searchfield">
-                  <SearchField/>
+                  <SearchField handlesearchProduct={handlesearchProduct}/>
                 </div>
                 <div className="topRight">
                     <div className="topbarIonContainer">

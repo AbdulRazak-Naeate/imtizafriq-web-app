@@ -53,10 +53,10 @@ const StyledInputElement = styled('input')(
 
 const CustomInput = React.forwardRef(function CustomInput(props, ref) {
   return (
-    <InputUnstyled components={{ Input: StyledInputElement }} {...props} ref={ref} />
+    <InputUnstyled  components={{ Input: StyledInputElement }} {...props} ref={ref} onChange={(e)=>{props.handlesearchProduct(e.target.value)}}/>
   );
 });
 
-export default function SearchField() {
-  return <CustomInput aria-label="search input" placeholder="Search products..." />;
+export default function SearchField({handlesearchProduct}) {
+  return <CustomInput aria-label="search input" placeholder="Search products..." handlesearchProduct={handlesearchProduct} />;
 }

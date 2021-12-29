@@ -29,19 +29,19 @@ router.post('/',async(req,res)=>{
      if (categoryExist) return res.status(400).send("Category already taken");
      
       //check if short code already exist
-      const shortCode = await StoreCategory.findOne({shortCode:req.body.shortCode});
+      const shortCode = await StoreCategory.findOne({short_code:req.body.short_code});
       if (shortCode) return res.status(400).send("shortCode already taken");
       
 
    //create new Store Category
     const storeCategory = new StoreCategory({
         name:req.body.name,
-        shortCode:req.body.shortCode,
+        short_code:req.body.short_code,
        
     });
 
     try{
-        saveStoreCategory = await storeCategory.save();
+      const  saveStoreCategory = await storeCategory.save();
         res.json(saveStoreCategory);
     }catch(err){
         res.json({message:err})

@@ -47,7 +47,7 @@ app.use('/api/email',emailRouter);
  app.get('/',(req,res)=>{
      res.send('Daabia Web App  version 0.1')
  })
-const options={ useNewUrlParser: true ,useUnifiedTopology: true }
+const options={ useNewUrlParser: true ,useUnifiedTopology: true,useCreateIndex:true,useFindAndModify:true }
 //Connect to DB
 mongoose.connect(process.env.DB_COMMUNITY_CON, options)
 

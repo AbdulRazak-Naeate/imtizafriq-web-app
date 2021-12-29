@@ -99,6 +99,16 @@ router.get('/store/:storeId', async (req,res)=>{
     }
 })
 
+//perform text match search on products
+router.get('/find/:searchstring', async (req,res)=>{
+    try{
+       // await Product.schema.createIndexes({name:"text",description:"text"});
+        const product = await Product.find({$text:{$search:req.params.searchstring}},{});
+        res.json({products:product,message:`we've found ${product.length} items that matches your search `,status:200});
+    }catch(err){
+        res.json({message:err,status:400})
+    }
+})
 //delete Specific product
 
 router.delete('/:productId', async (req,res)=>{

@@ -71,6 +71,7 @@ function App() {
   }
      const[userid]=useState(createTempUserId());
      const[products,setProducts]=useState([]);
+     const[filteredProducts,setFilteredProducts]=useState([]);
      const[product,setProduct]=useState([]);
      const[cart,setCart]=useState({});
      const[itemsCount,setItemsCount]=useState(0);
@@ -80,7 +81,7 @@ function App() {
      const[orderCount,setMyOrderCount]=useState(0);
      const[openModal,setOpenModal]=useState(false)
     const paths=['/','/cart','/checkout','/orders','/proceedcheckout','/account'];
-    const[tapPosition,setTapPosition]=useState(0)
+    const[tapPosition,setTapPosition]=useState(0);
   
      let history = useHistory();
      const handleCloseModal = () =>{ 
@@ -415,6 +416,35 @@ const fetchProduct =(productid)=>{
   return axios.get(url)
 
 };
+
+const handlesearchProduct = async (searchString)=>{
+   searchString !==''?        
+  searchProduct(searchString).then((response) => {
+    console.log(response.data);
+    if (response.status===200){
+       
+      try{
+        setFilteredProducts(response.data.products)
+       
+      }catch(err){
+        console.log(err)
+      }
+    }
+    //addToast(exampleToast(response.data.message));
+  }): setFilteredProducts([])
+
+}
+
+
+
+
+const searchProduct =(searchString)=>{
+
+  const url = `http://localhost:3001/api/products/find/${searchString}`;
+  
+  return axios.get(url)
+
+};
 const handleBottomNavPosition = () =>{
      if(history.location.pathname==='/cart'){
         setTapPosition(1)
@@ -511,13 +541,13 @@ const handleBottomNavPosition = () =>{
       <CssBaseline />
        
          <Route exact path={paths}>
-         <Topbar totalItems={itemsCount} totalOrders={orderCount}/>
+         <Topbar totalItems={itemsCount} totalOrders={orderCount} handlesearchProduct={handlesearchProduct}/>
          </Route>
          <RModal openModal={openModal} handleCloseModal={handleCloseModal} ref={ref}/>
        <Switch>   
         
        <Route exact path="/" >   
-       <Products products={products} onAddToCart={handleAddtoCart} />
+      {filteredProducts.length > 0 ? <Products products={filteredProducts} onAddToCart={handleAddtoCart} />:<Products products={products} onAddToCart={handleAddtoCart} />}
        </Route>
        <Route exact path="/cart">
           <Cart cart={cart} handleUpdateCartQty={handleUpdateCartQty} handleupdateColorSize={handleupdateColorSize} handleupdateMeasurement={handleupdateMeasurement} handleRemoveFromCart={handleRemoveFromCart}
