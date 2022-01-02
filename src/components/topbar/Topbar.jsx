@@ -1,9 +1,9 @@
 import React ,{useEffect,useState,useRef}from 'react';
 import "./topbar.css"
-import {NotificationsNone,ShoppingCartOutlined,AccountCircleOutlined} from '@material-ui/icons';
+import {NotificationsNone,ShoppingCartOutlined,AccountCircleOutlined,EmailOutlined,Call} from '@material-ui/icons';
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
+import {MenuItem,Typography} from '@mui/material';
 import {Link} from 'react-router-dom';
 import SearchField from './searchfield/SearchField';
 
@@ -31,7 +31,12 @@ import SearchField from './searchfield/SearchField';
     })
     return (
         <div className="topbar">
-            <div className="topbarWrapper">
+          <div className="topbarContact">
+           <Typography variant="body2"> <EmailOutlined/><a className='topnavlink' href='mailto:abdulrazakneate@gmail.com'>abdulrazakneate@gmail.com</a></Typography>
+           <Typography variant="body2"> <Call/><a className='topnavlink' href='tel:+233548496121'>+233548496121</a></Typography>
+
+          </div>
+            <div className="topbarActions">
                 <div className="topLeft">
                    <Link to ="/" className="link">
                    <span className="logo">Daabia</span>

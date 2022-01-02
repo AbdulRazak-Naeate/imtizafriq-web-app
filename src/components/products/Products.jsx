@@ -28,7 +28,7 @@ const Products = ({products,onAddToCart,onUpdateLikes,favorites}) => {
       </div>
       <Grid container justifyContent="center" spacing={1} padding={0}>
        {products.map((product) =>(
-         <Grid item key={product._id} xs={6} sm={6} md={4} lg={2}>
+         <Grid item key={product._id} xs={6} sm={6} md={2} lg={2}>
            <Product product={product} favorites={favorites} onAddToCart={onAddToCart} onUpdateLikes={onUpdateLikes} />
            
          </Grid>

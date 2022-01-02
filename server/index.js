@@ -34,7 +34,6 @@ app.get('/wake-up', (req, res) => res.json('👌'))
 //Route MiddleWares
 app.use(express.static('public'));
 app.use('/server/uploads',express.static('./server/uploads'));//making uploads folder accessible
-
 app.use('/api/user',    userRoute);
 app.use('/api/products',productsRoute);
 app.use('/api/stores',  storeRoute);
