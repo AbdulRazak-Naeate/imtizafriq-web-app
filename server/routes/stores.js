@@ -42,7 +42,7 @@ router.post('/',uploadImage('./server/uploads/stores'),verify,async(req,res)=>{
         email:req.body.email,
         description:req.body.description,
         image:req.files,
-        storeCategoryId:req.body.storeCategoryId,
+        categoryId:req.body.categoryId,
         ghPostGPS:req.body.ghPostGPS,
         validStatus:req.body.validStatus,
         currency:req.body.currency

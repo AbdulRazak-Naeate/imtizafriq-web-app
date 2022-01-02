@@ -11,11 +11,12 @@ const cors = require('cors');
 const productsRoute = require('./routes/products');
 const userRoute     = require('./routes/auth');
 const storeRoute    = require('./routes/stores');
-const storeCategory = require('./routes/storecategories');
+const categoryRoute = require('./routes/categories');
 const orders        = require('./routes/orders');
 const cartRoute     = require('./routes/carts');
 const fwverifyRoute = require('./routes/fwVerify');
-const emailRouter   = require('./routes/email/email');
+const emailRoute    = require('./routes/email/email');
+const productlikeRoute  = require('./routes/productlikers');
 
 dotenv.config();
 //MiddleWare
@@ -37,11 +38,12 @@ app.use('/server/uploads',express.static('./server/uploads'));//making uploads f
 app.use('/api/user',    userRoute);
 app.use('/api/products',productsRoute);
 app.use('/api/stores',  storeRoute);
-app.use('/api/storecategory', storeCategory);
+app.use('/api/category', categoryRoute);
 app.use('/api/orders',orders);
 app.use('/api/carts',cartRoute);
 app.use('/api/verifypayment',fwverifyRoute);
-app.use('/api/email',emailRouter);
+app.use('/api/email',emailRoute);
+app.use('/api/productlikes',productlikeRoute);
 
 //Home Routes
  app.get('/',(req,res)=>{

@@ -55,6 +55,7 @@ router.post('/',uploadImage('./server/uploads/products'),verify, async(req,res)=
         size:req.body.size,
         name:req.body.name,
         description:req.body.description,
+        category:req.body.category,
         specification:req.body.specification,
         stock:{currentstock:stockvalue,
                alltimestock:stockvalue},
@@ -98,7 +99,17 @@ router.get('/store/:storeId', async (req,res)=>{
         res.json({message:err,status:400})
     }
 })
-
+//get specific category products 
+router.get('/category/:categoryId', async (req,res)=>{
+    try{
+        const product = await Product.find()
+        .where('category')
+        .in(req.params.categoryId);
+        res.json({products:product,message:`we've found ${product.length} items that matches your search `,status:200});
+    }catch(err){
+        res.json({message:err,status:400})
+    }
+})
 //perform text match search on products
 router.get('/find/:searchstring', async (req,res)=>{
     try{
@@ -205,4 +216,27 @@ router.patch('/:productId',verify,async (req,res)=> {
       }; */
 });
 
+//update Product likes
+router.patch('/updatelikes/:productId',verify,async (req,res)=> {
+    try{
+
+        var oId= new mongoose.Types.ObjectId(req.params.productId);
+       
+        const value=parseInt(req.body.value);    
+         
+        const updateProduct = await Product.findOneAndUpdate(
+            {_id:oId},
+            { 
+                $inc: {'likes':value}
+             },
+             {new:true,useFindAndModify:false}
+              
+            ).then(()=>{
+                
+            });
+            res.json(updateProduct);
+    }catch(err){
+        res.json({message:err});
+    }
+});
 module.exports = router;

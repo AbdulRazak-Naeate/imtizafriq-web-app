@@ -81,7 +81,7 @@ const loginValidation = data =>{
     return schema.validate(data);
     };
 
-    const storeCategoryValidation = data =>{
+    const categoryValidation = data =>{
       const schema = Joi.object({
       
         short_code:Joi.string().min(4).required(),
@@ -112,10 +112,24 @@ const loginValidation = data =>{
      return   schema.validate(data);
      
   };
+
+  const productLikersValidation = data =>{
+
+    const schema = Joi.object({
+      productId:Joi.string().required(),
+      storeId:Joi.string().min(18).required(),
+      email:Joi.string().required(),
+     });
+  
+     return   schema.validate(data);
+     
+  };
+
   module.exports.registerValidation = registerValidation;
   module.exports.loginValidation    = loginValidation;
   module.exports.storeValidation    = storeValidation;
-  module.exports.storeCategoryValidation    = storeCategoryValidation;
+  module.exports.categoryValidation = categoryValidation;
   module.exports.productValidation  = productValidation;
-  module.exports.orderValidation  = orderValidation;
+  module.exports.orderValidation    = orderValidation;
+  module.exports.productLikersValidation     =  productLikersValidation;
 

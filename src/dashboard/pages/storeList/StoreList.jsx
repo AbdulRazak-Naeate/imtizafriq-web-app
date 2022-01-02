@@ -68,11 +68,11 @@ export default function StoreList() {
 
   },[]);
   const handleNewproduct=(params)=>{
-    history.push(`/dashboard/newProduct?storeId=${params.row._id}&storeName=${params.row.name}`);
+    history.push(`/dashboard/newProduct?storeId=${params.row._id}&storeName=${params.row.name}&categoryId=${params.row.categoryId}`);
   }
    const handleEdit = (params)=>{
       //navigate to store page
-     history.push(`/dashboard/store?storeId=${params.row._id}&storeName=${params.row.name}`);
+     history.push(`/dashboard/store?storeId=${params.row._id}&storeName=${params.row.name}&categoryId=${params.row.categoryId}`);
      localStorage.setItem('store', JSON.stringify(params.row));        
      }
     const handleList=(params)=>{

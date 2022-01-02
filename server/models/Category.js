@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 
- const StoreCategorySchema = new mongoose.Schema({
+ const CategorySchema = new mongoose.Schema({
    name:{
         type:String,
         required:true
@@ -13,5 +13,5 @@ const mongoose = require('mongoose');
     
  });
 
- module.exports = mongoose.model('StoreCategory',StoreCategorySchema);
+ module.exports = mongoose.model('Category',CategorySchema);
  

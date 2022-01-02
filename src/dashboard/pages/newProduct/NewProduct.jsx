@@ -29,6 +29,7 @@ export default function NewProduct() {
     let query=QueryParams();
     const storeid= query.get('storeId');
     const storename =query.get("storeName");
+    const category =query.get("categoryId");
     const history =useHistory();
     
         const onSpecificationChange = (e) => {
@@ -153,6 +154,7 @@ export default function NewProduct() {
         }
         formData.append('name', name);
         formData.append('price', price);
+        formData.append('category',category);
         formData.append('description', description);
         formData.append('specification', specification);
         formData.append('digital_product_url', digitalProductUrl);//append digital

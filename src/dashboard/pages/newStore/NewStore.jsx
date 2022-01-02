@@ -20,7 +20,7 @@ export default function NewStore() {
     const [city,setCity]=useState('');
     const [description, setDescription] = useState('');
     const [phone, setPhone] = useState('');
-    const [storeCategory, setStoreCategory] = useState('');
+    const [category, setCategory] = useState('');
     const [currency,setCurrency] = useState('');
    // const [ghPostGps, setGhPostGps] = useState('');
     const clearfields =()=>{
@@ -31,7 +31,7 @@ export default function NewStore() {
       setCountry('');
       setState('');
       setCity('');
-      setStoreCategory('');
+      setCategory('');
       setCurrency('');
       document.getElementById("storeimg").src=thumbnail;
 
@@ -94,7 +94,7 @@ export default function NewStore() {
       formData.append('email', email);
       formData.append('phone', phone);
       formData.append('userId', user._id);
-      formData.append('storeCategoryId', storeCategory);
+      formData.append('categoryId', category);
       formData.append('currency', currency);
   
       for (var i = 0; i <= files.length; i++) {
@@ -135,7 +135,7 @@ export default function NewStore() {
                 </div>
                 <div className="newStoreFormItem">
                     <label>Store Category</label>
-                    <select type="text" name="storeCategory" value={storeCategory} onChange={(e)=>{setStoreCategory(e.target.value)}} required >
+                    <select type="text" name="category" value={category} onChange={(e)=>{setCategory(e.target.value)}} required >
                     <option value="none" required></option>
                 <option value="1001">Clothen</option>
                 <option value="1002">Home & Appliances</option>

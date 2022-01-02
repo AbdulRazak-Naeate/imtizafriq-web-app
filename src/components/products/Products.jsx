@@ -2,7 +2,21 @@ import React from 'react'
 import useStyles from './index.js';
 import { Grid } from '@material-ui/core';
 import Product from './product/Product';
-const Products = ({products,onAddToCart}) => {
+import { blue, orange } from '@mui/material/colors';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+const Products = ({products,onAddToCart,onUpdateLikes}) => {
+  const theme = createTheme({
+    palette: {
+      primary:{
+        main:blue[500],
+      /*   main:"#3f51b5", */
+      },
+        secondary: {
+            main:orange[500],
+            contrastText:'#fff'
+        }
+      },
+});  
   const classes=useStyles();
    console.log(products.length)
   return (
@@ -10,10 +24,10 @@ const Products = ({products,onAddToCart}) => {
       
       <div className={classes.toolbar}>
       </div>
-      <Grid container justifyContent="center" spacing={4}>
+      <Grid container justifyContent="center" spacing={1} padding={0}>
        {products.map((product) =>(
-         <Grid item key={product._id} xs={12} sm={6} md={4} lg={3}>
-           <Product product={product} onAddToCart={onAddToCart}  />
+         <Grid item key={product._id} xs={6} sm={6} md={4} lg={2}>
+           <Product product={product} onAddToCart={onAddToCart} onUpdateLikes={onUpdateLikes} />
            
          </Grid>
        ))}

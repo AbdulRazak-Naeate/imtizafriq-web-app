@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const StoreCategory= require('../models/StoreCategory');
+const StoreCategory= require('../models/Category');
 const verify =require('./verifyToken');
 
-const {storeCategoryValidation} = require('../validation');
+const {categoryValidation} = require('../validation');
 
 //Get all StoreCategorys
 router.get('/',async(req,res)=>{
@@ -19,7 +19,7 @@ router.get('/',async(req,res)=>{
 //Submit a StoreCategory
 router.post('/',async(req,res)=>{
 
-    const {error} = storeCategoryValidation(req.body);
+    const {error} = categoryValidation(req.body);
 
     //Validation
     if (error) return  res.status(400).send(error.details[0].message);

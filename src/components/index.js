@@ -5,3 +5,4 @@ export {default as Orders}   from './orders/Orders';
 export {default as ProceedCheckOut} from './proceedcheckout/ProceedcheckOut';
 export {default as BottomNav} from './bottomnavigation/BottomNav'
 export {default as Account} from './account/Account'
+export {default as CategoryWidget} from './widgets/categoryWidget/CategoryWidgets'

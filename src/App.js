@@ -6,7 +6,7 @@ import  Dashboard from './dashboard/Dashboard';
 import './App.css';
 import LogIn from "./pages/login/LogIn";
 import SignUp from './pages/signup/SignUp';
-import {Topbar,BottomNav,Products,Cart,Orders,ProceedCheckOut,Account } from './components';
+import {Topbar,BottomNav,Products,Cart,Orders,ProceedCheckOut,Account,CategoryWidget} from './components';
 import React, { useEffect } from 'react';
 import axios ,{post,patch} from 'axios';
 import CheckOut from './components/checkoutform/checkout/CheckOut';
@@ -69,8 +69,9 @@ function App() {
      
      return id;
   }
-     const[userid]=useState(createTempUserId());
-     const[products,setProducts]=useState([]);
+  const[userid]=useState(createTempUserId());
+  const[user]=useState(JSON.parse(localStorage.getItem('user')));
+  const[products,setProducts]=useState([]);
      const[filteredProducts,setFilteredProducts]=useState([]);
      const[product,setProduct]=useState([]);
      const[cart,setCart]=useState({});
@@ -78,9 +79,10 @@ function App() {
      const [errorMessage,setErrorMessage]=useState('');
      const [order,setOrder]=useState({});
      const[myOrders,setMyOrders]=useState([]);
+     const[categories,setCategories]=useState([]);
      const[orderCount,setMyOrderCount]=useState(0);
      const[openModal,setOpenModal]=useState(false)
-    const paths=['/','/cart','/checkout','/orders','/proceedcheckout','/account'];
+     const paths=['/','/cart','/checkout','/orders','/proceedcheckout','/account'];
     const[tapPosition,setTapPosition]=useState(0);
   
      let history = useHistory();
@@ -102,6 +104,9 @@ function App() {
         }
         
       }
+    }
+    const onCategoryCardSelect = (category) =>{
+
     }
     const sendConfirmationEmail = (_id,newOrder)=>{
      console.log("id "+_id + "email "+newOrder.customer.email)
@@ -315,6 +320,38 @@ function App() {
   };
 
 
+  const handleUpdateLikes = async (productId,storeId)=>{
+     if(localStorage.getItem('loggedin')==='true'){//sign in user can like and add to fovorites
+      updateLikes(productId,storeId).then((response) => {
+       // console.log(response.data);
+        if (response.status===200){
+      /*     setCart(response.data.cart)
+          setItemsCount(response.data.cart.items.length); */
+  
+        }
+      }) 
+      }else{
+        console.log('user not loggedin')
+      }
+  }
+  
+  
+    
+  
+    const updateLikes =(productId,storeId)=>{
+      
+      const url = 'http://localhost:3001/api/productlikes/:productId';
+   
+      return post(url,  {
+        productId:productId,
+        storeId:storeId,
+        email:user.email,
+        
+       
+      })
+    
+    };
+
      
    
   const incomingOrder = async (newOrder)=>{
@@ -414,6 +451,34 @@ const fetchProduct =(productid)=>{
   const url = `http://localhost:3001/api/products/${productid}`;
   
   return axios.get(url)
+
+};
+const handlesearchByCategory = async (category)=>{
+        
+  searchProductByCategory(category).then((response) => {
+   console.log(response.data);
+   if (response.status===200){
+      
+     try{
+       setFilteredProducts(response.data.products)
+      
+     }catch(err){
+       console.log(err)
+     }
+   }
+   //addToast(exampleToast(response.data.message));
+ })
+
+}
+
+
+
+
+const searchProductByCategory =(category)=>{
+
+ const url = `http://localhost:3001/api/products/category/${category}`;
+ 
+ return axios.get(url)
 
 };
 
@@ -531,6 +596,24 @@ const handleBottomNavPosition = () =>{
     })
   
   };
+
+  const getCategories =()=>{
+
+    const url = `http://localhost:3001/api/category`;
+    
+    return axios.get(url).then((response)=>{
+       try{
+         if (response.status===200){
+           console.log(response.data)
+           setCategories(response.data)
+         }
+
+       }catch(err){
+          console.log(err)
+       }
+    })
+  } 
+    getCategories()
     getProducts();
     handlegetCart();
     getOrders();
@@ -546,8 +629,9 @@ const handleBottomNavPosition = () =>{
          <RModal openModal={openModal} handleCloseModal={handleCloseModal} ref={ref}/>
        <Switch>   
         
-       <Route exact path="/" >   
-      {filteredProducts.length > 0 ? <Products products={filteredProducts} onAddToCart={handleAddtoCart} />:<Products products={products} onAddToCart={handleAddtoCart} />}
+       <Route exact path="/">  
+       <CategoryWidget categories={categories} handlesearchByCategory={handlesearchByCategory}/> 
+      {filteredProducts.length > 0 ? <Products products={filteredProducts} onAddToCart={handleAddtoCart} onUpdateLikes={handleUpdateLikes} />:<Products products={products} onAddToCart={handleAddtoCart} onUpdateLikes={handleUpdateLikes} />}
        </Route>
        <Route exact path="/cart">
           <Cart cart={cart} handleUpdateCartQty={handleUpdateCartQty} handleupdateColorSize={handleupdateColorSize} handleupdateMeasurement={handleupdateMeasurement} handleRemoveFromCart={handleRemoveFromCart}

@@ -338,7 +338,7 @@ router.patch('/removeitem/:userId', async (req,res)=>{
      }
 });
 
-//refreshcart Item from user Cart
+//refreshcart Item from user Cart --remove items alreader selected and ordered
 router.patch('/refreshcart/:userId', async (req,res)=>{
     
     try{
