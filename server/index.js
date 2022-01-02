@@ -53,7 +53,7 @@ const options={ useNewUrlParser: true ,useUnifiedTopology: true,useCreateIndex:t
 //Connect to DB
 mongoose.connect(process.env.DB_COMMUNITY_CON, options)
 
-    const db =mongoose.connection
+    const db = mongoose.connection
     db.once('open', _ =>{
          console.log('Database connected : ')
     })  

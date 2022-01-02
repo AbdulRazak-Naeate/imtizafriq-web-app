@@ -4,7 +4,9 @@ import { Grid } from '@material-ui/core';
 import Product from './product/Product';
 import { blue, orange } from '@mui/material/colors';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-const Products = ({products,onAddToCart,onUpdateLikes}) => {
+const Products = ({products,onAddToCart,onUpdateLikes,favorites}) => {
+  
+  console.log(favorites)
   const theme = createTheme({
     palette: {
       primary:{
@@ -27,7 +29,7 @@ const Products = ({products,onAddToCart,onUpdateLikes}) => {
       <Grid container justifyContent="center" spacing={1} padding={0}>
        {products.map((product) =>(
          <Grid item key={product._id} xs={6} sm={6} md={4} lg={2}>
-           <Product product={product} onAddToCart={onAddToCart} onUpdateLikes={onUpdateLikes} />
+           <Product product={product} favorites={favorites} onAddToCart={onAddToCart} onUpdateLikes={onUpdateLikes} />
            
          </Grid>
        ))}

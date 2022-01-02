@@ -7,8 +7,8 @@ const Product = require('../models/Product');
 
 router.get('/:email',async(req,res)=>{
    
-    const  productLikers = await ProductLikers.find({email:req.body.email,productId:req.body.productId});
-          res.json({productLikers:productLikers})
+    const  productLikes= await ProductLikers.find({email:req.params.email});
+          res.json({favoritesProducts:productLikes})
 
 });
 
@@ -31,8 +31,8 @@ router.post('/:productId',async(req,res)=>{
              const productLikers = new ProductLikers({productId:req.body.productId,email:req.body.email,storeId:req.body.storeId});
        
                productLikers.save();   
-            /*    res.json({productLikers:productLikers}) */
-          updateLikes(req,res,1)
+              res.json({likes:"like",}) 
+              updateLikes(req,res,1)
 
           }catch(err){
         }
@@ -44,15 +44,14 @@ router.post('/:productId',async(req,res)=>{
                     console.log(ret)
                 });
 
-                 updateLikes(req,res,-1)    
-                if (removeUserFromPorductLikers){
-                    
-                }
+                 updateLikes(req,res,-1)
+           
+            res.json({likes:"unlikes",message:'user already likes ,unlike'})
+   
              }catch(err){
 
               
              }
-        res.json({message:'user already likes ,remove '})
 
        }
         
@@ -65,8 +64,8 @@ router.post('/:productId',async(req,res)=>{
        
         var oId= new mongoose.Types.ObjectId(req.body.productId);
        
-        const value = parseInt(val);    
-         console.log(val);
+      /*   const value = parseInt(val);    
+         console.log(val); */
         const updateProduct = await Product.findOneAndUpdate(
             {_id:oId},
             { 
@@ -75,7 +74,7 @@ router.post('/:productId',async(req,res)=>{
              {new:true,useFindAndModify:false}
               
             ).then(ret=>{
-                console.log(ret)
+               // console.log(ret)
             });
             res.json(updateProduct);
        

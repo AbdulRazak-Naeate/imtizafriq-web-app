@@ -1,15 +1,16 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import {Card,CardMedia,CardContent,CardActions,Typography,IconButton} from '@mui/material';
 
 import useStyles from './styles';
-import { AddShoppingCart,FavoriteBorderOutlined } from '@mui/icons-material';
+import { AddShoppingCart,FavoriteBorderOutlined,Favorite } from '@mui/icons-material';
 import {useHistory} from 'react-router-dom';
 import { blue, orange } from '@mui/material/colors';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
-const Product = ({product,onAddToCart,onUpdateLikes}) => {
+const Product = ({product,onAddToCart,onUpdateLikes,favorites}) => {
     const classes=useStyles();
     const history=useHistory();
+    const[like,setLike]=useState(false);
     const theme = createTheme({
       palette: {
         primary:{
@@ -32,6 +33,13 @@ const Product = ({product,onAddToCart,onUpdateLikes}) => {
     const handleProductOnClick=(productid)=>{
        history.push(`/proceedcheckout?productId=${productid}`)
     }
+      useEffect(() => {
+           if (favorites.includes(product._id,0)){
+             setLike(true)
+           }else{
+             setLike(false)
+           }
+      },[favorites,setLike,product])
   return ( 
     <ThemeProvider theme={theme}>
 
@@ -56,14 +64,13 @@ const Product = ({product,onAddToCart,onUpdateLikes}) => {
                   </div>
               </CardContent>
               <CardActions disableSpacing className={classes.cardActions}>
-              <IconButton aria-label="Add to Favourite" onClick=
-                  {()=>{}}>
-                    <FavoriteBorderOutlined className={classes.icon} onClick={()=>{onUpdateLikes(product._id,product.storeId)}}/>  
+              <IconButton aria-label="Add to Favourite">
+                   { like ===true ?  <Favorite className={classes.icon} onClick={()=>{ setLike(!like);onUpdateLikes(product._id,product.storeId)}}/>: <FavoriteBorderOutlined className={classes.icon} onClick={()=>{ setLike(!like);onUpdateLikes(product._id,product.storeId)}}/> }
                   </IconButton>
 
-                  <IconButton aria-label="Add to Cart" onClick=
-                  {()=>{onAddToCart(product,1)}}>
-                    <AddShoppingCart className={classes.icon}/>  
+                  <IconButton aria-label="Add to Cart">
+                    <AddShoppingCart  onClick=
+                  {()=>{onAddToCart(product,1)}}className={classes.icon}/>  
                   </IconButton>
 
               </CardActions>

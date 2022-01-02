@@ -71,6 +71,7 @@ function App() {
   }
   const[userid]=useState(createTempUserId());
   const[user]=useState(JSON.parse(localStorage.getItem('user')));
+     const[favorites,setFovirites]=useState([]);
   const[products,setProducts]=useState([]);
      const[filteredProducts,setFilteredProducts]=useState([]);
      const[product,setProduct]=useState([]);
@@ -523,11 +524,47 @@ const handleBottomNavPosition = () =>{
    useEffect(() => {
     ref.current.ownerDocument.body.scrollTop = 0;
     
+
+     
     const fetchProducts = async ()=>{
       try{
          const res  = await fetch(`http://localhost:3001/api/products`);
          const data = await res.json();
                console.log(data);
+               return data;
+      }catch(error){
+  
+      }
+  }
+
+  const getFavorites =async() => {
+
+    const url = `http://localhost:3001/api/productlikes/${user.email}`;
+    
+    return axios.get(url).then((response)=>{
+       try{
+         if (response.status===200){
+           console.log(response.data)
+           let d=response.data.favoritesProducts;
+           let favs =[];
+          for(let i=0;i<d.length;i++){
+            favs.push(d[i].productId);
+            
+          }
+       setFovirites(favs);
+         }
+
+       }catch(err){
+          console.log(err)
+       }
+    })
+   
+  }
+    const fetchFavorites = async ()=>{
+      try{
+         const res  = await fetch(`http://localhost:3001/api/productlikes/${user.email}`);
+         const data = await res.json();
+               console.log("favorites "+data);
                return data;
       }catch(error){
   
@@ -613,6 +650,7 @@ const handleBottomNavPosition = () =>{
        }
     })
   } 
+    getFavorites()
     getCategories()
     getProducts();
     handlegetCart();
@@ -631,7 +669,7 @@ const handleBottomNavPosition = () =>{
         
        <Route exact path="/">  
        <CategoryWidget categories={categories} handlesearchByCategory={handlesearchByCategory}/> 
-      {filteredProducts.length > 0 ? <Products products={filteredProducts} onAddToCart={handleAddtoCart} onUpdateLikes={handleUpdateLikes} />:<Products products={products} onAddToCart={handleAddtoCart} onUpdateLikes={handleUpdateLikes} />}
+      {filteredProducts.length > 0 ? <Products products={filteredProducts}  onAddToCart={handleAddtoCart} onUpdateLikes={handleUpdateLikes} favorites={favorites}/>:<Products products={products}  onAddToCart={handleAddtoCart} onUpdateLikes={handleUpdateLikes} favorites={favorites}/>}
        </Route>
        <Route exact path="/cart">
           <Cart cart={cart} handleUpdateCartQty={handleUpdateCartQty} handleupdateColorSize={handleupdateColorSize} handleupdateMeasurement={handleupdateMeasurement} handleRemoveFromCart={handleRemoveFromCart}
