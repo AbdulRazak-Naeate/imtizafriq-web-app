@@ -4,7 +4,7 @@ import React,{useState} from 'react';
 import SignIn from '../signin/Signin';
 import SignUp from '../signup/SignUp';
 import {Link} from 'react-router-dom';
-
+import useStyles from './styles'
 const style = {
   position: 'absolute',
   top: '50%',
@@ -19,8 +19,10 @@ const style = {
   padding:0,
 };
 
+
  export const RModal =  React.forwardRef((props,ref) => {
-   const[isLoggedInForm,setIsLoggedInForm]=useState(true)
+   const[isLoggedInForm,setIsLoggedInForm]=useState(true);
+   const classes= useStyles();
    const handleSwitchForm =(option)=>{
      setIsLoggedInForm(option)
    }
@@ -29,7 +31,7 @@ const style = {
       <Typography variant="body2" color="text.secondary" align="center" {...props}>
         {'Copyright © '}
         <Link color="inherit" href="https://localhost:3000/">
-          Daabia.com
+          {`${process.env.REACT_APP_WEBSITE_NAME}.com`}
         </Link>{' '}
         {new Date().getFullYear()}
         {'.'}
@@ -45,7 +47,7 @@ const style = {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style} ref={ref}>
+        <Box sx={style} className={classes.root} ref={ref}>
          {
            isLoggedInForm ===true ?  <SignIn handleCloseModal={props.handleCloseModal} handleSwitchForm={handleSwitchForm}/> : <SignUp handleCloseModal={props.handleCloseModal} handleSwitchForm={handleSwitchForm}/>
          }

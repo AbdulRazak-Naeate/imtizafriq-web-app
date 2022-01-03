@@ -1,8 +1,6 @@
 .topbar{
     width: 100%;
-    height: 80px;
-    background-color: darkcyan;
-    top: 0;
+    background-color: darkblue;
     position: sticky;
     z-index: 999;
     display: flex;
@@ -10,13 +8,39 @@
 }
 .topbarContact{
     display: flex;
-    justify-content: space-around;
-    color: goldenrod;
+    justify-content: space-between;
+    color: darkgray;
     background-color: snow;
+    padding:2px 15px;
+}
+.topbarContactItemLeft{
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    width: 6%;
+    border: 0px solid;
+
+}
+.topbarinfoIcon{
+    width: 5px;
+}
+.topleftTypo{
+    margin-bottom: -5px !important;
+}
+.topbarContactItemRight{
+    display: flex;
+    justify-content: space-between;
+    align-items:flex-start;
+    border: 0px solid;
+    width: 26%;
+
 }
 .topnavlink{
     text-decoration: none;
-    color: goldenrod;
+    color: darkgray;
+}
+.topnavlink :hover{
+    color:goldenrod !important;
 }
 .topbarActions{
     height: 80%;
@@ -28,7 +52,7 @@
 .logo{
     font-weight: bold;
     font-style: 30px;
-    color: darkblue;
+    color:snow;
     cursor: pointer;
 }
 .topLeft{
@@ -50,7 +74,7 @@
     position: absolute; 
     top:-5px;
     right: 0px;
-    background-color: red;
+    background-color: #efa41c;
     color: white;
     border-radius: 50%; 
     display: flex;

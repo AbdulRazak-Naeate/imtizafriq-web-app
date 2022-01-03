@@ -6,7 +6,7 @@ import  Dashboard from './dashboard/Dashboard';
 import './App.css';
 import LogIn from "./pages/login/LogIn";
 import SignUp from './pages/signup/SignUp';
-import {Topbar,BottomNav,Products,Cart,Orders,ProceedCheckOut,Account,CategoryWidget} from './components';
+import {Topbar,TopbarcontacInfo,BottomNav,Products,Cart,Orders,ProceedCheckOut,Account,CategoryWidget,Footer} from './components';
 import React, { useEffect } from 'react';
 import axios ,{post,patch} from 'axios';
 import CheckOut from './components/checkoutform/checkout/CheckOut';
@@ -106,6 +106,11 @@ function App() {
         
       }
     }
+    const handleUserClick = () =>{
+      setOpenModal(true)
+    }
+
+    
     const onCategoryCardSelect = (category) =>{
 
     }
@@ -655,14 +660,15 @@ const handleBottomNavPosition = () =>{
     getProducts();
     handlegetCart();
     getOrders();
-   },[userid])
+   },[userid,user])
   return (
     <ThemeProvider theme={theme}>
     <Box sx={{ pb: 7 }} ref={ref}>
       <CssBaseline />
        
          <Route exact path={paths}>
-         <Topbar totalItems={itemsCount} totalOrders={orderCount} handlesearchProduct={handlesearchProduct}/>
+           <TopbarcontacInfo/>
+         <Topbar totalItems={itemsCount} totalOrders={orderCount} handlesearchProduct={handlesearchProduct} handleUserClick={handleUserClick}/>
          </Route>
          <RModal openModal={openModal} handleCloseModal={handleCloseModal} ref={ref}/>
        <Switch>   
@@ -699,6 +705,9 @@ const handleBottomNavPosition = () =>{
        </Switch>
        <Route exact path={paths}>
        <BottomNav onBottomNavChange={handleOnchange}  totalItems={itemsCount} tapPosition={tapPosition}/>
+         </Route>
+         <Route>
+           <Footer/>
          </Route>
      </Box>
      </ThemeProvider>

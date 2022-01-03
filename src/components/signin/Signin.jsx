@@ -47,9 +47,8 @@ function Signin({handleCloseModal,handleSwitchForm}) {
 
         
   return (
-    <div className="login">
-      <div className="logInMiddle">
-                    <div className="FormWrapper">
+    <div className="loginContainer">
+           <div className="FormWrapper">
                   <div className="logInTitle">
                     <h1 className="title">LogIn</h1>
                   </div>
@@ -78,7 +77,6 @@ function Signin({handleCloseModal,handleSwitchForm}) {
                     </form>
                     </div>
               
-      </div>
     </div>
   )
 }

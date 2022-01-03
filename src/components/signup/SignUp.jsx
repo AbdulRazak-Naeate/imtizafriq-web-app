@@ -182,7 +182,7 @@ const SignUp = ({handleCloseModal,handleSwitchForm}) => {
     };
   
     return (
-      <div className="signup">
+      <div className="signupContainer">
                       <div className="FormWrapper">
                     <div className="signupTitle">
                       <h1 className="title">Signup</h1>
