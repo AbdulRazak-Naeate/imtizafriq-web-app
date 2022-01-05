@@ -177,6 +177,7 @@ const SignUp = ({handleCloseModal,handleSwitchForm}) => {
         email: email ,
         phone:'null',
         password: password,
+        fromGoogle:false,
       })
     
     };

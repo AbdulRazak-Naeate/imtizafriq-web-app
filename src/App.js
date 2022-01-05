@@ -13,12 +13,28 @@ import CheckOut from './components/checkoutform/checkout/CheckOut';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import {RModal} from './components/modal/RModal'
-import { blue, orange } from '@mui/material/colors';
+import { blue, orange,red} from '@mui/material/colors';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
 
 function App() {
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: "imtizafriq.firebaseapp.com",
+  databaseURL: "https://imtizafriq.firebaseio.com",
+  projectId: "imtizafriq",
+  storageBucket: "imtizafriq.appspot.com",
+  messagingSenderId: "731374409752",
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_MEASUREMENT_ID
+};
 
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
   const ref = React.useRef(null);
   const theme = createTheme({
     palette: {
@@ -29,6 +45,10 @@ function App() {
         secondary: {
             main:orange[500],
             contrastText:'#fff'
+        },
+        warning:{
+          main:red[500],
+          contrastText:'#fff'
         }
       },
 });   
@@ -107,7 +127,11 @@ function App() {
       }
     }
     const handleUserClick = () =>{
+     if(localStorage.getItem('loggedin')==="true"){
+      history.push('/account') 
+     }else{
       setOpenModal(true)
+     }
     }
 
     
@@ -663,7 +687,7 @@ const handleBottomNavPosition = () =>{
    },[userid,user])
   return (
     <ThemeProvider theme={theme}>
-    <Box sx={{ pb: 7 }} ref={ref}>
+    <Box sx={{ pb: 0 }} ref={ref}>
       <CssBaseline />
        
          <Route exact path={paths}>
@@ -706,7 +730,7 @@ const handleBottomNavPosition = () =>{
        <Route exact path={paths}>
        <BottomNav onBottomNavChange={handleOnchange}  totalItems={itemsCount} tapPosition={tapPosition}/>
          </Route>
-         <Route>
+         <Route exact path={['/']}>
            <Footer/>
          </Route>
      </Box>

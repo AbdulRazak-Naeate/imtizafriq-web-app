@@ -8,15 +8,16 @@ const cors = require('cors');
  
 
 //Import Routes
-const productsRoute = require('./routes/products');
-const userRoute     = require('./routes/auth');
-const storeRoute    = require('./routes/stores');
-const categoryRoute = require('./routes/categories');
-const orders        = require('./routes/orders');
-const cartRoute     = require('./routes/carts');
-const fwverifyRoute = require('./routes/fwVerify');
-const emailRoute    = require('./routes/email/email');
+const productsRoute     = require('./routes/products');
+const userRoute         = require('./routes/auth');
+const storeRoute        = require('./routes/stores');
+const categoryRoute     = require('./routes/categories');
+const orders            = require('./routes/orders');
+const cartRoute         = require('./routes/carts');
+const fwverifyRoute     = require('./routes/fwVerify');
+const emailRoute        = require('./routes/email/email');
 const productlikeRoute  = require('./routes/productlikers');
+const subscribeRoute    = require('./routes/subscribers');
 
 dotenv.config();
 //MiddleWare
@@ -43,6 +44,7 @@ app.use('/api/carts',cartRoute);
 app.use('/api/verifypayment',fwverifyRoute);
 app.use('/api/email',emailRoute);
 app.use('/api/productlikes',productlikeRoute);
+app.use('/api/subscribe',subscribeRoute);
 
 //Home Routes
  app.get('/',(req,res)=>{

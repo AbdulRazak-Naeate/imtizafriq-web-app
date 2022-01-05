@@ -98,7 +98,7 @@ router.post('/',async (req,res)=>{
                         measurement:{back:"",chest:"",shirtLength:"",sleeve:"",trouserLength:"",waist:"",thigh:"",bust:""},
                         product:req.body.product,
                         line_item_sub_price:sub_price,
-                        selected:true
+                        selected:false
                        
                      
                 }}
@@ -126,7 +126,7 @@ router.post('/',async (req,res)=>{
                     measurement:{back:"",chest:"",shirtLength:"",sleeve:"",trouserLength:"",waist:"",thigh:"",bust:""},
                     product:req.body.product,
                     line_item_sub_price:subprice,
-                    selected:true
+                    selected:false
                    
             }
              const _cart = new Cart({

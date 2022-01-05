@@ -23,6 +23,7 @@
 }
 .topbarinfoIcon{
     width: 5px;
+    cursor:pointer;
 }
 .topleftTypo{
     margin-bottom: -5px !important;
@@ -32,14 +33,17 @@
     justify-content: space-between;
     align-items:flex-start;
     border: 0px solid;
-    width: 26%;
+    width: 30%;
 
 }
 .topnavlink{
     text-decoration: none;
     color: darkgray;
+    
 }
-.topnavlink :hover{
+
+
+.topnavlink  :hover{
     color:goldenrod !important;
 }
 .topbarActions{
@@ -48,6 +52,12 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+.site-logo{
+    width:40%;
+    height:40px;
+    margin-top:5px;
+    margin-right:5px;
 }
 .logo{
     font-weight: bold;

@@ -24,11 +24,11 @@ const Account = () => {
   const[email,setEmail]=useState(user.email);
   const[phone,setPhone]=useState(user.phone);
   const[address,setAddress]=useState(user.address);
-  const[country,setCountry]=useState(address.country);
-  const[state,setState]=useState(address.state);
-  const[city,setCity]=useState(address.city);
-  const[street,setStreet]=useState(address.street);
-  const[aprt_suit_num,setApt_suit_num]=useState(address.aprt_suit_num);
+  const[country,setCountry]=useState(address.country !== 'null'? address.country :'');
+  const[state,setState]=useState(address.state!== 'null'? address.state :'');
+  const[city,setCity]=useState(address.city!== 'null'? address.city :'');
+  const[street,setStreet]=useState(address.street!== 'null'? address.street :'');
+  const[aprt_suit_num,setApt_suit_num]=useState(address.aprt_suit_num!== 'null'? address.aprt_suit_num :'');
   const[confirmed,setConfirmed]=useState(user.confirmed)
   const[image,setImage]=useState(null)
   const [imagename,setImageName]=useState(null);
@@ -261,7 +261,7 @@ return patch(url, body,config)
                         </div>
                         <div className="userUpdateItem">
                             <label>Apartment / Suit / GHPost Number</label>
-                            <input type="text" placeholder="Nusng naa st" className="userUpdateInput" onChange={(e)=>{setApt_suit_num(e.target.value)}} value={aprt_suit_num}/>
+                            <input type="text" placeholder="NT-888-4423,HN E343" className="userUpdateInput" onChange={(e)=>{setApt_suit_num(e.target.value)}} value={aprt_suit_num}/>
                         </div>
                         </div> 
                         </div>

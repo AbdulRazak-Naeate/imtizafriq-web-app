@@ -3,12 +3,102 @@ import axios from 'axios';
 import {useState} from'react';
 import { Link,useHistory } from 'react-router-dom';
 import {Typography,Button}  from '@mui/material';
+import {post} from 'axios';
+import GoogleLogin from 'react-google-login';
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
 function Signin({handleCloseModal,handleSwitchForm}) {
           const [email,setEmail]=useState('');
           const [password,setPassword]=useState('');
           const [error,setError]=useState(false);
           const history=useHistory();
+
+          const provider = new GoogleAuthProvider();
+
+          provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+          const auth = getAuth();
+          const onLogInwithgoogle = async () => {
+           
+            signInWithPopup(auth, provider)
+            .then((result) => {
+              // This gives you a Google Access Token. You can use it to access the Google API.
+              const credential = GoogleAuthProvider.credentialFromResult(result);
+              const token = credential.accessToken;
+              // The signed-in user info.
+              const user = result.user;
+             /*  amplify.store("imtizafriq_user_id",user.uid);
+              amplify.store("imtizafriq_user_name",user.displayName);
+              amplify.store("imtizafriq_user_fullname",user.displayName);
+              amplify.store("imtizafriq_user_email",user.email);
+              amplify.store("imtizafriq_user_phone",user.phoneNumber);
+              amplify.store("imtizafriq_loggedin","true"); */
+              SignUp(user).then((response) => {
+  
+                console.log(response.data);
+               if (response.data.status===200){
+                const user = response.data;
+                localStorage.setItem('_id', user._id);
+                localStorage.setItem('user', JSON.stringify(user));
+                localStorage.setItem('loggedin', true);
+        
+                //localStorage.setItem('auth-token',response.headers)
+          
+                console.log(response.headers);
+                handleCloseModal();
+                //history.replace("/account");
+               }
+              }).catch((error)=>{
+                 console.log(error.request)
+              });              // ...
+            }).catch((error) => {
+              // Handle Errors here.
+              const errorCode = error.code;
+              const errorMessage = error.message;
+              // The email of the user's account used.
+              const email = error.email;
+              // The AuthCredential type that was used.
+              const credential = GoogleAuthProvider.credentialFromError(error);
+              // ...
+            });
+          }
+
+          const SignUp =(user)=>{
+
+            const url = 'http://localhost:3001/api/user/register';
+            let fullname=user.displayName;
+            const nameArr=fullname.split(" ");
+            console.log(nameArr)
+           return post(url,  {
+              username:nameArr[0],
+              firstname:nameArr[0],
+              lastname:nameArr[1],
+              email: user.email ,
+              phone:"+2330000000000",
+              password:"000000",
+              fromGoogle:true
+            })
+          
+          };
+          /* 
+          const checkuserByEmail = async (email,user) =>{
+            const url = `http://localhost:3001/api/user`;
+           
+           return await post(url).then((res)=>{
+             if (res.status===400){//user not signup yet create account for the user
+            
+             }else{
+              
+                const user = res.data.user;
+                localStorage.setItem('_id', user._id);
+                localStorage.setItem('user', JSON.stringify(user));
+                localStorage.setItem('loggedin',true);  
+                handleCloseModal();
+               history.push("/account");
+              }
+              
+             }
+          
+           )}; */
 
           const onFormSubmit=(e)=>{
 
@@ -70,10 +160,16 @@ function Signin({handleCloseModal,handleSwitchForm}) {
                       {/*  <Link to="/signup" className="link">
                        <button className="btnSignUp">SignUp</button>
                        </Link>
- */}                  </div>       
+ */}                  </div>  
+               <div className="signUpLoginItem">
+               
+      <Button fullWidth variant="contained" id='googleButton' color="warning" onClick={()=>{onLogInwithgoogle()}} >LogIn With Google</Button>
+   
+                 </div>      
                   <div className="signUpLoginItem">
                     <Typography variant="body2" color="primary" align="center" className="log" onClick={()=>{handleSwitchForm(false)}}>SignUp</Typography>
                  </div>
+               
                     </form>
                     </div>
               

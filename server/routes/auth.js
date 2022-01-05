@@ -26,6 +26,37 @@ router.get('/:userId',async(req,res)=>{
       res.json({message:err});
   }
 });
+/* //veify google sign in user with email and assign token
+router.get('/check/email/:email',async(req,res)=>{
+  try{
+         //checkid user is already exist
+    const user = await User.findOne({email:req.params.email});
+    if(user){
+       //LogIn and asigned a token
+   const token = jwt.sign({_id:user.id},process.env.TOKEN_SECRET);
+   res.header('auth-token',token).send({
+     auth_token:token,
+     _id:user.id,
+     username:user.username,
+     firstname:user.firstname,
+     lastname:user.lastname,
+     email:user.email,
+     phone:user.phone,
+     image:user.image,
+     address:user.address,
+     comfirmed:user.confirmed
+
+   }).status(400);
+      }else{
+        return res.status(200).send({user:[],message:'Email not exists'});
+        
+      }
+     // res.send({user:emailExist});
+  
+  }catch(err){
+      res.json({message:err});
+  }
+}); */
 router.post('/register',async (req,res) => {
 
     //VALIDATION
@@ -33,11 +64,40 @@ router.post('/register',async (req,res) => {
     if (error) return res.status(400).send({message:error.details[0].message});
  
     //checkid user is already exist
-   const emailExist = await User.findOne({email:req.body.email});
+    const emailExist = await User.findOne({email:req.body.email});
+      if (req.body.fromGoogle===true){
+         if (emailExist){
+          try{
+           
+             //Create and asigned a token
+        const token = jwt.sign({_id:emailExist.id},process.env.TOKEN_SECRET);
+     
+          res.header('auth-token',token).send({
+                    auth_token:token,
+                    _id:emailExist._id,
+                    username:emailExist.username,
+                    firstname:emailExist.firstname,
+                    lastname:emailExist.lastname,
+                    phone:emailExist.phone,
+                    email:emailExist.email,
+                    image:emailExist.image,
+                    address:emailExist.address,
+                    status:200}).status(200);
+     
+        }catch(err){
+            res.status(400).send(err);
+            console.log(err);
+           res.send(err);
+       }
+         }else{
+                CreateNewUser(req,res,true);
+         }
+      }else{
+         
     if(emailExist) return res.status(400).send('Email already exists');
     
-
-    //Hash passwords
+      CreateNewUser(req,res);
+    /* //Hash passwords
     const salt = await bcrypt.genSalt(10);
     const hashPassword = await bcrypt.hash(req.body.password,salt);
     
@@ -61,7 +121,7 @@ router.post('/register',async (req,res) => {
    });
    try{
        const savedUser = await  user.save();
-     // res.send(savedUser);
+         // res.send(savedUser);
         //Create and asigned a token
    const token = jwt.sign({_id:savedUser.id},process.env.TOKEN_SECRET);
 
@@ -73,7 +133,6 @@ router.post('/register',async (req,res) => {
                lastname:user.lastname,
                phone:user.phone,
                email:user.email,
-               location:user.location,
                image:user.image,
                address:user.address,
                status:200}).status(200);
@@ -83,7 +142,59 @@ router.post('/register',async (req,res) => {
        console.log(err);
       res.send(err);
   }
+ */
+  
+  }
 });
+
+const CreateNewUser = async(req,res)=> {
+    //Hash passwords
+    const salt = await bcrypt.genSalt(10);
+    const hashPassword = await bcrypt.hash(req.body.password,salt);
+   //create new user
+   const user = new User({
+    username:req.body.username,
+    firstname:req.body.firstname,
+    lastname:req.body.lastname,
+    email:req.body.email,
+    phone:req.body.phone,
+    password:hashPassword,
+    image:[{}],
+    address:{
+         country:'null',
+         state:'null',
+         city:'null',
+         street:'null',
+         aprt_suit_num:'null'
+         
+        },
+    fromGoogle:req.body.fromGoogle
+});
+try{
+    const savedUser = await  user.save();
+      // res.send(savedUser);
+     //Create and asigned a token
+const token = jwt.sign({_id:savedUser.id},process.env.TOKEN_SECRET);
+
+  res.header('auth-token',token).send({
+            auth_token:token,
+            _id:user._id,
+            username:user.username,
+            firstname:user.firstname,
+            lastname:user.lastname,
+            phone:user.phone,
+            email:user.email,
+            image:user.image,
+            address:user.address,
+            status:200}).status(200);
+
+}catch(err){
+    res.status(400).send(err);
+    console.log(err);
+   res.send(err);
+}
+
+}
 
 
  //LOGIN

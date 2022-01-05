@@ -5,7 +5,6 @@ const userSchema = new mongoose.Schema({
     username:{
         type:String,
         required:true,
-        min:6,
         max:255
 
     },
@@ -27,12 +26,15 @@ const userSchema = new mongoose.Schema({
         min:6,
         max:255
     },
+    fromGoogle:{
+        type:Boolean,
+        default:false,
+        required:true, 
+    },
     phone:{
         type:String,
         required:false,
-        min:10,
-        max:14,
-        default:''
+        default:'0'
     },
      address:{
         type:Object,

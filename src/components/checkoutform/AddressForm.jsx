@@ -190,7 +190,7 @@ const AddressForm = ({checkoutToken,next}) => {
                  <FormInput name='address1'   label='Street Address' register={register}/>
 </Grid>
                  <Grid item xs={12} sm={6}>    
-                 <FormInput name='homeAddress'  label='Home Address'placeholder="Apartment,GHpost Number, suite,suite Unit" register={register}/>
+                 <FormInput name='homeaddress'  label='Home Address'placeholder="Apartment,GHpost Number, suite,suite Unit" register={register}/>
                  </Grid>
                 <Grid item xs={12} sm={6}>      
                 <FormInput name='zip'   label='Zip/Postal code' register={register}/>

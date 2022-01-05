@@ -1,11 +1,22 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import {Link} from 'react-router-dom';
 import {Button} from '@mui/material';
-import './footer.css'
+import './footer.css';
+import axios from 'axios';
 const Footer = () => {
+  const[email,setEmail]=useState('');
+  const handleSubscription = (e) =>{
+      
+        e.preventDefault();
+       var url =`http://localhost:3001/api/subscribe/${email}`;
+          axios.post(url).then((response)=>{
+          console.log(response)
+     })
+  }
+
   return (
        <div className='footer-container'>
-            <section className='footer-subscription'>
+      <section className='footer-subscription'>
                 <p className='footer-subscription-heading'>
                     Join the Adventure newsletter to recieve deals
                 </p >
@@ -13,10 +24,10 @@ const Footer = () => {
                     You can unsubscribe at any time
                 </p>
                 <div className='input-areas'>
-                    <form >
+                    <form onSubmit={handleSubscription} >
                         <input  type='email' name='email' placeholder='Your Email'
-                        className='footer-input'/>
-                            <Button buttonStyle='btn--outline' >Subscribe</Button>
+                        className='footer-input' onChange={(e)=>{setEmail(e.target.value)}}/>
+                            <Button type="submit" buttonStyle='btn--outline' >Subscribe</Button>
                      
                     </form>
                 </div>
