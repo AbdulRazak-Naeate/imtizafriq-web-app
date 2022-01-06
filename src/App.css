@@ -39,3 +39,12 @@
     transform: rotate(360deg);
   }
 }
+
+@media only screen and (max-device-width:820px) {
+  .boxMain{
+      border: 0px solid;
+      margin-bottom: 8vh;
+  
+  } 
+}
+

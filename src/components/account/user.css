@@ -8,15 +8,7 @@
     justify-content: space-between;
     padding: 10px 5px;
 }
-.userAddButton{ 
-    border: none;
-    padding:5px 10px ;
-    background-color: teal;
-    color: white;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 16px;
-}
+
 .userContainer{
     display: flex;
     margin-top: 20px;
@@ -135,12 +127,12 @@
     border: none;
     padding:5px;
     cursor: pointer;
-    background-color: darkblue;
+    background-color: cornflowerblue;
     color: white;
     font-weight: 600;
 }
 .log{
-  color: darkblue;
+  color: cornflowerblue;
   text-decoration: underline;
   cursor: pointer;
 }

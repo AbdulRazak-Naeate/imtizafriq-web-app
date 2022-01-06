@@ -35,8 +35,8 @@ import SearchField from './searchfield/SearchField';
             <div className="topbarActions">
                 <div className="topLeft">
                    <Link to ="/" className="link">
-                     <img className='site-logo' src="https://images.pexels.com/photos/4620866/pexels-photo-4620866.jpeg?cs=srgb&dl=pexels-cottonbro-4620866.jpg&fm=jpg" alt='logo' style={{width:'40%',height:'40px',top:'5px',right:'5px'}}/>
-                   <span className="logo">{process.env.REACT_APP_WEBSITE_NAME}</span>
+                     <img className='siteLogo' src="https://images.pexels.com/photos/4620866/pexels-photo-4620866.jpeg?cs=srgb&dl=pexels-cottonbro-4620866.jpg&fm=jpg" alt='logo'/>
+                   <span className="siteName">{process.env.REACT_APP_WEBSITE_NAME}</span>
                    </Link>
                 </div>
                 <div className="searchfield">

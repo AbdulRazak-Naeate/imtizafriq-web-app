@@ -1,12 +1,14 @@
 .topbar{
     width: 100%;
-    background-color: darkblue;
+    background-color: cornflowerblue;
+ /*    #4d97f3 #59f cornflowerblue hsl(213,87,62) rgb(77,151,243) */
     position: sticky;
     z-index: 999;
     display: flex;
     flex-direction: column;
 }
 .topbarContact{
+    width: 100%;
     display: flex;
     justify-content: space-between;
     color: darkgray;
@@ -20,6 +22,12 @@
     width: 6%;
     border: 0px solid;
 
+}.topbarContactItemRight{
+    display: flex;
+    justify-content: space-between;
+    align-items:flex-start;
+    width: 30%;
+
 }
 .topbarinfoIcon{
     width: 5px;
@@ -28,14 +36,7 @@
 .topleftTypo{
     margin-bottom: -5px !important;
 }
-.topbarContactItemRight{
-    display: flex;
-    justify-content: space-between;
-    align-items:flex-start;
-    border: 0px solid;
-    width: 30%;
 
-}
 .topnavlink{
     text-decoration: none;
     color: darkgray;
@@ -53,13 +54,13 @@
     align-items: center;
     justify-content: space-between;
 }
-.site-logo{
-    width:40%;
+.siteLogo{
+    width:50%;
     height:40px;
     margin-top:5px;
     margin-right:5px;
 }
-.logo{
+.site-name{
     font-weight: bold;
     font-style: 30px;
     color:snow;
@@ -110,12 +111,13 @@
     display: none;
 }
 
-@media only screen and (max-device-width:420px) {
+@media only screen and (max-device-width:620px) {
     .topbar{
         height: 60px;}
-    .topbarContact{
+    .topbarContact, .siteName{
     display: none;
     }
+   
     .topbarActions{
         height: 100%;
     } .topRight{
@@ -128,5 +130,24 @@
     .bottomnav{
         display: block;
     }
+    .topbarContactItemRight{
+        border: 0px solid;
+        width: 50%;
     
+    }
 }
+@media only screen and (max-device-width:420px) {
+   
+}
+
+@media only screen and (max-device-width:820px) {
+    .topbarContactItemRight{
+        border: 0px solid;
+        width: 50%;
+    
+    } .siteLogo{
+        width: 90%;
+    
+    }
+}
+

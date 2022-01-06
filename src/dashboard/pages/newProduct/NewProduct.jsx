@@ -147,10 +147,14 @@ export default function NewProduct() {
         let sizes  = getInputValues('size-specs');
     
         for (let i = 0; i < colors.length; i++) {
-          formData.append('color', colors[i]);
+           if(colors[i]!==""){
+            formData.append('color', colors[i]);
+           }
         }
         for (let j = 0; j < sizes.length; j++) {
-          formData.append('size', sizes[j]);
+          if (sizes[j]!==""){
+            formData.append('size', sizes[j]);
+          }
         }
         formData.append('name', name);
         formData.append('price', price);

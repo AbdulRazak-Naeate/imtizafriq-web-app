@@ -13,7 +13,8 @@ export default makeStyles((theme) => ({
        alignItems:'start',
        [theme.breakpoints.down(620)]:{
         marginTop:'1px',
-       }
+       },
+       marginBottom:20,
    },
    slider:{
     [theme.breakpoints.up(620)]:{

@@ -11,7 +11,15 @@ const Cart = ({cart, handleUpdateCartQty,handleupdateColorSize,handleupdateMeasu
     var colorSizeError=false;
     var measurementError=false;
 
-   const history=useHistory()
+   const history=useHistory();
+   const formatWithCurrencySymbol =(amount,currency)=>{
+    // Create GH Cedi currency symbol.
+  var formatter = new Intl.NumberFormat('en-GH', {
+      style: 'currency', 
+      currency: currency, //   currency: 'GHS',
+    });
+    return formatter.format(amount)
+  }
    const handleCheckOut=()=>{
    try{
     checkError()
@@ -85,7 +93,7 @@ const Cart = ({cart, handleUpdateCartQty,handleupdateColorSize,handleupdateMeasu
                 ))}
             </Grid>
             <div className={classes.cardDetails}>
-               <Typography variant="h5">Subtotal:${cart.subtotal} </Typography>
+               <Typography variant="h5">{`Subtotal:${formatWithCurrencySymbol(cart.subtotal,'GHS')} `} </Typography>
 
                 <div className={classes.buttons}>
                 <Button className={classes.emptyButton} size="large" type="button" variant="contained" color="secondary" onClick={handleEmptyCart}>Empty Cart</Button> 
@@ -100,7 +108,7 @@ const Cart = ({cart, handleUpdateCartQty,handleupdateColorSize,handleupdateMeasu
 
     return (
         <div >
-            <Container>
+            <Container className={classes.root} >
                 <div  className={classes.toolbar}>
                 <Typography className={classes.title} variant="h4" gutterBottom>Your Shopping Cart</Typography>
                 </div>

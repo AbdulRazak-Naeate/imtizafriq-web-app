@@ -1,3 +1,12 @@
+const getFormatWithCurrencySymbol =(amount,currency)=>{
+  // Create GH Cedi currency symbol.
+var formatter = new Intl.NumberFormat('en-GH', {
+    style: 'currency', 
+    currency: currency, //   currency: 'GHS',
+  });
+  return formatter.format(amount)
+}
+
 function toDate(date) {
     if (date === void 0) {
       return new Date(0);
@@ -28,3 +37,6 @@ function toDate(date) {
   //var ms = '1519073776000';
   //var dateFormat = "Y-m-d H:i:s.v";
  // var formatted = FormatDate(ms, dateFormat);
+
+
+ module.exports.getFormatWithCurrencySymbol= getFormatWithCurrencySymbol

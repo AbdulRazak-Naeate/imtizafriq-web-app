@@ -687,7 +687,7 @@ const handleBottomNavPosition = () =>{
    },[userid,user])
   return (
     <ThemeProvider theme={theme}>
-    <Box sx={{ pb: 0 }} ref={ref}>
+    <Box sx={{ pb: 0 }} ref={ref} className='boxMain'>
       <CssBaseline />
        
          <Route exact path={paths}>

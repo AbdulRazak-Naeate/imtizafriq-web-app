@@ -32,8 +32,8 @@ const Footer = () => {
                     </form>
                 </div>
             </section>
-        {/*   <div className='footer-links'>
-              <div className='footer-link-wrapper'>
+       <div className='footer-links'>
+            {/*   <div className='footer-link-wrapper'>
                   <div className="footer-link-items">
                     <h2>About Us</h2>
                     <Link to='signup'>How it works</Link>
@@ -51,17 +51,16 @@ const Footer = () => {
                     <Link to='/'>Sponsorship</Link>
  
                   </div>
-              </div>
+              </div> */}
               <div className='footer-link-wrapper'>
-                  <div className="footer-link-items">
+                  {/* <div className="footer-link-items">
                     <h2>Videos</h2>
                     <Link to='/'>Submit Videos</Link>
                     <Link to='/'>Ambassodors</Link>
                     <Link to='/'>Agency</Link>
                     <Link to='/'>Influencer</Link>
-                  </div>
+                  </div> */}
                   <div className="footer-link-items">
-                    <h2>Social Media</h2>
                     <Link to='/'>Instagram</Link>
                     <Link to='/'>Facebook</Link>
                     <Link to='/'>Youtube</Link>
@@ -69,7 +68,7 @@ const Footer = () => {
  
                   </div>
                 </div>
-              </div>  */} 
+              </div> 
               <section class='social-media'>
         <div class='social-media-wrap'>
           <div class='footer-logo'>
