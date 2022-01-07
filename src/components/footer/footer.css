@@ -75,7 +75,10 @@
     margin-bottom: 16px;
   }
   
-  .footer-link-items > h2 {
+    .footer-link-items >h5 {
+    color: #fff;
+  }
+  .footer-link-items > h2  {
     color: #fff;
   }
   

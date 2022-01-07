@@ -9,7 +9,7 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import ListItemButton from '@mui/material/ListItemButton';
 import Checkbox from '@mui/material/Checkbox';
 import { pink,orange } from '@mui/material/colors';
-/* import {getFormatWithCurrencySymbol} from ''; */
+import {formatWithCurrencySymbol} from '../../../utils/Utils';
 
 const CartItem = ({cartitem,onUpdateCartQty,onUpdateColorSize,onUpdateMeasurement,onRemoveFromCart,onUpdateSelect}) => {
     const classes = useStyles();
@@ -36,14 +36,7 @@ const CartItem = ({cartitem,onUpdateCartQty,onUpdateColorSize,onUpdateMeasuremen
     const handleClick=()=>{
       setOpen(!open)
     }
-    const formatWithCurrencySymbol =(amount,currency)=>{
-      // Create GH Cedi currency symbol.
-    var formatter = new Intl.NumberFormat('en-GH', {
-        style: 'currency', 
-        currency: currency, //   currency: 'GHS',
-      });
-      return formatter.format(amount)
-    }
+   
     // eslint-disable-next-line no-unused-vars
     const {register,getValues,formState: { errors },} = useForm();
     
@@ -245,7 +238,7 @@ const CartItem = ({cartitem,onUpdateCartQty,onUpdateColorSize,onUpdateMeasuremen
             <CardMedia image={`http://localhost:3001/server/uploads/products/${cartitem.product.image[0].filename}`} alt={cartitem.product.name} className={classes.media}/>
             <CardContent className={classes.cardContent}>
              <Typography variant="h6">{cartitem.product.name}</Typography>
-             <Typography variant="h6">{`${formatWithCurrencySymbol(cartitem.line_item_sub_price,'GHS')}`}</Typography>
+             <Typography variant="body1" className={classes.price}>{`${formatWithCurrencySymbol(cartitem.line_item_sub_price,'GHS')}`}</Typography>
             </CardContent>
             <CardActions className={classes.cardActions}>
              <div className={classes.specifications}>

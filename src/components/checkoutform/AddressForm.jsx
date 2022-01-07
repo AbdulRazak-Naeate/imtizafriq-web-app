@@ -25,6 +25,7 @@ const AddressForm = ({checkoutToken,next}) => {
     const [city,setCity]=useState('');
     const [citylabel,setCityLabel]=useState('');
     const [orderNumber,setOrderNumber]=useState('');
+    const [shippingFees,setShippingFees]=useState(0);
     const _db = new loki('csc.db');
     const[db]=useState(_db);
 
@@ -39,6 +40,7 @@ const AddressForm = ({checkoutToken,next}) => {
     setCountry(cid);
     setCountryLabel(country[0].name)
      filterStates(cid,db);
+     setShippingFees(5)
   }
   const onStateChange=(e)=>{
     let stateColl = db.getCollection("states");
@@ -161,7 +163,7 @@ const AddressForm = ({checkoutToken,next}) => {
     <>
       <Typography variant="h6" gutterBottom>Shipping Address</Typography>
           <form onSubmit = {handleSubmit((data) =>{ 
-            next({...data,countrylabel,statelabel,citylabel,orderNumber})
+            next({...data,countrylabel,statelabel,citylabel,orderNumber,shippingFees})
             }) } >
             <Grid container spacing={3}>
                <Grid item xs={12} sm={6}>    

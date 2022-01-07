@@ -3,6 +3,8 @@ import React ,{useState,useEffect} from 'react'
  import useStyles from './styles';
  import CartItem from './cartItem/CartItem';
  import {Link,useHistory} from 'react-router-dom';
+ import {formatWithCurrencySymbol} from '../../utils/Utils';
+
 const Cart = ({cart, handleUpdateCartQty,handleupdateColorSize,handleupdateMeasurement,handleRemoveFromCart, handleEmptyCart,handleupdateSelection}) => {
   
     const classes= useStyles();
@@ -12,14 +14,7 @@ const Cart = ({cart, handleUpdateCartQty,handleupdateColorSize,handleupdateMeasu
     var measurementError=false;
 
    const history=useHistory();
-   const formatWithCurrencySymbol =(amount,currency)=>{
-    // Create GH Cedi currency symbol.
-  var formatter = new Intl.NumberFormat('en-GH', {
-      style: 'currency', 
-      currency: currency, //   currency: 'GHS',
-    });
-    return formatter.format(amount)
-  }
+
    const handleCheckOut=()=>{
    try{
     checkError()
@@ -93,8 +88,8 @@ const Cart = ({cart, handleUpdateCartQty,handleupdateColorSize,handleupdateMeasu
                 ))}
             </Grid>
             <div className={classes.cardDetails}>
-               <Typography variant="h5">{`Subtotal:${formatWithCurrencySymbol(cart.subtotal,'GHS')} `} </Typography>
-
+             <div> <Typography variant="h5" className={classes.price}>{`Subtotal: ${formatWithCurrencySymbol(cart.subtotal,'GHS')} `} </Typography>
+</div>
                 <div className={classes.buttons}>
                 <Button className={classes.emptyButton} size="large" type="button" variant="contained" color="secondary" onClick={handleEmptyCart}>Empty Cart</Button> 
                  <Button  className={classes.checkoutButton} size="large" type="button" variant="contained" onClick={handleCheckOut} color="primary">Check Out</Button>

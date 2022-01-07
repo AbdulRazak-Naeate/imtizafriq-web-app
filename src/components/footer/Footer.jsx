@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import {Link} from 'react-router-dom';
 import {Button} from '@mui/material';
+import {Facebook,Instagram,YouTube,Twitter} from '@mui/icons-material'
 import './footer.css';
 import axios from 'axios';
 const Footer = () => {
@@ -61,10 +62,11 @@ const Footer = () => {
                     <Link to='/'>Influencer</Link>
                   </div> */}
                   <div className="footer-link-items">
-                    <Link to='/'>Instagram</Link>
-                    <Link to='/'>Facebook</Link>
-                    <Link to='/'>Youtube</Link>
-                    <Link to='/'>Twitter</Link>
+                     <h5>Connect with US </h5>
+                    <Link to='/'><Instagram/></Link>
+                    <Link to='/'><Facebook/></Link>
+                    <Link to='/'><YouTube/></Link>
+                    <Link to='/'><Twitter/></Link>
  
                   </div>
                 </div>

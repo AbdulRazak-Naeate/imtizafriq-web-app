@@ -55,10 +55,6 @@ const mongoose = require('mongoose');
         type:Object,
         default:{currentstock:0,alltimestock:0}
     },
-    alltimestock:{
-        type:Number,
-        default:0
-    },
     active:{
         type:String,
         default:'yes',

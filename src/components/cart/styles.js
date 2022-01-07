@@ -20,6 +20,10 @@ export default makeStyles((theme) => ({
       marginRight: '20px',
     },
   },
+  price:{
+    color:'red',
+    fontWeight:500,
+ },
   checkoutButton: {
     minWidth: '150px',
   },
@@ -43,7 +47,10 @@ export default makeStyles((theme) => ({
     border:'0px solid'
   },
   buttons: {
-    width:'100%',
+    width:'50%',
+    [theme.breakpoints.down('xs')]:{
+      width:'100%'
+    },
     display: 'flex',
     justifyContent:'space-between',
     alignItems: 'center',

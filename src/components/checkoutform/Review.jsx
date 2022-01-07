@@ -7,9 +7,10 @@ import Collapse from '@mui/material/Collapse';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import useStyles from './styles';
+import { formatWithCurrencySymbol } from '../../utils/Utils';
 
-const Review = ({checkoutToken}) => {
-    console.log(checkoutToken.items)
+const Review = ({checkoutToken,fees}) => {
+    console.log(fees)
     const[checkoutCart]=useState(checkoutToken);
     const[items]=useState(checkoutToken.items);
     const[refresh,setRefresh]=useState(false);
@@ -75,8 +76,12 @@ const Review = ({checkoutToken}) => {
         </>
       ))}
         <ListItem style={{padding:'10px 0'}}>
+            <ListItemText primary="shipping"/>
+            <Typography variant="subtitle1">{`${formatWithCurrencySymbol(fees,'GHS')}`}</Typography>
+          </ListItem>
+        <ListItem style={{padding:'10px 0'}}>
             <ListItemText primary="total"/>
-            <Typography variant="subtitle1">{`$${checkoutCart.subtotal}`}</Typography>
+            <Typography variant="subtitle1">{`${formatWithCurrencySymbol(checkoutCart.subtotal+fees,'GHS')}`}</Typography>
           </ListItem>
     </List>:setRefresh(!refresh)
       }

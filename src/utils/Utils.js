@@ -1,4 +1,4 @@
-const getFormatWithCurrencySymbol =(amount,currency)=>{
+const formatWithCurrencySymbol =(amount,currency)=>{
   // Create GH Cedi currency symbol.
 var formatter = new Intl.NumberFormat('en-GH', {
     style: 'currency', 
@@ -7,7 +7,7 @@ var formatter = new Intl.NumberFormat('en-GH', {
   return formatter.format(amount)
 }
 
-function toDate(date) {
+/* function toDate(date) {
     if (date === void 0) {
       return new Date(0);
     }
@@ -17,7 +17,11 @@ function toDate(date) {
       return new Date(parseFloat(date.toString()));
     }
   }
-  
+   //TEST
+  //var ms = '1519073776000';
+  //var dateFormat = "Y-m-d H:i:s.v";
+ // var formatted = FormatDate(ms, dateFormat);
+
   function isDate(date) {
     return (date instanceof Date);
   }
@@ -32,11 +36,6 @@ function toDate(date) {
       .replace(/i/gm, ('0' + (d.getMinutes() + 0)).substr(-2))
       .replace(/s/gm, ('0' + (d.getSeconds() + 0)).substr(-2))
       .replace(/v/gm, ('0000' + (d.getMilliseconds() % 1000)).substr(-3));
-  }
-  //TEST
-  //var ms = '1519073776000';
-  //var dateFormat = "Y-m-d H:i:s.v";
- // var formatted = FormatDate(ms, dateFormat);
-
-
- module.exports.getFormatWithCurrencySymbol= getFormatWithCurrencySymbol
+  } */
+ 
+ module.exports.formatWithCurrencySymbol = formatWithCurrencySymbol

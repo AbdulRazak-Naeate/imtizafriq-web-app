@@ -1,3 +1,4 @@
+export {default as Appbar}   from './appbar/Appbar';
 export {default as Topbar}   from './topbar/Topbar';
 export {default as TopbarcontacInfo}   from './topbar/contactinfobar/ContactInfowidget';
 export {default as Products} from './products/Products';

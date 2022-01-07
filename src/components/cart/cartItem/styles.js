@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export default makeStyles(() => ({
+export default makeStyles((theme) => ({
   media: {
     height: 200,
   },
@@ -20,6 +20,10 @@ export default makeStyles(() => ({
     width:'100%',
     display: 'flex',
     alignItems: 'center',
+  },
+  price:{
+     color:'red',
+     fontWeight:600,
   },
   specifications:{
    display:'flex',

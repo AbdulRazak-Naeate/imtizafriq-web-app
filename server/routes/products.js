@@ -57,7 +57,7 @@ router.post('/',uploadImage('./server/uploads/products'),verify, async(req,res)=
         description:req.body.description,
         category:req.body.category,
         specification:req.body.specification,
-        stock:{currentstock:stockvalue,
+        stock:{currentstock:stockvalue,availablestock:stockvalue,
                alltimestock:stockvalue},
         price:req.body.price,
         likes:req.body.likes,

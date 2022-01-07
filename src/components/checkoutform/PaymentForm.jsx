@@ -3,12 +3,13 @@ import {Typography,Button,Divider} from '@material-ui/core';
 import Review from './Review'
 import { useFlutterwave, closePaymentModal } from 'flutterwave-react-v3';
 import axios from 'axios';
-const PaymentForm = ({shippingData ,checkoutToken,backStep,onCaptureCheckout,nextStep}) => {
-
+import {formatWithCurrencySymbol} from '../../utils/Utils'
+const PaymentForm = ({shippingData,checkoutToken,backStep,onCaptureCheckout,nextStep}) => {
+  console.log(shippingData);
   const config = {
         public_key:"FLWPUBK-37d2e9fba8018282c3139e2a90c8ef76-X",
         tx_ref: Date.now(),
-        amount: checkoutToken.subtotal,
+        amount: checkoutToken.subtotal+shippingData.shippingFees,
         currency: 'GHS',
         payment_options: 'card,mobilemoneyghana,ussd',
         customer: {
@@ -56,6 +57,7 @@ const PaymentForm = ({shippingData ,checkoutToken,backStep,onCaptureCheckout,nex
                     postal_zip_code:shippingData.zip,
                     country:shippingData.countrylabel,
                     orderNumber:shippingData.orderNumber,
+                    shippingFees:shippingData.shippingFees,
                     date:new Date().toUTCString(),
                     }
                 } 
@@ -82,7 +84,7 @@ const PaymentForm = ({shippingData ,checkoutToken,backStep,onCaptureCheckout,nex
 
   return (
     <>
-     <Review checkoutToken={checkoutToken}/> 
+     <Review checkoutToken={checkoutToken} fees={shippingData.shippingFees}/> 
              <Divider/>
             <Typography variant="h6" gutterBottom style={{margin:'20px 0'}}>Payment Method</Typography>
   
@@ -92,7 +94,7 @@ const PaymentForm = ({shippingData ,checkoutToken,backStep,onCaptureCheckout,nex
                                 <div style={{display:'flex',justifyContent:'space-between'}}>
                                 <Button variant="outlined" onClick={backStep}>Back</Button>
                                 <Button type="submit"variant="contained" color="primary">
-                                    Pay {`$${checkoutToken.subtotal}`}
+                                    Pay {`${formatWithCurrencySymbol(checkoutToken.subtotal+shippingData.shippingFees,'GHS')}`}
                                 </Button>
                                 </div>
                             </form>

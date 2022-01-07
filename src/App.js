@@ -6,7 +6,7 @@ import  Dashboard from './dashboard/Dashboard';
 import './App.css';
 import LogIn from "./pages/login/LogIn";
 import SignUp from './pages/signup/SignUp';
-import {Topbar,TopbarcontacInfo,BottomNav,Products,Cart,Orders,ProceedCheckOut,Account,CategoryWidget,Footer} from './components';
+import {Topbar,Appbar,TopbarcontacInfo,BottomNav,Products,Cart,Orders,ProceedCheckOut,Account,CategoryWidget,Footer} from './components';
 import React, { useEffect } from 'react';
 import axios ,{post,patch} from 'axios';
 import CheckOut from './components/checkoutform/checkout/CheckOut';
@@ -47,7 +47,7 @@ const analytics = getAnalytics(app);
             contrastText:'#fff'
         },
         warning:{
-          main:red[500],
+          main:red[100],
           contrastText:'#fff'
         }
       },
@@ -692,6 +692,7 @@ const handleBottomNavPosition = () =>{
        
          <Route exact path={paths}>
            <TopbarcontacInfo/>
+           
          <Topbar totalItems={itemsCount} totalOrders={orderCount} handlesearchProduct={handlesearchProduct} handleUserClick={handleUserClick}/>
          </Route>
          <RModal openModal={openModal} handleCloseModal={handleCloseModal} ref={ref}/>
