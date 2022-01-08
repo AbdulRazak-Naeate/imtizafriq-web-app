@@ -11,7 +11,7 @@ export default  makeStyles((theme)=>({
     card:{
        height:440,
        [theme.breakpoints.down(620)]:{
-        height:280,
+        height:340,
         width:'100%'
        },
     },

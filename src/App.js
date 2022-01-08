@@ -540,17 +540,10 @@ const searchProduct =(searchString)=>{
   return axios.get(url)
 
 };
-const handleBottomNavPosition = () =>{
-     if(history.location.pathname==='/cart'){
-        setTapPosition(1)
-      }else if(history.location.pathname==='/account'){
-        setTapPosition(2)
-      }
-    console.log(tapPosition)
-  }
 
-  
    useEffect(() => {
+     
+    
     ref.current.ownerDocument.body.scrollTop = 0;
     
 

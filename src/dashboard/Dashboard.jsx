@@ -63,7 +63,7 @@ import SignUp from "./pages/signup/SignUp";
     
      <Switch>
      <Route exact  path="/dashboard">
-         <Home toggleSideBar={handletoggleSideBar}/>
+         <Home/>
        </Route>
        <Route path="/dashboard/users">
         <UserList/>

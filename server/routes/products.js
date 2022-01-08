@@ -168,7 +168,10 @@ router.patch('/:productId',verify,async (req,res)=> {
             {_id:oId},
             { 
                 $set:{ price:req.body.price,
-                       active:req.body.active
+                       active:req.body.active,
+                       color:req.body.color,
+                       size:req.body.size
+                       
                   },
                 $inc: {'stock.currentstock':value,
                        'stock.alltimestock':value}

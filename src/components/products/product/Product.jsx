@@ -6,6 +6,7 @@ import { AddShoppingCart,FavoriteBorderOutlined,Favorite } from '@mui/icons-mate
 import {useHistory} from 'react-router-dom';
 import { blue, orange } from '@mui/material/colors';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { truncateString } from '../../../utils/Utils';
 
 const Product = ({product,onAddToCart,onUpdateLikes,favorites}) => {
     const classes=useStyles();
@@ -23,13 +24,7 @@ const Product = ({product,onAddToCart,onUpdateLikes,favorites}) => {
           }
         },
   });  
-  const truncateString=(str, num) => {
-    if(str.length>num){
-      return str.slice(0,num)+"...";
-    }else{
-      return str;
-    }
-  }
+ 
     const handleProductOnClick=(productid)=>{
        history.push(`/proceedcheckout?productId=${productid}`)
     }
@@ -43,7 +38,7 @@ const Product = ({product,onAddToCart,onUpdateLikes,favorites}) => {
   return ( 
     <ThemeProvider theme={theme}>
 
-    <div>
+   {product ? <div>
     <Card className={classes.root} >
            <Typography variant="h6" className={classes.price}>
                         {`$${product.price}`}
@@ -75,7 +70,7 @@ const Product = ({product,onAddToCart,onUpdateLikes,favorites}) => {
 
               </CardActions>
         </Card>
-    </div>
+    </div>:''}
     </ThemeProvider>
   )
 }

@@ -6,10 +6,10 @@ import {userData} from "../../dummyData";
 import Widgetsm from "../../components/widgetSm/widgetSm";
 import WidgetLg from "../../components/widgetLg/WidgetLg";
 
-function Home({toggleSideBar}) {
+function Home({}) {
     useEffect(()=>{
-        toggleSideBar(true);
-       },[toggleSideBar]);
+       
+       },[]);
     return (
         <div className="home">
          <div className="widgetwrapper">

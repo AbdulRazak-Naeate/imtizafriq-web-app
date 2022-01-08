@@ -6,7 +6,18 @@ var formatter = new Intl.NumberFormat('en-GH', {
   });
   return formatter.format(amount)
 }
-
+const truncateString=(str, num) => {
+  try{
+ if(str.length>num){
+    return str.slice(0,num)+"...";
+  }else{
+    return str;
+  }
+  }catch(err ){
+     console.log(err)
+  }
+ 
+}
 /* function toDate(date) {
     if (date === void 0) {
       return new Date(0);
@@ -39,3 +50,4 @@ var formatter = new Intl.NumberFormat('en-GH', {
   } */
  
  module.exports.formatWithCurrencySymbol = formatWithCurrencySymbol
+ module.exports.truncateString           = truncateString

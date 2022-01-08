@@ -12,7 +12,7 @@ export default makeStyles((theme) => ({
        justifyContent:'space-between',
        alignItems:'start',
        [theme.breakpoints.down(620)]:{
-        marginTop:'1px',
+        marginTop:'0px',
        },
        marginBottom:20,
    },

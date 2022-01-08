@@ -4,16 +4,9 @@ import { AddShoppingCart } from '@material-ui/icons';
 import React from 'react';
 import useStyles from './styles';
 import {Link } from 'react-router-dom';
+import { formatWithCurrencySymbol, truncateString } from '../../../utils/Utils';
 
 
-const getFormatWithCurrencySymbol =(amount,currency)=>{
-  // Create GH Cedi currency symbol.
-var formatter = new Intl.NumberFormat('en-GH', {
-    style: 'currency', 
-    currency: currency, //   currency: 'GHS',
-  });
-  return formatter.format(amount)
-}
 const ProductDetails = ({product,onAddToCart}) => {
     const classes =useStyles();
 
@@ -24,16 +17,16 @@ const ProductDetails = ({product,onAddToCart}) => {
          <div className={classes.contentSub}>
         <div className={classes.priceWrapper}>
         <Typography variant="h4" className={classes.price}>
-              {getFormatWithCurrencySymbol(product.price,'GHS')}
+              {formatWithCurrencySymbol(product.price,'GHS')}
           </Typography>
         </div>
          
-         <Typography variant="h4">
+         <Typography variant="h5">
               {product.name}
           </Typography>
          
           <Typography variant="body1">
-              {product.description}
+              {truncateString(product.description,200)}
           </Typography>
          </div>
          <div className={classes.actions}>

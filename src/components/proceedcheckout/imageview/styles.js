@@ -33,7 +33,7 @@ export default makeStyles((theme)=>({
        
       }
      ,select:{
-        border:'2px solid #f50057',
+        border:'2px solid cornflowerblue',
       },
     previewContainer:{
         flex:'5',

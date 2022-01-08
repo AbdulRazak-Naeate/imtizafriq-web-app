@@ -11,11 +11,21 @@ import useStyles from './styles';
 
 
 const BottomNav = ({onBottomNavChange, totalItems,tapPosition}) => {
-     const[value,setValue]=React.useState(tapPosition)
+     const[value,setValue]=React.useState(0)
      const classes =useStyles();
      const history=useHistory();
      
-
+   React.useEffect(()=>{
+    const handleBottomNavPosition = () =>{
+      if(history.location.pathname==='/cart'){
+         setValue(1)
+       }else if(history.location.pathname==='/account'){
+         setValue(2)
+       }
+   }
+ 
+   handleBottomNavPosition();
+   })
   return (
    
        <Paper className="bottomnav" sx={{ position: 'fixed', bottom: 0, left: 0, right: 0}} elevation={3}>

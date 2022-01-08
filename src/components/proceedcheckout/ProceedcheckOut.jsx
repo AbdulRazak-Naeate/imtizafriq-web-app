@@ -5,7 +5,7 @@ import ProductDetails from './productDetails/ProductDetails';
 import QueryParams from '../../QueryParams';
 import axios from 'axios'
 import Grid from '@mui/material/Grid';
-import Slider from './slider/Slider'
+import Slider from './slider/Slider_'
 
 const ProceedcheckOut = ({onAddToCart}) => {
     const query =QueryParams()
