@@ -16,7 +16,7 @@ const FilledOrder = ()=>(
      <Grid container justifyContent="center" spacing={3}>
          {
            orders.map((order)=>(
-             <Grid item key={order._id} xs={12} sm={6} md={4} lg={4}>
+             <Grid item key={order._id} xs={12} sm={6} md={6} lg={6}>
                <OrderItem order={order}></OrderItem>
                </Grid>
            ))
@@ -27,7 +27,7 @@ const FilledOrder = ()=>(
 ) 
 if (!orders) return 'loading ...';
   return (
-    <div>
+    <div className={classes.root}>
       <Container>
         
       <div className={classes.toolbar}>  

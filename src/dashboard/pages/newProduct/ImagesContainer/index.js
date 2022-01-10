@@ -29,7 +29,7 @@ const ImagesContainer = ({ handleImages ,onSubmit,setOnsubmit}) => {
 
             let indextoRemove = parseInt(imageTagIndex);//gets Index of  clicked image 
             console.log(onSubmit);
-            if (onSubmit && productImages.length>0){//onsubmit of new product reinitiate productImages Array to [] ,
+            if (onSubmit && productImages.length>0){//onsubmit of new product reinitiate productImages Array to [],
                 setProductImages([]);
                 document.getElementById(ImageToLoadId).src = thumnbail;
                 setOnsubmit(!onSubmit);
@@ -80,7 +80,7 @@ const ImagesContainer = ({ handleImages ,onSubmit,setOnsubmit}) => {
                 productImagesWrapper = document.getElementById("imageswrapper");
 
             }
-            ReactDOM.render(productImagesWrapper, document.getElementById("productsdiv"))
+            ReactDOM.render(productImagesWrapper, document.getElementById("product-images"))
         }
 
         createProductImages(3, "new")
@@ -88,18 +88,18 @@ const ImagesContainer = ({ handleImages ,onSubmit,setOnsubmit}) => {
 
     return (
 
-        <>
-            
-            <div id="productsdiv" className="product-dis-div">
+        <>  
+            <span>Product Image</span>
+            <div id="product-images" className="productImages">
 
             </div>
 
             <input style={{display:"none"}} type="file" id="product-file" multiple onChange={onFileInputChange} />
 
-            <div className="add-button-wrapper" style={{ marginTop: 10 }}>
+           {/*  <div className="add-button-wrapper" style={{ marginTop: 10 }}>
 
             </div>
-
+ */}
 
 
         </>

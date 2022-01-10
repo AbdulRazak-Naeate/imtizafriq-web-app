@@ -16,6 +16,7 @@ export default function ProductsList() {
 
     const [storeid]=useState(query.get("storeId"));
     const [storename] =useState(query.get("storeName"));
+    const [category] =useState(query.get("categoryId"));
      
     //alert Dialog
     const [open,setOpen]=useState(false);
@@ -161,7 +162,7 @@ export default function ProductsList() {
          <div className="productsTitleContainer">
          <h1 className="addProductTitle">Products </h1>
 
-         <Link to={`/dashboard/newProduct?storeId=${storeid}&storeName=${storename}`}>
+         <Link to={`/dashboard/newProduct?storeId=${storeid}&storeName=${storename}&categoryId=${category}`}>
           <button className="AddProductButton">New Product</button>
           </Link> 
          

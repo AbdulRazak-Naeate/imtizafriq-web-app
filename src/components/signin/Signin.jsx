@@ -4,7 +4,6 @@ import {useState} from'react';
 import { Link,useHistory } from 'react-router-dom';
 import {Typography,Button}  from '@mui/material';
 import {post} from 'axios';
-import GoogleLogin from 'react-google-login';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
 function Signin({handleCloseModal,handleSwitchForm}) {

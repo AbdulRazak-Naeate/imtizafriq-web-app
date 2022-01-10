@@ -3,7 +3,8 @@ import {Link,useHistory} from 'react-router-dom';
 import './newProduct.css';
 import QueryParams from '../../QueryParams';
 import ImagesContainer from './ImagesContainer';
-import Specification from './Specification';
+import Specification from './Specification/index';
+import Specs from './specs/Specs'
 import { post } from 'axios';
 import thumbnail from './ImagesContainer/thumbnail-wide.png';
 import Alert from 'react-s-alert';
@@ -24,6 +25,10 @@ export default function NewProduct() {
     const [showSpecification,setShowSpeicification]=useState(false);
     const [showDigitalProductFileInput,setShowDigitalProductFileInput] = useState(false);
     const [onSubmit,setOnsubmit]=useState(false);
+
+    //retrieves specs variables eg colors  ans size
+    const [colors,setColors]=useState([]);
+    const [sizes,setSizes]=useState([]);
 
     const[user]=useState(JSON.parse(localStorage.getItem('user')));
     let query=QueryParams();
@@ -140,11 +145,11 @@ export default function NewProduct() {
         
         const url = 'http://localhost:3001/api/products/';
     
-        console.log(productImages);
+        console.log(colors);
         const formData = new FormData();
         //getInput values
-        let colors = getInputValues('color-specs');
-        let sizes  = getInputValues('size-specs');
+       // let colors = getInputValues('color-specs');
+        //let sizes  = getInputValues('size-specs');
     
         for (let i = 0; i < colors.length; i++) {
            if(colors[i]!==""){
@@ -196,7 +201,7 @@ export default function NewProduct() {
               <h1 className="addProductTitle">Add New Product </h1>
             
             
-          <Link to={`/dashboard/products?storeId=${storeid}&storeName=${storename}`}>
+          <Link to={`/dashboard/products?storeId=${storeid}&storeName=${storename}&categoryId=${category}`}>
           <button className="ProductListButton">Products</button>
           </Link>
 
@@ -276,7 +281,7 @@ export default function NewProduct() {
         </div>
             <div className="imagesContainerWrapper">
              {<ImagesContainer handleImages={handleImages} onSubmit={onSubmit} setOnsubmit={setOnsubmit}/>}
-              {showSpecification ? <Specification/> :<></>}
+              {showSpecification ? <Specs setColors={setColors} setSizes={setSizes}/>:<></>}
             </div>
            
         <div className="addProductItem">

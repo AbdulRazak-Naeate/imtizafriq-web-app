@@ -77,7 +77,7 @@ export default function StoreList() {
      }
     const handleList=(params)=>{
    //navigate to store Products
-   history.push(`/dashboard/products?storeId=${params.row._id}&storeName=${params.row.name}`);
+   history.push(`/dashboard/products?storeId=${params.row._id}&storeName=${params.row.name}&categoryId=${params.row.categoryId}`);
    localStorage.setItem('store', JSON.stringify(params.row));       
     }
     const handleTransactions=(params)=>{

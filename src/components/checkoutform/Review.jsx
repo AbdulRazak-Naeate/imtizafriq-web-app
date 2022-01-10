@@ -22,14 +22,14 @@ const Review = ({checkoutToken,fees}) => {
 
   const ListItemSecondaryContent= ({item})=>{
     return(<div className={classes.secondaryItemContent}>
-      <div className={classes.measuremenItem}><span>Back</span><span>${item.measurement.back}</span></div> 
-      <div className={classes.measuremenItem}><span>Chest</span><span>${item.measurement.chest}</span></div> 
-      <div className={classes.measuremenItem}><span>Length</span><span>${item.measurement.shirtLength}</span></div> 
-      <div className={classes.measuremenItem}><span>Sleeve</span><span>${item.measurement.sleeve}</span></div> 
-      <div className={classes.measuremenItem}><span>Trouser length</span><span>${item.measurement.trouserLength}</span></div> 
-      <div className={classes.measuremenItem}><span>Waist</span><span>${item.measurement.waist}</span></div> 
-      <div className={classes.measuremenItem}><span>Thigh</span><span>${item.measurement.thigh}</span></div> 
-      <div className={classes.measuremenItem}><span>Bust</span><span>${item.measurement.bust}</span></div> 
+      <div className={classes.measuremenItem}><span>Back</span><span>{item.measurement.back}</span></div> 
+      <div className={classes.measuremenItem}><span>Chest</span><span>{item.measurement.chest}</span></div> 
+      <div className={classes.measuremenItem}><span>Length</span><span>{item.measurement.shirtLength}</span></div> 
+      <div className={classes.measuremenItem}><span>Sleeve</span><span>{item.measurement.sleeve}</span></div> 
+      <div className={classes.measuremenItem}><span>Trouser length</span><span>{item.measurement.trouserLength}</span></div> 
+      <div className={classes.measuremenItem}><span>Waist</span><span>{item.measurement.waist}</span></div> 
+      <div className={classes.measuremenItem}><span>Thigh</span><span>{item.measurement.thigh}</span></div> 
+      <div className={classes.measuremenItem}><span>Bust</span><span>{item.measurement.bust}</span></div> 
 
       {/* Chest:${item.measurement.chest} Length:${item.measurement.shirtLength} Sleeve:${item.measurement.sleeve} Trouser Length:${item.measurement.trouserLength} Waist:${item.measurement.waist} Thigh:${item.measurement.thigh} Bust:${item.measurement.bust} */}
     </div>)

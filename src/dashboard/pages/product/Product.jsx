@@ -8,6 +8,16 @@ import { Publish } from '@material-ui/icons';
 import QueryParams from '../../QueryParams';
 import {patch}from 'axios';
 
+  const MesurementItem = ({itemval,index,name,onUpdateColors})=>{
+          const [val,setValue]=useState(itemval);
+       return( <input type="text" className={`measurementItem ${name}`} placeholder="" value={val} key={index} onChange={(e)=>{setValue(e.target.value);onUpdateColors(name)}}  id={`${name}${index}`}/>)
+      }
+
+      const SizeMesurementItem = ({itemval,index,name,onUpdateSizes})=>{
+        const [sval,setsValue]=useState(itemval);
+     return( <input type="text" className={`measurementItem ${name}`} placeholder="" value={sval} key={index} onChange={(e)=>{setsValue(e.target.value);onUpdateSizes(name)}}  id={`${name}${index}`}/>)
+    }
+
 export default function Product() {
     const query=QueryParams();
     const [product,setProduct]= useState(JSON.parse(localStorage.getItem('product')));
@@ -37,8 +47,10 @@ export default function Product() {
           let values =[];
         let elems =  document.getElementsByClassName(classname);
            for(let i=0;i<elems.length;i++){
-                   values.push(elems[i].value)
-                   console.log(elems[i].value)
+                 if (elems[i].value!==""){
+                    values.push(elems[i].value)
+                    console.log(elems[i].value)
+                 }
                
              
            }
@@ -91,16 +103,7 @@ export default function Product() {
       const onUpdateSizes =(name)=>{
         setSizes(getValues(name));
      }
-      const MesurementItem = ({itemval,index,name})=>{
-          const [val,setValue]=useState(itemval);
-       return( <input type="text" className={`measurementItem ${name}`} placeholder="" value={val} key={index} onChange={(e)=>{setValue(e.target.value);onUpdateColors(name)}}  id={`${name}${index}`}/>)
-      }
-
-      const SizeMesurementItem = ({itemval,index,name})=>{
-        const [sval,setsValue]=useState(itemval);
-     return( <input type="text" className={`measurementItem ${name}`} placeholder="" value={sval} key={index} onChange={(e)=>{setsValue(e.target.value);onUpdateSizes(name)}}  id={`${name}${index}`}/>)
-    }
-
+    
 
       
       
@@ -113,9 +116,14 @@ export default function Product() {
             <span>{storename}</span>
             <div className="productTitleContainer">
                 <h1 className="productTitle">Product</h1>
-                <Link to={`/dashboard/newproduct?storeId=${storeid}&storeName=${storename}`}>
+                 <div style={{width:'25%',display:'flex',justifyContent:'space-between'}}>
+                 <Link to={`/dashboard/newproduct?storeId=${storeid}&storeName=${storename}`}>
                 <button className="productAddButon">Create</button>
                 </Link>
+                <Link to={`/dashboard/products?storeId=${storeid}&storeName=${storename}`}>
+                <button className="productAddButon">Products</button>
+                </Link>
+                 </div>
             </div>
             <div className="productTop">
                 <div className="productTopLeft">
@@ -182,7 +190,7 @@ export default function Product() {
                         
                           {   
                              colors.map((color,index)=>{
-                               return( <MesurementItem itemval={color} index={index} name='color'/>)
+                               return( <MesurementItem itemval={color} index={index} name='color' onUpdateColors={onUpdateColors}/>)
                              })
                           }
                         
@@ -199,7 +207,7 @@ export default function Product() {
                         
                           {   
                              sizes.map((size,index)=>{
-                               return( <SizeMesurementItem itemval={size} index={index} name='size'/>)
+                               return( <SizeMesurementItem itemval={size} index={index} name='size' onUpdateSizes={onUpdateSizes}/>)
                              })
                           }
                         
