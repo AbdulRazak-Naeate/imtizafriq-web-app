@@ -54,6 +54,17 @@ router.get('/approved/:storeId', async(req,res)=>{
     }
 });
 
+//get all Orders base on Store Id and Completed status to populates as sales records
+router.get('/completed/:storeId', async(req,res)=>{
+  try{
+    const orders = await Order.find({storeId:req.params.storeId,status:"Completed"});
+    res.json({orders:orders,status:200});
+
+  }catch(err){
+    res.json({message:err})
+  }
+});
+
 //submit order
 
 router.post('/',async (req,res)=>{

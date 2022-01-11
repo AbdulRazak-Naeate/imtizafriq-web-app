@@ -38,7 +38,7 @@ const truncateString=(str, num) => {
                        Total :{`$${order.totalPrice}`}  
                       </Typography>
                        <Typography variant="body2">
-                          {`${order.date}`}
+                          {`${new Date(order.date).toUTCString()}`}
                      </Typography>
                   </div>
                   <div className={classes.orderDetails2}>

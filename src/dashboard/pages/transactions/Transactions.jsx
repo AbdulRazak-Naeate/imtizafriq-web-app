@@ -337,6 +337,7 @@ return patch(url, body,config)
       <div className="actionButtonsWrapper">
      <button className="actionButtons" onClick={()=>{handleUpdateMany("Approved");         
       }}>Approve</button>
+     <button className="actionButtons" onClick={()=>{handleUpdateMany("Completed")}}>Completed</button>
      <button className="actionButtons" onClick={()=>{handleUpdateMany("Pending")}}>Pending</button>
      <button className="actionButtons" onClick={()=>{handleUpdateMany("Declined")}}>Decline</button>
   {/*    <button className="actionButtons" onClick={()=>{

@@ -61,7 +61,7 @@ export default makeStyles(()=>({
 
     color:{
       padding:'2px 2px',
-      height:'22%',
+      height:'20%',
       textAlign:'center',
       borderRadius:'30px',
     backgroundColor:'goldenrod',
@@ -69,7 +69,7 @@ export default makeStyles(()=>({
       },
       size:{
         padding:'2px 2px',
-        height:'22%',
+        height:'20%',
         textAlign:'center',
         borderRadius:'30px',
         backgroundColor:'goldenrod',

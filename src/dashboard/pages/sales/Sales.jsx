@@ -122,7 +122,7 @@ return patch(url, body,config)
      try {
      
        
-    const res = await fetch(`http://localhost:3001/api/orders/approved/${storeid}`);
+    const res = await fetch(`http://localhost:3001/api/orders/completed/${storeid}`);
     const data = await res.json();
     
     return data.orders;
@@ -241,7 +241,7 @@ return patch(url, body,config)
       renderCell:(params)=>{
         return(
             <div>
-               {new Date(parseInt(params.row.date)).toUTCString()}
+               {new Date(params.row.date).toUTCString()}
             </div>
         )
       }

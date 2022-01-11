@@ -61,6 +61,7 @@
   }
   .actionButtons{
     border: 0px;
+    padding: 3px 5px;
     background-color: #ebf1fe;
     color:#2a7ade ;
   }
