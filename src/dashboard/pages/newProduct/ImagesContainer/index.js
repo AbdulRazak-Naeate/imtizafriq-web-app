@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import './index.css';
 import thumnbail from './thumbnail-wide.png';
 
-const ImagesContainer = ({ handleImages ,onSubmit,setOnsubmit}) => {
+const ImagesContainer = ({ handleImages ,onSubmit,setOnsubmit,clearImagesonSubmit}) => {
 
     const [imageTagIndex, setImageTagIndex] = useState(null);
     const [ImageToLoadId, setImageToLoadId] = useState(null);
@@ -20,20 +20,22 @@ const ImagesContainer = ({ handleImages ,onSubmit,setOnsubmit}) => {
 
     }
    
-    
+  
 
-    function onFileInputChange(e) {
+    function  onFileInputChange(e) {
         var file = e.target.files[0];
         var reader = new FileReader();
         reader.onloadend = function (e) {
 
             let indextoRemove = parseInt(imageTagIndex);//gets Index of  clicked image 
             console.log(onSubmit);
-            if (onSubmit && productImages.length>0){//onsubmit of new product reinitiate productImages Array to [],
-                setProductImages([]);
+            if (onSubmit===true && productImages.length>0){//onsubmit of new product reinitiate productImages Array to [],
+                 for(let i=0;i<productImages.length+1;i++){
+                     productImages.pop(i);
+                     console.log(productImages)
+                 }
                 document.getElementById(ImageToLoadId).src = thumnbail;
-                setOnsubmit(!onSubmit);
-            
+                setOnsubmit(false);
             }
             //push image item whiles Array length is 3 
             //else replace existing index with new image  

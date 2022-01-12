@@ -11,10 +11,10 @@ import Alert from 'react-s-alert';
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/stackslide.css';
 import 'react-s-alert/dist/s-alert-css-effects/jelly.css';
-
+import ImageGallery from './imageGallery/ImageGallery';
 export default function NewProduct() {
     
-    const [productImages,setProductImages]=useState({});
+    const [productImages,setProductImages]=useState([]);
     const [digitalProductUrl, setdigitalProductUrl] = useState('');
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
@@ -25,6 +25,7 @@ export default function NewProduct() {
     const [showSpecification,setShowSpeicification]=useState(false);
     const [showDigitalProductFileInput,setShowDigitalProductFileInput] = useState(false);
     const [onSubmit,setOnsubmit]=useState(false);
+    const [clearImages,setClearImages]=useState(false);
 
     //retrieves specs variables eg colors  ans size
     const [colors,setColors]=useState([]);
@@ -56,6 +57,13 @@ export default function NewProduct() {
           //setStoreId(storeid)
         
       }    
+
+      const clearImagesonSubmit=(images)=>{
+         if (clearImages) {
+           images=[];
+           setOnsubmit(false)
+         }
+      }
       
 
       const clearFields = () =>{
@@ -70,7 +78,8 @@ export default function NewProduct() {
         document.getElementById("product-image2").src=thumbnail;
        setShowSpeicification(false);
        setShowDigitalProductFileInput(false);
-       setProductImages(null);
+       setProductImages([]);
+       setClearImages(true);
      
       }
     
@@ -94,7 +103,7 @@ export default function NewProduct() {
          // console.log(tmp);
           return null
        })
-       setProductImages(tmp);
+       //setProductImages(tmp);
     }
     
     
@@ -125,7 +134,7 @@ export default function NewProduct() {
             initiateAndCreateProduct().then((response) => {
               console.log(response.data);
              if (response.data.status===200){
-              window.location.reload();
+              //window.location.reload();
                
                setOnsubmit(true);
                 clearFields();
@@ -136,7 +145,7 @@ export default function NewProduct() {
                 effect: 'jelly'
     
             });
-            history.go(0);
+           // history.go(0);
              }
             });
            
@@ -280,7 +289,8 @@ export default function NewProduct() {
          </div>
         </div>
             <div className="imagesContainerWrapper">
-             {<ImagesContainer handleImages={handleImages} onSubmit={onSubmit} setOnsubmit={setOnsubmit}/>}
+             {/* <ImagesContainer handleImages={handleImages} onSubmit={onSubmit} setOnsubmit={setOnsubmit} clearImagesonSubmit={clearImagesonSubmit}/> */}
+             <ImageGallery handleImages={handleImages} productImages={productImages}/>
               {showSpecification ? <Specs setColors={setColors} setSizes={setSizes}/>:<></>}
             </div>
            

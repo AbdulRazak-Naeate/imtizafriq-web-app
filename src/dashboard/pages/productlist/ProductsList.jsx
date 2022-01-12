@@ -12,7 +12,7 @@ export default function ProductsList() {
     const query=QueryParams();
     const history=useHistory();
     const [products,setProducts]=useState([]);
-    const [pageSize, setPageSize] =useState(5);
+    const [pageSize, setPageSize] =useState(10);
 
     const [storeid]=useState(query.get("storeId"));
     const [storename] =useState(query.get("storeName"));
@@ -167,11 +167,11 @@ export default function ProductsList() {
           </Link> 
          
           </div>
-          <div className="" style={{ height: 400, width: '100%' }}>
+          <div className="" style={{ height: '100vh', width: '100%' }}>
            <DataGrid rows={products} getRowId={(row) => row._id} columns={columns} 
            pageSize={pageSize}
            onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-            rowsPerPageOptions={[5, 10, 20,50]}
+            rowsPerPageOptions={[10, 10, 20,50]}
             pagination
            checkboxSelection
             disableSelectionOnClick />
