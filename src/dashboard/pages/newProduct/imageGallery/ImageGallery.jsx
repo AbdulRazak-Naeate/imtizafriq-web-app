@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import thumbnail from './thumbnail-wide.png';
+import './index.css'
 const ImageGallery = ({handleImages,productImages}) => {
     const[images,setImages]=useState(null);
     const[imagediv]=useState(["0","1","2"]);

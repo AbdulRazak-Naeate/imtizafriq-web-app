@@ -1,9 +1,7 @@
 import { React,useState } from 'react';
-import {Link,useHistory} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import './newProduct.css';
 import QueryParams from '../../QueryParams';
-import ImagesContainer from './ImagesContainer';
-import Specification from './Specification/index';
 import Specs from './specs/Specs'
 import { post } from 'axios';
 import thumbnail from './ImagesContainer/thumbnail-wide.png';
@@ -24,7 +22,6 @@ export default function NewProduct() {
     const [specification,setSpecification] = useState('none');
     const [showSpecification,setShowSpeicification]=useState(false);
     const [showDigitalProductFileInput,setShowDigitalProductFileInput] = useState(false);
-    const [onSubmit,setOnsubmit]=useState(false);
     const [clearImages,setClearImages]=useState(false);
 
     //retrieves specs variables eg colors  ans size
@@ -36,7 +33,6 @@ export default function NewProduct() {
     const storeid= query.get('storeId');
     const storename =query.get("storeName");
     const category =query.get("categoryId");
-    const history =useHistory();
     
         const onSpecificationChange = (e) => {
         setSpecification(e.target.value)
@@ -61,7 +57,6 @@ export default function NewProduct() {
       const clearImagesonSubmit=(images)=>{
          if (clearImages) {
            images=[];
-           setOnsubmit(false)
          }
       }
       
@@ -136,7 +131,6 @@ export default function NewProduct() {
              if (response.data.status===200){
               //window.location.reload();
                
-               setOnsubmit(true);
                 clearFields();
              }else if (response.data.status===400){ 
 
@@ -288,11 +282,11 @@ export default function NewProduct() {
         
          </div>
         </div>
-            <div className="imagesContainerWrapper">
+           
              {/* <ImagesContainer handleImages={handleImages} onSubmit={onSubmit} setOnsubmit={setOnsubmit} clearImagesonSubmit={clearImagesonSubmit}/> */}
              <ImageGallery handleImages={handleImages} productImages={productImages}/>
               {showSpecification ? <Specs setColors={setColors} setSizes={setSizes}/>:<></>}
-            </div>
+         
            
         <div className="addProductItem">
         <button className="addProductButton" type="submit" onClick={onAddProductCLick}>Create</button>

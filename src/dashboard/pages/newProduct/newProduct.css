@@ -1,6 +1,7 @@
 .newProduct{
    flex: 4;
-   padding: 20px;
+   padding:40px 20px;
+   border: 0px solid;
 }
 .addProductTitleContainer{
 display: flex;
@@ -21,9 +22,7 @@ padding: 10px 5px;
 .productFormTop{
     display: flex;
     align-items:baseline;
-    justify-content: space-between;  
-     padding: 10px;
-     
+    justify-content: space-between;       
    
     margin-bottom: 20px;
 }
@@ -83,9 +82,4 @@ margin-bottom: 5px;
     cursor: pointer;
     border-radius: 5px;
     font-size: 16px;
-}
-.imagesContainerWrapper{
-    padding: 30px;
-    border:0px solid;
-
 }
