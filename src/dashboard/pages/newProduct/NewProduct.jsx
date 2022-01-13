@@ -213,7 +213,7 @@ export default function NewProduct() {
           <div className="addProductFormContainer">
            <form className="addProductForm" onSubmit={onFormSubmit}>
                <div className="productFormTop">
-                   <div className="productFormTopLeft">
+                  <div className="productFormTopItem">
 
                 <div className="addProductItem">
                 <label>Name</label>
@@ -234,7 +234,7 @@ export default function NewProduct() {
             </div>
        
       </div>
-         <div className="productFormMiddle">
+         <div className="productFormTopItem">
           <div className="addProductItem">
               <label htmlFor="validationTextarea">Description</label>
         <textarea id="description" name="description" rows="4"
@@ -246,14 +246,7 @@ export default function NewProduct() {
              <input type="number" placeholder="123" required setStock={stock} onChange={onstockChange} />
            </div>
            </div>
-        <div className="productFormTopRight">
-         
-     
-
-    
-      <div className="addProductItem">
-          
-      </div>
+        <div className="productFormTopItem">
       <div className="addProductItem">
            <label htmlFor="validationCustom04">Specification</label>
           <select id="validationCustom04" value={specification} onChange={onSpecificationChange}>

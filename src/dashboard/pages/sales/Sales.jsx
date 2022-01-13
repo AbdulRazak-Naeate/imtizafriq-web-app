@@ -31,9 +31,9 @@ const Sales = () => {
  
     const handleClickOpen = (row) => {
            setOrderId(row._id);
-       row.status==="Pending" ? setStatus('Approved') :setStatus('');
+     /*   row.status==="Pending" ? setStatus('Approved') :setStatus('');
        row.status!=="Approved" ? setOpen(true):setOpen(false);
-       
+        */
 
       };
 

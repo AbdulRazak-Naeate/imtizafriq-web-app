@@ -5,7 +5,7 @@ export default makeStyles(()=>({
       display:'flex',
       flexDirection:'row',
       maxWidth:'100%',
-      height:'160px'
+      height:'180px'
     
     },
     title:{
@@ -14,7 +14,7 @@ export default makeStyles(()=>({
       border:'0px solid'
     },
     media:{
-        height:160,
+        height:180,
         width:'28%',        
         
     },
@@ -48,20 +48,31 @@ export default makeStyles(()=>({
         justifyContent:'space-between',
         width:'68%',
         alignItems:'left',
-        border:'0px solid #ee4322'
+        border:'0px solid #ee4322',
     },
     orderDetails2:{
         display:'flex',
         flexDirection:'column',
         justifyContent:'space-between',
         width:'30%',
+        height:'105px',
         alignItems:'left',
         border:'0px solid #ee4322'
     },
+    feedback:{
+      border:'1px solid',
+      backgroundColor:' #fff0f1',
+      color:'#d95087',
+      textAlign:'center',
+      width:'20%',
+      margin:'2px 0px',
+      cursor:'pointer'
 
+      
+    },
     color:{
       padding:'2px 2px',
-      height:'20%',
+      height:'18%',
       textAlign:'center',
       borderRadius:'30px',
     backgroundColor:'goldenrod',

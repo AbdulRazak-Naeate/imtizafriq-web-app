@@ -1,5 +1,5 @@
 import React from 'react'
-import {Card, CardContent, CardMedia, Typography} from '@material-ui/core';
+import {Card, CardContent, CardMedia, Typography,Button} from '@material-ui/core';
 import useStyles from './styles';
 import './styles.css';
 const OrderItem = ({order}) => {
@@ -11,7 +11,9 @@ const truncateString=(str, num) => {
   }else{
     return str;
   }
-}
+} 
+
+
   return (
     <div> 
       <Card className={classes.root}>
@@ -60,7 +62,9 @@ const truncateString=(str, num) => {
 
                   </div>
                    </div>
-                   </div>
+                   </div>   
+                      <Typography variant='body2' className={classes.feedback}>feedback</Typography>
+
                 </CardContent>
 
            

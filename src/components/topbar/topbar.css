@@ -54,20 +54,32 @@
     align-items: center;
     justify-content: space-between;
 }
-.siteLogo{
-    width:50%;
-    height:40px;
-    margin-top:5px;
-    margin-right:5px;
+.logowrapper{
+    display: flex;
+    justify-content:flex-start;
+    align-items: center;
+    border: 0px solid;
+    width: 100%;
+    height: 100%;
 }
-.site-name{
+.logo-img{
+    width:100%;
+    height:40px;
+}
+.siteName{
     font-weight: bold;
     font-style: 30px;
     color:snow;
     cursor: pointer;
+    margin-left: 10px;
 }
 .topLeft{
     border:0px solid;
+    width: 20%;
+    height: 50px;
+    margin-top: 10px;
+    
+
 }
 .topRight{
     display: flex;

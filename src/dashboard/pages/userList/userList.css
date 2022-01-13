@@ -14,9 +14,9 @@
 
 }
 .addNewUserButton{
-    width: 80px;
+    width: auto;
     border: none;
-    padding: 5px ;
+    padding: 5px 10px ;
     background-color: teal;
     color: white;
     cursor: pointer;
