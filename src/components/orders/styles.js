@@ -15,4 +15,9 @@ export default makeStyles((theme) => ({
   link: {
     textDecoration: 'none',
   },
+  commentsTitle:{
+    display:'flex',
+    justifyContent:'space-between',
+    padding:'3px 5px',
+  }
 }));

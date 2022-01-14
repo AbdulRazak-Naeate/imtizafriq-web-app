@@ -2,7 +2,7 @@ import React from 'react'
 import {Card, CardContent, CardMedia, Typography,Button} from '@material-ui/core';
 import useStyles from './styles';
 import './styles.css';
-const OrderItem = ({order}) => {
+const OrderItem = ({order,onReviewClick}) => {
     const classes=useStyles();
      
 const truncateString=(str, num) => {
@@ -63,7 +63,7 @@ const truncateString=(str, num) => {
                   </div>
                    </div>
                    </div>   
-                      <Typography variant='body2' className={classes.feedback}>feedback</Typography>
+                      <Typography variant='body2' className={classes.feedback} onClick={()=>{onReviewClick(order)}}>feedback</Typography>
 
                 </CardContent>
 

@@ -26,7 +26,7 @@ const blue = {
     900: '#1A2027',
   };
   
-  const StyledInputElement = styled('textarea')(
+  const StyledInputElement = styled('input')(
     ({ theme }) => `
     width: 100%;
     height:35px;
@@ -59,20 +59,31 @@ const blue = {
   });
   
 const Comments = () => {
-    const classes=useStyles();
-
+   const classes=useStyles();
+   const [comments,setComments]=React.useState([{user:'Munin',text:'  Its a  nice product i like it  and also recommend it to everyone ',date:'2020/06/04 12:00'},{user:'Abdul',text:'  Its a  nice product i like it  and also recommend it to everyone ',date:'2020/07/04 12:00'},{user:'Hassan',text:'  Its good I like it',date:'2020/01/04 07:23'}]);
   return (
-    <div>
+    <div className={classes.root}>
         <div className={classes.commentList}>
-           <div className={classes.commentItem}>
-               <div className={classes.userContainer}>
+         {
+           comments.map((comment,index)=>{
+             return(
+              <div className={classes.commentItem} key={index}>
+              <div className={classes.commentsItemPrimary}>
+              <div className={classes.userContainer}>
                    <PersonOutline/>
-                   <Typography variant='body2'>Abdul</Typography>
+                   <Typography variant='body2'>{comment.user}</Typography>
                </div>
               <Typography className={classes.text} variant='body2'>
-                Its a  nice product i like it  and also recommend it to everyone 
+                {comment.text}
               </Typography>
+              </div>
+             <div className={classes.commentsItemSecondary}>
+             <Typography variant='body2' style={{fontSize:'10px',color:'darkgray'}}>{comment.date}</Typography>
+             </div>
            </div>
+             )
+           })
+         }
         </div>
         <div className={classes.inputactions}>
         <CustomInput className={classes.textinput} aria-label="comment input" placeholder="type in to review product"  />
