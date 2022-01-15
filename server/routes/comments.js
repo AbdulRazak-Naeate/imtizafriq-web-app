@@ -3,14 +3,26 @@ const router    =  express.Router();
 const Comments  = require('../models/Comments');
 
 
-//post new Comments
+//get comments 
+router.get('/',async(req,res)=>{
+    try{
+       const comments= await Comments.find();
+     
+       res.json({comments:comments,status:200});
+      }catch(err){
+          console.log(err);
+      }
+})
+
+//post new Comment
 
 router.post('/', async (req,res)=>{
+    console.log(req.body)
     try{
-        const comments = new Comments({text:req.body.text});
+        const comments = new Comments({username:req.body.username,text:req.body.text,productid:req.body.productid,storeid:req.body.storeid});
         const savedComments = await comments.save();
    
-        res.json({comments:savedComments,status:200});
+        res.json({comment:savedComments,status:200});
     }catch(err){
         console.log(err)
     }
@@ -18,12 +30,14 @@ router.post('/', async (req,res)=>{
 
 //get comments by productid and storeid
 
-router.get('/',async(req,res)=>{
+router.get('/:storeId/:productId',async(req,res)=>{
      try{
-        const comments= await Comments.findOne({productid:req.body.productid,storeid:req.body.storeId});
-      
-        res.json({commets:comments,status:200});
+         console.log(req.params)
+        const comments = await Comments.find({storeid:req.params.storeId,productid:req.params.productId});
+        
+        res.json({comments:comments,status:200});
        }catch(err){
+
            console.log(err);
        }
 })

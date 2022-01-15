@@ -1,22 +1,26 @@
 const mongoose = require('mongoose');
 
 const CommentsSchema = new mongoose.Schema({
-    productId:{
-        type:String,
-        require:true,
-    },
-    storeId:{
-        type:String,
-        require:true,
+    username:{
+    type:String,
+    require:true,
     },
     text:{
         type:String,
         require:true,
         default:'mock comments',
+    },  
+     productid:{
+        type:String,
+        require:true,
+    },
+    storeid:{
+        type:String,
+        require:true,
     },
     date:{
         type:Date,
-        default: Date().now()
+        default: Date.now()
     }
 });
 

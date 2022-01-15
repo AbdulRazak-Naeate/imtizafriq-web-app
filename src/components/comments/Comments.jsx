@@ -3,7 +3,10 @@ import InputUnstyled from '@mui/core/InputUnstyled';
 import { styled } from '@mui/system';
 import {Button,Typography} from '@mui/material';
 import {PersonOutline} from '@material-ui/icons';
-import useStyles from './styles'
+import useStyles from './styles';
+import CommentItem from './commentitem/CommentItem'
+import axios from 'axios';
+
 const blue = {
     200: '#80BFFF',
     400: '#3399FF',
@@ -54,40 +57,64 @@ const blue = {
   
   const CustomInput = React.forwardRef(function CustomInput(props, ref) {
     return (
-      <InputUnstyled  components={{ Input: StyledInputElement }} {...props} ref={ref} onChange={(e)=>{props.handlesearchProduct(e.target.value)}}/>
+      <InputUnstyled  components={{ Input: StyledInputElement }} {...props} ref={ref} onChange={(e)=>{props.handleonInputChange(e.target.value)}}/>
     );
   });
-  
-const Comments = () => {
+    
+const Comments = ({order}) => {
    const classes=useStyles();
+   const user =localStorage.getItem('user');
+   const [commentText,setCommentText]=React.useState('');
+
    const [comments,setComments]=React.useState([{user:'Munin',text:'  Its a  nice product i like it  and also recommend it to everyone ',date:'2020/06/04 12:00'},{user:'Abdul',text:'  Its a  nice product i like it  and also recommend it to everyone ',date:'2020/07/04 12:00'},{user:'Hassan',text:'  Its good I like it',date:'2020/01/04 07:23'}]);
+    
+   const handleonInputChange=(value)=>{
+    setCommentText(value);
+  }
+   const handleAddComment = async ()=>{
+          addComment().then((response)=>{
+            if (response.status===200){
+              setComments([...comments,response.data.comment])
+            }
+          })
+   }
+
+   const addComment = async ()=>{
+     const url=`http://localhost:3001/api/comments/`;
+        axios.post(url,{productid:order.productId,storeid:order.storeId,text:commentText,username:'username'});
+   }
+   
+   React.useEffect(()=>{
+
+     const handlegetComments = async() =>{
+         loadCommentsFromServer().then((response)=>{
+           if(response.status===200){
+             console.log(response)
+             setComments(response.data.comments)
+           }
+         })
+     }
+      const loadCommentsFromServer= async ()=>{
+        const url=`http://localhost:3001/api/comments/${order.storeId}/${order.productId}`;
+       return axios.get(url)
+      }
+
+      handlegetComments();
+    },[order])
   return (
     <div className={classes.root}>
         <div className={classes.commentList}>
          {
            comments.map((comment,index)=>{
              return(
-              <div className={classes.commentItem} key={index}>
-              <div className={classes.commentsItemPrimary}>
-              <div className={classes.userContainer}>
-                   <PersonOutline/>
-                   <Typography variant='body2'>{comment.user}</Typography>
-               </div>
-              <Typography className={classes.text} variant='body2'>
-                {comment.text}
-              </Typography>
-              </div>
-             <div className={classes.commentsItemSecondary}>
-             <Typography variant='body2' style={{fontSize:'10px',color:'darkgray'}}>{comment.date}</Typography>
-             </div>
-           </div>
+               <CommentItem comment={comment} key={index}/>
              )
            })
          }
         </div>
         <div className={classes.inputactions}>
-        <CustomInput className={classes.textinput} aria-label="comment input" placeholder="type in to review product"  />
-        <Button   size='small' color='primary' variant='text'>send</Button>
+        <CustomInput className={classes.textinput} aria-label="comment input" placeholder="type in to review product" handleonInputChange={handleonInputChange} />
+        <Button   size='small' color='primary' variant='text' onClick={()=>{handleAddComment()}}>send</Button>
         </div>
       </div>
   )

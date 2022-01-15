@@ -18,6 +18,7 @@ const fwverifyRoute     = require('./routes/fwVerify');
 const emailRoute        = require('./routes/email/email');
 const productlikeRoute  = require('./routes/productlikers');
 const subscribeRoute    = require('./routes/subscribers');
+const commentsRoute     = require('./routes/comments');
 
 dotenv.config();
 //MiddleWare
@@ -45,6 +46,7 @@ app.use('/api/verifypayment',fwverifyRoute);
 app.use('/api/email',emailRoute);
 app.use('/api/productlikes',productlikeRoute);
 app.use('/api/subscribe',subscribeRoute);
+app.use('/api/comments',commentsRoute);
 
 //Home Routes
  app.get('/',(req,res)=>{

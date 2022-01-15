@@ -8,11 +8,11 @@ import {Button} from '@mui/material';
 const Orders = ({orders}) => {
   const classes =useStyles();
   const user =localStorage.getItem('user');
-  const [openComments,setOpenComments]=useState(true);
+  const [openComments,setOpenComments]=useState(false);
   const [order,setOrder]=useState([]);
 
   const handleonReviewClick =(order)=>{
-       setOrder.apply(order)
+       setOrder(order)
         setOpenComments(!openComments);
   }
   const EmptyOrder = ()=>(

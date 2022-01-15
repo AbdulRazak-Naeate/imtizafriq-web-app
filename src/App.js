@@ -332,9 +332,6 @@ const analytics = getAnalytics(app);
     })
 }
 
-
-  
-
   const addtoCart =(product,quantity)=>{
     
     const url = 'http://localhost:3001/api/carts';
