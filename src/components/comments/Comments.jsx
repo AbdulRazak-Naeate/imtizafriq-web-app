@@ -63,10 +63,10 @@ const blue = {
     
 const Comments = ({order}) => {
    const classes=useStyles();
-   const user =localStorage.getItem('user');
+   const user =JSON.parse(localStorage.getItem('user'));
    const [commentText,setCommentText]=React.useState('');
 
-   const [comments,setComments]=React.useState([{user:'Munin',text:'  Its a  nice product i like it  and also recommend it to everyone ',date:'2020/06/04 12:00'},{user:'Abdul',text:'  Its a  nice product i like it  and also recommend it to everyone ',date:'2020/07/04 12:00'},{user:'Hassan',text:'  Its good I like it',date:'2020/01/04 07:23'}]);
+   const [comments,setComments]=React.useState([]);
     
    const handleonInputChange=(value)=>{
     setCommentText(value);
@@ -80,8 +80,9 @@ const Comments = ({order}) => {
    }
 
    const addComment = async ()=>{
+     console.log(user)
      const url=`http://localhost:3001/api/comments/`;
-        axios.post(url,{productid:order.productId,storeid:order.storeId,text:commentText,username:'username'});
+        axios.post(url,{productid:order.productId,storeid:order.storeId,text:commentText,username:user.username});
    }
    
    React.useEffect(()=>{
