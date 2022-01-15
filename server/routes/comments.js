@@ -17,7 +17,6 @@ router.get('/',async(req,res)=>{
 //post new Comment
 
 router.post('/', async (req,res)=>{
-    console.log(req.body)
     try{
         const comments = new Comments({username:req.body.username,text:req.body.text,productid:req.body.productid,storeid:req.body.storeid});
         const savedComments = await comments.save();

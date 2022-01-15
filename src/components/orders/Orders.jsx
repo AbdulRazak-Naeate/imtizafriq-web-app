@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import useStyles from'./styles';
-import {Container, Grid,Typography } from '@material-ui/core';
+import {Container, Grid,Typography,Card,CardMedia } from '@material-ui/core';
 import OrderItem from './order/orderItem';
 import {Link} from 'react-router-dom';
 import Comments from '../comments/Comments';
@@ -22,7 +22,11 @@ const Orders = ({orders}) => {
 );
 
 const CommentsContainer = ({order})=>(
- <> <div className={classes.commentsTitle}>
+ <> <Card className={classes.ordercard}>
+      <CardMedia className={classes.media} image={`http://localhost:3001/server/uploads/products/${order.filename}`}></CardMedia>
+    </Card>
+    <div className={classes.commentsTitle}>
+    
    <Typography variant="h5">Comments and Review
   </Typography>
   <Button   size='small' color='primary' variant='text' onClick={()=>{setOpenComments(!openComments)}}>Done</Button>

@@ -13,6 +13,7 @@ export default makeStyles(()=>({
       width:'100%',
       border:'0px solid'
     },
+  
     media:{
         height:180,
         width:'28%',        
@@ -64,7 +65,7 @@ export default makeStyles(()=>({
       backgroundColor:' #fff0f1',
       color:'#d95087',
       textAlign:'center',
-      width:'20%',
+      width:'24%',
       margin:'2px 0px',
       cursor:'pointer'
 

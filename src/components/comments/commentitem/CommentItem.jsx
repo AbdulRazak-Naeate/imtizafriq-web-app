@@ -8,8 +8,8 @@ const CommentItem = ({comment}) => {
     <div className={classes.commentItem}>
     <div className={classes.commentsItemPrimary}>
     <div className={classes.userContainer}>
-         <PersonOutline/>
-         <Typography variant='body2'>{comment.username}</Typography>
+        <div className={classes.iconContainer}> <PersonOutline  /></div> 
+         <Typography className={classes.username} variant='body2' >{comment.username}</Typography>
      </div>
     <Typography className={classes.text} variant='body2'>
       {comment.text}

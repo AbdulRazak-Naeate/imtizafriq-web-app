@@ -57,7 +57,7 @@ const blue = {
   
   const CustomInput = React.forwardRef(function CustomInput(props, ref) {
     return (
-      <InputUnstyled  components={{ Input: StyledInputElement }} {...props} ref={ref} onChange={(e)=>{props.handleonInputChange(e.target.value)}}/>
+      <InputUnstyled  components={{ Input: StyledInputElement }} {...props} ref={ref} value={props.commentText} onChange={(e)=>{props.handleonInputChange(e.target.value)}}/>
     );
   });
     
@@ -71,18 +71,20 @@ const Comments = ({order}) => {
    const handleonInputChange=(value)=>{
     setCommentText(value);
   }
+ 
    const handleAddComment = async ()=>{
           addComment().then((response)=>{
+             console.log(response)
             if (response.status===200){
-              setComments([...comments,response.data.comment])
+              setComments([...comments,response.data.comment]);
+              setCommentText('');
             }
           })
    }
 
    const addComment = async ()=>{
-     console.log(user)
      const url=`http://localhost:3001/api/comments/`;
-        axios.post(url,{productid:order.productId,storeid:order.storeId,text:commentText,username:user.username});
+      return  axios.post(url,{productid:order.productId,storeid:order.storeId,text:commentText,username:user.username});
    }
    
    React.useEffect(()=>{
@@ -90,7 +92,6 @@ const Comments = ({order}) => {
      const handlegetComments = async() =>{
          loadCommentsFromServer().then((response)=>{
            if(response.status===200){
-             console.log(response)
              setComments(response.data.comments)
            }
          })
@@ -114,7 +115,7 @@ const Comments = ({order}) => {
          }
         </div>
         <div className={classes.inputactions}>
-        <CustomInput className={classes.textinput} aria-label="comment input" placeholder="type in to review product" handleonInputChange={handleonInputChange} />
+        <CustomInput className={classes.textinput} aria-label="comment input" placeholder="type in to review and add feed back" commentText={commentText} handleonInputChange={handleonInputChange} />
         <Button   size='small' color='primary' variant='text' onClick={()=>{handleAddComment()}}>send</Button>
         </div>
       </div>
