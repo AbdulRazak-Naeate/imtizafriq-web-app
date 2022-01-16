@@ -22,14 +22,16 @@ const Orders = ({orders}) => {
 );
 
 const CommentsContainer = ({order})=>(
- <> <Card className={classes.ordercard}>
+ <> <div style={{display:'flex',flexDirection:'space-between', alignItems:'baseline'}}>
+   <Card className={classes.ordercard}>
       <CardMedia className={classes.media} image={`http://localhost:3001/server/uploads/products/${order.filename}`}></CardMedia>
-    </Card>
+    </Card> <Button   size='small' color='primary' variant='text' onClick={()=>{setOpenComments(!openComments)}}>Done</Button>
+ </div>
     <div className={classes.commentsTitle}>
     
    <Typography variant="h5">Comments and Review
   </Typography>
-  <Button   size='small' color='primary' variant='text' onClick={()=>{setOpenComments(!openComments)}}>Done</Button>
+ 
  </div>
   <Comments order={order}/></> 
 );

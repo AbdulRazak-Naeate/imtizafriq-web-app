@@ -25,8 +25,8 @@ const Product = ({product,onAddToCart,onUpdateLikes,favorites}) => {
         },
   });  
  
-    const handleProductOnClick=(productid)=>{
-       history.push(`/proceedcheckout?productId=${productid}`)
+    const handleProductOnClick=(productid,storeid)=>{
+       history.push(`/proceedcheckout?storeId=${storeid}&productId=${productid}`)
     }
       useEffect(() => {
            if (favorites.includes(product._id,0)){
@@ -42,8 +42,8 @@ const Product = ({product,onAddToCart,onUpdateLikes,favorites}) => {
     <Card className={classes.root} >
            <Typography variant="h6" className={classes.price}>
                         {`$${product.price}`}
-                    </Typography>  
-                     <CardMedia className={classes.media}  image={`http://localhost:3001/server/uploads/products/${product.image[0].filename}`} title={product.name} onClick={()=>{handleProductOnClick(product._id)}}/>
+            </Typography>  
+           <CardMedia className={classes.media}  image={`http://localhost:3001/server/uploads/products/${product.image[0].filename}`} title={product.name} onClick={()=>{handleProductOnClick(product._id,product.storeId)}}/>
             
               <CardContent className={classes.cardContent}>
                   <div className={classes.cardContentSub}>

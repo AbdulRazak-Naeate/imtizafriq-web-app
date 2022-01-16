@@ -9,6 +9,7 @@ export default makeStyles((theme) => ({
       height:'auto',
        marginTop:'40px',
        display:'flex',
+       flexDirection:'column',
        justifyContent:'space-between',
        alignItems:'start',
        [theme.breakpoints.down(620)]:{
@@ -26,6 +27,29 @@ export default makeStyles((theme) => ({
 
      }
    },
+   commentListContainer:{
+     margin:'2% 20%',
+     border:'0px solid',
+     [theme.breakpoints.down(620)]:{
+      margin:'0%',
+     },
+   },
+   commentList:{
+    display:'flex',
+    flexDirection:'column',
+    marginTop:20,
+    marginBottom:20,
+    backgroundColor:'whitesmoke',
+    padding:'5px 5px',
+    borderRadius:'4px',
+    border:'0px solid',
+    width:'84%',
+    [theme.breakpoints.down(620)]:{
+      width:'100%',
+     },
+
+    
+  }
    
   
 }))

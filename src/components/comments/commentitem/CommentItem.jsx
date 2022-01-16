@@ -16,7 +16,7 @@ const CommentItem = ({comment}) => {
     </Typography>
     </div>
    <div className={classes.commentsItemSecondary}>
-   <Typography variant='body2' style={{fontSize:'10px',color:'darkgray'}}>{comment.date}</Typography>
+   <Typography variant='body2' style={{fontSize:'10px',color:'darkgray'}}>{new Date(comment.date).toUTCString()}</Typography>
    </div>
  </div>
   )
