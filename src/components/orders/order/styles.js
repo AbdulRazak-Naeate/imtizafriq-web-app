@@ -62,10 +62,12 @@ export default makeStyles(()=>({
     },
     feedback:{
       border:'1px solid',
-      backgroundColor:' #fff0f1',
-      color:'#d95087',
+     /*  backgroundColor:'#fff0f1',
+      color:'#d95087', */
+      backgroundColor:'#ebf1fe',
+      color:'#2a7ade',
       textAlign:'center',
-      width:'24%',
+      width:'25%',
       margin:'2px 0px',
       cursor:'pointer'
 
@@ -99,7 +101,7 @@ export default makeStyles(()=>({
 
   },
   pending:{
-    backgroundColor:' #ebf1fe',
+    backgroundColor:'#ebf1fe',
     color:'#2a7ade',
     textAlign:'center',
 

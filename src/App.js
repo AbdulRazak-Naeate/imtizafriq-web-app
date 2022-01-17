@@ -117,6 +117,8 @@ const analytics = getAnalytics(app);
       }else if (value===1){
         history.push('/cart')
       }else if (value===2){
+        history.push('/orders')
+      }else if (value===3){
         if (localStorage.getItem('loggedin')==="true"){
         history.push('/account') 
         }else{
@@ -719,7 +721,7 @@ const searchProduct =(searchString)=>{
          </Route>
        </Switch>
        <Route exact path={paths}>
-       <BottomNav onBottomNavChange={handleOnchange}  totalItems={itemsCount} tapPosition={tapPosition}/>
+       <BottomNav onBottomNavChange={handleOnchange}  totalItems={itemsCount} orderItems={orderCount}/>
          </Route>
          <Route exact path={['/']}>
            <Footer/>

@@ -29,7 +29,6 @@ const Account = () => {
   const[city,setCity]=useState(address.city!== 'null'? address.city :'');
   const[street,setStreet]=useState(address.street!== 'null'? address.street :'');
   const[aprt_suit_num,setApt_suit_num]=useState(address.aprt_suit_num!== 'null'? address.aprt_suit_num :'');
-  const[confirmed,setConfirmed]=useState(user.confirmed)
   const[image,setImage]=useState(null)
   const [imagename,setImageName]=useState(null);
   const[onuserUpdated,setonuserUpdated]=useState(false);
@@ -162,7 +161,7 @@ return patch(url, body,config)
     <div className={classes.root}>
       <form  className="userUpdateForm" onSubmit={handleUpdate}>
 
-      <Grid container justifyContent='space-around' spacing={2}> 
+      <Grid container justifyContent='space-around' spacing={1}> 
 
         <Grid item={true} xs={11} sm={4} md={4} lg={4}>
                 <div className="userShow">

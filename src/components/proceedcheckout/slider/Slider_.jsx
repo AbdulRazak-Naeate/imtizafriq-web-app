@@ -1,5 +1,6 @@
-import React,{useState} from 'react'
+import React from 'react'
 import 'react-alice-carousel/lib/alice-carousel.css';
+import './styles.css';
 import Slider from "react-slick";
 
 import useStyles from './styles'
@@ -10,7 +11,8 @@ const Slider_ = ({images}) => {
     infinite: true,
     speed: 500,
     slidesToShow: 1,
-    slidesToScroll: 1
+    slidesToScroll: 1,
+    variableWidth: true
   };
   
 
@@ -31,7 +33,7 @@ const Dslider = ({images})=>{
 )}
     return (
     <div className={classes.slider}>
-      {images.length>0 ?<Dslider images={images}/>:''}
+      {images.length>0 ?<Dslider  style={{width:'100%',border:'1px solid red'}} images={images}/>:''}
     </div>
   )
 }

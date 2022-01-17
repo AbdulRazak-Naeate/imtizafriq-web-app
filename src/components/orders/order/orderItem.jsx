@@ -63,7 +63,7 @@ const truncateString=(str, num) => {
                   </div>
                    </div>
                    </div>   
-                      <Typography variant='body2' className={classes.feedback} onClick={()=>{onReviewClick(order)}}>feedback</Typography>
+                     { order.status==='Completed'? <Typography variant='body2' className={classes.feedback} onClick={()=>{onReviewClick(order)}}>feedback</Typography>:''}
 
                 </CardContent>
 

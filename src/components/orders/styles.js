@@ -1,13 +1,11 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
-  toolbar: theme.mixins.toolbar,
   root: {
     marginTop:10,
     padding:'0% 25%',
-    flexGrow: 1,
     [theme.breakpoints.down(620)]:{
-      padding:'0px',
+      padding:'1%',
     },
   },
   title: {
@@ -19,7 +17,7 @@ export default makeStyles((theme) => ({
   commentsTitle:{
     display:'flex',
     justifyContent:'space-between',
-    padding:'3px 5px',
+   
   }, 
    ordercard:{
       border:'0px solid',

@@ -5,7 +5,7 @@ export default  makeStyles((theme)=>({
        justifyContent:'flex-start',
         alignItems:'start' ,
         [theme.breakpoints.down(620)]:{
-            padding:'20px',
+            padding:'4px',
            },
     },
     card:{

@@ -11,6 +11,10 @@ import { makeStyles } from '@material-ui/core/styles';
       marginBottom:'20px',
       backgroundColor:'whitesmoke',
       padding:'5px 5px',
+      [theme.breakpoints.down(620)]:{
+        padding:'0px',
+        margin:'0px',
+    },
       borderRadius:'4px'
       
     },commentItem:{
@@ -20,6 +24,10 @@ import { makeStyles } from '@material-ui/core/styles';
         backgroundColor:'snow',
         padding:'2px 3px',
         margin:'2px 3px',
+        [theme.breakpoints.down(620)]:{
+            padding:'0px',
+            margin:'0px',
+        }
         
     },
     commentsItemPrimary:{

@@ -11,6 +11,7 @@ const Footer = () => {
         e.preventDefault();
        var url =`http://localhost:3001/api/subscribe/${email}`;
           axios.post(url).then((response)=>{
+             setEmail('');
           console.log(response)
      })
   }
@@ -26,7 +27,7 @@ const Footer = () => {
                 </p>
                 <div className='input-areas'>
                     <form onSubmit={handleSubscription} >
-                        <input  type='email' name='email' placeholder='Your Email'
+                        <input  type='email' name='email' placeholder='Your Email' value={email}
                         className='footer-input' onChange={(e)=>{setEmail(e.target.value)}}/>
                             <Button type="submit" buttonStyle='btn--outline' >Subscribe</Button>
                      

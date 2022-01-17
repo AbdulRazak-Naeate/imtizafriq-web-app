@@ -12,6 +12,7 @@ const Product = ({product,onAddToCart,onUpdateLikes,favorites}) => {
     const classes=useStyles();
     const history=useHistory();
     const[like,setLike]=useState(false);
+    const loggedin =localStorage.getItem('loggedin');
     const theme = createTheme({
       palette: {
         primary:{
@@ -24,6 +25,16 @@ const Product = ({product,onAddToCart,onUpdateLikes,favorites}) => {
           }
         },
   });  
+
+  const handleAddtoFavorites =(product)=>{
+    if (loggedin==='true'){
+      
+    setLike(!like);
+    onUpdateLikes(product._id,product.storeId);
+    }else{
+      alert('LogIn to add to favorites');
+    }
+  }
  
     const handleProductOnClick=(productid,storeid)=>{
        history.push(`/proceedcheckout?storeId=${storeid}&productId=${productid}`)
@@ -60,7 +71,7 @@ const Product = ({product,onAddToCart,onUpdateLikes,favorites}) => {
               </CardContent>
               <CardActions disableSpacing className={classes.cardActions}>
               <IconButton aria-label="Add to Favourite">
-                   { like ===true ?  <Favorite className={classes.icon} onClick={()=>{ setLike(!like);onUpdateLikes(product._id,product.storeId)}}/>: <FavoriteBorderOutlined className={classes.icon} onClick={()=>{ setLike(!like);onUpdateLikes(product._id,product.storeId)}}/> }
+                   { like ===true ?  <Favorite className={classes.icon} onClick={()=>{ handleAddtoFavorites(product)}}/>: <FavoriteBorderOutlined className={classes.icon} onClick={()=>{ handleAddtoFavorites(product)}}/> }
                   </IconButton>
 
                   <IconButton aria-label="Add to Cart">
