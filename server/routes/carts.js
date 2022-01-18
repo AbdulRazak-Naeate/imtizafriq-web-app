@@ -297,7 +297,32 @@ router.patch('/specs/measurement',async (req,res)=>{
 
 });
 
+//update cart set tempid to permanentid
+router.patch('/updateuserid/:tempuserId',async (req,res)=>{
 
+    try{
+       
+        Cart.findOneAndUpdate({userId:req.params.tempuserId
+                },
+            {
+                $set: {
+                      userId:req.body.userId,
+                      }
+            },   
+            { new:true,useFindAndModify:false}).then(ret=>{
+            
+            res.json(ret);
+              
+        });
+        
+           
+
+     
+    }catch(err){
+        console.log(err);
+    }
+
+});
 //empty user Cart
 router.patch('/:userId', async (req,res)=>{
 

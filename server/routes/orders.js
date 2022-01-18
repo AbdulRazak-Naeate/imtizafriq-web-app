@@ -198,6 +198,28 @@ router.patch('/many/:ids',async (req,res)=> {
     }
  });
 
+ 
+//update order with temp id to permanent id for user whol already made order without signed in but currently doing
+router.patch('/updateuserid/:tempuserId',async (req,res)=> {
+  try{
+       var oId= new mongoose.Types.ObjectId(req.params.orderId);
+
+          await Order.findOneAndUpdate(
+          {userId: req.params.tempuserId},
+          {
+           $set:{userId:req.body.userId},
+          },
+          {new:true,useFindAndModify:false}
+          ).then(ret=>{
+              res.json(ret);
+          });
+        
+  }catch(err){
+      res.json({message:err});
+  }
+});
+
+
  /* router.delete('/delete/expiredorders', async (req,res)=>{
   try{
       var currentDate= new Date()

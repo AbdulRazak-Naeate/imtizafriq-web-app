@@ -73,7 +73,6 @@ const Product = ({product,onAddToCart,onUpdateLikes,favorites}) => {
               <IconButton aria-label="Add to Favourite">
                    { like ===true ?  <Favorite className={classes.icon} onClick={()=>{ handleAddtoFavorites(product)}}/>: <FavoriteBorderOutlined className={classes.icon} onClick={()=>{ handleAddtoFavorites(product)}}/> }
                   </IconButton>
-
                   <IconButton aria-label="Add to Cart">
                     <AddShoppingCart  onClick=
                   {()=>{onAddToCart(product,1)}}className={classes.icon}/>  

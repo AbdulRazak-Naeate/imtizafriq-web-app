@@ -1,9 +1,8 @@
-import './login.css'
+import './signin.css'
 import axios from 'axios';
 import {useState} from'react';
 import { Link,useHistory } from 'react-router-dom';
 import {Typography,Button}  from '@mui/material';
-import {post} from 'axios';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
 function Signin({handleCloseModal,handleSwitchForm}) {
@@ -67,7 +66,7 @@ function Signin({handleCloseModal,handleSwitchForm}) {
             let fullname=user.displayName;
             const nameArr=fullname.split(" ");
             console.log(nameArr)
-           return post(url,  {
+           return axios.post(url,  {
               username:nameArr[0],
               firstname:nameArr[0],
               lastname:nameArr[1],
@@ -108,7 +107,18 @@ function Signin({handleCloseModal,handleSwitchForm}) {
               localStorage.setItem('_id', user._id);
               localStorage.setItem('user', JSON.stringify(user));
               localStorage.setItem('loggedin',true);
-
+              var tempid=localStorage.getItem('temp_id');
+               console.log("tempid "+user._id)
+               if (tempid!==""){
+                var url=`http://localhost:3001/api/carts/updateuserid/${tempid}`
+                 axios.patch(url,{userId:user._id}).then((response)=>{
+                   console.log(response)
+                 })
+                 var orderurl=`http://localhost:3001/api/orders/updateuserid/${tempid}`
+                 axios.patch(orderurl,{userId:user._id}).then((response)=>{
+                   console.log(response)
+                 })
+              }
              // localStorage.setItem('auth-token',response.headers)
       
               //console.log(response.headers[2]);
