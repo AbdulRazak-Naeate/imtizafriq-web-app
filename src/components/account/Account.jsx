@@ -1,11 +1,9 @@
 import React from 'react'
-import { CalendarToday, LocationSearching, MailOutline, PermIdentity, PhoneAndroid, Publish,Done, SettingsBackupRestoreTwoTone } from '@material-ui/icons';
-import CheckIcon from '@mui/icons-material/Check';
-
+import { CalendarToday, LocationSearching, MailOutline, PermIdentity, PhoneAndroid, Publish } from '@material-ui/icons';
 import {Button,Grid} from '@mui/material';
 import './user.css'
 import {useState} from 'react';
-import {Link,useHistory} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import QueryParams from '../../QueryParams';
 import {post,patch}from 'axios';
 import Alert from 'react-s-alert';
@@ -159,11 +157,13 @@ return patch(url, body,config)
 };
   return (
     <div className={classes.root}>
+                    <Alert stack={{limit: 3}} />
+
       <form  className="userUpdateForm" onSubmit={handleUpdate}>
 
-      <Grid container justifyContent='space-around' spacing={1}> 
+      <Grid container justifyContent='space-around' spacing={0}> 
 
-        <Grid item={true} xs={11} sm={4} md={4} lg={4}>
+        <Grid item={true} xs={12} sm={4} md={4} lg={4}>
                 <div className="userShow">
                     <div className="userShowTop">
                         <img src={`http://localhost:3001/server/uploads/users/${user.image[0].filename}`}  id="avatar"  onError={imgonLoadError} alt="" className="userShowImg" />
