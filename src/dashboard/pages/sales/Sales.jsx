@@ -3,20 +3,21 @@ import React from 'react';
 import './sales.css';
 import {DataGrid} from '@material-ui/data-grid';
 import { Stack } from '@mui/material';
-import { DeleteOutline,List, Add, Edit,Business } from '@material-ui/icons';
-import { Link ,useHistory} from 'react-router-dom';
+import {  Edit } from '@material-ui/icons';
+import { Link} from 'react-router-dom';
 import {useState , useEffect} from "react";
 import AlertDialog from '../../components/alertdialog/AlertDialog'
-import axios ,{patch} from 'axios';
+import {patch} from 'axios';
 import QueryParams from '../../QueryParams';
 
-const Sales = () => {
+const Sales = ({stores}) => {
   const query=QueryParams();
   const [transactions,setTransactions]=useState([]);
   const [pageSize, setPageSize] = useState(20);
   const [user]=useState(localStorage.getItem('user'));
-  const [stores]=useState(JSON.parse(localStorage.getItem('stores')));
-  const [storeid,setStoreId]=useState(stores[0]._id);
+ // const [stores]=useState(JSON.parse(localStorage.getItem('stores')));
+   const [storeid,setStoreId]=useState('');
+
   const [selectedRows,setSelectedRows]=useState([]);
   const [selected_Ids,setSelected_Id]=useState([]);
   const [selectionModel,setSelectionModel]=useState([])
@@ -24,7 +25,6 @@ const Sales = () => {
   const [open,setOpen]=useState(false);
   const [orderid,setOrderId]=useState('');
 
-  
    // const history=useHistory();
      
 
@@ -116,7 +116,8 @@ return patch(url, body,config)
    
   useEffect(() => {  
 
-  
+    stores.length >0 ? setStoreId(stores[0]._id):setStoreId('')
+
     const fetchOrders = async () => {//get Orders 
   
      try {
@@ -148,7 +149,7 @@ return patch(url, body,config)
      console.log({message:error})
    }
   };
-  getOrders()
+ if (storeid!== '')  getOrders() 
   },[storeid,stores]);
   
 

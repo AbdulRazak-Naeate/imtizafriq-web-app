@@ -73,7 +73,7 @@ const loginValidation = data =>{
       email:Joi.string().min(6).required().email(),
       description:Joi.string().min(10).required(), 
       userId:Joi.string().min(20).required(),
-      storeCategoryId:Joi.string().min(4).required(),
+      categoryId:Joi.string().min(4).required(),
       validStatus:Joi.string().min(5).required(),
       currency:Joi.string().required(),
       ghPostGPS:Joi.string(),

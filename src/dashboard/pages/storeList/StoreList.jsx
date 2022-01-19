@@ -2,14 +2,12 @@ import './storeList.css';
 import {DataGrid} from '@material-ui/data-grid'
 import { DeleteOutline,List, Add, Edit,Business } from '@material-ui/icons';
 import { Link ,useHistory} from 'react-router-dom';
-import {useState , useEffect} from "react";
+import {useState} from "react";
 import {Tooltip} from '@material-ui/core';
 import AlertDialog from '../../components/alertdialog/AlertDialog'
-import axios from 'axios';
 
-export default function StoreList() {
+export default function StoreList({stores,onDeleteStore}) {
 
-    const [stores, setStores] = useState([]);
     const [storeid,setStoreid]=useState(['']);
     const [open,setOpen]=useState(false);
     
@@ -22,51 +20,10 @@ export default function StoreList() {
     const handleClose = (option) => {
       
       setOpen(false);
-       if (option===true) {deleteStore(storeid)}
+       if (option===true) {onDeleteStore(storeid)}
       console.log(option)
     };
-    async function deleteStore(_id) {
-      try {
-        const response = await axios.delete(`http://localhost:3001/api/stores/${_id}`);
-        console.log(response);
-        if (response.data.deletedCount>=1){
-        setStores(stores.filter((item) => item._id !==_id))
-
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  useEffect(() => {
-      const user = JSON.parse(localStorage.getItem('user'));
-
-  const fetchStores = async () => {//get User Stores 
-   try {
-    const res = await fetch(`http://localhost:3001/api/stores/user/${user._id}`);
-    const data = await res.json();
-    return data.store;
-   } catch (error) {
-     console.log({fetch_store_message:error})
-   }
-  }
-    const getStores = async () => {
-     try {
-      const storesFromserver = await fetchStores();
-      let tmp =[];
-      for(let i=0;i<storesFromserver.length;i++){
-        tmp.push(storesFromserver[i]);
-        
-      }
-      setStores(tmp);
-      localStorage.setItem('stores',JSON.stringify(tmp));
-     } catch (error) {
-       console.log({message:error})
-     }
-    };
    
-    getStores();
-
-  },[]);
   const handleNewproduct=(params)=>{
     history.push(`/dashboard/newProduct?storeId=${params.row._id}&storeName=${params.row.name}&categoryId=${params.row.categoryId}`);
   }
@@ -119,7 +76,10 @@ export default function StoreList() {
           }, {
             field: 'date',
             headerName: 'Date',
-            width: 140,
+            renderCell:(params)=>{
+                  return(new Date(params.row.date).toDateString())
+            },
+            width: 150,
           },
           {
             field: 'validStatus',
@@ -135,7 +95,7 @@ export default function StoreList() {
         {
             field:"action",
             headerName:"Action",
-            width:120,
+            width:140,
             renderCell: (params)=>{
                 return(
                   <div>

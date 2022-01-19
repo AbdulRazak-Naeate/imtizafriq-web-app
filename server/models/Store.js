@@ -45,7 +45,7 @@ const mongoose = require('mongoose');
         required:false,
     },
     date:{
-        type:String,
+        type:Date,
         default:Date.now()
     },
     currency:{

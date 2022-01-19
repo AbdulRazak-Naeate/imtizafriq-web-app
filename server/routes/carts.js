@@ -184,7 +184,6 @@ router.patch('/quantity/:productId',async (req,res)=>{
 router.patch('/item/selection',async (req,res)=>{
 
     try{
-        var pId =req.body.productId;
         var value=  req.body.selected;
      
             Cart.findOneAndUpdate({userId:req.body.userId,
@@ -198,7 +197,7 @@ router.patch('/item/selection',async (req,res)=>{
                           }
                 },   
                 { new:true,useFindAndModify:false}).then(ret=>{
-                
+                  console.log(ret)
                   updateSubtotal(req,res)
                   
             });

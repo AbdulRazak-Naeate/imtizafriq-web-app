@@ -46,8 +46,17 @@ const Transactions = () => {
      }
      const handleClickOpen = (row) => {
            setOrderId(row._id);
-       row.status==="Pending" ? setStatus('Approved') :setStatus('');
-       row.status!=="Approved" ? setOpen(true):setOpen(false);
+           switch (row.status) {
+             case 'Pending':
+              setStatus('Processing') 
+               break;
+               case 'Processing':
+                setStatus('Completed') 
+                 break;
+             default:
+               break;
+           }
+       row.status!=="Completed" ? setOpen(true):setOpen(false);
        
 
       };

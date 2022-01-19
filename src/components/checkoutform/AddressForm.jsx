@@ -9,12 +9,10 @@ var loki = require('lokijs');
 
 
 const AddressForm = ({checkoutToken,next}) => {
-    const methods=useForm();
     const {register,
       handleSubmit,
       formState: { errors },
     } = useForm();
-
     const [countries,setCountries]=useState([]);
     const [country,setCountry]=useState(0);
     const [countrylabel,setCountryLabel]=useState('');

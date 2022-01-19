@@ -5,7 +5,8 @@ export default makeStyles(()=>({
       display:'flex',
       flexDirection:'row',
       maxWidth:'100%',
-      height:'180px'
+      height:'180px',
+      marginTop:10
     
     },
     title:{

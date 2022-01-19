@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import React from 'react';
 import { Sidebar } from "./components/sidebar/Sidebar";
 import { Topbar } from "./components/topbar/Topbar";
@@ -20,8 +20,10 @@ import Transactions from "./pages/transactions/Transactions";
 import Sales from './pages/sales/Sales';
 import LogIn from "./pages/login/LogIn";
 import SignUp from "./pages/signup/SignUp";
+import axios from 'axios';
  function Dashboard() {
  const [showSidebar,setShowSideBar]=useState(true);
+ const [stores, setStores] = useState([]);
 
  const handletoggleSideBar=(bol)=>{
    setShowSideBar(bol);
@@ -43,6 +45,49 @@ import SignUp from "./pages/signup/SignUp";
     '/dashboard/newProduct',
     '/dashboard/transactions',
     '/dashboard/sales',]
+
+    async function deleteStore(_id) {
+      try {
+        const response = await axios.delete(`http://localhost:3001/api/stores/${_id}`);
+        console.log(response);
+        if (response.data.deletedCount>=1){
+        setStores(stores.filter((item) => item._id !==_id))
+
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    useEffect(() => {
+      const user = JSON.parse(localStorage.getItem('user'));
+
+  const fetchStores = async () => {//get User Stores 
+   try {
+    const res = await fetch(`http://localhost:3001/api/stores/user/${user._id}`);
+    const data = await res.json();
+    return data.store;
+   } catch (error) {
+     console.log({fetch_store_message:error})
+   }
+  }
+    const getStores = async () => {
+     try {
+      const storesFromserver = await fetchStores();
+      let tmp =[];
+      for(let i=0;i<storesFromserver.length;i++){
+        tmp.push(storesFromserver[i]);
+        
+      }
+      setStores(tmp);
+      localStorage.setItem('stores',JSON.stringify(tmp));
+     } catch (error) {
+       console.log({message:error})
+     }
+    };
+   
+    getStores();
+
+  },[]);
   return (
     <Router>
     <Route exact path={paths}>
@@ -79,7 +124,7 @@ import SignUp from "./pages/signup/SignUp";
          </Route>
 
        <Route path="/dashboard/stores">
-        <StoreList/>
+        <StoreList stores={stores} onDeleteStore={deleteStore}/>
        </Route>
        <Route path="/dashboard/store/:storeId">
        
@@ -104,7 +149,7 @@ import SignUp from "./pages/signup/SignUp";
         <Transactions/>
        </Route>
        <Route path="/dashboard/sales">
-        <Sales/>
+        <Sales stores={stores}/>
        </Route>
        <Route path="/dashboard/login" >
          <LogIn toggleSideBar={handletoggleSideBar}/>

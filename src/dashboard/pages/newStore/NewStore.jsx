@@ -183,7 +183,7 @@ export default function NewStore() {
                 </div>
                <div className="newStoreUpload">
                             <img src={thumbnail} alt="" className="newStoreUploadImg"  id="storeimg"/>
-                            <label htmlFor="file"> <Publish className="newStoreUploadIcon"/>Click to upload store logo</label>
+                            <label htmlFor="file"> <Publish className="newStoreUploadIcon"/>{/* Click to upload store logo */}</label>
                                 <input type="file" id="file" style={{display:"none"}}  onChange={onFileChange}/>
                        </div>
                      <div className="newStoreFormItem">

@@ -202,8 +202,6 @@ router.patch('/many/:ids',async (req,res)=> {
 //update order with temp id to permanent id for user whol already made order without signed in but currently doing
 router.patch('/updateuserid/:tempuserId',async (req,res)=> {
   try{
-       var oId= new mongoose.Types.ObjectId(req.params.orderId);
-
           await Order.findOneAndUpdate(
           {userId: req.params.tempuserId},
           {

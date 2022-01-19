@@ -28,10 +28,8 @@ router.post('/',uploadImage('./server/uploads/stores'),verify,async(req,res)=>{
     //check if store already exist
     const storeExist = await Store.findOne({name:req.body.name});
     if (storeExist) return res.json({message:"Store name already exist"}).status(402).send("Store name already taken");
-    
-    console.log(req.files);
-    const userId=req.user._id
-    //res.send(req.user._id);
+    console.log("catId "+req.body.categoryId);
+    //console.log(req.files);
     const store = new Store({
         name:req.body.name,
         userId:req.body.userId,
@@ -42,7 +40,7 @@ router.post('/',uploadImage('./server/uploads/stores'),verify,async(req,res)=>{
         email:req.body.email,
         description:req.body.description,
         image:req.files,
-        categoryId:req.body.categoryId,
+        storeCategoryId:req.body.categoryId,
         ghPostGPS:req.body.ghPostGPS,
         validStatus:req.body.validStatus,
         currency:req.body.currency

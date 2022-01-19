@@ -1,7 +1,8 @@
+/* eslint-disable no-unused-vars */
 import './signin.css'
 import axios from 'axios';
 import {useState} from'react';
-import { Link,useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import {Typography,Button}  from '@mui/material';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
@@ -24,12 +25,7 @@ function Signin({handleCloseModal,handleSwitchForm}) {
               const token = credential.accessToken;
               // The signed-in user info.
               const user = result.user;
-             /*  amplify.store("imtizafriq_user_id",user.uid);
-              amplify.store("imtizafriq_user_name",user.displayName);
-              amplify.store("imtizafriq_user_fullname",user.displayName);
-              amplify.store("imtizafriq_user_email",user.email);
-              amplify.store("imtizafriq_user_phone",user.phoneNumber);
-              amplify.store("imtizafriq_loggedin","true"); */
+           
               SignUp(user).then((response) => {
   
                 console.log(response.data);
@@ -40,7 +36,8 @@ function Signin({handleCloseModal,handleSwitchForm}) {
                 localStorage.setItem('loggedin', true);
         
                 //localStorage.setItem('auth-token',response.headers)
-          
+                replacePermanentId(user);
+
                 console.log(response.headers);
                 handleCloseModal();
                 //history.replace("/account");
@@ -107,18 +104,8 @@ function Signin({handleCloseModal,handleSwitchForm}) {
               localStorage.setItem('_id', user._id);
               localStorage.setItem('user', JSON.stringify(user));
               localStorage.setItem('loggedin',true);
-              var tempid=localStorage.getItem('temp_id');
-               console.log("tempid "+user._id)
-               if (tempid!==""){
-                var url=`http://localhost:3001/api/carts/updateuserid/${tempid}`
-                 axios.patch(url,{userId:user._id}).then((response)=>{
-                   console.log(response)
-                 })
-                 var orderurl=`http://localhost:3001/api/orders/updateuserid/${tempid}`
-                 axios.patch(orderurl,{userId:user._id}).then((response)=>{
-                   console.log(response)
-                 })
-              }
+              
+              replacePermanentId(user);
              // localStorage.setItem('auth-token',response.headers)
       
               //console.log(response.headers[2]);
@@ -143,7 +130,20 @@ function Signin({handleCloseModal,handleSwitchForm}) {
          });
           
          };
-
+       const replacePermanentId= (user)=>{
+        var tempid=localStorage.getItem('temp_id');
+        console.log("tempid " + user._id)
+        if (tempid!==""){
+         var url=`http://localhost:3001/api/carts/updateuserid/${tempid}`
+          axios.patch(url,{userId:user._id}).then((response)=>{
+            console.log(response)
+          })
+          var orderurl=`http://localhost:3001/api/orders/updateuserid/${tempid}`
+          axios.patch(orderurl,{userId:user._id}).then((response)=>{
+            console.log(response)
+          })
+       }
+       }
         
   return (
     <div className="loginContainer">
