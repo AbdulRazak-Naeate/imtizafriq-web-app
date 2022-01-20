@@ -7,7 +7,7 @@ import {Link } from 'react-router-dom';
 import { formatWithCurrencySymbol, truncateString } from '../../../utils/Utils';
 
 
-const ProductDetails = () => {
+const ProductDetails = ({product ,handleMakeOrder}) => {
     const classes =useStyles();
 
   return (
@@ -17,12 +17,12 @@ const ProductDetails = () => {
          <div className={classes.contentSub}>
         <div className={classes.priceWrapper}>
         <Typography variant="h4" className={classes.price}>
-              {formatWithCurrencySymbol('150','GHS')}
+              {formatWithCurrencySymbol(product.price,'GHS')}
           </Typography>
         </div>
          
          <Typography variant="h5">
-             PrefareStyle-009573
+             {product.name}
           </Typography>
          
           <Typography variant="body1">
@@ -31,7 +31,7 @@ const ProductDetails = () => {
          </div>
          <div className={classes.actions}>
          <Button to="/" component={Link} variant='outlined'>Back to Home</Button>
-           <Button type="submit" variant="contained" color="primary" onClick={()=>{}}>Add to  Cart <AddShoppingCart/>  
+           <Button type="submit" variant="contained" color="primary" onClick={()=>{handleMakeOrder()}}>Add to  Cart <AddShoppingCart/>  
           </Button>
          </div>
         </CardContent>

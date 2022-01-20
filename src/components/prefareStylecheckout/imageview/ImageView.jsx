@@ -3,35 +3,10 @@ import useStyle from './styles';
 import {Card,CardMedia} from '@material-ui/core';
 import CaptanImage from './captan_thumb_nail.png';
 
-const ImageView = ({productImages}) => {
+const ImageView = ({onImageClicked,loadedImage,onFileInputChange}) => {
 
     const classes=useStyle();
-    const [loadedImage,setLoadedImages]=useState([]);
-    const onImageClicked = (e) => {
-        const formfile = document.getElementById("product-file");
-        formfile.click();
-    }
-  
-
-   function  onFileInputChange(e) {
-    var file = e.target.files[0];
-    var reader = new FileReader();
-    reader.onloadend = function (e) {       
-      
-       productImages.push(file);
-
-        console.log(e.target.result);
-        setLoadedImages( e.target.result)
-
-        document.getElementById('imgpreview').style.backgroundImage = e.target.result
-    };
-    try {
-        reader.readAsDataURL(file)
-
-    } catch (error) {
-        console.log({ readAsDataURLError: error })
-    }
-}
+    
 
   const FilledProduct =()=>(
      <div className={classes.viewcontainer}>

@@ -18,6 +18,18 @@ const truncateString=(str, num) => {
   }
  
 }
+const randNumber= (count)=> {//Unique Identifier
+  var result           = '';
+ // var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var characters       = '0123456789';
+
+  var charactersLength = characters.length;
+  for ( var i = 0; i < count; i++ ) {
+     result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+ // console.log(result);
+  return result;
+}
 /* function toDate(date) {
     if (date === void 0) {
       return new Date(0);
@@ -51,3 +63,4 @@ const truncateString=(str, num) => {
  
  module.exports.formatWithCurrencySymbol = formatWithCurrencySymbol
  module.exports.truncateString           = truncateString
+ module.exports.randNumber               = randNumber

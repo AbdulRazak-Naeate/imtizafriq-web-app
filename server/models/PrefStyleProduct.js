@@ -12,7 +12,8 @@ const mongoose = require('mongoose');
     },
     specification:{
         type:String,
-        required:'none'
+        default:'none',
+        required:false
     },
     price:{
         type:Number,

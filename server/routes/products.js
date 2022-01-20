@@ -1,6 +1,7 @@
 const express  = require('express');
 const router   = express.Router();
 const Product  = require('../models/Product');
+const PrefStyleProduct = require('../models/PrefStyleProduct')
 const verify   = require('./verifyToken');
 const Store    = require('../models/Store');
 const {uploadImage}   = require('../upload');
@@ -78,21 +79,19 @@ router.post('/',uploadImage('./server/uploads/products'),verify, async(req,res)=
 
 
 //Submit a prefare Style product
-router.post('/prefstyle',uploadImage('./server/uploads/prefarestyleproducts'),verify, async(req,res)=>{
+router.post('/prefstyle',uploadImage('./server/uploads/products/prefarestyleproducts'), async(req,res)=>{
 
-    const userId = req.user._id; //get userid
-
-    const store = await Store.findOne({userId:userId});//get user Store
+   // const userId = req.user._id; //get userid
 
     //const store_Id=store._id; //get user store id
 
     //Validation
-    const {error} = productValidation(req.body);
+    //const {error} = productValidation(req.body);
 
-    if (error) return  res.json({status:400,message:error.details[0].message});
+    //if (error) return  res.json({status:400,message:error.details[0].message});
 
     //check if product name already exist
-    const productnameExist = await Product.findOne({name:req.body.name});
+    const productnameExist = await PrefStyleProduct.findOne({name:req.body.name});
     if (productnameExist) return res.json({status:400,message:"Product name already taken"});
     console.log(req.files);
     const product = new Product({
