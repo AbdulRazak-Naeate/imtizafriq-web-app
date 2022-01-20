@@ -1,17 +1,37 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import useStyle from './styles';
 import {Card,CardMedia} from '@material-ui/core';
 import CaptanImage from './captan_thumb_nail.png';
 
-const ImageView = ({images}) => {
+const ImageView = ({productImages}) => {
+
     const classes=useStyle();
-    const[imageIndex,setImageIndex]=useState(0);
-    const[selected,setselected]=useState(0)
-   const onThumbNailCLick=(index)=>{
-     setselected(index)
-     setImageIndex(index)
-     
-   }
+    const [loadedImage,setLoadedImages]=useState([]);
+    const onImageClicked = (e) => {
+        const formfile = document.getElementById("product-file");
+        formfile.click();
+    }
+  
+
+   function  onFileInputChange(e) {
+    var file = e.target.files[0];
+    var reader = new FileReader();
+    reader.onloadend = function (e) {       
+      
+       productImages.push(file);
+
+        console.log(e.target.result);
+        setLoadedImages( e.target.result)
+
+        document.getElementById('imgpreview').style.backgroundImage = e.target.result
+    };
+    try {
+        reader.readAsDataURL(file)
+
+    } catch (error) {
+        console.log({ readAsDataURLError: error })
+    }
+}
 
   const FilledProduct =()=>(
      <div className={classes.viewcontainer}>
@@ -29,19 +49,19 @@ const ImageView = ({images}) => {
 
      <div className={classes.previewContainer}>
            <Card>
-            <CardMedia className={classes.mediaPreview} id="img-preview"  image={CaptanImage} title="captanImage example"/>
+            <CardMedia className={classes.mediaPreview} id="imgpreview" onClick={(e)=>{onImageClicked()}}  image={loadedImage.length > 0 ? loadedImage : CaptanImage} title="captanImage example"/>
             </Card>
      </div>
      
    </div>
   )
 
-
- 
   return (
     <div className={classes.container}>{
     <FilledProduct/>
       }
+       <input style={{display:"none"}} type="file" id="product-file" multiple onChange={onFileInputChange} />
+
    </div>
   )
 }
