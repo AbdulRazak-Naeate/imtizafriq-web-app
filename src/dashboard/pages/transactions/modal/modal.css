@@ -40,7 +40,13 @@
  height: 100%;
  border: 0px solid;
 }
-.grid-contianer-wrapper{
+.measurementWrapper{
+  
+    padding: 2px 3px;
+    display: flex;
+    flex-direction: column;
+}
+.grid-container-wrapper{
     border: 1px solid;
     border-radius: 4px;
     padding: 4px;

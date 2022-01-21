@@ -349,11 +349,11 @@ return patch(url, body,config)
      <button className="actionButtons" onClick={()=>{handleUpdateMany("Completed")}}>Completed</button>
      <button className="actionButtons" onClick={()=>{handleUpdateMany("Pending")}}>Pending</button>
      <button className="actionButtons" onClick={()=>{handleUpdateMany("Declined")}}>Decline</button>
-  {/*    <button className="actionButtons" onClick={()=>{
+    {/*  <button className="actionButtons" onClick={()=>{
        setOpenModal(true);
        setTranxData(selectedRows);
-       }}>Print List</button> */}
-         
+       }}>Print List</button>
+          */}
      </div>    
 
           <DataGrid rows={transactions} getRowId={(row) => row._id}   columns={columns}

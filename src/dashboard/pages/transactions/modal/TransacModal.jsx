@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import {Grid,Typography} from '@mui/material';
-import { CalendarToday, LocationSearching, MailOutline, PermIdentity, PhoneAndroid, Publish,ShoppingBasketOutlined,AddShoppingCart,HeightOutlined,ColorLensOutlined ,PhoneAndroidOutlined} from '@material-ui/icons'
+import { CalendarToday, LocationSearching, MailOutline, PermIdentity, PhoneAndroid, Publish,MyLocationOutlined,AddShoppingCart,HeightOutlined,ColorLensOutlined ,PhoneAndroidOutlined} from '@material-ui/icons'
 import './modal.css'
 import ShoppingBagOutlined from '@mui/icons-material/ShoppingBagOutlined';
 import ReactToPrint from 'react-to-print';
@@ -76,13 +76,17 @@ const style = {
                              <ColorLensOutlined className="userShowIcon"/>
                         <span className="tranxdetailsItemTitle">{data.color}</span>
                         </div>
+                        <div className="tranxdetailsItem">
+                             <MyLocationOutlined className="userShowIcon"/>
+                        <span className="tranxdetailsItemTitle">{`${data.shippingData.country}, ${data.shippingData.state}, ${data.shippingData.city}`}</span>
+                        </div>
                         </div>
                         <div className="infoRight">
                           <div className='measurementWrapper'>
                           <span>Shirt(Top)</span>
 
-                          <div className='grid-contianer-wrapper'>
-                          <Grid container direction='row' justifyContent='space-between' spacing={1}>
+                          <div className='grid-container-wrapper'>
+                          <Grid container  justifyContent='space-between' spacing={1}>
                               <Grid item={true}>
                                 <div className="measurement-grid-itemWrapper">
                                 <label>Back</label>
@@ -110,7 +114,7 @@ const style = {
                           </Grid>
                            </div>
                            <span>Trouser(Down)</span>
-                           <div className='grid-contianer-wrapper'>
+                           <div className='grid-container-wrapper'>
                           <Grid container direction='row' justifyContent='space-between' spacing={1}>
                               <Grid item={true}>
                                 <div className="measurement-grid-itemWrapper">
