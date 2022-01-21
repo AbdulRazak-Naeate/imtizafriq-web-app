@@ -21,6 +21,7 @@ const CartItem = ({cartitem,onUpdateCartQty,onUpdateColorSize,onUpdateMeasuremen
     const[open,setOpen]=useState(true);
     const[colorSelectedList,setColorSelectedList]=useState([]);
     const [checked, setChecked] = useState(cartitem.selected);
+    const [imagepath]=useState(cartitem.product.product_type==='normal'? `http://localhost:3001/server/uploads/products/${cartitem.product.image[0].filename}`:`http://localhost:3001/server/uploads/products/prefarestyleproducts/${cartitem.product.image[0].filename}`)
 
     const label = { inputProps: { 'aria-label': 'Select item' } };
 
@@ -100,7 +101,7 @@ const CartItem = ({cartitem,onUpdateCartQty,onUpdateColorSize,onUpdateMeasuremen
   return (
     <div>
         <Card>
-            <CardMedia image={`http://localhost:3001/server/uploads/products/${cartitem.product.image[0].filename}`} alt={cartitem.product.name} className={classes.media}/>
+            <CardMedia image={imagepath} alt={cartitem.product.name} className={classes.media}/>
             <CardContent className={classes.cardContent}>
              <Typography variant="h6">{cartitem.product.name}</Typography>
              <Typography variant="body1" className={classes.price}>{`${formatWithCurrencySymbol(cartitem.line_item_sub_price,'GHS')}`}</Typography>

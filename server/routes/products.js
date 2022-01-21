@@ -94,7 +94,7 @@ router.post('/prefstyle',uploadImage('./server/uploads/products/prefarestyleprod
     const productnameExist = await PrefStyleProduct.findOne({name:req.body.name});
     if (productnameExist) return res.json({status:400,message:"Product name already taken"});
     console.log(req.files);
-    const product = new Product({
+    const product = new PrefStyleProduct({
         color:req.body.color,
         size:req.body.size,
         name:req.body.name,
@@ -109,7 +109,7 @@ router.post('/prefstyle',uploadImage('./server/uploads/products/prefarestyleprod
     try{
 
        const saveProduct = await product.save();
-        res.json({product:saveProduct,status:200,message:"product successfully created"});
+        res.json({product:saveProduct,status:200,message:"Prefared style product successfully createdm..."});
     }catch(err){
         res.json({message:err})
     }

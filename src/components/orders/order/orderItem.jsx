@@ -1,10 +1,10 @@
-import React from 'react'
+import React ,{useState} from 'react'
 import {Card, CardContent, CardMedia, Typography,Button} from '@material-ui/core';
 import useStyles from './styles';
 import './styles.css';
 const OrderItem = ({order,onReviewClick}) => {
     const classes=useStyles();
-     
+    const [imagepath]=useState(order.orderType==='normal' ? `http://localhost:3001/server/uploads/products/${order.filename}` : `http://localhost:3001/server/uploads/products/prefarestyleproducts/${order.filename}`)
 const truncateString=(str, num) => {
   if(str.length>num){
     return str.slice(0,num)+"...";
@@ -17,7 +17,7 @@ const truncateString=(str, num) => {
   return (
     <div> 
       <Card className={classes.root}>
-           <CardMedia className={classes.media} image={`http://localhost:3001/server/uploads/products/${order.filename}`}> </CardMedia>
+           <CardMedia className={classes.media} image={imagepath}> </CardMedia>
     
 
                 <CardContent className={classes.cardContent}>

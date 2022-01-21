@@ -10,13 +10,13 @@ import 'react-s-alert/dist/s-alert-css-effects/jelly.css';
 import axios from 'axios';
 import { randNumber } from '../../utils/Utils';
 
-const PrefareStyleCheckout = () => {
+const PrefareStyleCheckout = ({onAddToCart}) => {
     const classes=useStyles();
     const [productImages,setProductImages]=useState([]);
     const [loadedImage,setLoadedImages]=useState([]);
 
-    var productname= "PrefareStyle-"+randNumber(5);
-    const[product,setProduct]=useState({name:productname,price:'150',description:''})
+    const [productname]= useState("PrefareStyle-"+randNumber(5));
+    const[product]=useState({name:productname,price:'150',description:''})
     const onImageClicked = (e) => {
         const formfile = document.getElementById("product-file");
         formfile.click();
@@ -71,7 +71,8 @@ const initiateAndCreateProduct =()=>{
   formData.append('digital_product_url', 'null');//append digital
   formData.append('storeId', 'null');
   formData.append('stock','0');
-  formData.append('active','0')
+  formData.append('active','0');
+  formData.append('product_type','special');
   console.log(JSON.stringify(formData));
 
   //append files to image to create an a file array
@@ -91,22 +92,30 @@ const initiateAndCreateProduct =()=>{
 
 };
     const handleMakeOrder=()=>{
-      initiateAndCreateProduct().then((response) => {
-        console.log(response.data);
-       if (response.data.status===200){
-        //window.location.reload();
-         
-          //clearFields();
-       }else if (response.data.status===400){ 
-
-        Alert.error(response.data.message, {
+      if (loadedImage.length > 0){
+        initiateAndCreateProduct().then((response) => {
+          console.log(response.data);
+         if (response.data.status===200){
+          //window.location.reload();
+          onAddToCart(response.data.product,1);
+            //clearFields();
+         }else if (response.data.status===400){ 
+  
+          Alert.error(response.data.message, {
+            position: 'top-left',
+            effect: 'jelly'
+  
+        });
+       // history.go(0);
+         }
+        }); 
+      }else{
+        Alert.error('Please click on the style image to upload your design ', {
           position: 'top-right',
           effect: 'jelly'
 
       });
-     // history.go(0);
-       }
-      }); 
+      }
       
     }
       const handleImages=(Images)=>{
@@ -119,6 +128,7 @@ const initiateAndCreateProduct =()=>{
     }
   return (
     <div className={classes.content}> 
+           <Alert stack={{limit: 3}} />
         <Grid container justifyContent="center" spacing={1}>
         
         <Grid item={true} xs={12} sm={12} md={5} lg={5}>

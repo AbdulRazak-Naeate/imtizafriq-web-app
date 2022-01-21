@@ -32,6 +32,10 @@ const mongoose = require('mongoose');
     size:{
         type:Array
     },
+    product_type:{
+        type:String,
+        default:'special'
+    },
     date:{
         type:String,
         default:Date.now()

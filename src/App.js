@@ -402,6 +402,7 @@ const analytics = getAnalytics(app);
             storeId:items[i].product.storeId,
             productId:items[i].product._id,
             orderNumber:shippingData.orderNumber,
+            orderType:items[i].product.product_type,
             quantity:items[i].quantity,
             color:items[i].color,
             size:items[i].size,
@@ -707,8 +708,8 @@ const searchProduct =(searchString)=>{
         <Route exact path="/proceedcheckout">
           <ProceedCheckOut onAddToCart={handleAddtoCart}/>
         </Route>
-        <Route exact path='/prefaredstylecheckout'>
-         <PrefaredStyleCheckOut/>
+        <Route exact path='/prefaredstylecheckout' >
+         <PrefaredStyleCheckOut onAddToCart={handleAddtoCart}/>
         </Route>
          <Route path="/login">
            <LogIn/>

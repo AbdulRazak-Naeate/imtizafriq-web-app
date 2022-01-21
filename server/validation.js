@@ -43,8 +43,9 @@ const loginValidation = data =>{
       street:Joi.string(),
       homeAddress:Joi.string(),
       productId:Joi.string().min(20),
-      storeId:Joi.string().min(20),
+      storeId:Joi.string(),
       orderNumber:Joi.string().min(8),
+      orderType:Joi.string(),
       quantity:Joi.number().min(1),
       size:Joi.string().min(0),
       color:Joi.string().min(0),
@@ -107,9 +108,10 @@ const loginValidation = data =>{
       color:Joi.any(),
       size:Joi.any(),
       image:Joi.any(),
+      product_type:Joi.string(),
       digital_product_url:Joi.any(),
      });
-  
+
      return   schema.validate(data);
      
   };

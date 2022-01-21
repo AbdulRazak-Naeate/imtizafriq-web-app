@@ -51,6 +51,10 @@ const mongoose = require('mongoose');
         type:String,
         default:Date.now()
     },
+    producttype:{
+        type:String,
+        default:'normal'
+    },
     stock:{
         type:Object,
         default:{currentstock:0,alltimestock:0}
