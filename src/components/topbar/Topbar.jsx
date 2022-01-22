@@ -37,19 +37,21 @@ import SearchField from './searchfield/SearchField';
                   <div className='logowrapper'>
                   <Link to ="/" className="link">
                      <img className='logo-img' src="https://images.pexels.com/photos/4620866/pexels-photo-4620866.jpeg?cs=srgb&dl=pexels-cottonbro-4620866.jpg&fm=jpg" alt='logo'/>
-                   </Link>                
+                   </Link>      
+                   <Link to ="/" className="link">
                    <span className="siteName">{process.env.REACT_APP_WEBSITE_NAME}</span>
-
+                   </Link>                
+                 
                   </div>
                 </div>
                 <div className="searchfield">
                   <SearchField handlesearchProduct={handlesearchProduct}/>
                 </div>
                 <div className="topRight">
-                    <div className="topbarIonContainer">
+                   {/*  <div className="topbarIonContainer">
                         <NotificationsNone/>
                         <span className="topIconBadge">2</span>
-                    </div>
+                    </div> */}
 
                     <div className="topbarIonContainer">
                       

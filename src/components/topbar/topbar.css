@@ -15,31 +15,35 @@
     background-color: snow;
     padding:2px 15px;
 }
-.topbarContactItemLeft{
+.topbarContactLeft{
     display: flex;
     justify-content: space-between;
     align-items:center;
     width: 6%;
     border: 0px solid;
 
-}.topbarContactItemRight{
+}.topbarContactRight{
     display: flex;
     justify-content: space-between;
     align-items:flex-start;
-    width: 30%;
+    width: 38%;
 
 }
 .topbarinfoIcon{
     width: 5px;
     cursor:pointer;
+    margin-bottom: -5px;
+    margin-right: 5px;
 }
 .topleftTypo{
     margin-bottom: -5px !important;
 }
 
 .topnavlink{
+
     text-decoration: none;
     color: darkgray;
+
     
 }
 
@@ -142,7 +146,7 @@
     .bottomnav{
         display: block;
     }
-    .topbarContactItemRight{
+    .topbarContactRight{
         border: 0px solid;
         width: 50%;
     
@@ -153,7 +157,7 @@
 }
 
 @media only screen and (max-device-width:820px) {
-    .topbarContactItemRight{
+    .topbarContactRight{
         border: 0px solid;
         width: 50%;
     

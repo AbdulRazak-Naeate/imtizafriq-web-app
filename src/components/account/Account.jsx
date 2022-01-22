@@ -1,6 +1,6 @@
 import React from 'react'
 import { CalendarToday, LocationSearching, MailOutline, PermIdentity, PhoneAndroid, Publish } from '@material-ui/icons';
-import {Button,Grid} from '@mui/material';
+import {Grid} from '@mui/material';
 import './user.css'
 import {useState} from 'react';
 import {useHistory} from 'react-router-dom';

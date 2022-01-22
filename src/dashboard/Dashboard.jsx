@@ -24,6 +24,7 @@ import axios from 'axios';
  function Dashboard() {
  const [showSidebar,setShowSideBar]=useState(true);
  const [stores, setStores] = useState([]);
+ const [products,setProducts]=useState([]);
 
  const handletoggleSideBar=(bol)=>{
    setShowSideBar(bol);
@@ -58,6 +59,8 @@ import axios from 'axios';
         console.error(error);
       }
     }
+
+    
     useEffect(() => {
       const user = JSON.parse(localStorage.getItem('user'));
 

@@ -6,18 +6,18 @@ const ContactInfowidget = () => {
   return (
     <div>
         <div className="topbarContact">
-         <div className="topbarContactItemLeft">
+         <div className="topbarContactLeft">
              <Link to='/' className='topnavlink'>
-         <Typography variant='body2'><HomeOutlined  className=''/></Typography> 
+         <Typography variant='body2'><HomeOutlined  className='topbarinfoIcon'/></Typography> 
          </Link>
          <Link to='/aboutus' className='topnavlink'>
           <Typography variant='body2' className="topleftTypo" >AboutUs</Typography>
          </Link>
         
          </div>
-         <div className="topbarContactItemRight">
-         <Typography variant="body2" className='topnavlink'> <EmailOutlined fontSize='small'/><a className='topnavlink' href='mailto:abdulrazakneate@gmail.com'>abdulrazakneate@gmail.com</a></Typography>
-           <Typography className='topnavlink' variant="body2"> <Call fontSize='small'/><a  className='topnavlink' href='tel:+233548496121'>+233548496121</a></Typography>
+         <div className="topbarContactRight">
+         <Typography variant="body2" className='topnavlink'> <EmailOutlined fontSize='small'className='topbarinfoIcon'/><a className='topnavlink' href='mailto:abdulrazakneate@gmail.com'>abdulrazakneate@gmail.com</a></Typography>
+           <Typography className='topnavlink' variant="body2"> <Call fontSize='small' className='topbarinfoIcon'/><a  className='topnavlink' href='tel:+233548496121'>+233548496121</a></Typography>
 
          </div>
           </div>

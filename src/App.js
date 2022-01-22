@@ -6,7 +6,7 @@ import  Dashboard from './dashboard/Dashboard';
 import './App.css';
 import LogIn from "./pages/login/LogIn";
 import SignUp from './pages/signup/SignUp';
-import {Topbar,Appbar,TopbarcontacInfo,BottomNav,Products,Cart,Orders,ProceedCheckOut,PrefaredStyleCheckOut,Account,CategoryWidget,Footer} from './components';
+import {Topbar,Appbar,TopbarcontacInfo,BottomNav,Products,Cart,Orders,ProceedCheckOut,PrefaredStyleCheckOut,Account,CategoryWidget,Footer,AboutUs} from './components';
 import React, { useEffect } from 'react';
 import axios ,{post,patch} from 'axios';
 import CheckOut from './components/checkoutform/checkout/CheckOut';
@@ -103,7 +103,7 @@ const analytics = getAnalytics(app);
      const[categories,setCategories]=useState([]);
      const[orderCount,setMyOrderCount]=useState(0);
      const[openModal,setOpenModal]=useState(false)
-     const paths=['/','/cart','/checkout','/orders','/proceedcheckout','/prefaredstylecheckout','/account'];
+     const paths=['/','/cart','/checkout','/orders','/proceedcheckout','/prefaredstylecheckout','/account','/aboutus'];
     const[tapPosition,setTapPosition]=useState(0);
   
      let history = useHistory();
@@ -714,6 +714,9 @@ const searchProduct =(searchString)=>{
          <Route path="/account">
            <Account/>
          </Route>
+          <Route path="/aboutus">
+          <AboutUs/>
+       </Route>
          <Route path="/dashboard">
             <Dashboard/>
          </Route>
