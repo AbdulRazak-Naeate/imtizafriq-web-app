@@ -29,7 +29,7 @@ const Footer = () => {
                     <form onSubmit={handleSubscription} >
                         <input  type='email' name='email' placeholder='Your Email' value={email}
                         className='footer-input' onChange={(e)=>{setEmail(e.target.value)}}/>
-                            <Button type="submit" buttonStyle='btn--outline' >Subscribe</Button>
+                            <Button type="submit" variant="outlined" >Subscribe</Button>
                      
                     </form>
                 </div>
@@ -80,15 +80,15 @@ const Footer = () => {
               <i className='fab fa-typo3' />
             </Link>
           </div>
-          <small class='website-rights'>{`${process.env.REACT_APP_WEBSITE_NAME} © ${new Date().getFullYear()}`}</small>
+          <small className='website-rights'>{`${process.env.REACT_APP_WEBSITE_NAME} © ${new Date().getFullYear()}`}</small>
           <div className='social-icons'>
             <Link
-              classname='social-icon-link facebook'
+              className='social-icon-link facebook'
               to='/'
               target='_blank'
               aria-label='Facebook'
             >
-              <i classname='fab fa-facebook-f' />
+              <i className='fab fa-facebook-f' />
             </Link>
             <Link
               className='social-icon-link instagram'

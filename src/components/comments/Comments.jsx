@@ -57,7 +57,7 @@ const blue = {
   
   const CustomInput = React.forwardRef(function CustomInput(props, ref) {
     return (
-      <InputUnstyled  components={{ Input: StyledInputElement }} {...props} ref={ref} value={props.commentText} onChange={(e)=>{props.handleonInputChange(e.target.value)}}/>
+      <InputUnstyled  components={{ Input: StyledInputElement }} className={props.className} placeholder={props.placeholder} ref={ref} value={props.commentText} onChange={(e)=>{props.handleoninputchange(e.target.value)}}/>
     );
   });
     
@@ -68,7 +68,7 @@ const Comments = ({order}) => {
 
    const [comments,setComments]=React.useState([]);
     
-   const handleonInputChange=(value)=>{
+   const handleoninputchange=(value)=>{
     setCommentText(value);
   }
  
@@ -115,7 +115,7 @@ const Comments = ({order}) => {
          }
         </div>
         <div className={classes.inputactions}>
-        <CustomInput className={classes.textinput} aria-label="comment input" placeholder="type in to review and add feed back" commentText={commentText} handleonInputChange={handleonInputChange} />
+        <CustomInput className={classes.textinput} aria-label="comment input" placeholder="type in to review and add feed back" commentText={commentText} handleoninputchange={handleoninputchange} />
         <Button   size='small' color='primary' variant='text' onClick={()=>{handleAddComment()}}>send</Button>
         </div>
       </div>

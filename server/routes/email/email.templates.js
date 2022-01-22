@@ -164,7 +164,7 @@ const cheerio = require('cheerio');
   
  const confirmOrder= (data) =>({
 	
-    subject:'Daabia.com , We recieve your Order Successfully',
+    subject: `${process.env.REACT_APP_WEBSITE_NAME}.com , We recieve your Order Successfully`,
     html:generateHtmlTemplate(data)
     
   })

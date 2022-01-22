@@ -71,7 +71,7 @@ const analytics = getAnalytics(app);
       let loggedin=localStorage.getItem('loggedin');
       if (loggedin!==null){
         if (loggedin==='true'){ //if user signed In get user Id from locaStorage
-          console.log(uid)
+          //console.log(uid)
        id=uid; 
       //localStorage.removeItem('temp_id');
 
@@ -137,11 +137,8 @@ const analytics = getAnalytics(app);
     }
 
     
-    const onCategoryCardSelect = (category) =>{
-
-    }
     const sendConfirmationEmail = (_id,newOrder)=>{
-     console.log("id "+_id + "email "+newOrder.customer.email)
+     //console.log("id "+_id + "email "+newOrder.customer.email)
       const url = `http://localhost:3001/api/email/confirmorder/${_id}`;
 
     post(url,{email:newOrder.customer.email,data:newOrder}).then((response)=>{
@@ -200,7 +197,7 @@ const analytics = getAnalytics(app);
  
 
   const deleteFromCart =async (productId)=>{
-    console.log(productId)
+    //console.log(productId)
     const url = `http://localhost:3001/api/carts/removeitem/${userid}`;
    
  
@@ -281,7 +278,7 @@ const analytics = getAnalytics(app);
     
    }
   const updateSelection =(productId,value)=>{
-    console.log(value)
+   // console.log(value)
     const url = `http://localhost:3001/api/carts/item/selection`;
      
  
@@ -295,7 +292,6 @@ const analytics = getAnalytics(app);
   const handleupdateMeasurement = async (productId,measurement)=>{
   
     updateMeasurement(productId,measurement).then((response)=>{
-      console.log(measurement)
         if (response.status===200){
          // console.log(response.data.cart.items)
           setCart(response.data.cart)
@@ -354,8 +350,7 @@ const analytics = getAnalytics(app);
       updateLikes(productId,storeId).then((response) => {
        // console.log(response.data);
         if (response.status===200){
-      /*     setCart(response.data.cart)
-          setItemsCount(response.data.cart.items.length); */
+     
   
         }
       }) 
@@ -384,11 +379,10 @@ const analytics = getAnalytics(app);
      
    
   const incomingOrder = async (newOrder)=>{
-    console.log(newOrder)
+    //console.log(newOrder)
     let customer=newOrder.customer;
     let items=newOrder.line_items
     let shippingData=newOrder.shipping
-    console.log(newOrder.line_items)
     
     
 
@@ -441,15 +435,15 @@ const analytics = getAnalytics(app);
    
     try{ 
           incomingOrder(newOrder).then((response)=>{
-           console.log(response)
+          // console.log(response)
            setMyOrders(response.data.orders)
            setMyOrderCount(response.data.orders.length)
           
          })
-          console.log(newOrder)
+         // console.log(newOrder)
           setOrder(newOrder);
           sendConfirmationEmail(userid,newOrder)
-         // refreshCart();
+          //refreshCart();
     }catch(error){
            setErrorMessage(error.data.error.message);
     }
@@ -458,7 +452,7 @@ const analytics = getAnalytics(app);
 const handlegetProduct = async (productid)=>{
            
   fetchProduct(productid).then((response) => {
-    console.log(response.data);
+    //console.log(response.data);
     if (response.status===200){
        
       try{
@@ -486,7 +480,7 @@ const fetchProduct =(productid)=>{
 const handlesearchByCategory = async (category)=>{
         
   searchProductByCategory(category).then((response) => {
-   console.log(response.data);
+   //console.log(response.data);
    if (response.status===200){
       
      try{
@@ -515,7 +509,7 @@ const searchProductByCategory =(category)=>{
 const handlesearchProduct = async (searchString)=>{
    searchString !==''?        
   searchProduct(searchString).then((response) => {
-    console.log(response.data);
+    //console.log(response.data);
     if (response.status===200){
        
       try{
@@ -552,7 +546,7 @@ const searchProduct =(searchString)=>{
       try{
          const res  = await fetch(`http://localhost:3001/api/products`);
          const data = await res.json();
-               console.log(data);
+              // console.log(data);
                return data;
       }catch(error){
   
@@ -566,7 +560,7 @@ const searchProduct =(searchString)=>{
     return axios.get(url).then((response)=>{
        try{
          if (response.status===200){
-           console.log(response.data)
+           //console.log(response.data)
            let d=response.data.favoritesProducts;
            let favs =[];
           for(let i=0;i<d.length;i++){
@@ -586,7 +580,7 @@ const searchProduct =(searchString)=>{
       try{
          const res  = await fetch(`http://localhost:3001/api/productlikes/${user.email}`);
          const data = await res.json();
-               console.log("favorites "+data);
+              // console.log("favorites "+data);
                return data;
       }catch(error){
   
@@ -610,10 +604,10 @@ const searchProduct =(searchString)=>{
 
   
   const handlegetCart = async ()=>{
-   console.log("get cart"+userid)
+  // console.log("get cart"+userid)
   
     getCart().then((response) => {
-      console.log(response.data);
+      //console.log(response.data);
       if (response.status===200){
         try{
           setCart(response.data.cart)
@@ -663,7 +657,7 @@ const searchProduct =(searchString)=>{
     return axios.get(url).then((response)=>{
        try{
          if (response.status===200){
-           console.log(response.data)
+           //console.log(response.data)
            setCategories(response.data)
          }
 

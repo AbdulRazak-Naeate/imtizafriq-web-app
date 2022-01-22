@@ -3,7 +3,8 @@ import {Typography,Button,Divider} from '@material-ui/core';
 import Review from './Review'
 import { useFlutterwave, closePaymentModal } from 'flutterwave-react-v3';
 import axios from 'axios';
-import {formatWithCurrencySymbol} from '../../utils/Utils'
+import {formatWithCurrencySymbol} from '../../utils/Utils';
+
 const PaymentForm = ({shippingData,checkoutToken,backStep,onCaptureCheckout,nextStep}) => {
   console.log(shippingData);
   const config = {
@@ -79,8 +80,7 @@ const PaymentForm = ({shippingData,checkoutToken,backStep,onCaptureCheckout,next
           clearTimeout();
 
    }
-
-   
+  
 
   return (
     <>

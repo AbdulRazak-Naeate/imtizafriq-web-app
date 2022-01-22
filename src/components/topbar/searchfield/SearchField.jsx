@@ -53,7 +53,7 @@ const StyledInputElement = styled('input')(
 
 const CustomInput = React.forwardRef(function CustomInput(props, ref) {
   return (
-    <InputUnstyled  components={{ Input: StyledInputElement }} {...props} ref={ref} onChange={(e)=>{props.handlesearchProduct(e.target.value)}}/>
+    <InputUnstyled  components={{ Input: StyledInputElement }} className={props.className} placeholder={props.placeholder} ref={ref} onChange={(e)=>{props.handlesearchProduct(e.target.value)}}/>
   );
 });
 

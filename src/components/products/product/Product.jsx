@@ -70,12 +70,12 @@ const Product = ({product,onAddToCart,onUpdateLikes,favorites}) => {
                   </div>
               </CardContent>
               <CardActions disableSpacing className={classes.cardActions}>
-              <IconButton aria-label="Add to Favourite">
-                   { like ===true ?  <Favorite className={classes.icon} onClick={()=>{ handleAddtoFavorites(product)}}/>: <FavoriteBorderOutlined className={classes.icon} onClick={()=>{ handleAddtoFavorites(product)}}/> }
+              <IconButton aria-label="Add to Favourite" onClick={()=>{ handleAddtoFavorites(product)}}>
+                   { like ===true ?  <Favorite className={classes.icon} />: <FavoriteBorderOutlined className={classes.icon} /> }
                   </IconButton>
-                  <IconButton aria-label="Add to Cart">
-                    <AddShoppingCart  onClick=
-                  {()=>{onAddToCart(product,1)}}className={classes.icon}/>  
+                  <IconButton aria-label="Add to Cart" onClick=
+                  {()=>{onAddToCart(product,1)}}>
+                    <AddShoppingCart  className={classes.icon}/>  
                   </IconButton>
 
               </CardActions>

@@ -6,7 +6,6 @@ import { blue, orange } from '@mui/material/colors';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 const Products = ({products,onAddToCart,onUpdateLikes,favorites}) => {
   
-  console.log(favorites)
   const theme = createTheme({
     palette: {
       primary:{
@@ -20,7 +19,7 @@ const Products = ({products,onAddToCart,onUpdateLikes,favorites}) => {
       },
 });  
   const classes=useStyles();
-   console.log(products.length)
+   //console.log(products.length)
   return (
     <main className={classes.content}>
       
