@@ -53,14 +53,7 @@ const style = {
                              <ShoppingBagOutlined className="userShowIcon"/>
                         <span  className="tranxdetailsItemTitle">{data.name}</span>
                         </div>
-                        <div className="tranxdetailsItem">
-                             <PermIdentity className="userShowIcon"/>
-                        <span  className="tranxdetailsItemTitle">{`${data.customer.firstname} ${data.customer.lastname}`}</span>
-                        </div>
-                        <div className="tranxdetailsItem">
-                             <PhoneAndroidOutlined className="userShowIcon"/>
-                        <span className="tranxdetailsItemTitle">{data.customer.phone}</span>
-                        </div>
+                      
                         <div className="tranxdetailsItem">
                              <AddShoppingCart className="userShowIcon"/>
                         <span className="tranxdetailsItemTitle">{data.quantity}</span>
@@ -74,6 +67,14 @@ const style = {
                         <div className="tranxdetailsItem">
                              <ColorLensOutlined className="userShowIcon"/>
                         <span className="tranxdetailsItemTitle">{data.color}</span>
+                        </div> 
+                         <div className="tranxdetailsItem">
+                             <PermIdentity className="userShowIcon"/>
+                        <span  className="tranxdetailsItemTitle">{`${data.customer.firstname} ${data.customer.lastname}`}</span>
+                        </div>
+                        <div className="tranxdetailsItem">
+                             <PhoneAndroidOutlined className="userShowIcon"/>
+                        <span className="tranxdetailsItemTitle">{data.customer.phone}</span>
                         </div>
                         <div className="tranxdetailsItem">
                              <MyLocationOutlined className="userShowIcon"/>
@@ -113,7 +114,7 @@ const style = {
                           </Grid>
                            </div>
                            <span>Trouser(Down)</span>
-                           <div className='grid-contianer-wrapper'>
+                           <div className='grid-container-wrapper'>
                           <Grid container direction='row' justifyContent='space-between' spacing={1}>
                               <Grid item={true}>
                                 <div className="measurement-grid-itemWrapper">

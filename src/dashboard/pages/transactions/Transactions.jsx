@@ -3,15 +3,14 @@ import React,  { useRef } from 'react';
 import './transactions.css';
 import {DataGrid} from '@material-ui/data-grid';
 import { Stack,Button } from '@mui/material';
-import { DeleteOutline,List, Add, Edit,Business } from '@material-ui/icons';
-import { Link ,useHistory} from 'react-router-dom';
+import {  Edit } from '@material-ui/icons';
+import { Link } from 'react-router-dom';
 import {useState , useEffect} from "react";
 import AlertDialog from '../../components/alertdialog/AlertDialog'
-import axios ,{patch} from 'axios';
+import  {patch} from 'axios';
 import QueryParams from '../../QueryParams';
 import {TransacModal} from  './modal/TransacModal'
-import { useReactToPrint } from 'react-to-print';
-import ReactToPrint from 'react-to-print';
+
 import {PrintBox} from './printbox/PrintBox.jsx';
 
 const Transactions = () => {
@@ -205,7 +204,7 @@ return patch(url, body,config)
     { field: '_id', headerName: 'Id', width: 210,
      renderCell:(params)=>{
         return(
-          <div style={{color:'cadetblue',cursor:'pointer'}} onClick={()=>{handleOpenTransacModal(params.row)}}>
+          <div style={{color:'cadetblue',cursor:'pointer'}} onClick={()=>{/* handleOpenTransacModal(params.row) */}}>
             {`${params.row._id}`}
           </div>
         )

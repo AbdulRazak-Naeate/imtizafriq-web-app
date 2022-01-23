@@ -8,10 +8,9 @@ import {useState,useEffect} from "react";
 import AlertDialog from '../../components/alertdialog/AlertDialog'
 import axios from 'axios';
 
-export default function ProductsList() {   
+export default function ProductsList({products,handlegetProducts,handleDeleteProduct}) {   
     const query=QueryParams();
     const history=useHistory();
-    const [products,setProducts]=useState([]);
     const [pageSize, setPageSize] =useState(10);
 
     const [storeid]=useState(query.get("storeId"));
@@ -28,11 +27,11 @@ export default function ProductsList() {
     const handleClose = (option) => {
       
       setOpen(false);
-       if (option===true) {deleteProduct(productId)}
+       if (option===true) {handleDeleteProduct(productId)}
       console.log(option)
     };
 
-    const handleDelete=(_id)=>{
+    const onDelete=(_id)=>{
        /// setData(data.filter((item) => item.id !==id))
        setProductId(_id)
        handleClickOpen();
@@ -47,7 +46,7 @@ export default function ProductsList() {
     }
       useEffect(()=>{
 
-        const fetchProducts = async ()=>{
+        /* const fetchProducts = async ()=>{
               try{
                  const res = await fetch(`http://localhost:3001/api/products/store/${storeid}`);
                  const data=await res.json();
@@ -70,11 +69,11 @@ export default function ProductsList() {
             }catch(error){
 
             }
-        }
+        } */
          
-        getProducts();
+        handlegetProducts(storeid);
       },[storeid]);
-       
+     /*   
       async function deleteProduct(_id) {
         try {
           const response = await axios.delete(`http://localhost:3001/api/products/${_id}`);
@@ -86,7 +85,7 @@ export default function ProductsList() {
         } catch (error) {
           console.error(error);
         }
-      }
+      } */
 
       
  
@@ -147,7 +146,7 @@ export default function ProductsList() {
                     <EditOutlined className="productlistEditIcon" onClick={()=>{handleEdit(params)}}>Edit</EditOutlined>
                   </Tooltip>
                   <Tooltip title="delete product" enterDelay={500} leaveDelay={200}>
-                    <DeleteOutline className="productlistDelete" onClick={() => {handleDelete(params.row._id)}}/>
+                    <DeleteOutline className="productlistDelete" onClick={() => {onDelete(params.row._id)}}/>
                   </Tooltip> 
                   </>
                 )

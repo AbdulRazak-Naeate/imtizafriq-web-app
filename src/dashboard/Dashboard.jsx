@@ -59,6 +59,45 @@ import axios from 'axios';
         console.error(error);
       }
     }
+    async function handleDeleteProduct(_id) {
+      try {
+        const response = await axios.delete(`http://localhost:3001/api/products/${_id}`);
+        console.log(response);
+        if (response.data.deletedCount>=1){
+        setProducts(products.filter((item) => item._id !==_id))
+
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+   
+    const fetchProducts = async (storeid)=>{
+      try{
+         const res = await fetch(`http://localhost:3001/api/products/store/${storeid}`);
+         const data=await res.json();
+               console.log(data);
+               return data.products;
+      }catch(error){
+
+      }
+}
+const handlegetProducts =async(storeid) => {
+    try{
+       const productsFromServer = await fetchProducts(storeid);
+       let tmp =[];
+          for(let i=0;i<productsFromServer.length;i++){
+            tmp.push(productsFromServer[i]);
+            
+          }
+       setProducts(tmp);
+       console.log(tmp);
+    }catch(error){
+
+    }
+}
+ 
 
     
     useEffect(() => {
@@ -138,7 +177,7 @@ import axios from 'axios';
        </Route>
 
        <Route path="/dashboard/products">
-        <ProductsList/>
+        <ProductsList products={products} handlegetProducts={handlegetProducts} handleDeleteProduct={handleDeleteProduct}/>
        </Route>
        <Route path="/dashboard/product">
         <Product/>

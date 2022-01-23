@@ -3,6 +3,7 @@
     display: flex;
     justify-content: space-between;
     padding: 5px 7px;
+    margin-top: 5px;
     align-items: center;
     border: 1px solid;
     height: 200px;

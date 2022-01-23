@@ -1,15 +1,15 @@
 import "./featuredInfo.css"
-import { ArrowDownward,ArrowUpward} from "@material-ui/icons"
+import { ArrowDownward,ArrowUpward,Add} from "@material-ui/icons"
 
 export const FeaturedInfo = () => {
     return (
         <div className="featured">
            <div className="featuredItem">
-           <span className="featureTitle">Revenue</span>
+           <span className="featureTitle">Orders</span>
             <div className="featuredMoneyContainer">
-                <span className="featuredMoney">$2,415</span>
-                <span className="featuredMoneyRate">-11.4
-                <ArrowDownward  className="featuredIcon negative"/>
+                <span className="featuredMoney">2415</span>
+                <span className="featuredMoneyRate">
+                <Add  className="featuredIcon positive"/>
                 </span>
             </div>
             <span className="featuredSub">Compared to last month</span>
