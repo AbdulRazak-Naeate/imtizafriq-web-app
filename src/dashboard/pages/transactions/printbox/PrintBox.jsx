@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import {Grid,Typography} from '@mui/material';
@@ -144,7 +145,7 @@ const style = {
                           </div>
                           </div>
                           <div>
-                            <span variant='h6'>{data.date}</span>
+                            <span variant='h6'>{new Date(data.date).toUTCString()}</span>
                           </div>
                         </div>
                        </div>

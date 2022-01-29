@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import {Grid,Typography} from '@mui/material';

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import './sidebar.css'
 import { LineStyle,Timeline,TrendingUp
     ,PermIdentity,MailOutline,AttachMoney 
@@ -51,12 +52,12 @@ export const Sidebar = () => {
                          Sales
                      </li>
                        </Link>
-                     <li className="sidebarListItem">
+                    {/*  <li className="sidebarListItem">
                          <BarChart className="sidebarIcon"/>
                          Reports
-                     </li>
+                     </li> */}
                  </ul>
-                 <h3 className="sidebarTitle">Notifications</h3>
+               {/*   <h3 className="sidebarTitle">Notifications</h3>
                  <ul className="sidebarList">
                      <li className="sidebarListItem">
                          <MailOutline className="sidebarIcon"/>
@@ -83,7 +84,7 @@ export const Sidebar = () => {
                          <Report className="sidebarIcon"/>
                          Reports
                      </li>
-                 </ul>
+                 </ul> */}
              </div>
          </div>
           </div>

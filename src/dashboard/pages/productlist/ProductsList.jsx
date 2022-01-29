@@ -6,7 +6,6 @@ import QueryParams from '../../QueryParams';
 import { Link ,useHistory} from 'react-router-dom';
 import {useState,useEffect} from "react";
 import AlertDialog from '../../components/alertdialog/AlertDialog'
-import axios from 'axios';
 
 export default function ProductsList({products,handlegetProducts,handleDeleteProduct}) {   
     const query=QueryParams();
@@ -72,7 +71,7 @@ export default function ProductsList({products,handlegetProducts,handleDeletePro
         } */
          
         handlegetProducts(storeid);
-      },[storeid]);
+      },[handlegetProducts, storeid]);
      /*   
       async function deleteProduct(_id) {
         try {

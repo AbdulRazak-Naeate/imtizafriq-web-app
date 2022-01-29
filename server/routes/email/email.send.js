@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer')
 
-console.log(process.env.MAIL_USER +" "+ process.env.MAIL_PASSWORD)
+//console.log(process.env.MAIL_USER +" "+ process.env.MAIL_PASSWORD)
 // The credentials for the email account you want to send mail from. 
 const credentials = {
   host: 'smtp.gmail.com',

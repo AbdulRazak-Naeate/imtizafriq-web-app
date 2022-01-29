@@ -20,6 +20,12 @@
     color: darkblue;
     cursor: pointer;
 }
+.title{
+    font-weight: bold;
+    font-size: 24px;
+    color: snow;
+    cursor: pointer;
+}
 .topRight{
     display: flex;
     align-items: center;

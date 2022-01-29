@@ -19,6 +19,7 @@ const emailRoute        = require('./routes/email/email');
 const productlikeRoute  = require('./routes/productlikers');
 const subscribeRoute    = require('./routes/subscribers');
 const commentsRoute     = require('./routes/comments');
+const analytics         = require('./routes/analytics');
 
 dotenv.config();
 //MiddleWare
@@ -47,7 +48,7 @@ app.use('/api/email',emailRoute);
 app.use('/api/productlikes',productlikeRoute);
 app.use('/api/subscribe',subscribeRoute);
 app.use('/api/comments',commentsRoute);
-
+app.use('/api/analytics',analytics);
 //Home Routes
  app.get('/',(req,res)=>{
      res.send('Daabia Web App  version 0.1')

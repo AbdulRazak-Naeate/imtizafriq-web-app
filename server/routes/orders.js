@@ -39,7 +39,7 @@ router.get('/user/:userId', async(req,res)=>{
     res.json({orders:orders,status:200});
     
   }catch(err){
-    res.json({message:err})
+    res.json({message:err});
   }
 });
 
@@ -173,7 +173,7 @@ router.patch('/:orderId',async (req,res)=> {
 //update many order
 router.patch('/many/:ids',async (req,res)=> {
     try{
-        //console.log(req.body.ids)
+        console.log(req.body.ids)
         var _ids=JSON.parse(req.body.ids);
        
          await Order.updateMany(
@@ -185,9 +185,7 @@ router.patch('/many/:ids',async (req,res)=> {
             }
             ).then(ret=>{
                 
-                console.log(ret)
-
-               
+                console.log(ret)             
             });
             const Orders=await Order.find(
                 {storeId:req.body.storeId}

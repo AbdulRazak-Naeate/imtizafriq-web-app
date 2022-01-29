@@ -10,7 +10,7 @@ const mongoose = require('mongoose');
 router.get('/',async(req,res)=>{
     try{
         const stores = await Store.find();
-        res.json(stores);
+        res.json({store:stores});
     
     }catch(err){
         res.json({message:err});
@@ -68,14 +68,14 @@ router.get('/:storeId', async (req,res)=>{
 //get specific store base on userId
 router.get('/user/:userId', async (req,res)=>{
     try{
-        const store = await Store.find()
-        .where('userId')
-        .in(req.params.userId);
+        const store = await Store.find({userId:req.params.userId});
+       /*  .where('userId')
+        .in(req.params.userId); */
         res.json({store:store,message:"successfully loaded",status:200});
     }catch(err){
         res.json({message:err,status:400})
     }
-});
+  });
 
 
 //delete Specific store

@@ -76,17 +76,17 @@ export const Topbar = () => {
         <div className="topbar">
             <div className="topbarWrapper">
                 <div className="topLeft">
-                    <span className="logo">AbdulRazak Admin</span>
+                    <span className="title">{`${process.env.REACT_APP_WEBSITE_NAME}`}</span>
                 </div>
                 <div className="topRight">
-                    <div className="topbarIonContainer">
+                  {/*   <div className="topbarIonContainer">
                         { loggedin && <>  <NotificationsNone/>
                        <span className="topIconBadge">2</span> </>}
                     </div>
                     <div className="topbarIonContainer">
                       { loggedin && <> <Language/>
                         <span className="topIconBadge">2</span> </>}
-                    </div>
+                    </div> */}
                     <div className="topbarIonContainer">
                       <img src={`http://localhost:3001/server/uploads/users/${imagefilename}`} onClick={handleClick}  id="avatar"  onError={imgonLoadError} alt=""  className="topAvatar" /> 
                     </div>

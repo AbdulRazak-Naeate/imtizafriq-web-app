@@ -21,10 +21,12 @@ import Sales from './pages/sales/Sales';
 import LogIn from "./pages/login/LogIn";
 import SignUp from "./pages/signup/SignUp";
 import axios from 'axios';
- function Dashboard() {
+
+ function  Dashboard() {
  const [showSidebar,setShowSideBar]=useState(true);
  const [stores, setStores] = useState([]);
  const [products,setProducts]=useState([]);
+ const [transactions,setTransactions]=useState([]);
 
  const handletoggleSideBar=(bol)=>{
    setShowSideBar(bol);
@@ -83,7 +85,7 @@ import axios from 'axios';
 
       }
 }
-const handlegetProducts =async(storeid) => {
+const handlegetProducts = async(storeid) => {
     try{
        const productsFromServer = await fetchProducts(storeid);
        let tmp =[];
@@ -97,39 +99,35 @@ const handlegetProducts =async(storeid) => {
 
     }
 }
- 
 
-    
-    useEffect(() => {
-      const user = JSON.parse(localStorage.getItem('user'));
+const fetchStores = async(user)=>{
+  try{
+     const res = await fetch(`http://localhost:3001/api/stores/user/${user._id}`);
 
-  const fetchStores = async () => {//get User Stores 
-   try {
-    const res = await fetch(`http://localhost:3001/api/stores/user/${user._id}`);
-    const data = await res.json();
-    return data.store;
-   } catch (error) {
-     console.log({fetch_store_message:error})
-   }
+     const data= await res.json();
+           console.log(data);
+           return data.store;
+  }catch(error){
+
   }
-    const getStores = async () => {
-     try {
-      const storesFromserver = await fetchStores();
-      let tmp =[];
-      for(let i=0;i<storesFromserver.length;i++){
-        tmp.push(storesFromserver[i]);
+}
+const handlegetStores = async(user) => {
+try{
+   const productsFromServer = await fetchStores(user);
+   let tmp =[];
+      for(let i=0;i<productsFromServer.length;i++){
+        tmp.push(productsFromServer[i]);
         
       }
-      setStores(tmp);
-      localStorage.setItem('stores',JSON.stringify(tmp));
-     } catch (error) {
-       console.log({message:error})
-     }
-    };
-   
-    getStores();
+   setStores(tmp);
 
-  },[]);
+   console.log(tmp);
+}catch(error){
+
+}
+}
+  
+ 
   return (
     <Router>
     <Route exact path={paths}>
@@ -150,7 +148,7 @@ const handlegetProducts =async(storeid) => {
     
      <Switch>
      <Route exact  path="/dashboard">
-         <Home/>
+         <Home stores={stores} handlegetStores={handlegetStores} handlegetProducts={handlegetProducts}/>
        </Route>
        <Route path="/dashboard/users">
         <UserList/>
@@ -166,7 +164,7 @@ const handlegetProducts =async(storeid) => {
          </Route>
 
        <Route path="/dashboard/stores">
-        <StoreList stores={stores} onDeleteStore={deleteStore}/>
+        <StoreList  stores={stores} handlegetStores={handlegetStores}  onDeleteStore={deleteStore}/>
        </Route>
        <Route path="/dashboard/store/:storeId">
        
@@ -191,7 +189,7 @@ const handlegetProducts =async(storeid) => {
         <Transactions/>
        </Route>
        <Route path="/dashboard/sales">
-        <Sales stores={stores}/>
+        <Sales stores={stores} />
        </Route>
        <Route path="/dashboard/login" >
          <LogIn toggleSideBar={handletoggleSideBar}/>

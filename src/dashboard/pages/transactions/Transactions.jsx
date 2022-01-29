@@ -298,7 +298,7 @@ return patch(url, body,config)
       renderCell:(params)=>{
         return(
             <div>
-               {params.row.date}
+               {new Date(params.row.date).toUTCString()}
             </div>
         )
       }

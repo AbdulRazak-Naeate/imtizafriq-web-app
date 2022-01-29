@@ -2,15 +2,17 @@ import './storeList.css';
 import {DataGrid} from '@material-ui/data-grid'
 import { DeleteOutline,List, Add, Edit,Business } from '@material-ui/icons';
 import { Link ,useHistory} from 'react-router-dom';
-import {useState} from "react";
+import {useState,useEffect} from "react";
 import {Tooltip} from '@material-ui/core';
 import AlertDialog from '../../components/alertdialog/AlertDialog'
-
-export default function StoreList({stores,onDeleteStore}) {
+import axios from 'axios';
+export default function StoreList({stores}) {
 
     const [storeid,setStoreid]=useState(['']);
     const [open,setOpen]=useState(false);
-    
+    //const [stores, setStores] = useState([]);
+    const user = JSON.parse(localStorage.getItem('user'));
+
     const history=useHistory();
 
     const handleClickOpen = () => {
@@ -120,6 +122,41 @@ export default function StoreList({stores,onDeleteStore}) {
             }
         },
       ];
+
+      async function onDeleteStore(_id) {
+        try {
+          const response = await axios.delete(`http://localhost:3001/api/stores/${_id}`);
+          console.log(response);
+          if (response.data.deletedCount>=1){
+          //setStores(stores.filter((item) => item._id !==_id))
+  
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    
+
+      useEffect(() => {
+
+        // eslint-disable-next-line no-unused-vars
+        const fetchStores = async() => {//get User Stores 
+          var url =`http://localhost:3001/api/stores/user/${user._id}`
+            return  axios.get(url).then((response)=>{
+               //setStores(response.data.store)
+              /*  localStorage.setItem('stores',JSON.stringify(response.data.store)); */
+          
+             });
+        }
+       
+         
+          
+       // handlegetStores(user);
+
+         //fetchStores();
+         //handlegetTransactions(stores)
+        
+        },[ user]);
     return (
         <div className="storesList"> 
            <AlertDialog open={open} handleClickOpen={handleClickOpen} handleClose={handleClose} title="Delete Store" textContent="Are you sure you want to delete!"DeleteOutline={DeleteOutline}/>

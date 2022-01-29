@@ -84,7 +84,8 @@
     "node-env-run": "^4.0.2",
     "nodemon": "^2.0.12",
     "npm-run-all": "^4.1.5",
-    "pino-colada": "^2.1.0"
+    "pino-colada": "^2.1.0",
+    "webpack-cli": "^4.9.2"
   },
   "author": "Abdul Razak Abubakari",
   "license": "ISC"

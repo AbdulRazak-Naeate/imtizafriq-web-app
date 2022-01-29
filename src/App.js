@@ -666,12 +666,17 @@ const searchProduct =(searchString)=>{
        }
     })
   } 
-    getFavorites()
-    getCategories()
-    getProducts();
-    handlegetCart();
-    getOrders();
-   },[userid,user])
+   
+    if (!history.location.pathname.includes('dashboard')){
+      getCategories()
+      getProducts();
+      handlegetCart();
+      getOrders();
+    }
+    
+
+   },[userid,user,history])
+
   return (
     <ThemeProvider theme={theme}>
     <Box sx={{ pb: 0 }} ref={ref} className='boxMain'>

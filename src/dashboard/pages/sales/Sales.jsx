@@ -11,6 +11,7 @@ import {patch} from 'axios';
 import QueryParams from '../../QueryParams';
 
 const Sales = ({stores}) => {
+  console.log(stores)
   const query=QueryParams();
   const [transactions,setTransactions]=useState([]);
   const [pageSize, setPageSize] = useState(20);
@@ -115,8 +116,8 @@ return patch(url, body,config)
 };
    
   useEffect(() => {  
-
-    stores.length >0 ? setStoreId(stores[0]._id):setStoreId('')
+    console.log("storeid "+stores.length)
+    stores.length >0 ? setStoreId(stores[0]._id) : setStoreId('')
 
     const fetchOrders = async () => {//get Orders 
   
