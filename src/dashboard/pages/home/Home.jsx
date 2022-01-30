@@ -52,7 +52,7 @@ function Home({handlegetStores,handlegetProducts}) {
 
           const ids=[];
           for(let i=0;i<stores.length;i++){
-            ids.push({id:stores[i]._id});
+            ids.push({id:stores[i]._id,name:stores[i].name});
           }
           
            console.log(ids);

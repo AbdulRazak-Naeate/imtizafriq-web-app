@@ -52,12 +52,16 @@ router.post('/transactions/many/ids', async (req,res)=>{
         const _ids=JSON.parse(req.body.storeIds);
         console.log(_ids[0]);
         const analytics = [];
+        
         for (var i = 0; i <= _ids.length ; i++){
-            var id='';
-         try{  id=_ids[i].id;
-         console.log(id)}catch(err){
+    
 
-           }
+         try{ 
+            var  id=_ids[i].id;
+            var name=_ids[i].name
+              console.log(id)
+
+            
          const transactions = await Order.find({storeId:id});
      
         const aggr = await Order.aggregate([{$match:{storeId:id}},{$unwind:'$totalPrice'},
@@ -69,25 +73,28 @@ router.post('/transactions/many/ids', async (req,res)=>{
             }
         }
     ]);
-        try{
+     
             console.log(aggr)
               var tranxobj={};
               if (aggr.length!==0){
-                 tranxobj={storeId:id,transactions:transactions,total:aggr[0].total,count:aggr[0].count
+                 tranxobj={storeId:id,name:name,transactions:transactions,total:aggr[0].total,count:aggr[0].count
               }
              }else{
-                 tranxobj={storeId:id,transactions:[],total:0,count:0
+                 tranxobj={storeId:id,name:name,transactions:[],total:0,count:0
              }
             }
               analytics.push(tranxobj);
                    console.log(analytics)
-        }catch(err){
-            console.log(err)
-        }
-        }
+        
+        
     
-         res.json({analytics:analytics});
-    
+
+      }catch(err){
+
+           }
+        }   
+        
+        res.json({analytics:analytics});
 
 });
 
