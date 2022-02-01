@@ -4,7 +4,7 @@ import FormInput from './CustomTextField';
 import {Link} from 'react-router-dom';
 import {useForm} from 'react-hook-form';
 import { Grid,Select,Button, InputLabel, Typography, MenuItem } from '@material-ui/core';
-import countriesjon from '../../dashboard/world-db/countries.json'
+import axios from 'axios';
 var loki = require('lokijs');
 
 
@@ -71,6 +71,16 @@ const AddressForm = ({checkoutToken,next}) => {
   
   }
     useEffect(()=>{
+
+       const getCountries = async ()=>{
+          const url=`http://localhost:3001/api/states`;
+          await axios.get(url).then((response)=>{
+                console.log(response.data.states)
+                setCountries(response.data.states);
+
+          })
+       }
+       
       const  initializeCountries  = async (db,countriesJSON)  => {
         var _countries = db.getCollection("countries");
         if (!_countries) {
@@ -133,6 +143,8 @@ const AddressForm = ({checkoutToken,next}) => {
       const citiesfromServer = await initiateCities(db,citiesJSON)
       setCities(citiesfromServer.data);
       console.log(citiesfromServer.data[0]);
+        
+
        }catch(err){
          
        }
@@ -165,20 +177,20 @@ const AddressForm = ({checkoutToken,next}) => {
             }) } >
             <Grid container spacing={3}>
                <Grid item xs={12} sm={6}>    
-                <FormInput name='firstName' size="small" label='First name' register={register}/>
+                <FormInput name='firstName' size="small" label='First name' register={register} required={true}/>
                 </Grid>
                 <Grid item xs={12} sm={6}>    
-                <FormInput name='lastName'   label='Last name' register={register}/>
+                <FormInput name='lastName'   label='Last name' register={register} required={true}/>
                 </Grid>
                 <Grid item xs={12} sm={6}>    
-                <FormInput name='email'    label='Email' register={register} />
+                <FormInput name='email'    label='Email' register={register} required={true}/>
                 </Grid>
                 <Grid item xs={12} sm={6}>    
-                <FormInput name='phone' label='Phone' register={register}/>
+                <FormInput name='phone' label='Phone' register={register} required={true}/>
                 </Grid>
                 <Grid item xs={12} sm={6}>    
                 <InputLabel>Shipping Country</InputLabel>
-                    <Select value={country} name="country" fullWidth onChange={onCountryChange}>
+                    <Select value={country} name="country" native required fullWidth onChange={onCountryChange}>
                     {countries.map((c)=>(
                        <MenuItem key={c.id} value={c.id}>
                             {c.name}
@@ -187,10 +199,10 @@ const AddressForm = ({checkoutToken,next}) => {
                    </Select>
                   </Grid>
                    <Grid item xs={12} sm={6}>    
-                 <FormInput name='address1'   label='Street Address' register={register}/>
-</Grid>
+                 <FormInput name='address1'   label='Street Address' register={register} required={true}/>
+                </Grid>
                  <Grid item xs={12} sm={6}>    
-                 <FormInput name='homeaddress'  label='Home Address'placeholder="Apartment,GHpost Number, suite,suite Unit" register={register}/>
+                 <FormInput name='address2'  label='Home Address'placeholder="Apartment,GHpost Number, suite,suite Unit" register={register} required={true}/>
                  </Grid>
                 <Grid item xs={12} sm={6}>      
                 <FormInput name='zip'   label='Zip/Postal code' register={register}/>
@@ -198,7 +210,7 @@ const AddressForm = ({checkoutToken,next}) => {
 
                 <Grid item xs={12} sm={6}>
                     <InputLabel>Shipping State</InputLabel>
-                    <Select value={state}  fullWidth onChange={onStateChange}>
+                    <Select value={state}  fullWidth onChange={onStateChange} required native>
                     {states.map((s)=>(
                        <MenuItem key={s.id} value={s.id}>
                             {s.name}
@@ -208,7 +220,7 @@ const AddressForm = ({checkoutToken,next}) => {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <InputLabel>Shipping City</InputLabel>
-                    <Select value={city}  fullWidth onChange={onCityChange}>
+                    <Select value={city}  fullWidth onChange={onCityChange} required native>
                     {cities.map((c)=>(
                        <MenuItem key={c.id} value={c.id}>
                             {c.name}

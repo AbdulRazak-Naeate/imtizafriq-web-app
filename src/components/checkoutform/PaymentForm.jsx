@@ -24,6 +24,7 @@ const PaymentForm = ({shippingData,checkoutToken,backStep,onCaptureCheckout,next
           logo: 'https://st2.depositphotos.com/4403291/7418/v/450/depositphotos_74189661-stock-illustration-online-shop-log.jpg',
         },
       };
+      
      const handleFlutterPayment = useFlutterwave(config);
 
        const handlePayment =(orderData) =>{
@@ -52,7 +53,7 @@ const PaymentForm = ({shippingData,checkoutToken,backStep,onCaptureCheckout,next
                     email:shippingData.email},
                     shipping:{name:'Primary',
                     street:shippingData.address1,
-                    home_address:shippingData.homeaddress,
+                    home_address:shippingData.address2,
                     town_city:shippingData.citylabel,
                     county_state:shippingData.statelabel,
                     postal_zip_code:shippingData.zip,

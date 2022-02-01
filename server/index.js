@@ -20,6 +20,9 @@ const productlikeRoute  = require('./routes/productlikers');
 const subscribeRoute    = require('./routes/subscribers');
 const commentsRoute     = require('./routes/comments');
 const analytics         = require('./routes/analytics');
+const countries             = require('./routes/world/countries');
+const states             = require('./routes/world/states');
+const cities             = require('./routes/world/cities');
 
 dotenv.config();
 //MiddleWare
@@ -49,6 +52,10 @@ app.use('/api/productlikes',productlikeRoute);
 app.use('/api/subscribe',subscribeRoute);
 app.use('/api/comments',commentsRoute);
 app.use('/api/analytics',analytics);
+app.use('/api/countries',countries);
+app.use('/api/states',states);
+app.use('/api/cities',cities);
+
 //Home Routes
  app.get('/',(req,res)=>{
      res.send('Daabia Web App  version 0.1')
