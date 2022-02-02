@@ -21,9 +21,9 @@ router.get('/', async(req,res)=>{
       }
 }); */
 //get all Orders base on Store Id
-router.get('/:storeId', async(req,res)=>{
+router.get('/', async(req,res)=>{
     try{
-      const orders = await Order.find({storeId:req.params.storeId});
+      const orders = await Order.find();
       res.json({orders:orders,status:200});
 
     }catch(err){
@@ -44,9 +44,9 @@ router.get('/user/:userId', async(req,res)=>{
 });
 
 //get all Orders base on Store Id and Approved status to populates as sales records
-router.get('/approved/:storeId', async(req,res)=>{
+router.get('/approved', async(req,res)=>{
     try{
-      const orders = await Order.find({storeId:req.params.storeId,status:"Approved"});
+      const orders = await Order.find({status:"Approved"});
       res.json({orders:orders,status:200});
 
     }catch(err){
@@ -55,9 +55,9 @@ router.get('/approved/:storeId', async(req,res)=>{
 });
 
 //get all Orders base on Store Id and Completed status to populates as sales records
-router.get('/completed/:storeId', async(req,res)=>{
+router.get('/completed', async(req,res)=>{
   try{
-    const orders = await Order.find({storeId:req.params.storeId,status:"Completed"});
+    const orders = await Order.find({status:"Completed"});
     res.json({orders:orders,status:200});
 
   }catch(err){
@@ -97,7 +97,6 @@ router.post('/',async (req,res)=>{
   }
       const order = new Order({
           name:req.body.name,
-          storeId:req.body.storeId,
           productId:req.body.productId,
           orderNumber:req.body.orderNumber,
           quantity:req.body.quantity,
@@ -119,7 +118,7 @@ router.post('/',async (req,res)=>{
       await order.save();
       var currentDate= new Date()
       //get user order which does not expired  or which is still pending but expires
-      const newOrders = await Order.find({$or:[{/* orderNumber:req.body.orderNumber, */userId:req.body.userId,expires:{$gt:currentDate}},{userId:req.body.userId,expires:{$gt:currentDate},status:'Pending'}]});
+      const newOrders = await Order.find({$or:[{/* orderNumber:req.body.orderNumber, */expires:{$gt:currentDate}},{expires:{$gt:currentDate},status:'Pending'}]});
 
     res.json({orders:newOrders,status:200});
 
@@ -162,7 +161,7 @@ router.patch('/:orderId',async (req,res)=> {
            {new:true,useFindAndModify:false}
            );
            const Orders=await Order.find(
-               {storeId:req.body.storeId}
+               /* {storeId:req.body.storeId} */
            )
            res.json({data:Orders,status:200});
    }catch(err){
@@ -188,7 +187,7 @@ router.patch('/many/:ids',async (req,res)=> {
                 console.log(ret)             
             });
             const Orders=await Order.find(
-                {storeId:req.body.storeId}
+               /*  {storeId:req.body.storeId} */
             )
             res.json({data:Orders,status:200});
     }catch(err){
@@ -197,7 +196,7 @@ router.patch('/many/:ids',async (req,res)=> {
  });
 
  
-//update order with temp id to permanent id for user whol already made order without signed in but currently doing
+//update order with temp id to permanent id for user whol already made order without signed in but currently signining 
 router.patch('/updateuserid/:tempuserId',async (req,res)=> {
   try{
           await Order.findOneAndUpdate(
@@ -236,7 +235,7 @@ router.patch('/updateuserid/:tempuserId',async (req,res)=> {
    return orderNumber;
 } */
 
-const UniqueOrderNumber= ()=> {//Unique Identifier
+/* const UniqueOrderNumber= ()=> {//Unique Identifier
     var result           = '';
    // var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     var characters       = '0123456789';
@@ -247,6 +246,6 @@ const UniqueOrderNumber= ()=> {//Unique Identifier
     }
     console.log(result);
     return result;
-  }
+  } */
 
 module.exports = router;

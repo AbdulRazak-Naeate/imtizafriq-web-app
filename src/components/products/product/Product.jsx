@@ -30,14 +30,14 @@ const Product = ({product,onAddToCart,onUpdateLikes,favorites}) => {
     if (loggedin==='true'){
       
     setLike(!like);
-    onUpdateLikes(product._id,product.storeId);
+    onUpdateLikes(product._id);
     }else{
       alert('LogIn to add to favorites');
     }
   }
  
-    const handleProductOnClick=(productid,storeid)=>{
-       history.push(`/proceedcheckout?storeId=${storeid}&productId=${productid}`)
+    const handleProductOnClick=(productid)=>{
+       history.push(`/proceedcheckout?productId=${productid}`)
     }
       useEffect(() => {
            if (favorites.includes(product._id,0)){
@@ -54,7 +54,7 @@ const Product = ({product,onAddToCart,onUpdateLikes,favorites}) => {
            <Typography variant="h6" className={classes.price}>
                         {`$${product.price}`}
             </Typography>  
-           <CardMedia className={classes.media}  image={`http://localhost:3001/server/uploads/products/${product.image[0].filename}`} title={product.name} onClick={()=>{handleProductOnClick(product._id,product.storeId)}}/>
+           <CardMedia className={classes.media}  image={`http://localhost:3001/server/uploads/products/${product.image[0].filename}`} title={product.name} onClick={()=>{handleProductOnClick(product._id)}}/>
             
               <CardContent className={classes.cardContent}>
                   <div className={classes.cardContentSub}>

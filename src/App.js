@@ -345,9 +345,9 @@ const analytics = getAnalytics(app);
   };
 
 
-  const handleUpdateLikes = async (productId,storeId)=>{
+  const handleUpdateLikes = async (productId)=>{
      if(localStorage.getItem('loggedin')==='true'){//sign in user can like and add to fovorites
-      updateLikes(productId,storeId).then((response) => {
+      updateLikes(productId).then((response) => {
        // console.log(response.data);
         if (response.status===200){
      
@@ -362,13 +362,12 @@ const analytics = getAnalytics(app);
   
     
   
-    const updateLikes =(productId,storeId)=>{
+    const updateLikes =(productId)=>{
       
       const url = 'http://localhost:3001/api/productlikes/:productId';
    
       return post(url,  {
         productId:productId,
-        storeId:storeId,
         email:user.email,
         
        
@@ -393,7 +392,6 @@ const analytics = getAnalytics(app);
 
           await  post(url,  {
             name:items[i].product.name,
-            storeId:items[i].product.storeId,
             productId:items[i].product._id,
             orderNumber:shippingData.orderNumber,
             orderType:items[i].product.product_type,
@@ -650,25 +648,10 @@ const searchProduct =(searchString)=>{
   
   };
 
-  const getCategories =()=>{
-
-    const url = `http://localhost:3001/api/category`;
-    
-    return axios.get(url).then((response)=>{
-       try{
-         if (response.status===200){
-           //console.log(response.data)
-           setCategories(response.data)
-         }
-
-       }catch(err){
-          console.log(err)
-       }
-    })
-  } 
+ 
    
     if (!history.location.pathname.includes('dashboard')){
-      getCategories()
+      getFavorites();
       getProducts();
       handlegetCart();
       getOrders();
@@ -691,7 +674,7 @@ const searchProduct =(searchString)=>{
        <Switch>   
         
        <Route exact path="/">  
-       <CategoryWidget categories={categories} handlesearchByCategory={handlesearchByCategory}/> 
+       
       {filteredProducts.length > 0 ? <Products products={filteredProducts}  onAddToCart={handleAddtoCart} onUpdateLikes={handleUpdateLikes} favorites={favorites}/>:<Products products={products}  onAddToCart={handleAddtoCart} onUpdateLikes={handleUpdateLikes} favorites={favorites}/>}
        </Route>
        <Route exact path="/cart">

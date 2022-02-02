@@ -9,10 +9,7 @@ const ProductLikersSchema = new mongoose.Schema({
         type:String,
         require:true
     },
-    storeId:{
-        type:String,
-        require:true,
-    }
+    
 });
 
 module.exports = mongoose.model('ProductLikers',ProductLikersSchema)

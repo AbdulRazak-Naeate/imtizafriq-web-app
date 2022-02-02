@@ -9,14 +9,13 @@ import Slider from './slider/Slider_';
 import CommentItem from '../comments/commentitem/CommentItem';
 
 const ProceedcheckOut = ({onAddToCart}) => {
-    const query =QueryParams()
+    const query =QueryParams();
     const classes = useStyles();
-    const[storeid]=useState(query.get('storeId'));
     const[productid]=useState(query.get('productId'));
     const[product,setProduct]=useState([]);
     const[images,setImages]=useState([]);
-    const[comments,setComments]=useState([])
-    const isMountedRef =useRef(true)
+    const[comments,setComments]=useState([]);
+    const isMountedRef =useRef(true);
 
 /* const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -84,7 +83,7 @@ const ProceedcheckOut = ({onAddToCart}) => {
       })
   }
    const loadCommentsFromServer= async ()=>{
-     const url=`http://localhost:3001/api/comments/${storeid}/${productid}`;
+     const url=`http://localhost:3001/api/comments/${productid}`;
     return axios.get(url)
    }
 
@@ -95,7 +94,7 @@ const ProceedcheckOut = ({onAddToCart}) => {
       }
 
        
-    },[productid,storeid])
+    },[productid])
   return (
    <div className={classes.content}> { product ?
     <Grid container justifyContent="center" spacing={1}>

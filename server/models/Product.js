@@ -18,10 +18,6 @@ const mongoose = require('mongoose');
         type:Number,
         required:true
     },
-    storeId:{
-        type:String,
-        required:true
-    },
     image:{
         type:Object
     },

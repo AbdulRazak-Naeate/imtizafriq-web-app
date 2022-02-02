@@ -7,12 +7,11 @@ const Store    = require('../models/Store');
 const {uploadImage}   = require('../upload');
 const fs = require('fs');
 const { promisify } = require('util');
-const path = require('path')
 var mongoose=require('mongoose');
 const {productValidation} = require('../validation');
-
+/* 
 const MongoClient = require('mongodb').MongoClient;
-const assert = require('assert');
+const assert = require('assert'); */
 
 
 /* // Database Name
@@ -62,7 +61,6 @@ router.post('/',uploadImage('./server/uploads/products'),verify, async(req,res)=
                alltimestock:stockvalue},
         price:req.body.price,
         likes:req.body.likes,
-        storeId:req.body.storeId,
         image:req.files,
         digital_product_url:req.body.digital_product_url,
         comments:req.body.comments
@@ -102,7 +100,6 @@ router.post('/prefstyle',uploadImage('./server/uploads/products/prefarestyleprod
         category:req.body.category,
         specification:req.body.specification,
         price:req.body.price,
-        storeId:req.body.storeId,
         image:req.files,
     });
 
@@ -127,17 +124,7 @@ router.get('/:productId', async (req,res)=>{
     }
 });
 
-//get specific store products
-router.get('/store/:storeId', async (req,res)=>{
-    try{
-        const product = await Product.find()
-        .where('storeId')
-        .in(req.params.storeId);
-        res.json({products:product,message:"successfully loaded",status:200});
-    }catch(err){
-        res.json({message:err,status:400})
-    }
-})
+
 //get specific category products 
 router.get('/category/:categoryId', async (req,res)=>{
     try{

@@ -43,7 +43,6 @@ const loginValidation = data =>{
       street:Joi.string(),
       homeAddress:Joi.string(),
       productId:Joi.string().min(20),
-      storeId:Joi.string(),
       orderNumber:Joi.string().min(8),
       orderType:Joi.string(),
       quantity:Joi.number().min(1),
@@ -63,25 +62,7 @@ const loginValidation = data =>{
      return  schema.validate(data);
      
   };
-
-  const storeValidation = data =>{
-    const schema = Joi.object({
-      name:Joi.string().min(6).required(),
-      country:Joi.string().required(),
-      state:Joi.string().required(),
-      city:Joi.string().required(),
-      phone:Joi.string().min(10).required(),
-      email:Joi.string().min(6).required().email(),
-      description:Joi.string().min(10).required(), 
-      userId:Joi.string().min(20).required(),
-      categoryId:Joi.string().min(4).required(),
-      validStatus:Joi.string().min(5).required(),
-      currency:Joi.string().required(),
-      ghPostGPS:Joi.string(),
-      image:Joi.any()
-    });
-    return schema.validate(data);
-    };
+;
 
     const categoryValidation = data =>{
       const schema = Joi.object({
@@ -101,7 +82,6 @@ const loginValidation = data =>{
       description:Joi.string().min(20).required(),
       specification:Joi.string().min(2).required(),
       price:Joi.number().required(),
-      storeId:Joi.string().min(18).required(),
       category:Joi.string().required(),
       stock:Joi.any(),
       active:Joi.string().min(2),
@@ -130,7 +110,6 @@ const loginValidation = data =>{
 
   module.exports.registerValidation = registerValidation;
   module.exports.loginValidation    = loginValidation;
-  module.exports.storeValidation    = storeValidation;
   module.exports.categoryValidation = categoryValidation;
   module.exports.productValidation  = productValidation;
   module.exports.orderValidation    = orderValidation;

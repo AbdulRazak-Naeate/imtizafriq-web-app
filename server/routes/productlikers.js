@@ -18,7 +18,7 @@ router.post('/:productId',async(req,res)=>{
     if (error) return res.json().status(400).send(error.details[0].message);
     let productExist=null;
     let val=0;
-    const userAlreadyLikeProduct = await ProductLikers.findOne({email:req.body.email,productId:req.body.productId,storeId:req.body.storeId}
+    const userAlreadyLikeProduct = await ProductLikers.findOne({email:req.body.email,productId:req.body.productId}
     ).then(ret=>{
           productExist=ret;
         // console.log(ret)
@@ -28,7 +28,7 @@ router.post('/:productId',async(req,res)=>{
         if (productExist===null){
             val=1;
           try{    
-             const productLikers = new ProductLikers({productId:req.body.productId,email:req.body.email,storeId:req.body.storeId});
+             const productLikers = new ProductLikers({productId:req.body.productId,email:req.body.email});
        
                productLikers.save();   
               res.json({likes:"like",}) 
@@ -40,7 +40,7 @@ router.post('/:productId',async(req,res)=>{
            console.log('exist remove')
   
              try{
-               const removeUserFromPorductLikers = await ProductLikers.findOneAndDelete({productId:req.body.productId,email:req.body.email,storeId:req.body.storeId}).then(ret=>{
+               const removeUserFromPorductLikers = await ProductLikers.findOneAndDelete({productId:req.body.productId,email:req.body.email}).then(ret=>{
                     console.log(ret)
                 });
 

@@ -14,10 +14,6 @@ const CommentsSchema = new mongoose.Schema({
         type:String,
         require:true,
     },
-    storeid:{
-        type:String,
-        require:true,
-    },
     date:{
         type:Date,
         default: Date.now()

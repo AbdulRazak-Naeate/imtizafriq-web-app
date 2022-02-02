@@ -69,7 +69,6 @@ const initiateAndCreateProduct =()=>{
   formData.append('description', "null");
   formData.append('specification', "none");
   formData.append('digital_product_url', 'null');//append digital
-  formData.append('storeId', 'null');
   formData.append('stock','0');
   formData.append('active','0');
   formData.append('product_type','special');

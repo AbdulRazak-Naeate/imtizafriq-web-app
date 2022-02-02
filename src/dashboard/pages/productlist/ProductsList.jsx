@@ -11,9 +11,6 @@ export default function ProductsList({products,handlegetProducts,handleDeletePro
     const query=QueryParams();
     const history=useHistory();
     const [pageSize, setPageSize] =useState(10);
-
-    const [storeid]=useState(query.get("storeId"));
-    const [storename] =useState(query.get("storeName"));
     const [category] =useState(query.get("categoryId"));
      
     //alert Dialog
@@ -39,7 +36,7 @@ export default function ProductsList({products,handlegetProducts,handleDeletePro
 
     const handleEdit = (params)=>{
          //navigate to product page
-        history.push(`/dashboard/product?productId=${params.row._id}&productName=${params.row.name}&storeId=${storeid}&storeName=${storename}`);
+        history.push(`/dashboard/product?productId=${params.row._id}&productName=${params.row.name}`);
 
         localStorage.setItem('product', JSON.stringify(params.row));        
     }
@@ -47,7 +44,7 @@ export default function ProductsList({products,handlegetProducts,handleDeletePro
 
         /* const fetchProducts = async ()=>{
               try{
-                 const res = await fetch(`http://localhost:3001/api/products/store/${storeid}`);
+                 const res = await fetch(`http://localhost:3001/api/products/store`);
                  const data=await res.json();
                        console.log(data);
                        return data.products;
@@ -70,8 +67,8 @@ export default function ProductsList({products,handlegetProducts,handleDeletePro
             }
         } */
          
-        handlegetProducts(storeid);
-      },[handlegetProducts, storeid]);
+        handlegetProducts();
+      },[handlegetProducts]);
      /*   
       async function deleteProduct(_id) {
         try {
@@ -160,7 +157,7 @@ export default function ProductsList({products,handlegetProducts,handleDeletePro
          <div className="productsTitleContainer">
          <h1 className="addProductTitle">Products </h1>
 
-         <Link to={`/dashboard/newProduct?storeId=${storeid}&storeName=${storename}&categoryId=${category}`}>
+         <Link to={`/dashboard/newProduct?categoryId=${category}`}>
           <button className="AddProductButton">New Product</button>
           </Link> 
          

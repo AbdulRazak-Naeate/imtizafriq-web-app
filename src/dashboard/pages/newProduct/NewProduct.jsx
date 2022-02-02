@@ -31,8 +31,6 @@ export default function NewProduct() {
 
     const[user]=useState(JSON.parse(localStorage.getItem('user')));
     let query=QueryParams();
-    const storeid= query.get('storeId');
-    const storename =query.get("storeName");
     const category =query.get("categoryId");
     
         const onSpecificationChange = (e) => {
@@ -171,7 +169,6 @@ export default function NewProduct() {
         formData.append('description', description);
         formData.append('specification', specification);
         formData.append('digital_product_url', digitalProductUrl);//append digital
-        formData.append('storeId', storeid);
         formData.append('stock',stock);
         formData.append('active',active)
         console.log(JSON.stringify(formData));
@@ -205,7 +202,7 @@ export default function NewProduct() {
               <h1 className="addProductTitle">Add New Product </h1>
             
             
-          <Link to={`/dashboard/products?storeId=${storeid}&storeName=${storename}&categoryId=${category}`}>
+          <Link to={`/dashboard/products?categoryId=${category}`}>
           <button className="ProductListButton">Products</button>
           </Link>
 

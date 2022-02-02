@@ -8,18 +8,15 @@ import { Link} from 'react-router-dom';
 import {useState , useEffect} from "react";
 import AlertDialog from '../../components/alertdialog/AlertDialog'
 import {patch} from 'axios';
-import QueryParams from '../../QueryParams';
 
 const Sales = ({stores}) => {
   console.log(stores)
-  const query=QueryParams();
   const [transactions,setTransactions]=useState([]);
   const [pageSize, setPageSize] = useState(20);
   const [user]=useState(localStorage.getItem('user'));
  // const [stores]=useState(JSON.parse(localStorage.getItem('stores')));
-   const [storeid,setStoreId]=useState('');
 
-  const [selectedRows,setSelectedRows]=useState([]);
+  const [setSelectedRows]=useState([]);
   const [selected_Ids,setSelected_Id]=useState([]);
   const [selectionModel,setSelectionModel]=useState([])
   const [status,setStatus]=useState('Approved');
@@ -68,7 +65,6 @@ const editTransaction =(orderid)=>{
 const url = `http://localhost:3001/api/orders/${orderid}`;
 const body={
          status:status,
-         storeId:storeid
       
 }
 const config = {
@@ -100,7 +96,6 @@ const editTransactions =(option)=>{
   const url = `http://localhost:3001/api/orders/many/${ids}`;
 
 const body={
-       storeId:storeid,
        status:option,
        ids: ids
     
@@ -116,15 +111,14 @@ return patch(url, body,config)
 };
    
   useEffect(() => {  
-    console.log("storeid "+stores.length)
-    stores.length >0 ? setStoreId(stores[0]._id) : setStoreId('')
+   
 
     const fetchOrders = async () => {//get Orders 
   
      try {
      
        
-    const res = await fetch(`http://localhost:3001/api/orders/completed/${storeid}`);
+    const res = await fetch(`http://localhost:3001/api/orders/completed`);
     const data = await res.json();
     
     return data.orders;
@@ -146,12 +140,12 @@ return patch(url, body,config)
       setTransactions(tmp)
  
    } catch (error) {
-     setStoreId(stores[0]._id);
      console.log({message:error})
    }
   };
- if (storeid!== '')  getOrders() 
-  },[storeid,stores]);
+   getOrders() 
+
+  });
   
 
   const columns = [
@@ -169,12 +163,6 @@ return patch(url, body,config)
           )
       }, */
       editable: true,
-    },
-    {
-      field:'storeId',
-      headerName:"Store Id",
-      width:210,
-      editable:true
     },
     {
       field:'orderNumber',
@@ -264,9 +252,7 @@ return patch(url, body,config)
         }
     } */
   ];
-    const handleStoreChange = (e)=>{
-       setStoreId(e.target.value)
-    }
+    
   return (
     <div className="transactions">
 
@@ -274,11 +260,7 @@ return patch(url, body,config)
        <div className="pageTitleContainer">
            <h1 className="pageTitle">Sales</h1>    
             <div>
-            { stores.length ?  <select  className="select-store" value={storeid} onChange={(e)=>{handleStoreChange(e)}}>
-                  {stores.map((store,index)=>{
-                  return(  <option key={index} value={store._id} className="opt">{`${store.name} ${store.currency}`}</option>)
-                  })}
-              </select>:''}
+           
             <Link to={`/dashboard/sales?`}>
           <button className="pageTitleButton">Reports</button>
           </Link>

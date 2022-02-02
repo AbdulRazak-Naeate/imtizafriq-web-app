@@ -18,8 +18,6 @@ const Transactions = () => {
   const [transactions,setTransactions]=useState([]);
   const [pageSize, setPageSize] = useState(20);
   const [user]=useState(localStorage.getItem('user'));
-  const [stores]=useState(JSON.parse(localStorage.getItem('stores')));
-  const [storeid,setStoreId]=useState(query.get('storeId'));
   const [selectedRows,setSelectedRows]=useState([]);
   const [selected_Ids,setSelected_Id]=useState([]);
   const [selectionModel,setSelectionModel]=useState([])
@@ -101,7 +99,6 @@ const editTransaction =(orderid)=>{
 const url = `http://localhost:3001/api/orders/${orderid}`;
 const body={
          status:status,
-         storeId:storeid
       
 }
 const config = {
@@ -133,7 +130,6 @@ const editTransactions =(option)=>{
   const url = `http://localhost:3001/api/orders/many/${ids}`;
 
 const body={
-       storeId:storeid,
        status:option,
        ids: ids
     
@@ -154,16 +150,9 @@ return patch(url, body,config)
     const fetchOrders = async () => {//get Orders 
   
      try {
-       if (storeid===null){
-        try{
-          setStoreId(stores[0]._id)
-        }catch(err){
-          console.log(err)
-        }
-
-       }
        
-    const res = await fetch(`http://localhost:3001/api/orders/${storeid}`);
+       
+    const res = await fetch(`http://localhost:3001/api/orders`);
     const data = await res.json();
     console.log(data)
     return data.orders;
@@ -185,12 +174,11 @@ return patch(url, body,config)
       setTransactions(tmp)
  
    } catch (error) {
-     setStoreId(stores[0]._id);
      console.log({message:error})
    }
   };
   getOrders()
-  },[storeid,stores]);
+  });
   const getDateNow =(dateNumber)=>{
     var dateString = new Date(parseInt(dateNumber)*1000);
       var newDate= `${dateString.getFullYear()}-${dateString.getMonth()}-${dateString.getDate()} ${dateString.getHours()}:${dateString.getMinutes()}`
@@ -226,13 +214,6 @@ return patch(url, body,config)
       headerName: 'Product',
       width: 200,
       editable: true,
-    },
-    
-    {
-      field:'storeId',
-      headerName:"Store Id",
-      width:210,
-      editable:true
     },
     {
       field:'orderNumber',
@@ -332,11 +313,6 @@ return patch(url, body,config)
        <div className="pageTitleContainer">
            <h1 className="pageTitle">Transactions</h1>    
             <div>
-            { stores.length ?  <select  className="select-store" value={storeid} onChange={(e)=>{setStoreId(e.target.value)}}>
-                  {stores.map((store,index)=>{
-                  return(  <option key={index} value={store._id} className="opt">{store.name}</option>)
-                  })}
-              </select>:''}
             <Link to={`/dashboard/transactions?`}>
           <button className="pageTitleButton">Reports</button>
           </Link>

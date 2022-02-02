@@ -21,8 +21,6 @@ import {patch}from 'axios';
 export default function Product() {
     const query=QueryParams();
     const [product,setProduct]= useState(JSON.parse(localStorage.getItem('product')));
-    const [storeid]=useState(query.get('storeId'));
-    const [storename]=useState(query.get('storeName'));
     const [productid]=useState(product._id); 
     const [productname]=useState(product.name);
     const [colors,setColors]=useState(product.color);
@@ -117,10 +115,10 @@ export default function Product() {
             <div className="productTitleContainer">
                 <h1 className="productTitle">Product</h1>
                  <div style={{width:'25%',display:'flex',justifyContent:'space-between'}}>
-                 <Link to={`/dashboard/newproduct?storeId=${storeid}&storeName=${storename}`}>
+                 <Link to={`/dashboard/newproduct`}>
                 <button className="productAddButon">Create</button>
                 </Link>
-                <Link to={`/dashboard/products?storeId=${storeid}&storeName=${storename}`}>
+                <Link to={`/dashboard/products`}>
                 <button className="productAddButon">Products</button>
                 </Link>
                  </div>

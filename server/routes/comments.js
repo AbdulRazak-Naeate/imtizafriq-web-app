@@ -18,7 +18,7 @@ router.get('/',async(req,res)=>{
 
 router.post('/', async (req,res)=>{
     try{
-        const comments = new Comments({username:req.body.username,text:req.body.text,productid:req.body.productid,storeid:req.body.storeid});
+        const comments = new Comments({username:req.body.username,text:req.body.text,productid:req.body.productid});
         const savedComments = await comments.save();
    
         res.json({comment:savedComments,status:200});
@@ -27,12 +27,12 @@ router.post('/', async (req,res)=>{
     }
 });
 
-//get comments by productid and storeid
+//get comments by productid
 
-router.get('/:storeId/:productId',async(req,res)=>{
+router.get('/:productId',async(req,res)=>{
      try{
          console.log(req.params)
-        const comments = await Comments.find({storeid:req.params.storeId,productid:req.params.productId});
+        const comments = await Comments.find({productid:req.params.productId});
         
         res.json({comments:comments,status:200});
        }catch(err){
