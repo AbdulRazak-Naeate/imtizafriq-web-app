@@ -47,7 +47,7 @@ const mongoose = require('mongoose');
         type:String,
         default:Date.now()
     },
-    producttype:{
+    product_type:{
         type:String,
         default:'normal'
     },

@@ -3,7 +3,6 @@ const router   = express.Router();
 const Product  = require('../models/Product');
 const PrefStyleProduct = require('../models/PrefStyleProduct')
 const verify   = require('./verifyToken');
-const Store    = require('../models/Store');
 const {uploadImage}   = require('../upload');
 const fs = require('fs');
 const { promisify } = require('util');
@@ -24,9 +23,10 @@ const client = new MongoClient(process.env.DB_COMMUNITY_CON,{ useUnifiedTopology
 router.get('/',async(req,res)=>{
     try{
         const products= await Product.find();
-        res.json(products);
+        res.json({products:products});
     
     }catch(err){
+        
         res.json({message:err});
     }
 });
@@ -36,9 +36,6 @@ router.post('/',uploadImage('./server/uploads/products'),verify, async(req,res)=
 
     const userId = req.user._id; //get userid
 
-    const store = await Store.findOne({userId:userId});//get user Store
-
-    //const store_Id=store._id; //get user store id
 
     //Validation
     const {error} = productValidation(req.body);

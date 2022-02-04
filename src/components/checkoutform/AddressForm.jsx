@@ -1,18 +1,33 @@
 /* eslint-disable no-unused-vars */
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect,useRef,useCallback} from 'react';
 import FormInput from './CustomTextField';
 import {Link} from 'react-router-dom';
 import {useForm} from 'react-hook-form';
-import { Grid,Select,Button, InputLabel, Typography, MenuItem } from '@material-ui/core';
+import { Grid,Select,Button, InputLabel, Typography, MenuItem} from '@material-ui/core';
 import axios from 'axios';
-var loki = require('lokijs');
-
+/* var loki = require('lokijs');
+ */
 
 const AddressForm = ({checkoutToken,next}) => {
+
+  const uniqueOrderNumber= ()=> {//Unique Identifier
+    var result           = '';
+   // var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var characters       = '0123456789';
+
+    var charactersLength = characters.length;
+    for ( var i = 0; i < 8; i++ ) {
+       result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    //console.log(result);
+    return result;
+  }
     const {register,
       handleSubmit,
       formState: { errors },
-    } = useForm();
+    } = useForm();   
+     const mountedRef=useRef(true);
+     const[isCountriesloaded,setIscountriesLoaded]=useState(false)
     const [countries,setCountries]=useState([]);
     const [country,setCountry]=useState(0);
     const [countrylabel,setCountryLabel]=useState('');
@@ -22,152 +37,85 @@ const AddressForm = ({checkoutToken,next}) => {
     const [cities,setCities]=useState([]);
     const [city,setCity]=useState('');
     const [citylabel,setCityLabel]=useState('');
-    const [orderNumber,setOrderNumber]=useState('');
+    const [orderNumber]=useState(uniqueOrderNumber());
     const [shippingFees,setShippingFees]=useState(0);
-    const _db = new loki('csc.db');
-    const[db]=useState(_db);
+   
 
     
   const onCountryChange =(e)=>{
-    let countryColl = db.getCollection("countries");
-    // console.log(statesColl.data)
-     
-    var cid=e.target.value;
-    let country= countryColl.find({id: parseInt(cid) });
-      console.log(country[0].name)
-    setCountry(cid);
-    setCountryLabel(country[0].name)
-     filterStates(cid,db);
-     setShippingFees(5)
+    const index=e.target.value;
+    const cid=countries[index].id;
+    const name=countries[index].name;
+    console.log(`${countries[index].name} ${countries[index].id}`)
+    setCountry(index);
+    setCountryLabel(name)
+    getStates(cid);
+    setShippingFees(5)
   }
   const onStateChange=(e)=>{
-    let stateColl = db.getCollection("states");
-    var cid=e.target.value;
-    let city= stateColl.find({id: parseInt(cid) });
-    setState(cid)
-    setStateLabel(city[0].name);
-    filterCities(cid,db);
+    const index=e.target.value;
+    const sid=states[index].id;
+    const name=states[index].name;
+    console.log(`${states[index].name} ${states[index].id}`)
+    setState(index);
+    setStateLabel(name)
+    getCities(sid);
   }
   const onCityChange=(e)=>{
-    let citiesColl = db.getCollection("cities");
-    
-    var sid=e.target.value;
-    let city= citiesColl.find({id: parseInt(sid) });
-    setCityLabel(city[0].name)
-      setCity(sid)
+    const index=e.target.value;
+    //const cid=cities[index].id;
+    const name=cities[index].name;
+    console.log(`${cities[index].name} ${cities[index].id}`)
+    setCity(index);
+    setCityLabel(name)
   }
-  const filterStates = async(cid,db)=> {
-    let statesColl = db.getCollection("states");
-   // console.log(statesColl.data)
-    let states = await statesColl.find({ country_id: parseInt(cid) });
-        setStates(states);
-  
-  }
-  const filterCities = async(sid,db)=> {
-    let citiesColl = db.getCollection("cities");
-    //console.log(citiesColl.data)
-    let cities = await citiesColl.find({ state_id: parseInt(sid) });
-        setCities(cities);
-  
-  }
-    useEffect(()=>{
+ 
+  const getStates= async (cid)=>{
+    const url=`http://localhost:3002/api/states/${cid}`;
+    await axios.get(url).then((response)=>{
+           console.log(response.data.states)
+          setStates(response.data.states);
 
-       const getCountries = async ()=>{
-          const url=`http://localhost:3001/api/states`;
-          await axios.get(url).then((response)=>{
-                console.log(response.data.states)
-                setCountries(response.data.states);
+    })
+ }
+ const getCities= async (sid)=>{
+  const url=`http://localhost:3002/api/cities/${sid}`;
+  await axios.get(url).then((response)=>{
+        console.log(response.data.cities)
+        setCities(response.data.cities);
 
-          })
-       }
+  })
+}
+   const getCountries =  useCallback( async() => {
+
+      // if (!mountedRef.current) return null ;
+
+     if (!isCountriesloaded){
+      try{
+        const url=`http://localhost:3002/api/countries`;
+        await axios.get(url).then((response)=>
+              setCountries(response.data.countries)
+             
+        )
+         console.log(mountedRef.current)
+        
+        }catch(err){
+            console.log(err)
+        }
+     }
+    },[isCountriesloaded]);
+  
+    useEffect(()=> {
+      getCountries();
+      return ()=>{
+        setIscountriesLoaded(true)
+       // mountedRef.current=false;
+      };
+
+    },[getCountries]);
        
-      const  initializeCountries  = async (db,countriesJSON)  => {
-        var _countries = db.getCollection("countries");
-        if (!_countries) {
-          _countries = db.addCollection('countries');
-           const countries =  await fetch(countriesJSON)
-        .then(countries=>countries.json());
-        
-         await countries.forEach((c) => {
-           
-          _countries.insert(c);
-          });
-        }
+          
        
-        return _countries;
-    
-      }
-      const initiateCities = async (db,citiesJSON) =>{
-        var _cities = db.getCollection("cities");
-       if (!_cities) {
-           _cities = db.addCollection('cities');
-           const cities=  await fetch(citiesJSON)
-           .then(cities => cities.json())
-         
-           await cities.forEach((c) => {
-             _cities.insert(c);
-           });
-      
-        }
-        return _cities;
-      }
-        const initiateStates = async (db,statesJSON) =>{
-          var _states = db.getCollection("states");
-         if (!_states) {
-         _states = db.addCollection('states');
-       const states=  await fetch(statesJSON)
-           .then(states => states.json())
-           
-             await states.forEach((s) => {
-               _states.insert(s);
-             });
-        
-          }
-          return _states;
-        }
-        const init = async () =>{
-            const countriesJSON = 'https://raw.githubusercontent.com/dr5hn/countries-states-cities-database/master/countries.json';
-            const statesJSON = 'https://raw.githubusercontent.com/dr5hn/countries-states-cities-database/master/states.json';
-            const citiesJSON = 'https://raw.githubusercontent.com/dr5hn/countries-states-cities-database/master/cities.json';
-       try{
-             //get country data from server
-          const countriesfromServer = await initializeCountries(db,countriesJSON)
-          setCountries(countriesfromServer.data);
-          console.log("countries "+countriesfromServer)
-
-            //get states data from server
-      const statesfromServer = await initiateStates(db,statesJSON)
-      setStates(statesfromServer.data);
-     // console.log(statesfromServer.data[0]);
-     //get cities data from server
-      const citiesfromServer = await initiateCities(db,citiesJSON)
-      setCities(citiesfromServer.data);
-      console.log(citiesfromServer.data[0]);
-        
-
-       }catch(err){
-         
-       }
-
-
-      }
-      
-      const uniqueOrderNumber= ()=> {//Unique Identifier
-      var result           = '';
-     // var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-      var characters       = '0123456789';
-  
-      var charactersLength = characters.length;
-      for ( var i = 0; i < 8; i++ ) {
-         result += characters.charAt(Math.floor(Math.random() * charactersLength));
-      }
-      console.log(result);
-      setOrderNumber(result)
-      return result;
-    }
-    uniqueOrderNumber()
-      init();
-    },[db]);
     
   return (
     <>
@@ -190,16 +138,14 @@ const AddressForm = ({checkoutToken,next}) => {
                 </Grid>
                 <Grid item xs={12} sm={6}>    
                 <InputLabel>Shipping Country</InputLabel>
-                    <Select value={country} name="country" native required fullWidth onChange={onCountryChange}>
-                    {countries.map((c)=>(
-                       <MenuItem key={c.id} value={c.id}>
-                            {c.name}
-                       </MenuItem>
+                    <Select value={country} name="country"  required fullWidth onChange={onCountryChange}>
+                    {countries.map((c,index)=>(
+                       <MenuItem key={c.id} value={index}>{c.name}</MenuItem>
                    ))}
-                   </Select>
-                  </Grid>
+                   </Select>             
+                </Grid>
                    <Grid item xs={12} sm={6}>    
-                 <FormInput name='address1'   label='Street Address' register={register} required={true}/>
+                 <FormInput name='address1'  label='Street Address' register={register} required={true}/>
                 </Grid>
                  <Grid item xs={12} sm={6}>    
                  <FormInput name='address2'  label='Home Address'placeholder="Apartment,GHpost Number, suite,suite Unit" register={register} required={true}/>
@@ -210,9 +156,9 @@ const AddressForm = ({checkoutToken,next}) => {
 
                 <Grid item xs={12} sm={6}>
                     <InputLabel>Shipping State</InputLabel>
-                    <Select value={state}  fullWidth onChange={onStateChange} required native>
-                    {states.map((s)=>(
-                       <MenuItem key={s.id} value={s.id}>
+                    <Select value={state}  fullWidth onChange={onStateChange} required >
+                    {states.map((s,index)=>(
+                       <MenuItem key={s.id} value={index}>
                             {s.name}
                        </MenuItem>
                    ))}
@@ -220,9 +166,9 @@ const AddressForm = ({checkoutToken,next}) => {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <InputLabel>Shipping City</InputLabel>
-                    <Select value={city}  fullWidth onChange={onCityChange} required native>
-                    {cities.map((c)=>(
-                       <MenuItem key={c.id} value={c.id}>
+                    <Select value={city}  fullWidth onChange={onCityChange} required >
+                    {cities.map((c,index)=>(
+                       <MenuItem key={c.id} value={index}>
                             {c.name}
                        </MenuItem>
                    ))}

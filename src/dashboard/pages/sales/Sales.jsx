@@ -22,7 +22,7 @@ const Sales = ({stores}) => {
   const [status,setStatus]=useState('Approved');
   const [open,setOpen]=useState(false);
   const [orderid,setOrderId]=useState('');
-
+  const [isTransactionLoaded,setIsTransactionLoaded]=useState(false)
    // const history=useHistory();
      
 
@@ -62,7 +62,7 @@ const Sales = ({stores}) => {
 }
 
 const editTransaction =(orderid)=>{
-const url = `http://localhost:3001/api/orders/${orderid}`;
+const url = `http://localhost:3002/api/orders/${orderid}`;
 const body={
          status:status,
       
@@ -93,7 +93,7 @@ const handleUpdateMany=(option)=>{
 
 const editTransactions =(option)=>{
   const ids=JSON.stringify(selected_Ids);
-  const url = `http://localhost:3001/api/orders/many/${ids}`;
+  const url = `http://localhost:3002/api/orders/many/${ids}`;
 
 const body={
        status:option,
@@ -118,7 +118,7 @@ return patch(url, body,config)
      try {
      
        
-    const res = await fetch(`http://localhost:3001/api/orders/completed`);
+    const res = await fetch(`http://localhost:3002/api/orders/completed`);
     const data = await res.json();
     
     return data.orders;
@@ -143,8 +143,12 @@ return patch(url, body,config)
      console.log({message:error})
    }
   };
-   getOrders() 
-
+  if (!isTransactionLoaded) getOrders() 
+   return  () =>{
+       if(transactions.length>0){
+         setIsTransactionLoaded(true)
+       }
+   }
   });
   
 
@@ -157,7 +161,7 @@ return patch(url, body,config)
      /*  renderCell:(params)=>{
           return(
               <div className="userListUser">
-                  <img className="userListImg" src={`http://localhost:3001/server/uploads/users/${params.row.image[0].filename}`} alt=""/>
+                  <img className="userListImg" src={`http://localhost:3002/server/uploads/users/${params.row.image[0].filename}`} alt=""/>
                   {params.row.username}
               </div>
           )

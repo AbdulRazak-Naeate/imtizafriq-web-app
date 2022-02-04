@@ -3,23 +3,22 @@ import {useState,useEffect} from 'react';
 import {Link,useHistory} from 'react-router-dom';
 import './signup.css';
 import {post} from 'axios';
-import country from '../../world-db/countries.json'
-var loki = require('lokijs');
-export default function SignUp({toggleSideBar}) {
+/* var loki = require('lokijs');
+ */export default function SignUp({toggleSideBar}) {
   const [username,setUsername]=useState('');
   const [email,setEmail]=useState('');
   const [password,setPassword]=useState('');
   const [phone,setPhone]=useState('');
   const [repeatPassword,setRepeatPassword]=useState('');
-  const [countries,setCountries]=useState([]);
+ /*  const [countries,setCountries]=useState([]);
   const [states,setStates]=useState([]);
-  const [cities,setCities]=useState([]);
+  const [cities,setCities]=useState([]); */
 
   const history=useHistory();
 
 
-  const _db = new loki('csc.db');
-  const[db]=useState(_db);
+ /*  const _db = new loki('csc.db');
+  const[db]=useState(_db); */
     
   const onFormSubmit =(e)=>{
     
@@ -45,7 +44,7 @@ export default function SignUp({toggleSideBar}) {
     }
   } 
 
-  const onCountryChange=(e)=>{
+ /*  const onCountryChange=(e)=>{
     var sid=e.target.value;
      filterStates(sid,db);
   }
@@ -118,12 +117,12 @@ const initiateCities = async (db,citiesJSON) =>{
    
     return _countries;
 
-  }
+  } */
 
   useEffect(()=>{
     toggleSideBar(false);
 
-     const init = async () =>{
+    /*  const init = async () =>{
      const countriesJSON = 'https://raw.githubusercontent.com/dr5hn/countries-states-cities-database/master/countries.json';
 
     const statesJSON = 'https://raw.githubusercontent.com/dr5hn/countries-states-cities-database/master/states.json';
@@ -148,34 +147,33 @@ const initiateCities = async (db,citiesJSON) =>{
       }
     }
     
-    init();
+    init(); */
 
     
      
     
-   },[toggleSideBar,db]);
+   },[toggleSideBar]);
 
   
   const SignUp =()=>{
         
-    const url = 'http://localhost:3001/api/user/register';
+    const url = 'http://localhost:3002/api/user/register';
 
    
     const formData = new FormData();
    
-    formData.append('name', username);
+    formData.append('username', username);
     formData.append('email', email);
     formData.append('phone', phone);
     formData.append('password', repeatPassword);
    
  
     return post(url,  {
-      name:username,
+      username:username,
       firstname:'null',
       lastname:'null',
       email: email ,
       phone:'null',
-      location:'null',
       password: password,
     })
   

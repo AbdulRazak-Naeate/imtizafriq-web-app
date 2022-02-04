@@ -145,7 +145,7 @@ export default function NewProduct() {
       }
      const initiateAndCreateProduct =()=>{
         
-        const url = 'http://localhost:3001/api/products/';
+        const url = 'http://localhost:3002/api/products/';
     
         console.log(colors);
         const formData = new FormData();
@@ -196,7 +196,7 @@ export default function NewProduct() {
         <div className="newProduct">
            <Alert stack={{limit: 3}} />
 
-    <span className="addproductStoreTitle">{storename}
+    <span className="addproductStoreTitle">{"storename"}
                 </span> 
           <div className="addProductTitleContainer">
               <h1 className="addProductTitle">Add New Product </h1>

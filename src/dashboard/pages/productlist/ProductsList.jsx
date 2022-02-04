@@ -12,6 +12,7 @@ export default function ProductsList({products,handlegetProducts,handleDeletePro
     const history=useHistory();
     const [pageSize, setPageSize] =useState(10);
     const [category] =useState(query.get("categoryId"));
+    const [isProductsLoaded,setIsproductSLoaded]=useState(false)
      
     //alert Dialog
     const [open,setOpen]=useState(false);
@@ -44,7 +45,7 @@ export default function ProductsList({products,handlegetProducts,handleDeletePro
 
         /* const fetchProducts = async ()=>{
               try{
-                 const res = await fetch(`http://localhost:3001/api/products/store`);
+                 const res = await fetch(`http://localhost:3002/api/products/store`);
                  const data=await res.json();
                        console.log(data);
                        return data.products;
@@ -67,12 +68,18 @@ export default function ProductsList({products,handlegetProducts,handleDeletePro
             }
         } */
          
-        handlegetProducts();
-      },[handlegetProducts]);
+       console.log(isProductsLoaded)
+       if (!isProductsLoaded) handlegetProducts();
+
+        return ()=>{
+          if (products){setIsproductSLoaded(true) }
+         // mountedRef.current=false;
+        };
+      },[handlegetProducts, isProductsLoaded, products]);
      /*   
       async function deleteProduct(_id) {
         try {
-          const response = await axios.delete(`http://localhost:3001/api/products/${_id}`);
+          const response = await axios.delete(`http://localhost:3002/api/products/${_id}`);
           console.log(response);
           if (response.data.deletedCount>=1){
           setProducts(products.filter((item) => item._id !==_id))
@@ -95,7 +102,7 @@ export default function ProductsList({products,handlegetProducts,handleDeletePro
           renderCell:(params)=>{
               return(
                   <div className="productListItem">
-                      <img className="productListImg" src={`http://localhost:3001/server/uploads/products/${params.row.image[0].filename}`} alt=""/>
+                      <img className="productListImg" src={`http://localhost:3002/server/uploads/products/${params.row.image[0].filename}`} alt=""/>
                       {params.row.name}
                   </div>
               )
@@ -152,7 +159,7 @@ export default function ProductsList({products,handlegetProducts,handleDeletePro
     return (
         <div className="productsList"> 
             <AlertDialog open={open} handleClickOpen={handleClickOpen} handleClose={handleClose} title="Are you sure you want to delete!"DeleteOutline={DeleteOutline}/>
-          <span className="productsTitle">{storename}  </span> 
+          <span className="productsTitle">{"storename"}  </span> 
 
          <div className="productsTitleContainer">
          <h1 className="addProductTitle">Products </h1>

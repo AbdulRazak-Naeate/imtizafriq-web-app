@@ -73,10 +73,10 @@ export default function Product() {
       }
 
       const editProduct =()=>{
-        const url = `http://localhost:3001/api/products/${productid}`;
+        const url = `http://localhost:3002/api/products/${productid}`;
         const colval=getValues('color');
         console.log(colval);
-        const sizeval=getValues('size');
+       // const sizeval=getValues('size');
         const body={
                  productId:productid,
                  price:price,
@@ -111,7 +111,7 @@ export default function Product() {
       })
     return (
         <div className="product">
-            <span>{storename}</span>
+            <span>{"storename"}</span>
             <div className="productTitleContainer">
                 <h1 className="productTitle">Product</h1>
                  <div style={{width:'25%',display:'flex',justifyContent:'space-between'}}>
@@ -129,7 +129,7 @@ export default function Product() {
                 </div>
                 <div className="productTopRight">
                     <div className="productInfoTop">
-                        <img src={`http://localhost:3001/server/uploads/products/${product.image[0].filename}`} alt="" className="productInfoImg" />
+                        <img src={`http://localhost:3002/server/uploads/products/${product.image[0].filename}`} alt="" className="productInfoImg" />
                        <span className="productName">{productname}</span>
                     </div>
                     <div className="productInfoBottom">
@@ -184,7 +184,7 @@ export default function Product() {
                     <div className="productFormMiddle">
                        <div className='formItem'>
                            <label>Color</label>
-                          <div className="measurementWrapper">
+                          <div className="productMeasurementWrapper">
                         
                           {   
                              colors.map((color,index)=>{
@@ -201,7 +201,7 @@ export default function Product() {
 
                         <div className='formItem'>
                            <label>Size</label>
-                           <div className="measurementWrapper">
+                           <div className="productMeasurementWrapper">
                         
                           {   
                              sizes.map((size,index)=>{
@@ -222,7 +222,7 @@ export default function Product() {
                     </div>
                     <div className="productFormRight">
                         <div className="productUpload">
-                            <img src={`http://localhost:3001/server/uploads/products/${product.image[0].filename}`} alt="" className="productUploadImg" />
+                            <img src={`http://localhost:3002/server/uploads/products/${product.image[0].filename}`} alt="" className="productUploadImg" />
                             <label htmlFor="file" style={{display:'block'}}>
                                 <Publish/>
                             </label>

@@ -97,14 +97,11 @@ const analytics = getAnalytics(app);
      const[product,setProduct]=useState([]);
      const[cart,setCart]=useState({});
      const[itemsCount,setItemsCount]=useState(0);
-     const [errorMessage,setErrorMessage]=useState('');
      const [order,setOrder]=useState({});
      const[myOrders,setMyOrders]=useState([]);
-     const[categories,setCategories]=useState([]);
      const[orderCount,setMyOrderCount]=useState(0);
      const[openModal,setOpenModal]=useState(false)
      const paths=['/','/cart','/checkout','/orders','/proceedcheckout','/prefaredstylecheckout','/account','/aboutus'];
-    const[tapPosition,setTapPosition]=useState(0);
   
      let history = useHistory();
      const handleCloseModal = () =>{ 
@@ -139,7 +136,7 @@ const analytics = getAnalytics(app);
     
     const sendConfirmationEmail = (_id,newOrder)=>{
      //console.log("id "+_id + "email "+newOrder.customer.email)
-      const url = `http://localhost:3001/api/email/confirmorder/${_id}`;
+      const url = `http://localhost:3002/api/email/confirmorder/${_id}`;
 
     post(url,{email:newOrder.customer.email,data:newOrder}).then((response)=>{
         console.log(response)
@@ -161,7 +158,7 @@ const analytics = getAnalytics(app);
   } 
   
   const refreshCart = async ()=>{
-    const url=`http://localhost:3001/api/carts/refreshcart/${userid}`
+    const url=`http://localhost:3002/api/carts/refreshcart/${userid}`
     return axios.patch(url).then((response)=>{
       // eslint-disable-next-line no-cond-assign
       if(response.status=200){
@@ -177,7 +174,7 @@ const analytics = getAnalytics(app);
   }
   const emptyCart = async () =>{
 
-    const url = `http://localhost:3001/api/carts/${userid}`;
+    const url = `http://localhost:3002/api/carts/${userid}`;
    
  
     return axios.patch(url)
@@ -198,7 +195,7 @@ const analytics = getAnalytics(app);
 
   const deleteFromCart =async (productId)=>{
     //console.log(productId)
-    const url = `http://localhost:3001/api/carts/removeitem/${userid}`;
+    const url = `http://localhost:3002/api/carts/removeitem/${userid}`;
    
  
     return axios.patch(url,{
@@ -222,7 +219,7 @@ const analytics = getAnalytics(app);
   
   const updateCartQty =(productId,quantity,price)=>{
     
-    const url = `http://localhost:3001/api/carts/quantity/${productId}`;
+    const url = `http://localhost:3002/api/carts/quantity/${productId}`;
      
  
     return patch(url,  {
@@ -249,7 +246,7 @@ const analytics = getAnalytics(app);
    }
   const updateColorAndSizeSpecs =(productId,type,value)=>{
     
-    const url = `http://localhost:3001/api/carts/specs/colorandsize`;
+    const url = `http://localhost:3002/api/carts/specs/colorandsize`;
      
  
     return patch(url,  {
@@ -279,7 +276,7 @@ const analytics = getAnalytics(app);
    }
   const updateSelection =(productId,value)=>{
    // console.log(value)
-    const url = `http://localhost:3001/api/carts/item/selection`;
+    const url = `http://localhost:3002/api/carts/item/selection`;
      
  
     return patch(url,  {
@@ -303,7 +300,7 @@ const analytics = getAnalytics(app);
    }
   const updateMeasurement =(productId,measurement)=>{
     
-    const url = `http://localhost:3001/api/carts/specs/measurement`;
+    const url = `http://localhost:3002/api/carts/specs/measurement`;
      
  
     return patch(url,  {
@@ -332,7 +329,7 @@ const analytics = getAnalytics(app);
 
   const addtoCart =(product,quantity)=>{
     
-    const url = 'http://localhost:3001/api/carts';
+    const url = 'http://localhost:3002/api/carts';
  
     return post(url,  {
       productId:product._id,
@@ -364,7 +361,7 @@ const analytics = getAnalytics(app);
   
     const updateLikes =(productId)=>{
       
-      const url = 'http://localhost:3001/api/productlikes/:productId';
+      const url = 'http://localhost:3002/api/productlikes/:productId';
    
       return post(url,  {
         productId:productId,
@@ -385,7 +382,7 @@ const analytics = getAnalytics(app);
     
     
 
-    const url = 'http://localhost:3001/api/orders';
+    const url = 'http://localhost:3002/api/orders';
    var response='';
       for(let i=0;i<items.length;i++){
         if(items[i].selected){//make order fro only selected items
@@ -443,13 +440,13 @@ const analytics = getAnalytics(app);
           sendConfirmationEmail(userid,newOrder)
           //refreshCart();
     }catch(error){
-           setErrorMessage(error.data.error.message);
+           console.log(error.data.error.message);
     }
 }
   
-const handlegetProduct = async (productid)=>{
+const handlegetProduct = async ()=>{
            
-  fetchProduct(productid).then((response) => {
+  fetchProduct().then((response) => {
     //console.log(response.data);
     if (response.status===200){
        
@@ -468,41 +465,14 @@ const handlegetProduct = async (productid)=>{
 
 
 
-const fetchProduct =(productid)=>{
+const fetchProduct =()=>{
 
-  const url = `http://localhost:3001/api/products/${productid}`;
+  const url = `http://localhost:3002/api/products`;
   
   return axios.get(url)
 
 };
-const handlesearchByCategory = async (category)=>{
-        
-  searchProductByCategory(category).then((response) => {
-   //console.log(response.data);
-   if (response.status===200){
-      
-     try{
-       setFilteredProducts(response.data.products)
-      
-     }catch(err){
-       console.log(err)
-     }
-   }
-   //addToast(exampleToast(response.data.message));
- })
 
-}
-
-
-
-
-const searchProductByCategory =(category)=>{
-
- const url = `http://localhost:3001/api/products/category/${category}`;
- 
- return axios.get(url)
-
-};
 
 const handlesearchProduct = async (searchString)=>{
    searchString !==''?        
@@ -527,7 +497,7 @@ const handlesearchProduct = async (searchString)=>{
 
 const searchProduct =(searchString)=>{
 
-  const url = `http://localhost:3001/api/products/find/${searchString}`;
+  const url = `http://localhost:3002/api/products/find/${searchString}`;
   
   return axios.get(url)
 
@@ -542,10 +512,10 @@ const searchProduct =(searchString)=>{
      
     const fetchProducts = async ()=>{
       try{
-         const res  = await fetch(`http://localhost:3001/api/products`);
+         const res  = await fetch(`http://localhost:3002/api/products`);
          const data = await res.json();
               // console.log(data);
-               return data;
+               return data.products;
       }catch(error){
   
       }
@@ -553,7 +523,7 @@ const searchProduct =(searchString)=>{
 
   const getFavorites =async() => {
 
-    const url = `http://localhost:3001/api/productlikes/${user.email}`;
+    const url = `http://localhost:3002/api/productlikes/${user.email}`;
     
     return axios.get(url).then((response)=>{
        try{
@@ -574,16 +544,6 @@ const searchProduct =(searchString)=>{
     })
    
   }
-    const fetchFavorites = async ()=>{
-      try{
-         const res  = await fetch(`http://localhost:3001/api/productlikes/${user.email}`);
-         const data = await res.json();
-              // console.log("favorites "+data);
-               return data;
-      }catch(error){
-  
-      }
-  }
 
   const getProducts =async() => {
     try{
@@ -595,7 +555,7 @@ const searchProduct =(searchString)=>{
           }
        setProducts(tmp);
        //console.log(tmp);
-    }catch(error){
+      }catch(error){
   
     }
   } 
@@ -624,7 +584,7 @@ const searchProduct =(searchString)=>{
 
   const getCart =()=>{
 
-    const url = `http://localhost:3001/api/carts/${userid}`;
+    const url = `http://localhost:3002/api/carts/${userid}`;
     
     return axios.get(url)
   
@@ -632,7 +592,7 @@ const searchProduct =(searchString)=>{
 
   const getOrders =()=>{
 
-    const url = `http://localhost:3001/api/orders/user/${userid}`;
+    const url = `http://localhost:3002/api/orders/user/${userid}`;
     
     return axios.get(url).then((response)=>{
        try{

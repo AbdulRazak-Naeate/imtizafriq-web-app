@@ -10,7 +10,7 @@ function Home({handlegetProducts}) {
 
   const [transactions,setTransactions]=useState([]); 
   const user = JSON.parse(localStorage.getItem('user'));
- console.log('home');
+   console.log('home');
 
  useEffect(() => {
     
@@ -18,7 +18,7 @@ function Home({handlegetProducts}) {
  
            var url = `http://localhost:3001/api/analytics/transactions`
   
-          const response = await axios.get(url).then((response)=>{
+           await axios.get(url).then((response)=>{
                           setTransactions(response.data.transactions);
                           
 
@@ -41,7 +41,7 @@ function Home({handlegetProducts}) {
       
      handlegetTransactions()
   
-    },[handlegetProducts, user._id]);
+    },[handlegetProducts]);
     return (
         <div className="home">
          <div className="widgetwrapper">

@@ -54,7 +54,7 @@ const Product = ({product,onAddToCart,onUpdateLikes,favorites}) => {
            <Typography variant="h6" className={classes.price}>
                         {`$${product.price}`}
             </Typography>  
-           <CardMedia className={classes.media}  image={`http://localhost:3001/server/uploads/products/${product.image[0].filename}`} title={product.name} onClick={()=>{handleProductOnClick(product._id)}}/>
+           <CardMedia className={classes.media}  image={`http://localhost:3002/server/uploads/products/${product.image[0].filename}`} title={product.name} onClick={()=>{handleProductOnClick(product._id)}}/>
             
               <CardContent className={classes.cardContent}>
                   <div className={classes.cardContentSub}>

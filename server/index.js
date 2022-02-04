@@ -10,7 +10,6 @@ const cors = require('cors');
 //Import Routes
 const productsRoute     = require('./routes/products');
 const userRoute         = require('./routes/auth');
-const storeRoute        = require('./routes/stores');
 const categoryRoute     = require('./routes/categories');
 const orders            = require('./routes/orders');
 const cartRoute         = require('./routes/carts');
@@ -42,7 +41,6 @@ app.use(express.static('public'));
 app.use('/server/uploads',express.static('./server/uploads'));//making uploads folder accessible
 app.use('/api/user',    userRoute);
 app.use('/api/products',productsRoute);
-app.use('/api/stores',  storeRoute);
 app.use('/api/category', categoryRoute);
 app.use('/api/orders',orders);
 app.use('/api/carts',cartRoute);
@@ -74,7 +72,7 @@ mongoose.connect(process.env.DB_COMMUNITY_CON, options)
 
     
 //Start lestening to the server
-app.set('PORT',3001 ||process.env.PORT);
+app.set('PORT',3002 ||process.env.PORT);
 app.listen(app.get('PORT'),()=>{
     console.log(`Server is running on ${app.get('PORT')}`);
 });

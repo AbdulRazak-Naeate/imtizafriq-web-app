@@ -3,22 +3,22 @@ import {Link,useHistory} from 'react-router-dom';
 import './signup.css';
 import {post} from 'axios';
 import {Typography,Button} from '@mui/material'
-var loki = require('lokijs');
+/* var loki = require('lokijs'); */
 const SignUp = ({handleCloseModal,handleSwitchForm}) => {
     const [username,setUsername]=useState('');
     const [email,setEmail]=useState('');
     const [password,setPassword]=useState('');
     const [phone,setPhone]=useState('');
     const [repeatPassword,setRepeatPassword]=useState('');
-    const [countries,setCountries]=useState([]);
+   /*  const [countries,setCountries]=useState([]);
     const [states,setStates]=useState([]);
     const [cities,setCities]=useState([]);
-  
+   */
     const history=useHistory();
   
-  
+  /* 
     const _db = new loki('csc.db');
-    const[db]=useState(_db);
+    const[db]=useState(_db); */
       
     const onFormSubmit =(e)=>{
       
@@ -45,7 +45,7 @@ const SignUp = ({handleCloseModal,handleSwitchForm}) => {
       });
       }
     } 
-  
+  /* 
     const onCountryChange=(e)=>{
       var sid=e.target.value;
        filterStates(sid,db);
@@ -119,12 +119,12 @@ const SignUp = ({handleCloseModal,handleSwitchForm}) => {
      
       return _countries;
   
-    }
+    } */
   
     useEffect(()=>{
      
   
-       const init = async () =>{
+       /* const init = async () =>{
        const countriesJSON = 'https://raw.githubusercontent.com/dr5hn/countries-states-cities-database/master/countries.json';
   
       const statesJSON = 'https://raw.githubusercontent.com/dr5hn/countries-states-cities-database/master/states.json';
@@ -150,11 +150,11 @@ const SignUp = ({handleCloseModal,handleSwitchForm}) => {
       }
       
       init();
-  
+   */
       
        
       
-     },[db]);
+     });
   
     
     const SignUp =()=>{

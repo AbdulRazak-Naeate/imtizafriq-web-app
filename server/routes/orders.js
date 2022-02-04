@@ -2,7 +2,6 @@ const express= require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
 const Order= require('../models/Order');
-const Store  =  require('../models/Store');
 const verify = require('../routes/verifyToken');
 const {orderValidation} = require('../validation');
 const jwt =require('jsonwebtoken');

@@ -46,7 +46,7 @@ const paths =[
     
     async function handleDeleteProduct(_id) {
       try {
-        const response = await axios.delete(`http://localhost:3001/api/products/${_id}`);
+        const response = await axios.delete(`http://localhost:3002/api/products/${_id}`);
         console.log(response);
         if (response.data.deletedCount>=1){
         setProducts(products.filter((item) => item._id !==_id))
@@ -60,7 +60,7 @@ const paths =[
    
     const fetchProducts = async ()=>{
       try{
-         const res = await fetch(`http://localhost:3001/api/products`);
+         const res = await fetch(`http://localhost:3002/api/products`);
          const data=await res.json();
                console.log(data);
                return data.products;

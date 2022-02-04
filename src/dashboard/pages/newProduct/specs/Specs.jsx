@@ -48,7 +48,7 @@ const onUpdateColors =(name)=>{
         <div className='specsformItem'>
                            <label>Color Specifications</label>
                            <small>Type in all Product colors you have in stock For example White ,black or blue </small>
-                          <div className="measurementWrapper">
+                          <div className="productMeasurementWrapper">
                         
                           {   
                              mcolors.map((color,index)=>{
@@ -66,7 +66,7 @@ const onUpdateColors =(name)=>{
                         <div className='specsformItem'>
                            <label>Size Specifications</label>
                            <small>Type in Product  sizes For example 34 for shoes , 5 inch for phones</small>
-                           <div className="measurementWrapper">
+                           <div className="productMeasurementWrapper">
                         
                           {   
                              msizes.map((size,index)=>{

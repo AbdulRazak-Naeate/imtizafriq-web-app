@@ -8,6 +8,5 @@ export {default as ProceedCheckOut} from './proceedcheckout/ProceedcheckOut';
 export {default as PrefaredStyleCheckOut} from './prefareStylecheckout/PrefareStyleCheckout';
 export {default as BottomNav} from './bottomnavigation/BottomNav';
 export {default as Account} from './account/Account';
-export {default as CategoryWidget} from './widgets/categoryWidget/CategoryWidgets';
 export {default as Footer} from './footer/Footer';
 export {default as AboutUs} from './aboutus/AboutUs';
