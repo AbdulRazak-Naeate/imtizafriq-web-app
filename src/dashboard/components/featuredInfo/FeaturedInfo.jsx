@@ -7,7 +7,7 @@ export const FeaturedInfo = ({aggregate}) => {
            <div className="featuredItem">
            <span className="featureTitle">Orders</span>
             <div className="featuredMoneyContainer">
-                <span className="featuredMoney">{aggregate[0].count}</span>
+                <span className="featuredMoney">2415</span>
                 <span className="featuredMoneyRate">
                 <Add  className="featuredIcon positive"/>
                 </span>
@@ -18,7 +18,7 @@ export const FeaturedInfo = ({aggregate}) => {
            <div className="featuredItem">
            <span className="featureTitle">Sales</span>
             <div className="featuredMoneyContainer">
-                <span className="featuredMoney">{`$${aggregate[0].total}`}</span>
+                <span className="featuredMoney">$2,415</span>
                 <span className="featuredMoneyRate">-11.4
                 <ArrowDownward className="featuredIcon negative"/>
                 </span>
