@@ -523,6 +523,9 @@ const searchProduct =(searchString)=>{
 
   const getFavorites =async() => {
 
+    if( user!==null) {
+
+    
     const url = `http://localhost:3002/api/productlikes/${user.email}`;
     
     return axios.get(url).then((response)=>{
@@ -535,14 +538,14 @@ const searchProduct =(searchString)=>{
             favs.push(d[i].productId);
             
           }
-       setFovirites(favs);
+            setFovirites(favs);
          }
 
        }catch(err){
           console.log(err)
        }
     })
-   
+  }
   }
 
   const getProducts =async() => {
@@ -611,10 +614,13 @@ const searchProduct =(searchString)=>{
  
    
     if (!history.location.pathname.includes('dashboard')){
+     
       getFavorites();
       getProducts();
       handlegetCart();
       getOrders();
+     
+     
     }
     
 

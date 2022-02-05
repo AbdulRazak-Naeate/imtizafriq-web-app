@@ -56,12 +56,13 @@ export default function User() {
     }
     const handleVerifyEmail = ()=>{
 
-        const url = `http://localhost:3001/api/email`;
+        const url = `http://localhost:3002/api/email`;
  
       post(url,{email:user.email}).then((response)=>{
           console.log(response)
       })
     }
+    
     const handleUpdate=(e)=>{
         e.preventDefault();
         editUser().then((response)=>{
@@ -112,12 +113,12 @@ export default function User() {
       }
 
     }
-    return post(`http://localhost:3001/api/user/updateImage/${user._id}`, formData, config)
+    return post(`http://localhost:3002/api/user/updateImage/${user._id}`, formData, config)
   }
 
   const editUser =()=>{
      
-    const url = `http://localhost:3001/api/user/${user._id}`;
+    const url = `http://localhost:3002/api/user/${user._id}`;
  
     const body={
              userId:user._id,
@@ -152,7 +153,7 @@ export default function User() {
             <div className="userContainer">
                 <div className="userShow">
                     <div className="userShowTop">
-                        <img src={`http://localhost:3001/server/uploads/users/${user.image[0].filename}`}  id="avatar"  onError={imgonLoadError} alt="" className="userShowImg" />
+                        <img src={`http://localhost:3002/server/uploads/users/${user.image[0].filename}`}  id="avatar"  onError={imgonLoadError} alt="" className="userShowImg" />
                         
                        <div className="userShowTopTitle">
                            <span className="userShowUsername">{username}</span>  <span className="active"></span>
@@ -220,7 +221,7 @@ export default function User() {
                         </div> 
                     <div className="userUpdateRight">
                         <div className="userUpdateUpload">
-                            <img src={`http://localhost:3001/server/uploads/users/${user.image[0].filename}`} onError={imgonLoadError} alt=""  id="user-image"className="userUpdateImg" />
+                            <img src={`http://localhost:3002/server/uploads/users/${user.image[0].filename}`} onError={imgonLoadError} alt=""  id="user-image"className="userUpdateImg" />
                             <label htmlFor="file"> <Publish className="userUpdateIcon"/> </label>
                                 <input type="file" onChange={onFileInputChange} id="file" style={{display:"none"}}/>
                        </div>

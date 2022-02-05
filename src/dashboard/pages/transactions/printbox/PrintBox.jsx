@@ -29,7 +29,7 @@ const style = {
     <div style={{margin:'10px'}}>
         <ReactToPrint
         trigger={() => <button className='actionButtons'>Print</button>}
-        documentTitle={`Processinglist-${getDate()}`}
+        documentTitle={`Processing-List-${getDate()}`}
         content={() => componentRef.current}/>
        <div style={{display:'none'}}>
        <Box sx={style} ref={componentRef}>
@@ -48,7 +48,7 @@ const style = {
                 return(
                     <Grid item={true} xs={12} md={6}  key={index}>
                         <div className="detailContainer">
-                          <img className='media' src={`http://localhost:3001/server/uploads/products/${data.filename}`} alt='item-img' />
+                          <img className='media' src={`http://localhost:3002/server/uploads/products/${data.filename}`} alt='item-img' />
                         <div className="tranxdetailsContainer">
                         <div className="tranxdetailsItem">
                              <ShoppingBagOutlined className="userShowIcon"/>

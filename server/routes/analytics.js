@@ -17,7 +17,7 @@ router.get('/transactions', async (req,res)=>{
 ]);
 
 
-    res.json({transactions:transactions,total:aggr,message:'transactions loaded'});
+    res.json({transactions:transactions,aggregate:aggr,message:'transactions loaded'});
 
 });
 

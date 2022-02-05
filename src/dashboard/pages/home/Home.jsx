@@ -5,51 +5,25 @@ import "./home.css";
 import {userData} from "../../dummyData";
 import Widgetsm from "../../components/widgetSm/widgetSm";
 import WidgetLg from "../../components/widgetLg/WidgetLg";
-import axios from 'axios';
-function Home({handlegetProducts}) {
+function Home({transactions,aggregate}) {
 
-  const [transactions,setTransactions]=useState([]); 
+
   const user = JSON.parse(localStorage.getItem('user'));
    console.log('home');
-
+   console.log(aggregate)
  useEffect(() => {
     
-      const fetchTransactions =  async () => {//get Orders 
- 
-           var url = `http://localhost:3001/api/analytics/transactions`
+     
   
-           await axios.get(url).then((response)=>{
-                          setTransactions(response.data.transactions);
-                          
-
-          });
-        }
-
-        
-    const handlegetTransactions =  () => {
-      
-       try {
-        fetchTransactions().then((response)=>{
-                setTransactions(response.data.transactions)
-  
-        });  
-      
-      } catch (error) {
-        console.log({message:error})
-      }
-     };
-      
-     handlegetTransactions()
-  
-    },[handlegetProducts]);
+    },[]);
     return (
         <div className="home">
          <div className="widgetwrapper">
-                <FeaturedInfo/>
+                <FeaturedInfo aggregate={aggregate}/>
             <Chart data={userData} title="User Analytics" grid datakey={"Active User"}/>
           <div className="homeWidgets"> 
            <Widgetsm/>
-           <WidgetLg transactions={transactions}/>
+          {transactions.length> 0 ? <WidgetLg transactions={transactions}/> : ''}
           </div>
          </div>
         </div> 

@@ -3,7 +3,7 @@ import './sidebar.css'
 import { LineStyle,Timeline,TrendingUp
     ,PermIdentity,MailOutline,AttachMoney 
     ,Storefront,BarChart,DynamicFeed,
-    ChatBubbleOutline,WorkOutline,Report } from '@material-ui/icons'
+    ChatBubbleOutline,WorkOutline,Report,Settings} from '@material-ui/icons'
 import { Link} from 'react-router-dom';
 
 export const Sidebar = () => {
@@ -24,12 +24,7 @@ export const Sidebar = () => {
                  </ul>
                 {/*  <h3 className="sidebarTitle">Quick menu</h3> */}
                  <ul className="sidebarList">
-                  <Link to="/dashboard/users" className="sidebarlink">
-                  <li className="sidebarListItem">
-                         <PermIdentity className="sidebarIcon"/>
-                         Users
-                     </li></Link>
-                  
+                 
                      <Link to="/dashboard/products" className="sidebarlink">
                        <li className="sidebarListItem">
                          <Storefront className="sidebarIcon"/>
@@ -46,6 +41,18 @@ export const Sidebar = () => {
                          <TrendingUp className="sidebarIcon"/>
                          Sales
                      </li>
+                       </Link>
+                       <Link to="/dashboard/users" className="sidebarlink">
+                     <li className="sidebarListItem">
+                         <PermIdentity className="sidebarIcon"/>
+                         Users
+                     </li></Link>
+                  
+                       <Link to="/dashboard/settings" className="sidebarlink"> 
+                       <li className="sidebarListItem">
+                         <Settings className="sidebarIcon"/>
+                         Settings
+                        </li>
                        </Link>
                     {/*  <li className="sidebarListItem">
                          <BarChart className="sidebarIcon"/>

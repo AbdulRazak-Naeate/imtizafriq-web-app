@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React,  { useRef } from 'react';
 import './transactions.css';
 import {DataGrid} from '@material-ui/data-grid';
@@ -14,7 +13,7 @@ import {TransacModal} from  './modal/TransacModal'
 import {PrintBox} from './printbox/PrintBox.jsx';
 
 const Transactions = () => {
-  const query=QueryParams();
+ // const query=QueryParams();
   const [transactions,setTransactions]=useState([]);
   const [pageSize, setPageSize] = useState(20);
   const [user]=useState(localStorage.getItem('user'));
@@ -26,7 +25,8 @@ const Transactions = () => {
   const [openModal,setOpenModal]=useState(false)
   const [orderid,setOrderId]=useState('');
   const [tranxData,setTranxData]=useState([]);
-  
+  const [istransactionsLoaded,setIstransactionsLoaded]=useState(false);
+
    // const history=useHistory();
   const componentRef = useRef();
 
@@ -96,7 +96,7 @@ const Transactions = () => {
 }
 
 const editTransaction =(orderid)=>{
-const url = `http://localhost:3002/api/orders/${orderid}`;
+const url = `http://localhost:3002/api/Transactions/${orderid}`;
 const body={
          status:status,
 }
@@ -126,7 +126,7 @@ const handleUpdateMany=(option)=>{
 
 const editTransactions =(option)=>{
   const ids=JSON.stringify(selected_Ids);
-  const url = `http://localhost:3002/api/orders/many/${ids}`;
+  const url = `http://localhost:3002/api/Transactions/many/${ids}`;
 
 const body={
        status:option,
@@ -146,7 +146,7 @@ return patch(url, body,config)
   useEffect(() => {  
 
   
-    const fetchOrders = async () => {//get Orders 
+    const fetchTransactions = async () => {//get Transactions 
   
      try {
        
@@ -161,13 +161,13 @@ return patch(url, body,config)
     }
   }
   
-  const getOrders = async () => {
+  const getTransactions = async () => {
    
     try {
-    const ordersFromServer = await fetchOrders();  
+    const transactionsFromServer = await fetchTransactions();  
      let tmp =[];
-     for(let i=0;i<ordersFromServer.length;i++){
-       tmp.push(ordersFromServer[i]);
+     for(let i=0;i<transactionsFromServer.length;i++){
+       tmp.push(transactionsFromServer[i]);
        
      }
       setTransactions(tmp)
@@ -176,7 +176,10 @@ return patch(url, body,config)
      console.log({message:error})
    }
   };
-  getOrders()
+  if (!istransactionsLoaded) getTransactions() ;
+   return ()=>{
+     if (transactions.length>0) setIstransactionsLoaded(true)
+   }
   });
   const getDateNow =(dateNumber)=>{
     var dateString = new Date(parseInt(dateNumber)*1000);

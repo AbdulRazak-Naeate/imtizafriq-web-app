@@ -83,7 +83,7 @@ const Comments = ({order}) => {
    }
 
    const addComment = async ()=>{
-     const url=`http://localhost:3001/api/comments/`;
+     const url=`http://localhost:3002/api/comments/`;
       return  axios.post(url,{productid:order.productId,text:commentText,username:user.username});
    }
    
@@ -97,7 +97,7 @@ const Comments = ({order}) => {
          })
      }
       const loadCommentsFromServer= async ()=>{
-        const url=`http://localhost:3001/api/comments/${order.productId}`;
+        const url=`http://localhost:3002/api/comments/${order.productId}`;
        return axios.get(url)
       }
 

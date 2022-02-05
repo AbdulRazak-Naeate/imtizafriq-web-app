@@ -33,7 +33,7 @@ const CommentsContainer = ({order})=>(
  </div>
  <div style={{display:'flex',justifyContent:'space-between'}}>
    <Card className={classes.ordercard}>
-      <CardMedia className={classes.media} image={`http://localhost:3001/server/uploads/products/${order.filename}`}></CardMedia>
+      <CardMedia className={classes.media} image={`http://localhost:3002/server/uploads/products/${order.filename}`}></CardMedia>
     </Card> 
  </div>
    

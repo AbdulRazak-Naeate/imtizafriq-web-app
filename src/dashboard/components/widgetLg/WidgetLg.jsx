@@ -1,6 +1,7 @@
 import { formatWithCurrencySymbol } from "../../../utils/Utils"
 import "./widgetLg.css"
  function WidgetLg({transactions}) {
+     console.log(transactions)
      const Button=({type})=>{
          return <button className={"widgetLgButton "+type}>{type}</button>
      }

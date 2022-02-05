@@ -17,15 +17,19 @@ import Transactions from "./pages/transactions/Transactions";
 import Sales from './pages/sales/Sales';
 import LogIn from "./pages/login/LogIn";
 import SignUp from "./pages/signup/SignUp";
+import Settings from "./pages/settings/Settings"
 import axios from 'axios';
 
  function  Dashboard() {
  const [showSidebar,setShowSideBar]=useState(true);
  const [stores, setStores] = useState([]);
  const [products,setProducts]=useState([]);
- const [transactions,setTransactions]=useState([]);
+ const [analytics,setAnalytics]=useState({});
+ const [transactions,setTransactions]=useState({});
+ const [aggregate,setAggregate]=useState([]);
+ const [analyticsLoaded,setIsanalyticsLoaded]=useState(false);
 const paths =[ 
-    '/dashboard',
+    '/dashboard',   
     '/dashboard/users',
     '/dashboard/user/:userId',
     '/dashboard/newUser/',
@@ -33,7 +37,7 @@ const paths =[
     '/dashboard/product',
     '/dashboard/newProduct',
     '/dashboard/transactions',
-    '/dashboard/sales',]
+    '/dashboard/sales','/dashboard/settings',]
     
  const handletoggleSideBar=(bol)=>{
    setShowSideBar(bol);
@@ -47,7 +51,7 @@ const paths =[
     async function handleDeleteProduct(_id) {
       try {
         const response = await axios.delete(`http://localhost:3002/api/products/${_id}`);
-        console.log(response);
+       
         if (response.data.deletedCount>=1){
         setProducts(products.filter((item) => item._id !==_id))
 
@@ -83,6 +87,28 @@ const handlegetProducts = async() => {
     }
 }
   
+useEffect(()=>{
+  const handlegetAnalytics =  async () => {//get Orders 
+ 
+    var url = `http://localhost:3002/api/analytics/transactions`
+
+    await axios.get(url).then((response)=>{
+      console.log(response.data.transactions)
+          setAnalytics(response.data);
+          setTransactions(response.data.transactions);
+          setAggregate(response.data.aggregate);
+
+   });
+ }
+
+
+
+if (!analyticsLoaded) handlegetAnalytics();
+return ()=>{
+ 
+    if (transactions.length > 0) setIsanalyticsLoaded(true)
+}
+});
  
   return (
     <Router>
@@ -104,7 +130,7 @@ const handlegetProducts = async() => {
     
      <Switch>
      <Route exact  path="/dashboard">
-         <Home  handlegetProducts={handlegetProducts}/>
+         <Home  transactions={transactions} aggregate={aggregate}/>
        </Route>
        <Route path="/dashboard/users">
         <UserList/>
@@ -126,10 +152,13 @@ const handlegetProducts = async() => {
        </Route>
        
        <Route path="/dashboard/transactions">
-        <Transactions/>
+        <Transactions />
        </Route>
        <Route path="/dashboard/sales">
         <Sales />
+       </Route>
+       <Route path="/dashboard/settings">
+        <Settings />
        </Route>
        <Route path="/dashboard/login" >
          <LogIn toggleSideBar={handletoggleSideBar}/>
