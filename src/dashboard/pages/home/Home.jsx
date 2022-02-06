@@ -5,13 +5,13 @@ import "./home.css";
 import {userData} from "../../dummyData";
 import Widgetsm from "../../components/widgetSm/widgetSm";
 import WidgetLg from "../../components/widgetLg/WidgetLg";
-function Home({products,transactions,aggregate}) {
+function Home({products,transactions,completedAggregate,inCompletedAggregate,alltimeAggregate}) {
 
 
     return (
         <div className="home">
-        {aggregate ?  <div className="widgetwrapper">
-                <FeaturedInfo aggregate={aggregate}/>
+        {completedAggregate ?  <div className="widgetwrapper">
+                <FeaturedInfo completedAggregate={completedAggregate} inCompletedAggregate={inCompletedAggregate} alltimeAggregate={alltimeAggregate}/>
             <Chart data={userData} title="User Analytics" grid datakey={"Active User"}/>
           <div className="homeWidgets"> 
            <Widgetsm products={products}/>

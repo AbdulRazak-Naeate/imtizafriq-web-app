@@ -96,7 +96,7 @@ const Transactions = () => {
 }
 
 const editTransaction =(orderid)=>{
-const url = `http://localhost:3002/api/Transactions/${orderid}`;
+const url = `http://localhost:3002/api/orders/${orderid}`;
 const body={
          status:status,
 }
@@ -126,7 +126,7 @@ const handleUpdateMany=(option)=>{
 
 const editTransactions =(option)=>{
   const ids=JSON.stringify(selected_Ids);
-  const url = `http://localhost:3002/api/Transactions/many/${ids}`;
+  const url = `http://localhost:3002/api/orders/many/${ids}`;
 
 const body={
        status:option,

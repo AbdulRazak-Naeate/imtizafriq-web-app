@@ -25,9 +25,11 @@ import axios from 'axios';
  const [products,setProducts]=useState([]);
  const [analytics,setAnalytics]=useState({});
  const [transactions,setTransactions]=useState({});
- const [aggregate,setAggregate]=useState([]);
- const [analyticsLoaded,setIsanalyticsLoaded]=useState(false)
- const [isproductsLoaded,setIsproductsLoaded]=useState(false)
+ const [completedAggregate,setCompletedAggregate]=useState([]);
+ const [inCompletedAggregate,setinCompletedAggregate]=useState([]);
+ const [alltimeAggregate,setAlltimeAggregate]=useState([]);
+ const [analyticsLoaded,setIsanalyticsLoaded]=useState(false);
+ const [isproductsLoaded,setIsproductsLoaded]=useState(false);
 const paths =[ 
     '/dashboard',   
     '/dashboard/users',
@@ -96,7 +98,9 @@ useEffect(()=>{
       console.log(response.data.transactions)
           setAnalytics(response.data);
           setTransactions(response.data.transactions);
-          setAggregate(response.data.aggregate);
+          setCompletedAggregate(response.data.completedAggregate);
+          setinCompletedAggregate(response.data.inCompleteAggregate);
+          setAlltimeAggregate(response.data.alltimeAggregate);
 
    });
  }
@@ -131,7 +135,7 @@ return ()=>{
     
      <Switch>
      <Route exact  path="/dashboard">
-         <Home products={products} transactions={transactions} aggregate={aggregate}/>
+         <Home products={products} transactions={transactions} completedAggregate={completedAggregate} inCompletedAggregate={inCompletedAggregate} alltimeAggregate={alltimeAggregate}/>
        </Route>
        <Route path="/dashboard/users">
         <UserList/>

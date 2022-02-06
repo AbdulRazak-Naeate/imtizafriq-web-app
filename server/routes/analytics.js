@@ -5,8 +5,22 @@ const Order   = require('../models/Order');
 //get transactions
 
 router.get('/transactions', async (req,res)=>{
+   const analytics =[]
+
     const transactions = await Order.find();
-    const aggr = await Order.aggregate([{$unwind:'$totalPrice'},
+    //get Completed orders = sales 
+    const completedAggr = await Order.aggregate([{$match:{status:'Completed'}},{$unwind:'$totalPrice'},
+    {
+        $group:{
+            _id:'0',
+            count:{$sum:1},
+            total:{$sum:'$totalPrice'}
+        }
+    }
+]);
+
+//Current orders or imcompleted transactiond
+const inCompletedAggr = await Order.aggregate([{$match:{$or:[{status:'Pending'},{status:'Processing'}]}},{$unwind:'$totalPrice'},
     {
         $group:{
             _id:'0',
@@ -17,7 +31,18 @@ router.get('/transactions', async (req,res)=>{
 ]);
 
 
-    res.json({transactions:transactions,aggregate:aggr,message:'transactions loaded'});
+const alltimeAggr = await Order.aggregate([{$unwind:'$totalPrice'},
+{
+    $group:{
+        _id:'0',
+        count:{$sum:1},
+        total:{$sum:'$totalPrice'}
+    }
+}
+]);
+    
+
+    res.json({transactions:transactions,completedAggregate:completedAggr,inCompleteAggregate:inCompletedAggr,alltimeAggregate:alltimeAggr,message:'transactions loaded'});
 
 });
 
