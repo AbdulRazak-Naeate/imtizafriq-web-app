@@ -26,15 +26,15 @@ margin-right: 20px;
     justify-content: space-between;
     margin: 20px 0px;
 }
-.widgetSmUser{
+.widgetSmProduct{
     display: flex;
     flex-direction: column;
 }
-.widgetSmUsername{
-    font-weight: 600;
+.widgetSmTitle{
+    font-weight: 500;
 }
-.widgetSmUserTitle{
-    font-weight: 300px;
+.widgetSmDescription{
+    font-weight: 300;
 }
 .widgetSmButton{
     display: flex;

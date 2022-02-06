@@ -22,12 +22,12 @@ import axios from 'axios';
 
  function  Dashboard() {
  const [showSidebar,setShowSideBar]=useState(true);
- const [stores, setStores] = useState([]);
  const [products,setProducts]=useState([]);
  const [analytics,setAnalytics]=useState({});
  const [transactions,setTransactions]=useState({});
  const [aggregate,setAggregate]=useState([]);
- const [analyticsLoaded,setIsanalyticsLoaded]=useState(false);
+ const [analyticsLoaded,setIsanalyticsLoaded]=useState(false)
+ const [isproductsLoaded,setIsproductsLoaded]=useState(false)
 const paths =[ 
     '/dashboard',   
     '/dashboard/users',
@@ -100,14 +100,15 @@ useEffect(()=>{
 
    });
  }
-
+ if (!isproductsLoaded)handlegetProducts();
 
 
 if (!analyticsLoaded) handlegetAnalytics();
 return ()=>{
- 
+    if (products.length > 0 ) setIsproductsLoaded(true)
     if (transactions.length > 0) setIsanalyticsLoaded(true)
 }
+
 });
  
   return (
@@ -130,7 +131,7 @@ return ()=>{
     
      <Switch>
      <Route exact  path="/dashboard">
-         <Home  transactions={transactions} aggregate={aggregate}/>
+         <Home products={products} transactions={transactions} aggregate={aggregate}/>
        </Route>
        <Route path="/dashboard/users">
         <UserList/>
@@ -142,7 +143,7 @@ return ()=>{
         <NewUser/>
        </Route>
        <Route path="/dashboard/products">
-        <ProductsList products={products} handlegetProducts={handlegetProducts} handleDeleteProduct={handleDeleteProduct}/>
+        <ProductsList products={products} handleDeleteProduct={handleDeleteProduct}/>
        </Route>
        <Route path="/dashboard/product">
         <Product/>

@@ -5,27 +5,19 @@ import "./home.css";
 import {userData} from "../../dummyData";
 import Widgetsm from "../../components/widgetSm/widgetSm";
 import WidgetLg from "../../components/widgetLg/WidgetLg";
-function Home({transactions,aggregate}) {
+function Home({products,transactions,aggregate}) {
 
 
-  const user = JSON.parse(localStorage.getItem('user'));
-   console.log('home');
-   console.log(aggregate)
- useEffect(() => {
-    
-     
-  
-    },[]);
     return (
         <div className="home">
-         <div className="widgetwrapper">
+        {aggregate ?  <div className="widgetwrapper">
                 <FeaturedInfo aggregate={aggregate}/>
             <Chart data={userData} title="User Analytics" grid datakey={"Active User"}/>
           <div className="homeWidgets"> 
-           <Widgetsm/>
-          {transactions.length> 0 ? <WidgetLg transactions={transactions}/> : ''}
+           <Widgetsm products={products}/>
+          <WidgetLg transactions={transactions}/>
           </div>
-         </div>
+         </div>:''}
         </div> 
     )
 }

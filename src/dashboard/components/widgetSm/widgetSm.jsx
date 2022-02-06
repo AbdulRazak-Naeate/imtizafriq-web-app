@@ -1,87 +1,27 @@
 import './widgetSm.css'
 import {Visibility } from '@material-ui/icons'
-function WidgetSm() {
+function WidgetSm({products}) {
+  console.log(products)
     return (
         <div className="widgetSm">
             <span className="widgetSmTitle">Recent Products</span>
             <ul className="widgetSmList">
-                <li className="widgetSmListItem">
-                    <img src="https://images.pexels.com/photos/4620866/pexels-photo-4620866.jpeg?cs=srgb&dl=pexels-cottonbro-4620866.jpg&fm=jpg" alt="" className="widgetSmImg" />
-                  <div className="widgetSmUser">
-                      <span className="widgetSmUsername">Abdul Razak</span>
-                      <span className="widgetSmUserTitle">SoftWare Engineer</span>
-                  </div>
-                  <button className="widgetSmButton">
-                    <Visibility className="widgetSmIcon"/>
-                    Display
-                  </button>
-                </li>
-                <li className="widgetSmListItem">
-                    <img src="https://images.pexels.com/photos/4620866/pexels-photo-4620866.jpeg?cs=srgb&dl=pexels-cottonbro-4620866.jpg&fm=jpg" alt="" className="widgetSmImg" />
-                  <div className="widgetSmUser">
-                      <span className="widgetSmUsername">Abdul Razak</span>
-                      <span className="widgetSmUserTitle">SoftWare Engineer</span>
-                  </div>
-                  <button className="widgetSmButton">
-                    <Visibility className="widgetSmIcon"/>
-                    Display
-                  </button>
-                </li>
-                <li className="widgetSmListItem">
-                    <img src="https://images.pexels.com/photos/4620866/pexels-photo-4620866.jpeg?cs=srgb&dl=pexels-cottonbro-4620866.jpg&fm=jpg" alt="" className="widgetSmImg" />
-                  <div className="widgetSmUser">
-                      <span className="widgetSmUsername">Abdul Razak</span>
-                      <span className="widgetSmUserTitle">SoftWare Engineer</span>
-                  </div>
-                  <button className="widgetSmButton">
-                    <Visibility className="widgetSmIcon"/>
-                    Display
-                  </button>
-                </li>
-                <li className="widgetSmListItem">
-                    <img src="https://images.pexels.com/photos/4620866/pexels-photo-4620866.jpeg?cs=srgb&dl=pexels-cottonbro-4620866.jpg&fm=jpg" alt="" className="widgetSmImg" />
-                  <div className="widgetSmUser">
-                      <span className="widgetSmUsername">Abdul Razak</span>
-                      <span className="widgetSmUserTitle">SoftWare Engineer</span>
-                  </div>
-                  <button className="widgetSmButton">
-                    <Visibility className="widgetSmIcon"/>
-                    Display
-                  </button>
-                </li>
-                <li className="widgetSmListItem">
-                    <img src="https://images.pexels.com/photos/4620866/pexels-photo-4620866.jpeg?cs=srgb&dl=pexels-cottonbro-4620866.jpg&fm=jpg" alt="" className="widgetSmImg" />
-                  <div className="widgetSmUser">
-                      <span className="widgetSmUsername">Abdul Razak</span>
-                      <span className="widgetSmUserTitle">SoftWare Engineer</span>
-                  </div>
-                  <button className="widgetSmButton">
-                    <Visibility className="widgetSmIcon"/>
-                    Display
-                  </button>
-                </li>
-                <li className="widgetSmListItem">
-                    <img src="https://images.pexels.com/photos/4620866/pexels-photo-4620866.jpeg?cs=srgb&dl=pexels-cottonbro-4620866.jpg&fm=jpg" alt="" className="widgetSmImg" />
-                  <div className="widgetSmUser">
-                      <span className="widgetSmUsername">Abdul Razak</span>
-                      <span className="widgetSmUserTitle">SoftWare Engineer</span>
-                  </div>
-                  <button className="widgetSmButton">
-                    <Visibility className="widgetSmIcon"/>
-                    Display
-                  </button>
-                </li>
-                <li className="widgetSmListItem">
-                    <img src="https://images.pexels.com/photos/4620866/pexels-photo-4620866.jpeg?cs=srgb&dl=pexels-cottonbro-4620866.jpg&fm=jpg" alt="" className="widgetSmImg" />
-                  <div className="widgetSmUser">
-                      <span className="widgetSmUsername">Abdul Razak</span>
-                      <span className="widgetSmUserTitle">SoftWare Engineer</span>
-                  </div>
-                  <button className="widgetSmButton">
-                    <Visibility className="widgetSmIcon"/>
-                    Display
-                  </button>
-                </li>
+               {
+                 products.map((product,index)=>{
+                   return( <li className="widgetSmListItem">
+                   <img src={`http://localhost:3002/server/uploads/products/${product.image[0].filename}`} alt="" className="widgetSmImg" />
+                 <div className="widgetSmProduct">
+                     <span className="widgetSmTitle">{product.name}</span>
+                     <span className="widgetSmDescription">{product.desscription}</span>
+                 </div>
+                 <button className="widgetSmButton">
+                   <Visibility className="widgetSmIcon"/>
+                   Display
+                 </button>
+               </li>)
+                 })
+               }
+               
             </ul>
         </div>
     )
