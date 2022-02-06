@@ -6,6 +6,8 @@
 .pnp.js
 /uploads/products
 /uploads/stores
+/public/images
+/public/videos
 # testing
 /coverage
 
