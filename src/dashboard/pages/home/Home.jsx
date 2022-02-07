@@ -1,8 +1,7 @@
-import {useEffect,useState} from 'react';
 import { Chart } from "../../components/charts/Chart";
 import { FeaturedInfo } from "../../components/featuredInfo/FeaturedInfo";
 import "./home.css";
-import {userData} from "../../dummyData";
+import {monthlySales} from "../../analyticsData";
 import Widgetsm from "../../components/widgetSm/widgetSm";
 import WidgetLg from "../../components/widgetLg/WidgetLg";
 function Home({products,transactions,completedAggregate,inCompletedAggregate,alltimeAggregate}) {
@@ -12,12 +11,12 @@ function Home({products,transactions,completedAggregate,inCompletedAggregate,all
         <div className="home">
         {completedAggregate ?  <div className="widgetwrapper">
                 <FeaturedInfo completedAggregate={completedAggregate} inCompletedAggregate={inCompletedAggregate} alltimeAggregate={alltimeAggregate}/>
-            <Chart data={userData} title="User Analytics" grid datakey={"Active User"}/>
+            <Chart data={monthlySales} title="Sales Analytics" grid datakey={"Monthly Sales"}/>
           <div className="homeWidgets"> 
            <Widgetsm products={products}/>
           <WidgetLg transactions={transactions}/>
           </div>
-         </div>:''}
+         </div> : ''}
         </div> 
     )
 }

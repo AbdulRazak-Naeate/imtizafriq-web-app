@@ -30,10 +30,12 @@ margin-right: 20px;
     display: flex;
     flex-direction: column;
 }
-.widgetSmTitle{
+.widgetSmProductTitle{
+    font-size:16px;
+    text-align: left;
     font-weight: 500;
 }
-.widgetSmDescription{
+.widgetSmProductDescription{
     font-weight: 300;
 }
 .widgetSmButton{
@@ -49,4 +51,7 @@ margin-right: 20px;
 .widgetSmIcon{
     font-size: 16px;
     margin-right: 5px;
+}
+.link{
+    text-decoration: none;
 }

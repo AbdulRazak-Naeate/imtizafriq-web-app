@@ -46,7 +46,7 @@ export const FeaturedInfo = ({completedAggregate,inCompletedAggregate,alltimeAgg
          <Add  className="featuredIcon positive"/>
          </span>
      </div>
-     <span className="featuredSub">All times orders</span>
+     <span className="featuredSub">All times completed orders</span>
     </div>
 
     <div className="featuredItem">

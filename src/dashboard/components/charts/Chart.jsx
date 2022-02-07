@@ -2,8 +2,9 @@ import "./chart.css"
 import { LineChart, Line, XAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 export const Chart = ({title,data,datakey,grid}) => {
-   
+    
     return (
+        
         <div className="chart">
             <h3 className="chartTitle">{title}</h3>
             <ResponsiveContainer width="95%" aspect={4/1}>
