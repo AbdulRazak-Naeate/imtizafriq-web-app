@@ -5,8 +5,8 @@ import {Button} from '@mui/material';
 import { Chart } from '../../components/charts/Chart';
 import { productData } from '../../dummyData';
 import { Publish } from '@material-ui/icons';
-import { formatWithCurrencySymbol } from "../../../utils/Utils"
-import {patch}from 'axios';
+import { formatWithCurrencySymbol } from "../../../utils/Utils";
+import axios,{patch}from 'axios';
 
   const MesurementItem = ({itemval,index,name,onUpdateColors})=>{
           const [val,setValue]=useState(itemval);
@@ -30,8 +30,10 @@ export default function Product() {
     const [active,setActive]=useState(product.active);
     const [price,setPrice]=useState(product.price);
     const [productUpdated,setProductUpdated]=useState(false);
-    const[user]=useState(JSON.parse(localStorage.getItem('user')));
-       
+    const [user]=useState(JSON.parse(localStorage.getItem('user')));
+    const [salesData,setSalesData]=useState([]);
+    const [totalSales,setTotalSales]=useState(0)
+    const[isSalesPerformanceLoaded,setIsSalesPerformanceLoaded]=useState(false)
       const removeLastIndex = (values) => {
           let arr=[...values];
            arr.pop(values.length-1);
@@ -104,9 +106,25 @@ export default function Product() {
       
       
       useEffect(()=>{
-         //var addStockput = document.getElementById('stock');
-        // addStockput.innerText=product.stock;
-      })
+          
+          const getSalesPerformance = async() =>{
+             const url =`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/analytics/transactions/product/sales/monthly/${product._id}`
+          
+             await axios.post(url,{year:2022}).then((response)=>{
+                    console.log(response.data.monthlySales);
+                    setSalesData(response.data.monthlySales);
+                    setTotalSales(response.data.totalSales)
+            });
+
+           }
+
+           if (!isSalesPerformanceLoaded){
+               getSalesPerformance();
+           }
+          return ()=>{
+            setIsSalesPerformanceLoaded(true)
+          }
+         })
     return (
         <div className="product">
             <span>{"storename"}</span>
@@ -123,7 +141,7 @@ export default function Product() {
             </div>
             <div className="productTop">
                 <div className="productTopLeft">
-                    <Chart data={productData} datakey="Sales" title="Sales Performance"/>
+                    <Chart data={salesData} datakey="Monthly Sales" title="Sales Performance"/>
                 </div>
                 <div className="productTopRight">
                     <div className="productInfoTop">
@@ -137,7 +155,7 @@ export default function Product() {
                         </span>
                         <span className="productInfoItem">
                             <span className="productInfoKey">sales</span>
-                            <span className="productInfoValue">5123</span>
+                            <span className="productInfoValue">{formatWithCurrencySymbol(totalSales,'GHS')}</span>
                         </span>
                         <span className="productInfoItem">
                             <span className="productInfoKey">active</span>

@@ -11,7 +11,7 @@ function Home({products,transactions,completedAggregate,inCompletedAggregate,all
        <div className="widgetwrapper">
                  {alltimeAggregate ?  <FeaturedInfo completedAggregate={completedAggregate} inCompletedAggregate={inCompletedAggregate} alltimeAggregate={alltimeAggregate}/>: ''}
             {monthlySales ?  <Chart data={monthlySales} title="Sales Analytics" grid datakey={"Monthly Sales"}/>:''}
-          <div className="homeWidgets"> 
+          <div className="homeWidgets">
            <Widgetsm products={products}/>
           <WidgetLg transactions={transactions}/>
           </div>
