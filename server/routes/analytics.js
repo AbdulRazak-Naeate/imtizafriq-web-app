@@ -5,7 +5,7 @@ const Order   = require('../models/Order');
 //get transactions
 
 router.get('/transactions', async (req,res)=>{
-   const analytics =[]
+  // const analytics =[]
 
     const transactions = await Order.find();
     //get Completed orders = sales 
@@ -68,5 +68,87 @@ router.get('/transactions/:storeId', async (req,res)=>{
 
 });
 
+router.post('/transactions/sales/monthly',async (req,res)=>{
+
+    var months =[{label:'jan',num:1},{label:'feb',num:2},{label:'mar',num:3},{label:'apr',num:4},
+                   {label:'may',num:5},{label:'jun',num:6},{label:'jul',num:7},{label:'aug',num:8},
+                   {label:'sep',num:9},{label:'oct',num:10},{label:'nov',num:11},{label:'dec',num:12}];
+     var year =req.body.year             
+    const data=[];
+     for(var i = 0;i < months.length;i++){
+         //var m=months[i].num;         
+                   
+         var m=months[i].num;
+         var label=months[i].label;
+         console.log(label)
+        const transMonthly = await Order.aggregate(
+            [
+           {
+               $match:{status:"Completed"}
+           },
+
+            {
+                $match:{$expr:{
+                     $eq:[{$year: "$date"},year]
+                  }}
+            },
+             {
+                 $redact:{ 
+                 $cond:[
+                     { $eq:[{$month:'$date'},m]},
+                     "$$KEEP","$$PRUNE"
+                 ]
+                }
+              },{
+            $group:{
+                _id:'0',
+                count:{$sum:1},
+                sales:{$sum:'$totalPrice'}
+            }
+        }
+        ]);
+        if (transMonthly.length>0){
+            data.push({name:label,"Monthly Sales":transMonthly[0].sales});
+        }else{
+            data.push({name:label,"Monthly Sales":0});
+
+        }
+     }
+   
+     res.json({monthlySales:data})
+})
+
+
+router.get('/transactions/sales/monthly/y',async (req,res)=>{
+
+
+                   
+
+        const transMonthly = await Order.find({
+            $expr: {
+                    $and: [
+                        {
+                          "$eq": [
+                            {
+                             "$month": "$date"
+                           },
+                            2
+                       ]
+                     },
+                     {
+                       "$eq": [
+                           {
+                         "$year": "$date"
+                          },
+                          2022
+                         ]
+                       }
+                    ]
+                   }});
+        
+     
+   
+     res.json({transMonthly})
+})
 
 module.exports = router;

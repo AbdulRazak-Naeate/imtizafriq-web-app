@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {useState}from 'react';
 import "./featuredInfo.css";
 import { ArrowDownward,ArrowUpward,Add} from "@material-ui/icons"
@@ -12,7 +13,7 @@ export const FeaturedInfo = ({completedAggregate,inCompletedAggregate,alltimeAgg
    var alltimeCount=0;
    var alltimeSales=0;
    try{
-    console.log(completedAggregate[0].total)
+    //console.log(completedAggregate[0].total)
      completeCount = completedAggregate[0].count
      completeSales = completedAggregate[0].total
 

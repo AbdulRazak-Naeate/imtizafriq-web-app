@@ -5,7 +5,7 @@ import {Button} from '@mui/material';
 import { Chart } from '../../components/charts/Chart';
 import { productData } from '../../dummyData';
 import { Publish } from '@material-ui/icons';
-import QueryParams from '../../QueryParams';
+import { formatWithCurrencySymbol } from "../../../utils/Utils"
 import {patch}from 'axios';
 
   const MesurementItem = ({itemval,index,name,onUpdateColors})=>{
@@ -19,14 +19,12 @@ import {patch}from 'axios';
     }
 
 export default function Product() {
-    const query=QueryParams();
     const [product,setProduct]= useState(JSON.parse(localStorage.getItem('product')));
     const [productid]=useState(product._id); 
     const [productname]=useState(product.name);
     const [colors,setColors]=useState(product.color);
     const [sizes,setSizes]=useState(product.size);
     console.log(product.color);
-    // eslint-disable-next-line no-unused-vars
     const [stock,setStock]=useState(product.stock.currentstock);
     const [addStock,setaddStock]=useState(0);
     const [active,setActive]=useState(product.active);
@@ -151,7 +149,7 @@ export default function Product() {
                         </span>
                         <span className="productInfoItem">
                             <span className="productInfoKey">price:</span>
-                            <label className="productInfoValue" id="stock">{`π${product.price}`}</label>
+                            <label className="productInfoValue" id="stock">{`${formatWithCurrencySymbol(product.price,'GHS')}`}</label>
                         </span>
                     </div>
                     </div>

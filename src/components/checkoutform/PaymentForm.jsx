@@ -1,7 +1,7 @@
 import React from 'react'
 import {Typography,Button,Divider} from '@material-ui/core';
 import Review from './Review'
-import { useFlutterwave, closePaymentModal } from 'flutterwave-react-v3';
+/* import { useFlutterwave, closePaymentModal } from 'flutterwave-react-v3'; */
 import axios from 'axios';
 import {formatWithCurrencySymbol} from '../../utils/Utils';
 
@@ -25,10 +25,10 @@ const PaymentForm = ({shippingData,checkoutToken,backStep,onCaptureCheckout,next
         },
       };
       
-     const handleFlutterPayment = useFlutterwave(config);
+    // const handleFlutterPayment = useFlutterwave(config);
 
        const handlePayment =(orderData) =>{
-              handleFlutterPayment({
+            /*   handleFlutterPayment({
                 callback: (response) => { 
                   closePaymentModal() // this will close the modal programmatically
                    console.log(response);
@@ -40,7 +40,7 @@ const PaymentForm = ({shippingData,checkoutToken,backStep,onCaptureCheckout,next
                    
                 },
                 onClose: () => {},
-              });
+              }); */
             }
     
       const handleSubmit= async (event)=>{

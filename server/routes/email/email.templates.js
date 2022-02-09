@@ -2,7 +2,14 @@ const { CLIENT_ORIGIN } = require('../../config')
 const cheerio = require('cheerio');
 
 
-
+function formatWithCurrencySymbol (amount,currency){
+	// Create GH Cedi currency symbol.
+  var formatter = new Intl.NumberFormat('en-GH', {
+	  style: 'currency', 
+	  currency: currency, //   currency: 'GHS',
+	});
+	return formatter.format(amount)
+  }
 // This file is exporting an Object with a single key/value pair.
 // However, because this is not a part of the logic of the application
 // it makes sense to abstract it to another file. Plus, it is now easily 
@@ -83,7 +90,7 @@ const cheerio = require('cheerio');
 	<span style="margin:3px">Hi ${customer.firstname}</span><br/>
 	<span  style="margin:3px">We have finished processing your order</span>
 	<h3 style="color:orange">Order #${shippingData.orderNumber}    [${shippingData.date}]</h3>
-	<table width="600" cellpadding="0" cellspacing="0" border="1" bordercolor="darkgray" class="itemsTable" id="backgroundTable">
+	<table width="600" cellpadding="4" cellspacing="0" border="1" bordercolor="darkgray" class="itemsTable" id="backgroundTable">
 	<tr>
 	<th>Porduct</th> <th>Quantity</th> <th>Price</th>  <th>SubTotal</th>
 	</tr>
@@ -92,11 +99,15 @@ const cheerio = require('cheerio');
 	     return(`<tr>
 			   <td>${item.product.name}</td>
 			 <td>${item.quantity}</td>
-			  <td>${item.product.price}</td>
-			 <td>${item.line_item_sub_price}</td>
+			  <td>${formatWithCurrencySymbol(item.product.price,'GHS')}</td>
+			  <td>${formatWithCurrencySymbol(item.line_item_sub_price,'GHS')}</td>
 			 </tr>`
 		 )})
 	  }
+	  <tr>
+     	<td colspan="3" >Shipping Fees:</td>
+    	<td>${formatWithCurrencySymbol(shippingData.shippingFees,'GHS')}</td>
+    	</tr>
 	   <tr>
      	<td colspan="3" >Payment method:</td>
     	<td>FlutterWave</td>
@@ -104,7 +115,7 @@ const cheerio = require('cheerio');
 
 	   <tr>
 	   <td colspan="3" >Total:</td>
-       <td>${orderdata.subtotal}</td>
+       <td>${formatWithCurrencySymbol(orderdata.subtotal,'GHS')}</td>
 	</tr>
 	 
 	</table>

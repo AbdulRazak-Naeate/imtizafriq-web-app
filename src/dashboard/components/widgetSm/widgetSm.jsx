@@ -2,9 +2,7 @@ import './widgetSm.css';
 import {Link,useHistory} from 'react-router-dom';
 import {Visibility } from '@material-ui/icons'
 function WidgetSm({products}) {
-  console.log(products)
   const history=useHistory();
-  console.log(products)
   const handleEdit = (product)=>{
     //navigate to product page
    history.push(`/dashboard/product?productId=${product._id}&productName=${product.name}`);

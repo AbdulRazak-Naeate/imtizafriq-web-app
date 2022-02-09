@@ -30,6 +30,9 @@ import axios from 'axios';
  const [alltimeAggregate,setAlltimeAggregate]=useState([]);
  const [analyticsLoaded,setIsanalyticsLoaded]=useState(false);
  const [isproductsLoaded,setIsproductsLoaded]=useState(false);
+ const [monthlySales,setMonthlySales]=useState([]);
+ const [ismonthlySalesLoaded,setIsmonthlySalesLoaded]=useState(false);
+
 const paths =[ 
     '/dashboard',   
     '/dashboard/users',
@@ -52,7 +55,7 @@ const paths =[
     
     async function handleDeleteProduct(_id) {
       try {
-        const response = await axios.delete(`http://localhost:3002/api/products/${_id}`);
+        const response = await axios.delete(`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/products/${_id}`);
        
         if (response.data.deletedCount>=1){
         setProducts(products.filter((item) => item._id !==_id))
@@ -65,8 +68,9 @@ const paths =[
 
    
     const fetchProducts = async ()=>{
+      console.log(process.env.REACT_APP_SERVER_PORT)
       try{
-         const res = await fetch(`http://localhost:3002/api/products`);
+         const res = await fetch(`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/products`);
          const data=await res.json();
                console.log(data);
                return data.products;
@@ -88,14 +92,24 @@ const handlegetProducts = async() => {
 
     }
 }
+  const handlegetMonthAnalytics =  async () => {//get Orders 
+ 
+    var url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/analytics/transactions/sales/monthly`
   
+    await axios.post(url,{year:2022}).then((response)=>{
+      console.log(response.data)
+          setMonthlySales(response.data.monthlySales);
+         
+  
+   });
+  }
 useEffect(()=>{
   const handlegetAnalytics =  async () => {//get Orders 
  
-    var url = `http://localhost:3002/api/analytics/transactions`
+    var url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/analytics/transactions`
 
     await axios.get(url).then((response)=>{
-      console.log(response.data.transactions)
+     // console.log(response.data.transactions)
           setAnalytics(response.data);
           setTransactions(response.data.transactions);
           setCompletedAggregate(response.data.completedAggregate);
@@ -104,16 +118,22 @@ useEffect(()=>{
 
    });
  }
- if (!isproductsLoaded)handlegetProducts();
+ if (!isproductsLoaded) {handlegetProducts();}
+ if (!ismonthlySalesLoaded){ handlegetMonthAnalytics();}
+ if (!analyticsLoaded){ handlegetAnalytics();}
 
-
-if (!analyticsLoaded) handlegetAnalytics();
 return ()=>{
-    if (products.length > 0 ) setIsproductsLoaded(true)
-    if (transactions.length > 0) setIsanalyticsLoaded(true)
+  
+     setIsproductsLoaded(true);
+     setIsanalyticsLoaded(true);
+     setIsmonthlySalesLoaded(true);
+  
 }
 
+
 });
+
+
  
   return (
     <Router>
@@ -135,7 +155,7 @@ return ()=>{
     
      <Switch>
      <Route exact  path="/dashboard">
-         <Home products={products} transactions={transactions} completedAggregate={completedAggregate} inCompletedAggregate={inCompletedAggregate} alltimeAggregate={alltimeAggregate}/>
+         <Home products={products} transactions={transactions} completedAggregate={completedAggregate} inCompletedAggregate={inCompletedAggregate} alltimeAggregate={alltimeAggregate} monthlySales={monthlySales}/>
        </Route>
        <Route path="/dashboard/users">
         <UserList/>

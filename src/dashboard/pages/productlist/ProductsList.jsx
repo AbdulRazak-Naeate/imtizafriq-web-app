@@ -4,15 +4,14 @@ import { DeleteOutline,EditOutlined } from '@material-ui/icons';
 import {Tooltip} from '@material-ui/core';
 import QueryParams from '../../QueryParams';
 import { Link ,useHistory} from 'react-router-dom';
-import {useState,useEffect} from "react";
+import {useState} from "react";
 import AlertDialog from '../../components/alertdialog/AlertDialog'
-
-export default function ProductsList({products,handlegetProducts,handleDeleteProduct}) {   
+import { formatWithCurrencySymbol } from "../../../utils/Utils"
+export default function ProductsList({products,handleDeleteProduct}) {   
     const query=QueryParams();
     const history=useHistory();
     const [pageSize, setPageSize] =useState(10);
     const [category] =useState(query.get("categoryId"));
-    const [isProductsLoaded,setIsproductSLoaded]=useState(false)
      
     //alert Dialog
     const [open,setOpen]=useState(false);
@@ -41,58 +40,7 @@ export default function ProductsList({products,handlegetProducts,handleDeletePro
 
         localStorage.setItem('product', JSON.stringify(params.row));        
     }
-      useEffect(()=>{
-
-        /* const fetchProducts = async ()=>{
-              try{
-                 const res = await fetch(`http://localhost:3002/api/products/store`);
-                 const data=await res.json();
-                       console.log(data);
-                       return data.products;
-              }catch(error){
-
-              }
-        }
-        const getProducts =async() => {
-            try{
-               const productsFromServer = await fetchProducts();
-               let tmp =[];
-                  for(let i=0;i<productsFromServer.length;i++){
-                    tmp.push(productsFromServer[i]);
-                    
-                  }
-               setProducts(tmp);
-               console.log(tmp);
-            }catch(error){
-
-            }
-        } */
-         
-       console.log(isProductsLoaded)
-       if (!isProductsLoaded) handlegetProducts();
-
-        return ()=>{
-          if (products){setIsproductSLoaded(true) }
-         // mountedRef.current=false;
-        };
-      },[handlegetProducts, isProductsLoaded, products]);
-     /*   
-      async function deleteProduct(_id) {
-        try {
-          const response = await axios.delete(`http://localhost:3002/api/products/${_id}`);
-          console.log(response);
-          if (response.data.deletedCount>=1){
-          setProducts(products.filter((item) => item._id !==_id))
-
-          }
-        } catch (error) {
-          console.error(error);
-        }
-      } */
-
-      
- 
-
+     
     const columns = [
         { field: '_id', headerName: 'Id', width: 220 },
         {
@@ -133,7 +81,8 @@ export default function ProductsList({products,handlegetProducts,handleDeletePro
           renderCell:(params)=>{
             return(
               <>
-               <span>{`π${params.row.price}`}</span>
+            {/*   π */}
+               <span>{`${formatWithCurrencySymbol(params.row.price,'GHS')}`}</span>
               </>
             )
           }

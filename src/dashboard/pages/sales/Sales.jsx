@@ -62,7 +62,7 @@ const Sales = ({stores}) => {
 }
 
 const editTransaction =(orderid)=>{
-const url = `http://localhost:3002/api/orders/${orderid}`;
+const url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/orders/${orderid}`;
 const body={
          status:status,
       
@@ -93,7 +93,7 @@ const handleUpdateMany=(option)=>{
 
 const editTransactions =(option)=>{
   const ids=JSON.stringify(selected_Ids);
-  const url = `http://localhost:3002/api/orders/many/${ids}`;
+  const url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/orders/many/${ids}`;
 
 const body={
        status:option,
