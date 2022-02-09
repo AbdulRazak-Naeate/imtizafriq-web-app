@@ -254,7 +254,7 @@ router.patch('/:userId',async (req,res)=> {
            {new:true,useFindAndModify:false}
             
           ).then(ret=>{
-            //console.log(ret)
+            console.log(ret)
              var newData = {   
               firstname:ret.firstname,
               lastname:ret.lastname,

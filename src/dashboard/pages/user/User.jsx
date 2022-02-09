@@ -21,7 +21,7 @@ export default function User() {
     const[lastname,setLastname]=useState(user.lastname);
     const[email,setEmail]=useState(user.email);
     const[phone,setPhone]=useState(user.phone);
-    const[location,setLocation]=useState(user.location);
+    const[address,setAddress]=useState(user.address);
     const[image,setImage]=useState(null)
     const [imagename,setImageName]=useState(null);
     const[onuserUpdated,setonuserUpdated]=useState(false);
@@ -41,7 +41,7 @@ export default function User() {
             setOnImageChanged(true);
          console.log(file)
          setImage(file);
-         //use user to name uer image 
+         //use username to name uer image 
          var filename=username+'.'+file.name.split('.').pop();
          console.log(filename);
          setImageName(filename);
@@ -56,7 +56,7 @@ export default function User() {
     }
     const handleVerifyEmail = ()=>{
 
-        const url = `http://localhost:3002/api/email`;
+        const url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/email`;
  
       post(url,{email:user.email}).then((response)=>{
           console.log(response)
@@ -73,7 +73,7 @@ export default function User() {
                  setFirstname(response.data.firstname);
                  setLastname(response.data.lastname);
                  setPhone(response.data.phone);
-                 setLocation(response.data.location);
+                 setAddress(response.data.address);
                  localStorage.setItem('user',JSON.stringify(response.data));
                  Alert.success('user updated successfully', {
                     position: 'top-right',
@@ -113,12 +113,12 @@ export default function User() {
       }
 
     }
-    return post(`http://localhost:3002/api/user/updateImage/${user._id}`, formData, config)
+    return post(`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/user/updateImage/${user._id}`, formData, config)
   }
 
   const editUser =()=>{
      
-    const url = `http://localhost:3002/api/user/${user._id}`;
+    const url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/user/${user._id}`;
  
     const body={
              userId:user._id,
@@ -127,7 +127,7 @@ export default function User() {
              firstname:firstname,
              lastname:lastname,
              phone:phone,
-             location:location,
+             address:address,
              imagename:imagename
     }
     const config = {
@@ -153,7 +153,7 @@ export default function User() {
             <div className="userContainer">
                 <div className="userShow">
                     <div className="userShowTop">
-                        <img src={`http://localhost:3002/server/uploads/users/${user.image[0].filename}`}  id="avatar"  onError={imgonLoadError} alt="" className="userShowImg" />
+                        <img src={`http://localhost:${process.env.REACT_APP_SERVER_PORT}/server/uploads/users/${user.image[0].filename}`}  id="avatar"  onError={imgonLoadError} alt="" className="userShowImg" />
                         
                        <div className="userShowTopTitle">
                            <span className="userShowUsername">{username}</span>  <span className="active"></span>
@@ -185,7 +185,7 @@ export default function User() {
                         </div>
                         <div className="userShowInfo">
                              <LocationSearching className="userShowIcon"/>
-                        <span className="userShowInfoTitle">{location}</span>
+                        <span className="userShowInfoTitle">{address}</span>
                         </div>
                        </div>
                 </div>
@@ -214,14 +214,14 @@ export default function User() {
                             <input type="text" placeholder="+23358473829" className="userUpdateInput" onChange={(e)=>{setPhone(e.target.value)}} value={phone}/>
                         </div>
                         <div className="userUpdateItem">
-                            <label>Location</label>
-                            <input type="text" placeholder="Tamale ,Northern Region" className="userUpdateInput" onChange={(e)=>{setLocation(e.target.value)}} value={location}/>
+                            <label>Address</label>
+                            <input type="text" placeholder="Tamale ,Northern Region" className="userUpdateInput" onChange={(e)=>{setAddress(e.target.value)}} value={address}/>
                         </div>
 
                         </div> 
                     <div className="userUpdateRight">
                         <div className="userUpdateUpload">
-                            <img src={`http://localhost:3002/server/uploads/users/${user.image[0].filename}`} onError={imgonLoadError} alt=""  id="user-image"className="userUpdateImg" />
+                            <img src={`http://localhost:${process.env.REACT_APP_SERVER_PORT}/server/uploads/users/${user.image[0].filename}`} onError={imgonLoadError} alt=""  id="user-image"className="userUpdateImg" />
                             <label htmlFor="file"> <Publish className="userUpdateIcon"/> </label>
                                 <input type="file" onChange={onFileInputChange} id="file" style={{display:"none"}}/>
                        </div>
