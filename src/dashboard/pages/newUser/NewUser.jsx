@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import {useState} from 'react';
 import {post} from 'axios';
 import Alert from 'react-s-alert';
+import {Select,MenuItem} from '@material-ui/core';
 
 export default function NewUser() {
     const [user]=useState(JSON.parse(localStorage.getItem('user')));
@@ -56,19 +57,8 @@ export default function NewUser() {
 
       const createUser =()=>{
         
-        const url = 'http://localhost:3001/api/user/register';
-    
-       
-        const formData = new FormData();
-       
-        formData.append('name', username);
-        formData.append('firstname', firstname);
-        formData.append('lastname', lastname);
-        formData.append('email', email);
-        formData.append('phone', phone);
-        formData.append('password',password);
-       
-     
+        const url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/user/register`;
+
         return post(url,  {
           username:username,
           firstname:firstname,
@@ -82,6 +72,7 @@ export default function NewUser() {
       };
     return (
         <div className="newUser">
+          <Alert stack={{limit: 3}}/>
             <div className="newUserTitleContainer">
             <h1 className="newUserTitle">New User</h1>
             <Link to="/dashboard/users">
@@ -111,20 +102,21 @@ export default function NewUser() {
                 <input type="phone" placeholder="+23354625367" value={phone} required onChange={(e)=>{setPhone(e.target.value)}}/>
             </div>
 
-            <div className="newUserItem">
-                <label>Role</label>
-                <select value={role} required onChange={(e)=>{setRole(e.target.value)}}>
-                <option value="admin">Admin</option>
-                  <option value="administrator">Administrator</option>
-                  <option value="editor">Editor</option>
-                  <option value="user">User</option>
-                </select>
-            </div>
-
+           
             <div className="newUserItem">
                 <label>Password</label>
                 <input type="password" placeholder="password" value={password} required onChange={(e)=>{setPassword(e.target.value)}}/>
+            </div> 
+            <div className="newUserItem">
+                <label>Role</label>
+                <Select value={role} required onChange={(e)=>{setRole(e.target.value)}}>
+                <MenuItem value="admin">Admin</MenuItem>
+                  <MenuItem value="administrator">Administrator</MenuItem>
+                  <MenuItem value="editor">Editor</MenuItem>
+                  <MenuItem value="user">User</MenuItem>
+                </Select>
             </div>
+
          {/*   { <div className="newUserItem">
                 <label>Gender</label>
                <div className="newUserGender">
