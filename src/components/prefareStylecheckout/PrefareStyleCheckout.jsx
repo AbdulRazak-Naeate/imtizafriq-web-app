@@ -11,10 +11,10 @@ import axios from 'axios';
 import { randNumber } from '../../utils/Utils';
 
 const PrefareStyleCheckout = ({onAddToCart}) => {
+  
     const classes=useStyles();
     const [productImages,setProductImages]=useState([]);
     const [loadedImage,setLoadedImages]=useState([]);
-
     const [productname]= useState("PrefareStyle-"+randNumber(5));
     const[product]=useState({name:productname,price:'150',description:''})
     const onImageClicked = (e) => {
@@ -45,7 +45,7 @@ const PrefareStyleCheckout = ({onAddToCart}) => {
    
 const initiateAndCreateProduct =()=>{
   
-  const url = 'http://localhost:3001/api/products/prefstyle';
+  const url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/products/prefstyle`;
 
   //console.log(colors);
   const formData = new FormData();
@@ -117,14 +117,7 @@ const initiateAndCreateProduct =()=>{
       }
       
     }
-      const handleImages=(Images)=>{
-        let tmp=[];
-       Images.map((item)=>{
-          tmp.push(item)
-         // console.log(tmp);
-          return null
-       })
-    }
+     
   return (
     <div className={classes.content}> 
            <Alert stack={{limit: 3}} />

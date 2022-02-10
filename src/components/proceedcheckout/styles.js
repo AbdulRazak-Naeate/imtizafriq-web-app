@@ -30,8 +30,10 @@ export default makeStyles((theme) => ({
    commentListContainer:{
      margin:'2% 20%',
      border:'0px solid',
+     width:'80%',
      [theme.breakpoints.down(620)]:{
       margin:'0%',
+      width:'100%'
      },
    },
    commentList:{

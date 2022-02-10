@@ -32,7 +32,8 @@ const ImageView = ({onImageClicked,loadedImage,onFileInputChange}) => {
   )
 
   return (
-    <div className={classes.container}>{
+    <div className={classes.container}>
+      {
     <FilledProduct/>
       }
        <input style={{display:"none"}} type="file" id="product-file" multiple onChange={onFileInputChange} />

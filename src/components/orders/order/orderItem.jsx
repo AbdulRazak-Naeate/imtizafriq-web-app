@@ -1,17 +1,11 @@
 import React ,{useState} from 'react'
-import {Card, CardContent, CardMedia, Typography,Button} from '@material-ui/core';
+import {Card, CardContent, CardMedia, Typography} from '@material-ui/core';
 import useStyles from './styles';
 import './styles.css';
 const OrderItem = ({order,onReviewClick}) => {
     const classes=useStyles();
-    const [imagepath]=useState(order.orderType==='normal' ? `http://localhost:3002/server/uploads/products/${order.filename}` : `http://localhost:3002/server/uploads/products/prefarestyleproducts/${order.filename}`)
-const truncateString=(str, num) => {
-  if(str.length>num){
-    return str.slice(0,num)+"...";
-  }else{
-    return str;
-  }
-} 
+    const [imagepath]=useState(order.orderType==='normal' ? `http://localhost:${process.env.REACT_APP_SERVER_PORT}/server/uploads/products/${order.filename}` : `http://localhost:${process.env.REACT_APP_SERVER_PORT}/server/uploads/products/prefarestyleproducts/${order.filename}`);
+
 
 
   return (

@@ -20,15 +20,16 @@ const Slider_ = ({images}) => {
 const Dslider = ({images})=>{
     return(
      <Slider {...settings}>
-    <div>
-   <img className={classes.sliderItem} style={{objectFit:'cover'}} src={`http://localhost:3001/server/uploads/products/${images[0].filename}`} alt={images[0].filename}  />
-    </div>
-    <div>
-   <img className={classes.sliderItem} style={{objectFit:'cover'}} src={`http://localhost:3001/server/uploads/products/${images[1].filename}`} alt={images[1].filename}  />
-    </div>
-    <div>
-   <img className={classes.sliderItem} style={{objectFit:'cover'}} src={`http://localhost:3001/server/uploads/products/${images[2].filename}`} alt={images[2].filename}  />
-    </div>
+        {
+          images.map((image,index)=>{
+            return(
+              <div>
+              <img className={classes.sliderItem} key={index} style={{objectFit:'cover'}} src={`http://localhost:${process.env.REACT_APP_SERVER_PORT}/server/uploads/products/${image.filename}`} alt={image.filename}  />
+               </div>
+             
+            )
+          })
+        }
   </Slider>
 )}
     return (
