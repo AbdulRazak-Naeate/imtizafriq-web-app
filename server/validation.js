@@ -8,6 +8,7 @@ const registerValidation = data =>{
     firstname:Joi.string(),
     lastname:Joi.string(),
     email:Joi.string().email(),
+    role:Joi.string(),
     phone:Joi.string(),
     address:Joi.any(),
     fromGoogle:Joi.boolean(),

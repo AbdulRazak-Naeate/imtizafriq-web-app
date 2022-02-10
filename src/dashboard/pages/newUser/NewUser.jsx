@@ -11,7 +11,8 @@ export default function NewUser() {
     const [lastname,setLastName]=useState('');
     const [email,setEmail]=useState('');
     const [phone,setPhone]=useState('');
-   const [password,setPassword]=useState('');
+    const [role,setRole]=useState('')
+    const [password,setPassword]=useState('');
     const handleSubmit=(e)=>{
        e.preventDefault();
        createNewUser(e)
@@ -73,6 +74,7 @@ export default function NewUser() {
           firstname:firstname,
           lastname:lastname,
           email: email ,
+          role:role,
           phone:phone,
           password: password,
         })
@@ -103,10 +105,22 @@ export default function NewUser() {
                 <label>Email</label>
                 <input type="email" placeholder="abdulrazakneate@gmail.com" value={email} required onChange={(e)=>{setEmail(e.target.value)}}/>
             </div>
+
             <div className="newUserItem">
                 <label>Phone</label>
                 <input type="phone" placeholder="+23354625367" value={phone} required onChange={(e)=>{setPhone(e.target.value)}}/>
             </div>
+
+            <div className="newUserItem">
+                <label>Role</label>
+                <select value={role} required onChange={(e)=>{setRole(e.target.value)}}>
+                <option value="admin">Admin</option>
+                  <option value="administrator">Administrator</option>
+                  <option value="editor">Editor</option>
+                  <option value="user">User</option>
+                </select>
+            </div>
+
             <div className="newUserItem">
                 <label>Password</label>
                 <input type="password" placeholder="password" value={password} required onChange={(e)=>{setPassword(e.target.value)}}/>

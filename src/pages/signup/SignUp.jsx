@@ -37,22 +37,13 @@ export default function SignUp() {
   const SignUp =()=>{
         
     const url = 'http://localhost:3001/api/user/register';
-
-   
-    const formData = new FormData();
-   
-    formData.append('name', username);
-    formData.append('email', email);
-    formData.append('phone', phone);
-    formData.append('password', repeatPassword);
-   
  
     return post(url,  {
       name:username,
       fullname:'null',
       email: email ,
       phone:'null',
-      location:'null',
+      role:'user',
       password: password,
     })
   

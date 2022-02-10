@@ -36,6 +36,11 @@ const userSchema = new mongoose.Schema({
         required:false,
         default:'0'
     },
+    role:{
+        type:String,
+        required:false,
+        default:'user'
+    },
      address:{
         type:Object,
         required:false,

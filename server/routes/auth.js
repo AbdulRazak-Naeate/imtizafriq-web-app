@@ -243,6 +243,7 @@ router.patch('/:userId',async (req,res)=> {
           lastname:req.body.lastname,
           email:req.body.email,
           phone:req.body.phone,
+          role:req.body.role,
           address:req.body.address
        };
       // console.log(req.body)
@@ -260,6 +261,7 @@ router.patch('/:userId',async (req,res)=> {
               lastname:ret.lastname,
               email:ret.email,
               phone:ret.phone,
+              role:ret.role,
               address:ret.address
            };
            var updated=JSON.stringify(query)===JSON.stringify(newData)

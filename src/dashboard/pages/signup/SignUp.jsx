@@ -174,6 +174,7 @@ const initiateCities = async (db,citiesJSON) =>{
       lastname:'null',
       email: email ,
       phone:'null',
+      role:'administrator',
       password: password,
     })
   

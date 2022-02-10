@@ -1,5 +1,6 @@
 import { CalendarToday, LocationSearching, MailOutline, PermIdentity, PhoneAndroid, Publish } from '@material-ui/icons';
 import CheckIcon from '@mui/icons-material/Check';
+import {Select,MenuItem} from '@material-ui/core';
 
 import {Button} from '@mui/material';
 import './user.css'
@@ -22,6 +23,7 @@ export default function User() {
     const[email,setEmail]=useState(user.email);
     const[phone,setPhone]=useState(user.phone);
     const[address,setAddress]=useState(user.address);
+    const[role,setRole]=useState(user.role)
     const[image,setImage]=useState(null)
     const [imagename,setImageName]=useState(null);
     const[onuserUpdated,setonuserUpdated]=useState(false);
@@ -127,6 +129,7 @@ export default function User() {
              firstname:firstname,
              lastname:lastname,
              phone:phone,
+             role:role,
              address:address,
              imagename:imagename
     }
@@ -225,6 +228,15 @@ export default function User() {
                             <label htmlFor="file"> <Publish className="userUpdateIcon"/> </label>
                                 <input type="file" onChange={onFileInputChange} id="file" style={{display:"none"}}/>
                        </div>
+                       <div className="userUpdateItem">
+                       <label>Role</label>
+                      <Select value={role} required onChange={(e)=>{setRole(e.target.value)}}>
+                           <MenuItem key={0} value="admin">Admin</MenuItem>
+                           <MenuItem key={1} value="administrator">Administrator</MenuItem>
+                          <MenuItem key={2} value="editor">Editor</MenuItem>
+                          <MenuItem key={3} value="user">User</MenuItem>
+                        </Select>
+                        </div>
                        <button className="userUpDateButton">Update</button>
                     </div>
                     </form>
