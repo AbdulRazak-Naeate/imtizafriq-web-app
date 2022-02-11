@@ -6,7 +6,7 @@ import  Dashboard from './dashboard/Dashboard';
 import './App.css';
 import LogIn from "./pages/login/LogIn";
 import SignUp from './pages/signup/SignUp';
-import {Topbar,Appbar,TopbarcontacInfo,BottomNav,Products,Cart,Orders,ProceedCheckOut,PrefaredStyleCheckOut,Account,CategoryWidget,Footer,AboutUs} from './components';
+import {Topbar,Appbar,TopbarcontacInfo,BottomNav,HeroSection,Products,Cart,Orders,ProceedCheckOut,PrefaredStyleCheckOut,Account,CategoryWidget,Footer,AboutUs} from './components';
 import React, { useEffect } from 'react';
 import axios ,{post,patch} from 'axios';
 import CheckOut from './components/checkoutform/checkout/CheckOut';
@@ -640,8 +640,9 @@ const searchProduct =(searchString)=>{
        <Switch>   
         
        <Route exact path="/">  
-       
-      {filteredProducts.length > 0 ? <Products products={filteredProducts}  onAddToCart={handleAddtoCart} onUpdateLikes={handleUpdateLikes} favorites={favorites}/>:<Products products={products}  onAddToCart={handleAddtoCart} onUpdateLikes={handleUpdateLikes} favorites={favorites}/>}
+       <HeroSection/>
+      {filteredProducts.length > 0 ?  <Products products={filteredProducts}  onAddToCart={handleAddtoCart} onUpdateLikes={handleUpdateLikes} favorites={favorites}/>:<Products products={products}  onAddToCart={handleAddtoCart} onUpdateLikes={handleUpdateLikes} favorites={favorites}/>}
+      
        </Route>
        <Route exact path="/cart">
           <Cart cart={cart} handleUpdateCartQty={handleUpdateCartQty} handleupdateColorSize={handleupdateColorSize} handleupdateMeasurement={handleupdateMeasurement} handleRemoveFromCart={handleRemoveFromCart}

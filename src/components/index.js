@@ -1,6 +1,7 @@
 export {default as Appbar}   from './appbar/Appbar';
 export {default as Topbar}   from './topbar/Topbar';
 export {default as TopbarcontacInfo}   from './topbar/contactinfobar/ContactInfowidget';
+export {default as HeroSection} from './herosection/Herosection';
 export {default as Products} from './products/Products';
 export {default as Cart}     from './cart/Cart';
 export {default as Orders}   from './orders/Orders';
