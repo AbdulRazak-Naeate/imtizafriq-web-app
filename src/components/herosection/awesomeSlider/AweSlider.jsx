@@ -3,7 +3,7 @@ import AwesomeSlider from 'react-awesome-slider';
 import withAutoplay from 'react-awesome-slider/dist/autoplay';
 import 'react-awesome-slider/dist/styles.css';
 import './style.css';
-const AweSlider = () => {
+const AweSlider = ({images}) => {
    const AutoplaySlider = withAutoplay(AwesomeSlider);
 
   return (
@@ -14,9 +14,13 @@ const AweSlider = () => {
           cancelOnInteraction={false} // should stop playing on user interaction
           interval={6000}
           bullets={false}>
-          <div className='image' data-src="http://localhost:3002/server/uploads/heroslider/sliderimage0.png" />
-          <div  className='image' data-src="http://localhost:3002/server/uploads/heroslider/sliderimage1.png" />
-          <div  className='image' data-src="http://localhost:3002/server/uploads/heroslider/sliderimage2.png" />
+          {
+            images.map((image,index)=>{
+              return(
+                <div className='image' key={index} data-src={`http://localhost:${process.env.REACT_APP_SERVER_PORT}/server/uploads/heroslider/${image}`} />
+              )
+            })
+          }
           </AutoplaySlider>
           
     </div>
