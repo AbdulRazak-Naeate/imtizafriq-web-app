@@ -17,7 +17,7 @@ const AweSlider = ({images}) => {
           {
             images.map((image,index)=>{
               return(
-                <div className='image' key={index} data-src={`http://localhost:${process.env.REACT_APP_SERVER_PORT}/server/uploads/heroslider/${image}`} />
+                <div className='image' key={index} data-src={`http://localhost:${process.env.REACT_APP_SERVER_PORT}/server/uploads/heroslider/${image.filename}`} />
               )
             })
           }

@@ -3,13 +3,13 @@ import './herosection.css'
 //import {Button} from '@mui/material'
 import AweSlider from './awesomeSlider/AweSlider'
 
-const Herosection = () => {
+const Herosection = ({slidesImages}) => {
     const images = [`sliderimage0.png`,
     `sliderimage2.png`,`sliderimage2.png`];
 
   return (
     <div className='herocontainer'>
-        <AweSlider images={images}/>
+        <AweSlider images={slidesImages}/>
 {/*             <video src='/videos/video-2.mp4' autoPlay loop muted />
            <h1>ADVENTURE AWAITS</h1>
             <p>What are you waiting for?</p>

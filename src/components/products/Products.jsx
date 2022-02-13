@@ -3,7 +3,7 @@ import useStyles from './index.js';
 import { Grid } from '@material-ui/core';
 import Product from './product/Product';
 import { blue, orange } from '@mui/material/colors';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import {  createTheme } from '@mui/material/styles';
 const Products = ({products,onAddToCart,onUpdateLikes,favorites}) => {
   
   const theme = createTheme({

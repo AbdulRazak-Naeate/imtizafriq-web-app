@@ -145,7 +145,7 @@ export default function NewProduct() {
       }
      const initiateAndCreateProduct =()=>{
         
-        const url = 'http://localhost:3002/api/products/';
+        const url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/products/`;
     
         console.log(colors);
         const formData = new FormData();
@@ -170,7 +170,9 @@ export default function NewProduct() {
         formData.append('specification', specification);
         formData.append('digital_product_url', digitalProductUrl);//append digital
         formData.append('stock',stock);
-        formData.append('active',active)
+        formData.append('active',active);
+        formData.append('length',productImages.length);
+
         console.log(JSON.stringify(formData));
      
         //append files to image to create an a file array

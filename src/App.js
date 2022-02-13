@@ -100,7 +100,10 @@ const analytics = getAnalytics(app);
      const [order,setOrder]=useState({});
      const[myOrders,setMyOrders]=useState([]);
      const[orderCount,setMyOrderCount]=useState(0);
-     const[openModal,setOpenModal]=useState(false)
+     const[openModal,setOpenModal]=useState(false);
+     const[isSlidesLoaded,setIsSlidesLoaded]=useState(false);
+     const [slidesImages,setSlidesImages]=useState([]);
+
      const paths=['/','/cart','/checkout','/orders','/proceedcheckout','/prefaredstylecheckout','/account','/aboutus'];
   
      let history = useHistory();
@@ -625,7 +628,21 @@ const searchProduct =(searchString)=>{
     
 
    },[userid,user,history])
-
+   useEffect(()=>{
+    const loadSlides =async ()=>{
+      const url =`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/slides/`
+      await axios.get(url).then((response)=>{
+           console.log(response.data.slides[0].image);
+           setSlidesImages(response.data.slides[0].image)
+      })
+    }
+    if (!isSlidesLoaded){
+      loadSlides()
+    }
+    return ()=>{
+      setIsSlidesLoaded(true)
+    }
+  })
   return (
     <ThemeProvider theme={theme}>
     <Box sx={{ pb: 0 }} ref={ref} className='boxMain'>
@@ -640,7 +657,7 @@ const searchProduct =(searchString)=>{
        <Switch>   
         
        <Route exact path="/">  
-       <HeroSection/>
+       <HeroSection slidesImages={slidesImages}/> 
       {filteredProducts.length > 0 ?  <Products products={filteredProducts}  onAddToCart={handleAddtoCart} onUpdateLikes={handleUpdateLikes} favorites={favorites}/>:<Products products={products}  onAddToCart={handleAddtoCart} onUpdateLikes={handleUpdateLikes} favorites={favorites}/>}
       
        </Route>

@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const SlidesSchema = new mongoose.Schema({
-     images:{
-         type:Array
+     image:{
+         type:Object
     }
 })
 

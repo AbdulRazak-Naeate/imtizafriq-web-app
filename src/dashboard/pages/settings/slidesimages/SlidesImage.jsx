@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import thumbnail from './thumbnail-wide.png';
 import './index.css'
 const SlidesImage = ({handleImages,slideImages}) => {
-  
+    //console.log(slideImages[0].filename)
     const[imagediv]=useState(["0","1","2"]);
     const [imageTagIndex, setImageTagIndex] = useState(null);
     const [ImageToLoadId, setImageToLoadId] = useState(null);
@@ -56,9 +56,11 @@ const SlidesImage = ({handleImages,slideImages}) => {
   return (
     <div className="imageGallery">
          {
-             imagediv.map((img,index)=>{
-                 return(<img class="productImg" alt={img}key={index} id={`product-image${img}`} src={thumbnail}  onClick={ (e) => { onImageClicked(e) }}/>)
-             })
+            slideImages.length > 0  ?  slideImages.map((img,index)=>{
+              return(<img className="productImg" alt={'slideimg'}key={index} id={`product-image${index}`} src={`http://localhost:${process.env.REACT_APP_SERVER_PORT}/server/uploads/slides/${img.filename}`}  onClick={ (e) => { onImageClicked(e) }}/>)
+          }) :  imagediv.map((img,index)=>{
+            return(<img className="productImg" alt={'slideimg'}key={index} id={`product-image${index}`} src={thumbnail}  onClick={ (e) => { onImageClicked(e) }}/>)
+        })
          }
           <input style={{display:"none"}} type="file" id="product-file" multiple onChange={onFileInputChange} />
     </div>

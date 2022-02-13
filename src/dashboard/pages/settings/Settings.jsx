@@ -1,6 +1,6 @@
 import React from 'react'
 import './settings.css';
-import TabsPanel from './tabspanel/TabsPanel'
+import TabsPanel from '../../components/tabspanel/TabsPanel'
 const Settings = () => {
   return (
     <div className='settings'>
