@@ -9,7 +9,7 @@ router.post('/',uploadImage('./server/uploads/slides'), async(req,res) =>{
        try{
       
      console.log(req.files)
-        const slides= new Slides({image:req.files});
+        const slides= new Slides({image:req.files,name:req.body.name});
         const saveSlides= await slides.save();
         res.json({slides:saveSlides});
               
@@ -32,11 +32,17 @@ router.get('/',async(req,res) => {
 router.post('/update',uploadImage('./server/uploads/slides'),async(req,res)=>{
     var oId= new mongoose.Types.ObjectId(req.params.userId);
     var query= {image:req.files };
+    const slidesExist = await Slides.findOne({name:req.body.name});
     
-     await Slides.findOneAndUpdate({_id:oId},
+    if (slidesExist){
+
+    }else{
+         await Slides.findOneAndUpdate({name:req.body.name},
         {$set: query},
         {new:true,useFindAndModify:false}
     );
+    }
+    
     res.json({message:"Slides images updated",status:200});//returning image not neccesory image already updated on user click
 
 })

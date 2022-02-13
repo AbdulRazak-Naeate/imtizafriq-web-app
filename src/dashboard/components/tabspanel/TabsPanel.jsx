@@ -47,7 +47,7 @@ const TabsPanel = () => {
       const formData = new FormData();
   
       //append files to image to create an a file array
-       formData.append('name', 'slide');
+       formData.append('name', 'heroslide');
       formData.append('length',slidesImages.length);
 
       for (var i = 0; i <= slidesImages.length; i++) {
@@ -76,7 +76,7 @@ const TabsPanel = () => {
             
           </TabList>
           <TabPanel className='tab__panel' tabId="one">
-          <SlidesImage slideImages={slidesImages} handleImages={handleImages}/>
+          <SlidesImage slideImages={slidesImages} setSlidesImages={setSlidesImages}handleImages={handleImages}/>
           </TabPanel>
           <TabPanel className='tab__panel' tabId="two">
          

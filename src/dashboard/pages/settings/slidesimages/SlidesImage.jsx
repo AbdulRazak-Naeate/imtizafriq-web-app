@@ -1,12 +1,21 @@
 import React, { useState } from 'react'
 import thumbnail from './thumbnail-wide.png';
+import {Button} from '@mui/material'
 import './index.css'
-const SlidesImage = ({handleImages,slideImages}) => {
+const SlidesImage = ({handleImages,slideImages,setSlidesImages}) => {
     //console.log(slideImages[0].filename)
-    const[imagediv]=useState(["0","1","2"]);
+    const[imagediv,setImages]=useState(["0","1","2"]);
     const [imageTagIndex, setImageTagIndex] = useState(null);
     const [ImageToLoadId, setImageToLoadId] = useState(null);
-    
+    const [imgobj]=useState({
+      "fieldname": "image",
+      "originalname": "thumbnail-wide.jpg",
+      "encoding": "7bit",
+      "mimetype": "image/jpeg",
+      "destination": "./server/uploads/slides",
+      "filename": "thumbnail-wide.png",
+      
+  })
     const onImageClicked = (e) => {
         const formfile = document.getElementById("product-file");
         formfile.click()
@@ -18,7 +27,12 @@ const SlidesImage = ({handleImages,slideImages}) => {
 
     }
    
-  
+    const removeLastIndex = (values) => {
+      let arr=[...values];
+       arr.pop(values.length-1);
+       console.log(values);
+    return arr;
+  }
 
     function  onFileInputChange(e) {
         var file = e.target.files[0];
@@ -58,10 +72,15 @@ const SlidesImage = ({handleImages,slideImages}) => {
          {
             slideImages.length > 0  ?  slideImages.map((img,index)=>{
               return(<img className="productImg" alt={'slideimg'}key={index} id={`product-image${index}`} src={`http://localhost:${process.env.REACT_APP_SERVER_PORT}/server/uploads/slides/${img.filename}`}  onClick={ (e) => { onImageClicked(e) }}/>)
-          }) :  imagediv.map((img,index)=>{
-            return(<img className="productImg" alt={'slideimg'}key={index} id={`product-image${index}`} src={thumbnail}  onClick={ (e) => { onImageClicked(e) }}/>)
-        })
+               
+            }):''
+           
          }
+
+<div className='actions'>
+                          <Button variant="outlined" id='action-btn-size-remove' size='small' onClick={()=>{setSlidesImages([...removeLastIndex(slideImages)])}}>-</Button> 
+                           <Button variant="outlined" id="action-btn-size-add" size='small' onClick={()=>{setSlidesImages([...slideImages,imgobj])}}>+</Button>
+                          </div>
           <input style={{display:"none"}} type="file" id="product-file" multiple onChange={onFileInputChange} />
     </div>
   )
