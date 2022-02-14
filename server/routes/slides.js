@@ -2,16 +2,43 @@ const express = require('express');
 const router = express.Router();
 const Slides= require('../models/Slides');
 const {uploadImage}   = require('../upload');
-const {updateImage}   = require('../upload');
+const {updateSlidesImage}   = require('../upload');
 const mongoose = require('mongoose');
 //post new slides
-router.post('/',uploadImage('./server/uploads/slides'), async(req,res) =>{
+router.post('/',updateSlidesImage('./server/uploads/slides'), async(req,res) =>{
        try{
-      
-     console.log(req.files)
-        const slides= new Slides({image:req.files,name:req.body.name});
-        const saveSlides= await slides.save();
-        res.json({slides:saveSlides});
+        var query= {image:req.files };
+        var file=req.files[0]
+        var size=0;
+        const slidesExist = await Slides.findOne({name:req.body.name});
+       
+       
+        if (slidesExist){
+            
+        try{
+            size = slidesExist.image.length;
+        }catch(err){
+            console.log(err)
+        }
+         var  position=parseInt(req.body.position);
+         console.log('position '+ position +' size '+size);
+           if (size >= 2){
+            await Slides.findOneAndUpdate({name:req.body.name},
+                {$set: {
+                    [`image.${position}`]: file
+                    }},
+                {new:true,useFindAndModify:false});
+           }else{
+            await Slides.findOneAndUpdate({name:req.body.name},
+                {$push: {image:file}},
+                {new:true,useFindAndModify:false});
+           }
+        } else{
+            const slides= new Slides({image:req.files,name:req.body.name});
+            const saveSlides= await slides.save();
+            res.json({slides:saveSlides});
+        }   
+        
               
        }catch(err){
            console.log(err)
@@ -33,7 +60,7 @@ router.post('/update',uploadImage('./server/uploads/slides'),async(req,res)=>{
     var oId= new mongoose.Types.ObjectId(req.params.userId);
     var query= {image:req.files };
     const slidesExist = await Slides.findOne({name:req.body.name});
-    
+
     if (slidesExist){
 
     }else{

@@ -9,14 +9,19 @@ const TabsPanel = () => {
   const [user]=useState(JSON.parse(localStorage.getItem('user')));
   const [slidesImages,setSlidesImages]=useState([]);
   const[isSlidesLoaded,setIsSlidesLoaded]=useState(false);
+  const[position,setPosition]=useState(0)
  // const[images,setImages]=useState([])
   useEffect(()=>{
     const loadSlides =async ()=>{
-      const url =`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/slides/`
+     try{
+      const url =`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/slides`
       await axios.get(url).then((response)=>{
            console.log(response.data.slides[0].image);
            setSlidesImages(response.data.slides[0].image)
       })
+     }catch(err){
+       console.log(err)
+     }
     }
     if (!isSlidesLoaded){
       loadSlides()
@@ -48,7 +53,8 @@ const TabsPanel = () => {
   
       //append files to image to create an a file array
        formData.append('name', 'heroslide');
-      formData.append('length',slidesImages.length);
+       formData.append('length',slidesImages.length);
+       formData.append('position',position);
 
       for (var i = 0; i <= slidesImages.length; i++) {
         formData.append('image', slidesImages[i]);
@@ -76,7 +82,7 @@ const TabsPanel = () => {
             
           </TabList>
           <TabPanel className='tab__panel' tabId="one">
-          <SlidesImage slideImages={slidesImages} setSlidesImages={setSlidesImages}handleImages={handleImages}/>
+          <SlidesImage slideImages={slidesImages} setSlidesImages={setSlidesImages}handleImages={handleImages} setPosition={setPosition}/>
           </TabPanel>
           <TabPanel className='tab__panel' tabId="two">
          

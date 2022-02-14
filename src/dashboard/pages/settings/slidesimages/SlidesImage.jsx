@@ -2,25 +2,24 @@ import React, { useState } from 'react'
 import thumbnail from './thumbnail-wide.png';
 import {Button} from '@mui/material'
 import './index.css'
-const SlidesImage = ({handleImages,slideImages,setSlidesImages}) => {
+const SlidesImage = ({handleImages,slideImages,setSlidesImages,setPosition}) => {
     //console.log(slideImages[0].filename)
     const[imagediv,setImages]=useState(["0","1","2"]);
     const [imageTagIndex, setImageTagIndex] = useState(null);
     const [ImageToLoadId, setImageToLoadId] = useState(null);
     const [imgobj]=useState({
       "fieldname": "image",
-      "originalname": "thumbnail-wide.jpg",
-      "encoding": "7bit",
-      "mimetype": "image/jpeg",
-      "destination": "./server/uploads/slides",
-      "filename": "thumbnail-wide.png",
-      
+      "originalname": "thumbnail-wide.png",
+      "encoding":"7bit",
+      "mimetype":"image/png",
+      "destination":"./server/uploads/slides",
+      "filename":"thumbnail-wide.png"
   })
     const onImageClicked = (e) => {
         const formfile = document.getElementById("product-file");
         formfile.click()
         setImageToLoadId(e.target.id) //sets id of the image
-
+        setPosition(e.target.id)
         let character = (e.target.id).toString(); //convert number to string
         //get last character of product-image# which gets cliked
         setImageTagIndex(character.charAt(13));
@@ -32,6 +31,13 @@ const SlidesImage = ({handleImages,slideImages,setSlidesImages}) => {
        arr.pop(values.length-1);
        console.log(values);
     return arr;
+  }
+
+  const addSlide =()=>{
+    setSlidesImages([...slideImages,imgobj])
+  }
+  const removeSlide =()=>{
+    setSlidesImages([...removeLastIndex(slideImages)])
   }
 
     function  onFileInputChange(e) {
@@ -71,18 +77,18 @@ const SlidesImage = ({handleImages,slideImages,setSlidesImages}) => {
     <div className="imageGallery">
          {
             slideImages.length > 0  ?  slideImages.map((img,index)=>{
-              return(<img className="productImg" alt={'slideimg'}key={index} id={`product-image${index}`} src={`http://localhost:${process.env.REACT_APP_SERVER_PORT}/server/uploads/slides/${img.filename}`}  onClick={ (e) => { onImageClicked(e) }}/>)
+              return(<img className="productImg" alt={'slideimg'}key={index} id={index} src={`http://localhost:${process.env.REACT_APP_SERVER_PORT}/server/uploads/slides/${img.filename}`}  onClick={ (e) => { onImageClicked(e) }}/>)
                
             }):''
            
          }
 
-<div className='actions'>
-                          <Button variant="outlined" id='action-btn-size-remove' size='small' onClick={()=>{setSlidesImages([...removeLastIndex(slideImages)])}}>-</Button> 
-                           <Button variant="outlined" id="action-btn-size-add" size='small' onClick={()=>{setSlidesImages([...slideImages,imgobj])}}>+</Button>
+                <div className='actions'>
+                          <Button variant="outlined" id='action-btn-size-remove' size='small' onClick={()=>{removeSlide()}}>-</Button> 
+                           <Button variant="outlined" id="action-btn-size-add" size='small' onClick={()=>{addSlide()}}>+</Button>
                           </div>
-          <input style={{display:"none"}} type="file" id="product-file" multiple onChange={onFileInputChange} />
-    </div>
+                <input style={{display:"none"}} type="file" id="product-file" multiple onChange={onFileInputChange} />
+                </div>
   )
 }
 

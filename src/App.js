@@ -630,11 +630,15 @@ const searchProduct =(searchString)=>{
    },[userid,user,history])
    useEffect(()=>{
     const loadSlides =async ()=>{
+     try{
       const url =`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/slides/`
-      await axios.get(url).then((response)=>{
-           console.log(response.data.slides[0].image);
+           await axios.get(url).then((response)=>{
+           console.log(response.data.slides);
            setSlidesImages(response.data.slides[0].image)
       })
+     }catch(err){
+       console.log(err)
+     }
     }
     if (!isSlidesLoaded){
       loadSlides()
@@ -657,7 +661,9 @@ const searchProduct =(searchString)=>{
        <Switch>   
         
        <Route exact path="/">  
-       <HeroSection slidesImages={slidesImages}/> 
+      { 
+        slidesImages.length > 0 ?  <HeroSection slidesImages={slidesImages}/> :''
+      }
       {filteredProducts.length > 0 ?  <Products products={filteredProducts}  onAddToCart={handleAddtoCart} onUpdateLikes={handleUpdateLikes} favorites={favorites}/>:<Products products={products}  onAddToCart={handleAddtoCart} onUpdateLikes={handleUpdateLikes} favorites={favorites}/>}
       
        </Route>

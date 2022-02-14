@@ -10,14 +10,14 @@ const AweSlider = ({images}) => {
       <div className='awesomeSlider' >
         <AutoplaySlider className='autoSlider'
           play={true}
-          organicArrows={false}
+          organicArrows={true}
           cancelOnInteraction={false} // should stop playing on user interaction
           interval={6000}
           bullets={false}>
           {
             images.map((image,index)=>{
               return(
-                <div className='image' key={index} data-src={`http://localhost:${process.env.REACT_APP_SERVER_PORT}/server/uploads/heroslider/${image.filename}`} />
+                <div className='image' key={index} data-src={`http://localhost:${process.env.REACT_APP_SERVER_PORT}/server/uploads/slides/${image.filename}`} />
               )
             })
           }
