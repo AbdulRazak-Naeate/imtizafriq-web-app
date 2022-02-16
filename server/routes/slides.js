@@ -4,11 +4,16 @@ const Slides= require('../models/Slides');
 const {uploadImage}   = require('../upload');
 const {updateSlidesImage}   = require('../upload');
 const mongoose = require('mongoose');
+const fs = require('fs');
+
 //post new slides
 router.post('/',updateSlidesImage('./server/uploads/slides'), async(req,res) =>{
        try{
         var query= {image:req.files };
+        var  position=parseInt(req.body.position);
+
         var file=req.files[0]
+         console.log(file)
         var size=0;
         const slidesExist = await Slides.findOne({name:req.body.name});
        
@@ -20,7 +25,6 @@ router.post('/',updateSlidesImage('./server/uploads/slides'), async(req,res) =>{
         }catch(err){
             console.log(err)
         }
-         var  position=parseInt(req.body.position);
          console.log('position '+ position +' size '+size);
            if (size >= 2){
             await Slides.findOneAndUpdate({name:req.body.name},
@@ -29,9 +33,12 @@ router.post('/',updateSlidesImage('./server/uploads/slides'), async(req,res) =>{
                     }},
                 {new:true,useFindAndModify:false});
            }else{
-            await Slides.findOneAndUpdate({name:req.body.name},
+           const addSlides = await Slides.findOneAndUpdate({name:req.body.name},
                 {$push: {image:file}},
                 {new:true,useFindAndModify:false});
+
+                res.json({slides:addSlides});
+
            }
         } else{
             const slides= new Slides({image:req.files,name:req.body.name});
@@ -74,4 +81,46 @@ router.post('/update',uploadImage('./server/uploads/slides'),async(req,res)=>{
 
 })
 
-module.exports = router;
+router.post('/deleteslide',uploadImage('./server/uploads/slides'),async(req,res)=>{
+
+    var position=req.body.position
+    var filename=req.body.filename
+    console.log(position +' '+filename)
+
+    const updateSlide = await Slides.findOneAndUpdate({name:req.body.name},
+       {
+          $pull:{image:{filename:filename}}
+
+      }, { new:true,useFindAndModify:false}
+    
+        );
+
+    if (updateSlide){
+      try{
+        fs.unlink('server/uploads/slides/'+filename,(err) =>{
+            if(err){
+                console.error(err)
+                return
+            }
+        });
+      }catch(err){
+          console.log(err)
+      }
+      
+    }
+    res.json({slides:updateSlide,status:200});
+
+})
+ /* {
+            $set:{
+                'image':{
+                    $function:{
+                        body:function(image){image.splice(position,1);return image;},
+                        args:['$image'],
+                        lang:'js'
+                    }
+                }
+            }
+            
+        } */
+module.exports = router

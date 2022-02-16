@@ -1,20 +1,22 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import thumbnail from './thumbnail-wide.png';
 import {Button} from '@mui/material'
-import './index.css'
-const SlidesImage = ({handleImages,slideImages,setSlidesImages,setPosition}) => {
-    //console.log(slideImages[0].filename)
-    const[imagediv,setImages]=useState(["0","1","2"]);
+import { CloseRounded} from '@mui/icons-material';
+import './index.css';
+import axios from 'axios';
+const SlidesImage = ({handleImages,slidesImages,setSlidesImages,setPosition}) => {
+    console.log(slidesImages)
     const [imageTagIndex, setImageTagIndex] = useState(null);
     const [ImageToLoadId, setImageToLoadId] = useState(null);
     const [imgobj]=useState({
-      "fieldname": "image",
+     /*  "fieldname": "image",
       "originalname": "thumbnail-wide.png",
       "encoding":"7bit",
       "mimetype":"image/png",
-      "destination":"./server/uploads/slides",
+      "destination":"./server/uploads/slides", */
       "filename":"thumbnail-wide.png"
-  })
+  });
+   
     const onImageClicked = (e) => {
         const formfile = document.getElementById("product-file");
         formfile.click()
@@ -34,10 +36,11 @@ const SlidesImage = ({handleImages,slideImages,setSlidesImages,setPosition}) => 
   }
 
   const addSlide =()=>{
-    setSlidesImages([...slideImages,imgobj])
+    setSlidesImages([...slidesImages,imgobj])
   }
-  const removeSlide =()=>{
-    setSlidesImages([...removeLastIndex(slideImages)])
+  const removeSlide =(position,filename)=>{
+    setSlidesImages([...removeLastIndex(slidesImages)]);
+    removeSlideItem(position,filename)
   }
 
     function  onFileInputChange(e) {
@@ -52,18 +55,18 @@ const SlidesImage = ({handleImages,slideImages,setSlidesImages,setPosition}) => 
               try{
             //push image item whiles Array length is 3 
             //else replace existing index with new image  
-            slideImages.length <= 2 ? slideImages.push(file) : slideImages.splice(indextoRemove, 1, file);
+            slidesImages.length <= 2 ? slidesImages.push(file) : slidesImages.splice(indextoRemove, 1, file);
             // console.log("replaced index "+typeof(indextoRemove));
               }catch(err){
 
                  console.log(err)
               }
 
-            console.log(slideImages.length);
+            console.log(slidesImages.length);
 
             document.getElementById(ImageToLoadId).src = e.target.result
 
-            handleImages(slideImages)
+            handleImages(slidesImages,file)
         };
         try {
             reader.readAsDataURL(file)
@@ -72,20 +75,39 @@ const SlidesImage = ({handleImages,slideImages,setSlidesImages,setPosition}) => 
             console.log({ readAsDataURLError: error })
         }
     }
-
+    const removeSlideItem =async (position,filename)=>{
+      try{
+       const url =`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/slides/deleteslide`
+       await axios.post(url,{name:'heroslide',position:position,filename:filename}).then((response)=>{
+            console.log(response.data.slides[0].image);
+            setSlidesImages(response.data.slides[0].image)
+       })
+      }catch(err){
+        console.log(err)
+      }
+     }
+     useEffect(()=>{
+       console.log(slidesImages.length)
+       if (slidesImages.length === 0 || slidesImages.length === undefined){
+        setSlidesImages([...slidesImages,imgobj])
+       }
+     })
   return (
     <div className="imageGallery">
          {
-            slideImages.length > 0  ?  slideImages.map((img,index)=>{
-              return(<img className="productImg" alt={'slideimg'}key={index} id={index} src={`http://localhost:${process.env.REACT_APP_SERVER_PORT}/server/uploads/slides/${img.filename}`}  onClick={ (e) => { onImageClicked(e) }}/>)
+            slidesImages.length > 0  ?  slidesImages.map((img,index)=>{
+              return(<div className='slideWrapper'>
+                <CloseRounded className='removeSlide' color='primary' onClick={()=>{removeSlide(index,img.filename)}} />
+                  <img className="slidesImg"  alt={'slideimg'}key={index} id={index} src={`http://localhost:${process.env.REACT_APP_SERVER_PORT}/server/uploads/slides/${img.filename}`}  onClick={ (e) => { onImageClicked(e) }}/>
+              </div>)
                
             }):''
            
          }
 
                 <div className='actions'>
-                          <Button variant="outlined" id='action-btn-size-remove' size='small' onClick={()=>{removeSlide()}}>-</Button> 
-                           <Button variant="outlined" id="action-btn-size-add" size='small' onClick={()=>{addSlide()}}>+</Button>
+                         {/*  <Button variant="outlined" id='action-btn-size-remove' size='small' onClick={()=>{removeSlide(2)}}>-</Button>  */}
+                           <Button color='primary' variant="outlined" id="action-btn-size-add"  onClick={()=>{addSlide()}}>+</Button>
                           </div>
                 <input style={{display:"none"}} type="file" id="product-file" multiple onChange={onFileInputChange} />
                 </div>

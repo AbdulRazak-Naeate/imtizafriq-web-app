@@ -1,10 +1,10 @@
-.productImg{
-    height: 36vh;
+.slidesImg{
+    height: 35vh;
     padding: 3px;
     width: 100%;
   object-fit: cover;
   border: 1px solid rgb(151, 150, 150);
-  margin-right: 2px;
+  margin-top: 5px;
     
 } 
 .productImages{
@@ -18,6 +18,7 @@
  
   }
   .imageGallery{
+
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -29,4 +30,14 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
+}
+.slideWrapper{
+  width: 100%;
+}
+.removeSlide{
+  position: absolute;
+  margin-top: 16px;
+  margin-left: 78%;
+  background-color: #eee;
+
 }

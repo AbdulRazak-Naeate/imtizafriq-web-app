@@ -9,8 +9,9 @@ const TabsPanel = () => {
   const [user]=useState(JSON.parse(localStorage.getItem('user')));
   const [slidesImages,setSlidesImages]=useState([]);
   const[isSlidesLoaded,setIsSlidesLoaded]=useState(false);
-  const[position,setPosition]=useState(0)
- // const[images,setImages]=useState([])
+  const[position,setPosition]=useState(0);
+
+
   useEffect(()=>{
     const loadSlides =async ()=>{
      try{
@@ -31,7 +32,9 @@ const TabsPanel = () => {
     }
   })
 
- const handleImages=(Images)=>{
+ const handleImages=(Images,currentfile)=>{
+        //setCurrrentFile(currentfile)
+        console.log(currentfile)
         let tmp=[];
        Images.map((item)=>{
           tmp.push(item)
@@ -40,12 +43,12 @@ const TabsPanel = () => {
        })
        //setslidesImages(tmp);
      if (tmp.length>0)(
-      updateSlides().then((response)=>{
+      updateSlides(currentfile).then((response)=>{
         console.log(response)
       })
      )
     }
-    const  updateSlides =()=>{
+    const  updateSlides =(currentfile)=>{
         
       const url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/slides/`;
   
@@ -56,10 +59,10 @@ const TabsPanel = () => {
        formData.append('length',slidesImages.length);
        formData.append('position',position);
 
-      for (var i = 0; i <= slidesImages.length; i++) {
-        formData.append('image', slidesImages[i]);
+      //for (var i = 0; i <= slidesImages.length; i++) {
+        formData.append('image', currentfile);
         //console.log(slidesImages);
-      }
+     // }
   
       const config = {
         headers: {
@@ -82,7 +85,7 @@ const TabsPanel = () => {
             
           </TabList>
           <TabPanel className='tab__panel' tabId="one">
-          <SlidesImage slideImages={slidesImages} setSlidesImages={setSlidesImages}handleImages={handleImages} setPosition={setPosition}/>
+          <SlidesImage slidesImages={slidesImages} setSlidesImages={setSlidesImages}handleImages={handleImages} setPosition={setPosition}/>
           </TabPanel>
           <TabPanel className='tab__panel' tabId="two">
          
