@@ -5,7 +5,7 @@ import { CloseRounded} from '@mui/icons-material';
 import './index.css';
 import axios from 'axios';
 const SlidesImage = ({handleImages,slidesImages,setSlidesImages,setPosition}) => {
-    console.log(slidesImages)
+
     const [imageTagIndex, setImageTagIndex] = useState(null);
     const [ImageToLoadId, setImageToLoadId] = useState(null);
     const [imgobj]=useState({
@@ -79,7 +79,7 @@ const SlidesImage = ({handleImages,slidesImages,setSlidesImages,setPosition}) =>
       try{
        const url =`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/slides/deleteslide`
        await axios.post(url,{name:'heroslide',position:position,filename:filename}).then((response)=>{
-            console.log(response.data.slides[0].image);
+           // console.log(response.data.slides[0].image);
             setSlidesImages(response.data.slides[0].image)
        })
       }catch(err){
@@ -87,7 +87,7 @@ const SlidesImage = ({handleImages,slidesImages,setSlidesImages,setPosition}) =>
       }
      }
      useEffect(()=>{
-       console.log(slidesImages.length)
+       //console.log(slidesImages.length)
        if (slidesImages.length === 0 || slidesImages.length === undefined){
         setSlidesImages([...slidesImages,imgobj])
        }

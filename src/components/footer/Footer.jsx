@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import {Link} from 'react-router-dom';
 import {Button} from '@mui/material';
 import {Facebook,Instagram,YouTube,Twitter} from '@mui/icons-material'
@@ -6,6 +6,10 @@ import './footer.css';
 import axios from 'axios';
 const Footer = () => {
   const[email,setEmail]=useState('');
+  const [faceBook,setFaceBook]=useState('');
+    const [twitter,setTwitter]=useState('');
+    const [instagram,setInstagram]=useState(''); 
+    const [islinksloaded,setIslinksLoaded]=useState(false);
   const handleSubscription = (e) =>{
       
         e.preventDefault();
@@ -15,7 +19,24 @@ const Footer = () => {
           console.log(response)
      })
   }
+  const handlegetLinks = async ()=>{
+    const url=`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/socialmedialinks`
 
+    await axios.get(url).then((response)=>{
+      try{
+        setFaceBook(response.data.socialmedialinks[0].medialinks[0].linktext)
+        setTwitter(response.data.socialmedialinks[0].medialinks[1].linktext)
+        setInstagram(response.data.socialmedialinks[0].medialinks[2].linktext)
+        //getObjectbyValue(response.data.socialmedialinks,'Twitter')
+      }catch(err){
+          console.log(err)
+      }
+    })
+}
+
+if (!islinksloaded){
+   handlegetLinks();
+}
   return (
        <div className='footer-container'>
       <section className='footer-subscription'>
@@ -64,11 +85,10 @@ const Footer = () => {
                   </div> */}
                   <div className="footer-link-items">
                      <h5>Connect with US </h5>
-                    <Link to='/'><Instagram/></Link>
-                    <Link to='/'><Facebook/></Link>
-                    <Link to='/'><YouTube/></Link>
-                    <Link to='/'><Twitter/></Link>
- 
+                  { instagram !==''  ? <Link to={`${instagram}`}><Instagram/></Link> : ''}
+                  { faceBook  !==''  ?   <Link to={`${faceBook}`}><Facebook/></Link>  : ''}
+                  { twitter   !==''  ?  <Link to={`${twitter}`}><Twitter/></Link> : ''}
+                   {/*  <Link to='/'><YouTube/></Link> */}
                   </div>
                 </div>
               </div> 

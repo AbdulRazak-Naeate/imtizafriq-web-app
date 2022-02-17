@@ -44,6 +44,7 @@ color: #555;
 }
 .newUserButton{
     width: 300px;
+    height: 35px;
     border: none;
     background-color: darkblue;
     color: white;

@@ -1,0 +1,29 @@
+.social-media-link{
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.social-media-link-item{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+
+}
+.social-media-link-item>label{
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: rgb(151, 150, 150);
+}
+.social-media-link-item>input{
+    border: 1px solid gray;
+    width: 50%;
+    height: 50px;
+   /*  border-bottom: 1px solid gray; */
+    padding: 5px;
+    font-size: 18px;
+}

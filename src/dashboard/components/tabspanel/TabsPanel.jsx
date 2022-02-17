@@ -1,7 +1,8 @@
 import React,{useState,useEffect} from 'react'
 import { Tabs, Tab, TabPanel, TabList} from 'react-web-tabs';
 import './styles.css';
-import SlidesImage  from '../../pages/settings/slidesimages/SlidesImage'
+import SlidesImage  from '../../pages/settings/slidesimages/SlidesImage';
+import SocialLinks from '../../pages/settings/sociallinks/SocialLinks';
 import axios,{ post } from 'axios';
 
 const TabsPanel = () => {
@@ -17,7 +18,7 @@ const TabsPanel = () => {
      try{
       const url =`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/slides`
       await axios.get(url).then((response)=>{
-           console.log(response.data.slides[0].image);
+           //console.log(response.data.slides[0].image);
            setSlidesImages(response.data.slides[0].image)
       })
      }catch(err){
@@ -88,8 +89,7 @@ const TabsPanel = () => {
           <SlidesImage slidesImages={slidesImages} setSlidesImages={setSlidesImages}handleImages={handleImages} setPosition={setPosition}/>
           </TabPanel>
           <TabPanel className='tab__panel' tabId="two">
-         
-         Two
+            <SocialLinks/>
           </TabPanel>
       
         </Tabs>

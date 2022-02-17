@@ -71,7 +71,7 @@ const paths =[
       try{
          const res = await fetch(`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/products`);
          const data=await res.json();
-               console.log(data);
+               //console.log(data);
                return data.products;
       }catch(error){
 
@@ -86,7 +86,7 @@ const handlegetProducts = async() => {
             
           }
        setProducts(tmp);
-       console.log(tmp);
+      // console.log(tmp);
     }catch(error){
 
     }
@@ -96,7 +96,7 @@ const handlegetProducts = async() => {
     var url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/analytics/transactions/sales/monthly`
   
     await axios.post(url,{year:2022}).then((response)=>{
-      console.log(response.data)
+      //console.log(response.data)
           setMonthlySales(response.data.monthlySales);
          
   

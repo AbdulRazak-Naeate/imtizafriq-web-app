@@ -640,6 +640,7 @@ const searchProduct =(searchString)=>{
        console.log(err)
      }
     }
+    
     if (!isSlidesLoaded){
       loadSlides()
     }

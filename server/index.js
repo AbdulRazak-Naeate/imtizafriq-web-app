@@ -18,12 +18,12 @@ const emailRoute        = require('./routes/email/email');
 const productlikeRoute  = require('./routes/productlikers');
 const subscribeRoute    = require('./routes/subscribers');
 const commentsRoute     = require('./routes/comments');
-const slidesRoute     = require('./routes/slides');
+const slidesRoute       = require('./routes/slides');
 const analytics         = require('./routes/analytics');
-const countries             = require('./routes/world/countries');
-const states             = require('./routes/world/states');
-const cities             = require('./routes/world/cities');
-
+const countries         = require('./routes/world/countries');
+const states            = require('./routes/world/states');
+const cities            = require('./routes/world/cities');
+const sociallinksRoute  = require('./routes/socialmedialinks');
 dotenv.config();
 //MiddleWare
 app.use(cors()); // package to allow connections from outisde domains
@@ -55,12 +55,13 @@ app.use('/api/analytics',analytics);
 app.use('/api/countries',countries);
 app.use('/api/states',states);
 app.use('/api/cities',cities);
+app.use('/api/socialmedialinks',sociallinksRoute)
 
 //Home Routes
  app.get('/',(req,res)=>{
      res.send('Daabia Web App  version 0.1')
  })
-const options={ useNewUrlParser: true ,useUnifiedTopology: true,useCreateIndex:true,useFindAndModify:true }
+const options={ useNewUrlParser: true ,useUnifiedTopology: true,useCreateIndex:true,useFindAndModify:false }
 //Connect to DB
 mongoose.connect(process.env.DB_COMMUNITY_CON, options)
 
