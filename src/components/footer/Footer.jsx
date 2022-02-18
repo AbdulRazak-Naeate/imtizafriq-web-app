@@ -19,24 +19,29 @@ const Footer = () => {
           console.log(response)
      })
   }
-  const handlegetLinks = async ()=>{
-    const url=`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/socialmedialinks`
-
-    await axios.get(url).then((response)=>{
-      try{
-        setFaceBook(response.data.socialmedialinks[0].medialinks[0].linktext)
-        setTwitter(response.data.socialmedialinks[0].medialinks[1].linktext)
-        setInstagram(response.data.socialmedialinks[0].medialinks[2].linktext)
-        //getObjectbyValue(response.data.socialmedialinks,'Twitter')
-      }catch(err){
-          console.log(err)
-      }
-    })
-}
-
-if (!islinksloaded){
-   handlegetLinks();
-}
+  useEffect(()=>{
+    const handlegetLinks = async ()=>{
+      const url=`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/socialmedialinks`
+  
+      await axios.get(url).then((response)=>{
+        try{
+          setFaceBook(response.data.socialmedialinks[0].medialinks[0].linktext)
+           setInstagram(response.data.socialmedialinks[0].medialinks[1].linktext)
+           setTwitter(response.data.socialmedialinks[0].medialinks[2].linktext)
+          //getObjectbyValue(response.data.socialmedialinks,'Twitter')
+        }catch(err){
+            console.log(err)
+        }
+      })
+  }
+  
+  if (!islinksloaded){
+     handlegetLinks();
+  }
+  return ()=>{
+    setIslinksLoaded(true)
+  }
+  })
   return (
        <div className='footer-container'>
       <section className='footer-subscription'>
@@ -85,9 +90,9 @@ if (!islinksloaded){
                   </div> */}
                   <div className="footer-link-items">
                      <h5>Connect with US </h5>
-                  { instagram !==''  ? <Link to={`${instagram}`}><Instagram/></Link> : ''}
-                  { faceBook  !==''  ?   <Link to={`${faceBook}`}><Facebook/></Link>  : ''}
-                  { twitter   !==''  ?  <Link to={`${twitter}`}><Twitter/></Link> : ''}
+                  { instagram !==''  ? <Link to={{pathname:`${instagram}`}} target={'_blank'}><Instagram/></Link> : ''}
+                  { faceBook  !==''  ?   <Link to={{pathname:`${faceBook}`}}><Facebook/></Link>  : ''}
+                  { twitter   !==''  ?  <Link to={{pathname:`${twitter}`}}><Twitter/></Link> : ''}
                    {/*  <Link to='/'><YouTube/></Link> */}
                   </div>
                 </div>
