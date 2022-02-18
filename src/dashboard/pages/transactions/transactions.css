@@ -22,7 +22,7 @@
     .pageTitleButton{
         border: none;
         padding: 5px 10px;
-        background-color: teal;
+        background-color:  var(--dashboard-primary);;
         color: white;
         cursor: pointer;
         border-radius: 5px;
@@ -31,7 +31,7 @@
     .select-store{
         padding: 5px 7px;
         margin-right: 10px;
-        border-color: teal;
+        border-color:  var(--dashboard-primary);;
         border-radius: 5px;
     }
 .transStatusSpan{

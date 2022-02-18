@@ -198,8 +198,8 @@ export default function NewProduct() {
         <div className="newProduct">
            <Alert stack={{limit: 3}} />
 
-    <span className="addproductStoreTitle">{"storename"}
-                </span> 
+   {/*  <span className="addproductStoreTitle">{"storename"}
+                </span>  */}
           <div className="addProductTitleContainer">
               <h1 className="addProductTitle">Add New Product </h1>
             

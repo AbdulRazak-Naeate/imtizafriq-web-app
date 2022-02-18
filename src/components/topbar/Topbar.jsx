@@ -35,7 +35,7 @@ import SearchField from './searchfield/SearchField';
                 <div className="topLeft">
                   <div className='logowrapper'>
                   <Link to ="/" className="link">
-                     <img className='logo-img' src="https://images.pexels.com/photos/4620866/pexels-photo-4620866.jpeg?cs=srgb&dl=pexels-cottonbro-4620866.jpg&fm=jpg" alt='logo'/>
+                     <img className='logo-img' src="logo192.png" alt='logo'/>
                    </Link>      
                    <Link to ="/" className="link">
                    <span className="siteName">{process.env.REACT_APP_WEBSITE_NAME}</span>

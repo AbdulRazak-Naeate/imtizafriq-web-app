@@ -108,11 +108,11 @@ export default function ProductsList({products,handleDeleteProduct}) {
     return (
         <div className="productsList"> 
             <AlertDialog open={open} handleClickOpen={handleClickOpen} handleClose={handleClose} title="Are you sure you want to delete!"DeleteOutline={DeleteOutline}/>
-          <span className="productsTitle">{"storename"}  </span> 
-
+{/*           <span className="productsTitle"> </span> 
+ */}
          <div className="productsTitleContainer">
          <h1 className="addProductTitle">Products </h1>
-
+         
          <Link to={`/dashboard/newProduct?categoryId=${category}`}>
           <button className="AddProductButton">New Product</button>
           </Link> 

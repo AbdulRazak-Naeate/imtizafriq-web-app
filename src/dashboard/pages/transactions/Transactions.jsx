@@ -1,13 +1,12 @@
 import React,  { useRef } from 'react';
 import './transactions.css';
-import {DataGrid} from '@material-ui/data-grid';
-import { Stack,Button } from '@mui/material';
+import {DataGrid,GridToolbar} from '@material-ui/data-grid';
+import { Stack } from '@mui/material';
 import {  Edit } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 import {useState , useEffect} from "react";
 import AlertDialog from '../../components/alertdialog/AlertDialog'
 import  {patch} from 'axios';
-import QueryParams from '../../QueryParams';
 import {TransacModal} from  './modal/TransacModal'
 
 import {PrintBox} from './printbox/PrintBox.jsx';
@@ -354,6 +353,8 @@ return patch(url, body,config)
         }}
         selectionModel={selectionModel}
         components={{
+          Toolbar:GridToolbar,
+
           NoRowsOverlay: () => (
             <Stack height="100%" alignItems="center" justifyContent="center">
               No transactions recorded

@@ -3,7 +3,6 @@ import './product.css';
 import {Link} from "react-router-dom";
 import {Button} from '@mui/material';
 import { Chart } from '../../components/charts/Chart';
-import { productData } from '../../dummyData';
 import { Publish } from '@material-ui/icons';
 import { formatWithCurrencySymbol } from "../../../utils/Utils";
 import axios,{patch}from 'axios';
@@ -25,7 +24,7 @@ export default function Product() {
     const [colors,setColors]=useState(product.color);
     const [sizes,setSizes]=useState(product.size);
     console.log(product.color);
-    const [stock,setStock]=useState(product.stock.currentstock);
+    const [setStock]=useState(product.stock.currentstock);
     const [addStock,setaddStock]=useState(0);
     const [active,setActive]=useState(product.active);
     const [price,setPrice]=useState(product.price);
@@ -127,12 +126,11 @@ export default function Product() {
          })
     return (
         <div className="product">
-            <span>{"storename"}</span>
             <div className="productTitleContainer">
                 <h1 className="productTitle">Product</h1>
                  <div style={{width:'25%',display:'flex',justifyContent:'space-between'}}>
                  <Link to={`/dashboard/newproduct`}>
-                <button className="productAddButon">Create</button>
+                <button className="productAddButon">New Product</button>
                 </Link>
                 <Link to={`/dashboard/products`}>
                 <button className="productAddButon">Products</button>

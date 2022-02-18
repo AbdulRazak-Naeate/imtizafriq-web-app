@@ -54,10 +54,10 @@ const ImageGallery = ({handleImages,productImages}) => {
     }
 
   return (
-    <div className="imageGallery">
+    <div className="newProductimageGallery">
          {
              imagediv.map((img,index)=>{
-                 return(<img className="productImg" alt={img}key={index} id={`product-image${img}`} src={thumbnail}  onClick={ (e) => { onImageClicked(e) }}/>)
+                 return(<img className="newproductImg" alt={img}key={index} id={`product-image${img}`} src={thumbnail}  onClick={ (e) => { onImageClicked(e) }}/>)
              })
          }
           <input style={{display:"none"}} type="file" id="product-file" multiple onChange={onFileInputChange} />

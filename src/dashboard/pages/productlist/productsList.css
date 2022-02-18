@@ -13,7 +13,7 @@
 .AddProductButton{
     border: none;
     padding:5px 10px ;
-    background-color: teal;
+    background-color:  var(--dashboard-primary);;
     color: white;
     cursor: pointer;
     border-radius: 5px;
@@ -41,7 +41,7 @@
     border:none;
     border-radius: 10px;
     padding: 5px 10px; 
-    background-color: #3bb077;
+    background-color:  var(--dashboard-primary);;
     color: white;
     cursor: pointer;
     margin-right: 10px;

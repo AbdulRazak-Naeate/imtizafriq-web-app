@@ -1,3 +1,8 @@
+:root {
+    --dashboard-primary:cornflowerblue;
+    --dashboard-secondary:goldenrod;
+}
+
 .content{
     display: flex;
     width: 100%;

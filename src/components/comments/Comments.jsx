@@ -1,12 +1,12 @@
 import * as React from 'react';
 import InputUnstyled from '@mui/core/InputUnstyled';
 import { styled } from '@mui/system';
-import {Button,Typography} from '@mui/material';
-import {PersonOutline} from '@material-ui/icons';
+import {Button} from '@mui/material';
 import useStyles from './styles';
 import CommentItem from './commentitem/CommentItem'
 import axios from 'axios';
 
+// eslint-disable-next-line no-unused-vars
 const blue = {
     200: '#80BFFF',
     400: '#3399FF',
@@ -55,6 +55,7 @@ const blue = {
   `,
   );
   
+
   const CustomInput = React.forwardRef(function CustomInput(props, ref) {
     return (
       <InputUnstyled  components={{ Input: StyledInputElement }} className={props.className} placeholder={props.placeholder} ref={ref} value={props.commentText} onChange={(e)=>{props.handleoninputchange(e.target.value)}}/>
@@ -83,7 +84,7 @@ const Comments = ({order}) => {
    }
 
    const addComment = async ()=>{
-     const url=`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/comments/`;
+     const url=`http://localhost:3002/api/comments/`;
       return  axios.post(url,{productid:order.productId,text:commentText,username:user.username});
    }
    
@@ -97,7 +98,7 @@ const Comments = ({order}) => {
          })
      }
       const loadCommentsFromServer= async ()=>{
-        const url=`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/comments/${order.productId}`;
+        const url=`http://localhost:3002/api/comments/${order.productId}`;
        return axios.get(url)
       }
 
@@ -115,7 +116,7 @@ const Comments = ({order}) => {
          }
         </div>
         <div className={classes.inputactions}>
-        <CustomInput className={classes.textinput} aria-label="comment input" placeholder="type in to review and add feed back" commentText={commentText} handleoninputchange={handleoninputchange} />
+        <CustomInput className={classes.textinput} aria-label="comment input" placeholder="type in to review and add your feed back" commentText={commentText} handleoninputchange={handleoninputchange} />
         <Button   size='small' color='primary' variant='text' onClick={()=>{handleAddComment()}}>send</Button>
         </div>
       </div>

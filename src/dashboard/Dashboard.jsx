@@ -22,7 +22,6 @@ import axios from 'axios';
  function  Dashboard() {
  const [showSidebar,setShowSideBar]=useState(true);
  const [products,setProducts]=useState([]);
- const [analytics,setAnalytics]=useState({});
  const [transactions,setTransactions]=useState({});
  const [completedAggregate,setCompletedAggregate]=useState([]);
  const [inCompletedAggregate,setinCompletedAggregate]=useState([]);
@@ -109,7 +108,7 @@ useEffect(()=>{
 
     await axios.get(url).then((response)=>{
      // console.log(response.data.transactions)
-          setAnalytics(response.data);
+          //setAnalytics(response.data);
           setTransactions(response.data.transactions);
           setCompletedAggregate(response.data.completedAggregate);
           setinCompletedAggregate(response.data.inCompleteAggregate);

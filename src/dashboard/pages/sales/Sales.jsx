@@ -1,10 +1,8 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import './sales.css';
-import {DataGrid} from '@material-ui/data-grid';
+import {DataGrid,GridToolbar} from '@material-ui/data-grid';
 import { Stack } from '@mui/material';
 import {  Edit } from '@material-ui/icons';
-import { Link} from 'react-router-dom';
 import {useState , useEffect} from "react";
 import AlertDialog from '../../components/alertdialog/AlertDialog'
 import {patch} from 'axios';
@@ -265,9 +263,9 @@ return patch(url, body,config)
            <h1 className="pageTitle">Sales</h1>    
             <div>
            
-            <Link to={`/dashboard/sales?`}>
+           {/*  <Link to={`/dashboard/sales?`}>
           <button className="pageTitleButton">Reports</button>
-          </Link>
+          </Link> */}
             </div>
           </div>
           <DataGrid rows={transactions} getRowId={(row) => row._id}   columns={columns}
@@ -291,6 +289,7 @@ return patch(url, body,config)
         }}
         selectionModel={selectionModel}
         components={{
+          Toolbar:GridToolbar,
           NoRowsOverlay: () => (
             <Stack height="100%" alignItems="center" justifyContent="center">
               No sales recorded

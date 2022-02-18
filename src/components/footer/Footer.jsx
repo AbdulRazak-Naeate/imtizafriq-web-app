@@ -1,19 +1,19 @@
 import React,{useState,useEffect} from 'react'
 import {Link} from 'react-router-dom';
 import {Button} from '@mui/material';
-import {Facebook,Instagram,YouTube,Twitter} from '@mui/icons-material'
+import {Facebook,Instagram,Twitter} from '@mui/icons-material'
 import './footer.css';
 import axios from 'axios';
 const Footer = () => {
   const[email,setEmail]=useState('');
-  const [faceBook,setFaceBook]=useState('');
+   const [faceBook,setFaceBook]=useState('');
     const [twitter,setTwitter]=useState('');
     const [instagram,setInstagram]=useState(''); 
     const [islinksloaded,setIslinksLoaded]=useState(false);
   const handleSubscription = (e) =>{
       
         e.preventDefault();
-       var url =`http://localhost:3001/api/subscribe/${email}`;
+       var url =`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/subscribe/${email}`;
           axios.post(url).then((response)=>{
              setEmail('');
           console.log(response)
@@ -90,10 +90,9 @@ const Footer = () => {
                   </div> */}
                   <div className="footer-link-items">
                      <h5>Connect with US </h5>
-                  { instagram !==''  ? <Link to={{pathname:`${instagram}`}} target={'_blank'}><Instagram/></Link> : ''}
-                  { faceBook  !==''  ?   <Link to={{pathname:`${faceBook}`}}><Facebook/></Link>  : ''}
-                  { twitter   !==''  ?  <Link to={{pathname:`${twitter}`}}><Twitter/></Link> : ''}
-                   {/*  <Link to='/'><YouTube/></Link> */}
+                  { instagram !==''  ? <a href={`${instagram}`} target={'_blank'} rel="noreferrer"> <Instagram/></a> : ''}
+                  { faceBook  !==''  ? <a href={`${faceBook}`} target={'_blank'} rel="noreferrer">  <Facebook/></a>  : ''}
+                  { twitter   !==''  ? <a href={`${twitter}`} target={'_blank'} rel="noreferrer">   <Twitter/></a>   : ''}
                   </div>
                 </div>
               </div> 

@@ -8,10 +8,10 @@
     justify-content: space-between;
 }
 .productAddButon{
-    width: 80px;
+    width: auto;
     border: none;
     padding: 5px 10px;
-    background-color: teal;
+    background-color:  var(--dashboard-primary);;
     color: white;
     cursor: pointer;
     border-radius: 5px;
@@ -180,7 +180,7 @@
     width: 80%;
     border: none;
     padding: 5px;
-    background-color: darkblue;
+    background-color:  var(--dashboard-primary);;
     border-radius: 5px;
     color: white;
     font-weight: 600;
