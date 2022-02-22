@@ -15,6 +15,9 @@ const ProceedcheckOut = ({onAddToCart}) => {
     const[product,setProduct]=useState([]);
     const[images,setImages]=useState([]);
     const[comments,setComments]=useState([]);
+    const[isproductLoaded,setIsproductLoaded]=useState(false)
+    const[iscommentstLoaded,setIscommentsLoaded]=useState(false)
+
     const isMountedRef =useRef(true);
 
 /* const Item = styled(Paper)(({ theme }) => ({
@@ -89,12 +92,20 @@ const ProceedcheckOut = ({onAddToCart}) => {
 
    
       if (productid){
-        getProduct();
-        handlegetComments();
-      }
-
+        if (!isproductLoaded){
+          getProduct();
+        }
+        if (!iscommentstLoaded){
+           handlegetComments();
+        }
        
-    },[productid])
+      }
+    return ()=>{
+        setIsproductLoaded(true);
+        setIscommentsLoaded(true);
+    }
+       
+    },[iscommentstLoaded, isproductLoaded, productid])
   return (
    <div className={classes.content}> { product ?
     <Grid container justifyContent="center" spacing={1}>

@@ -13,6 +13,7 @@ import CheckOut from './components/checkoutform/checkout/CheckOut';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import {RModal} from './components/modal/RModal'
+import {PrefareStyleAlertModal} from './components/modal/PrefareStyleAlertModal'
 import { blue, orange,red} from '@mui/material/colors';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { initializeApp } from "firebase/app";
@@ -32,6 +33,7 @@ const firebaseConfig = {
   measurementId: process.env.REACT_APP_MEASUREMENT_ID
 };
 
+ document.title = process.env.REACT_APP_WEBSITE_NAME
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
@@ -101,6 +103,8 @@ const analytics = getAnalytics(app);
      const[myOrders,setMyOrders]=useState([]);
      const[orderCount,setMyOrderCount]=useState(0);
      const[openModal,setOpenModal]=useState(false);
+     const[openPrefStyleModal,setOpenPrefStyleModal]=useState(true);
+
      const[isSlidesLoaded,setIsSlidesLoaded]=useState(false);
      const [slidesImages,setSlidesImages]=useState([]);
 
@@ -139,7 +143,7 @@ const analytics = getAnalytics(app);
     
     const sendConfirmationEmail = (_id,newOrder)=>{
      //console.log("id "+_id + "email "+newOrder.customer.email)
-      const url = `http://localhost:3002/api/email/confirmorder/${_id}`;
+      const url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/email/confirmorder/${_id}`;
 
     post(url,{email:newOrder.customer.email,data:newOrder}).then((response)=>{
         console.log(response)
@@ -161,7 +165,7 @@ const analytics = getAnalytics(app);
   } 
   
   const refreshCart = async ()=>{
-    const url=`http://localhost:3002/api/carts/refreshcart/${userid}`
+    const url=`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/carts/refreshcart/${userid}`
     return axios.patch(url).then((response)=>{
       // eslint-disable-next-line no-cond-assign
       if(response.status=200){
@@ -177,7 +181,7 @@ const analytics = getAnalytics(app);
   }
   const emptyCart = async () =>{
 
-    const url = `http://localhost:3002/api/carts/${userid}`;
+    const url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/carts/${userid}`;
    
  
     return axios.patch(url)
@@ -198,7 +202,7 @@ const analytics = getAnalytics(app);
 
   const deleteFromCart =async (productId)=>{
     //console.log(productId)
-    const url = `http://localhost:3002/api/carts/removeitem/${userid}`;
+    const url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/carts/removeitem/${userid}`;
    
  
     return axios.patch(url,{
@@ -222,7 +226,7 @@ const analytics = getAnalytics(app);
   
   const updateCartQty =(productId,quantity,price)=>{
     
-    const url = `http://localhost:3002/api/carts/quantity/${productId}`;
+    const url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/carts/quantity/${productId}`;
      
  
     return patch(url,  {
@@ -249,7 +253,7 @@ const analytics = getAnalytics(app);
    }
   const updateColorAndSizeSpecs =(productId,type,value)=>{
     
-    const url = `http://localhost:3002/api/carts/specs/colorandsize`;
+    const url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/carts/specs/colorandsize`;
      
  
     return patch(url,  {
@@ -279,7 +283,7 @@ const analytics = getAnalytics(app);
    }
   const updateSelection =(productId,value)=>{
    // console.log(value)
-    const url = `http://localhost:3002/api/carts/item/selection`;
+    const url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/carts/item/selection`;
      
  
     return patch(url,  {
@@ -303,7 +307,7 @@ const analytics = getAnalytics(app);
    }
   const updateMeasurement =(productId,measurement)=>{
     
-    const url = `http://localhost:3002/api/carts/specs/measurement`;
+    const url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/carts/specs/measurement`;
      
  
     return patch(url,  {
@@ -332,7 +336,7 @@ const analytics = getAnalytics(app);
 
   const addtoCart =(product,quantity)=>{
     
-    const url = 'http://localhost:3002/api/carts';
+    const url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/carts`;
  
     return post(url,  {
       productId:product._id,
@@ -364,7 +368,7 @@ const analytics = getAnalytics(app);
   
     const updateLikes =(productId)=>{
       
-      const url = 'http://localhost:3002/api/productlikes/:productId';
+      const url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/productlikes/:productId`;
    
       return post(url,  {
         productId:productId,
@@ -385,7 +389,7 @@ const analytics = getAnalytics(app);
     
     
 
-    const url = 'http://localhost:3002/api/orders';
+    const url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/orders`;
    var response='';
       for(let i=0;i<items.length;i++){
         if(items[i].selected){//make order fro only selected items
@@ -470,7 +474,7 @@ const handlegetProduct = async ()=>{
 
 const fetchProduct =()=>{
 
-  const url = `http://localhost:3002/api/products`;
+  const url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/products`;
   
   return axios.get(url)
 
@@ -500,7 +504,7 @@ const handlesearchProduct = async (searchString)=>{
 
 const searchProduct =(searchString)=>{
 
-  const url = `http://localhost:3002/api/products/find/${searchString}`;
+  const url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/products/find/${searchString}`;
   
   return axios.get(url)
 
@@ -515,7 +519,7 @@ const searchProduct =(searchString)=>{
      
     const fetchProducts = async ()=>{
       try{
-         const res  = await fetch(`http://localhost:3002/api/products`);
+         const res  = await fetch(`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/products`);
          const data = await res.json();
               // console.log(data);
                return data.products;
@@ -529,7 +533,7 @@ const searchProduct =(searchString)=>{
     if( user!==null) {
 
     
-    const url = `http://localhost:3002/api/productlikes/${user.email}`;
+    const url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/productlikes/${user.email}`;
     
     return axios.get(url).then((response)=>{
        try{
@@ -590,7 +594,7 @@ const searchProduct =(searchString)=>{
 
   const getCart =()=>{
 
-    const url = `http://localhost:3002/api/carts/${userid}`;
+    const url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/carts/${userid}`;
     
     return axios.get(url)
   
@@ -598,7 +602,7 @@ const searchProduct =(searchString)=>{
 
   const getOrders =()=>{
 
-    const url = `http://localhost:3002/api/orders/user/${userid}`;
+    const url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/orders/user/${userid}`;
     
     return axios.get(url).then((response)=>{
        try{
@@ -659,6 +663,7 @@ const searchProduct =(searchString)=>{
          <Topbar totalItems={itemsCount} totalOrders={orderCount} handlesearchProduct={handlesearchProduct} handleUserClick={handleUserClick}/>
          </Route>
          <RModal openModal={openModal} handleCloseModal={handleCloseModal} ref={ref}/>
+         <PrefareStyleAlertModal openModal={openPrefStyleModal} handleCloseModal={handleCloseModal} ref={ref}/>
        <Switch>   
         
        <Route exact path="/">  

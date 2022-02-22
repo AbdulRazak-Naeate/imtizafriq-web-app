@@ -1,6 +1,7 @@
 import './productsList.css'
-import {DataGrid} from '@material-ui/data-grid';
+import {DataGrid,GridToolbar} from '@material-ui/data-grid';
 import { DeleteOutline,EditOutlined } from '@material-ui/icons';
+import { Stack } from '@mui/material';
 import {Tooltip} from '@material-ui/core';
 import QueryParams from '../../QueryParams';
 import { Link ,useHistory} from 'react-router-dom';
@@ -49,8 +50,8 @@ export default function ProductsList({products,handleDeleteProduct}) {
           width: 330,
           renderCell:(params)=>{
               return(
-                  <div className="productListItem">
-                      <img className="productListImg" src={`http://localhost:${process.env.REACT_APP_SERVER_PORT}/server/uploads/products/${params.row.image[0].filename}`} alt=""/>
+                  <div className="productListItem" onClick={()=>{handleEdit(params)}}>
+                      <img className="productListImg"  src={`http://localhost:${process.env.REACT_APP_SERVER_PORT}/server/uploads/products/${params.row.image[0].filename}`} alt=""/>
                       {params.row.name}
                   </div>
               )
@@ -125,7 +126,21 @@ export default function ProductsList({products,handleDeleteProduct}) {
             rowsPerPageOptions={[10, 10, 20,50]}
             pagination
            checkboxSelection
-            disableSelectionOnClick />
+            disableSelectionOnClick
+            components={{
+              Toolbar:GridToolbar,
+              NoRowsOverlay: () => (
+                <Stack height="100%" alignItems="center" justifyContent="center">
+                  No products found ,click on new product to add products
+                </Stack>
+              ),
+              NoResultsOverlay: () => (
+                <Stack height="100%" alignItems="center" justifyContent="center">
+                  Local filter returns no result
+                </Stack>
+              )
+            }}
+            />
             </div>
         </div>
     )

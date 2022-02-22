@@ -109,7 +109,7 @@ const SocialLinks = () => {
         }
     })
   return (
-    <div>
+    <div className='sociallink'>
         {
 
         }

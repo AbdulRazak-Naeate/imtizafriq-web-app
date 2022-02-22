@@ -1,6 +1,6 @@
 import { formatWithCurrencySymbol, truncateString } from "../../../utils/Utils"
 import "./widgetLg.css";
-import {Person,PersonOutline,PersonOutlineRounded} from '@mui/icons-material'
+import {PersonOutlineRounded} from '@mui/icons-material'
  function WidgetLg({transactions}) {
      const Button=({type})=>{
          return <button className={"widgetLgButton "+type}>{type}</button>

@@ -1,6 +1,8 @@
 import { useState,useEffect } from "react";
 import './userList.css'
-import {DataGrid} from '@material-ui/data-grid'
+import {DataGrid,GridToolbar} from '@material-ui/data-grid'
+import { Stack } from '@mui/material';
+
 import { DeleteOutline, Edit } from '@material-ui/icons';
 import {userRows} from '../../dummyData';
 import { Link} from 'react-router-dom';
@@ -15,7 +17,7 @@ function UserList(){
    const fetchUsers = async () => {//get User Stores 
  
     try {
-   const res = await fetch(`http://localhost:3002/api/user/`);
+   const res = await fetch(`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/user/`);
    const data = await res.json();
   
    return data.users;
@@ -114,6 +116,19 @@ function UserList(){
            pagination
           checkboxSelection
         disableSelectionOnClick
+        components={{
+          Toolbar:GridToolbar,
+          NoRowsOverlay: () => (
+            <Stack height="100%" alignItems="center" justifyContent="center">
+              No products found ,click on new product to add products
+            </Stack>
+          ),
+          NoResultsOverlay: () => (
+            <Stack height="100%" alignItems="center" justifyContent="center">
+              Local filter returns no result
+            </Stack>
+          )
+        }}
       />
         </div>
     )

@@ -116,7 +116,7 @@ return patch(url, body,config)
      try {
      
        
-    const res = await fetch(`http://localhost:3002/api/orders/completed`);
+    const res = await fetch(`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/orders/completed`);
     const data = await res.json();
     
     return data.orders;
@@ -159,7 +159,7 @@ return patch(url, body,config)
      /*  renderCell:(params)=>{
           return(
               <div className="userListUser">
-                  <img className="userListImg" src={`http://localhost:3002/server/uploads/users/${params.row.image[0].filename}`} alt=""/>
+                  <img className="userListImg" src={`http://localhost:${process.env.REACT_APP_SERVER_PORT}/server/uploads/users/${params.row.image[0].filename}`} alt=""/>
                   {params.row.username}
               </div>
           )

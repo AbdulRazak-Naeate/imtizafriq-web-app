@@ -33,6 +33,7 @@ function formatWithCurrencySymbol (amount,currency){
    let customer=orderdata.customer;
    let items=orderdata.line_items
    let shippingData=orderdata.shipping
+   let total =orderdata.subtotal+shippingData.shippingFees;
    let selectedItems=[];
    for (let i=0;i<items.length;i++){
 	   if (items[i].selected){
@@ -115,7 +116,7 @@ function formatWithCurrencySymbol (amount,currency){
 
 	   <tr>
 	   <td colspan="3" >Total:</td>
-       <td>${formatWithCurrencySymbol(orderdata.subtotal,'GHS')}</td>
+       <td>${formatWithCurrencySymbol(total,'GHS')}</td>
 	</tr>
 	 
 	</table>

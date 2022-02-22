@@ -3,7 +3,6 @@ import './transactions.css';
 import {DataGrid,GridToolbar} from '@material-ui/data-grid';
 import { Stack } from '@mui/material';
 import {  Edit } from '@material-ui/icons';
-import { Link } from 'react-router-dom';
 import {useState , useEffect} from "react";
 import AlertDialog from '../../components/alertdialog/AlertDialog'
 import  {patch} from 'axios';
@@ -180,11 +179,12 @@ return patch(url, body,config)
      if (transactions.length>0) setIstransactionsLoaded(true)
    }
   });
-  const getDateNow =(dateNumber)=>{
+
+  /* const getDateNow =(dateNumber)=>{
     var dateString = new Date(parseInt(dateNumber)*1000);
       var newDate= `${dateString.getFullYear()}-${dateString.getMonth()}-${dateString.getDate()} ${dateString.getHours()}:${dateString.getMinutes()}`
       return newDate
-   } 
+   }  */
 
 
 
@@ -314,9 +314,9 @@ return patch(url, body,config)
        <div className="pageTitleContainer">
            <h1 className="pageTitle">Transactions</h1>    
             <div>
-            <Link to={`/dashboard/transactions?`}>
+           {/*  <Link to={`/dashboard/transactions?`}>
           <button className="pageTitleButton">Reports</button>
-          </Link>
+          </Link> */}
             </div>
           </div>
       <div className="actionButtonsWrapper">

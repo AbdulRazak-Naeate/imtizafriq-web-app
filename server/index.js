@@ -59,7 +59,7 @@ app.use('/api/socialmedialinks',sociallinksRoute)
 
 //Home Routes
  app.get('/',(req,res)=>{
-     res.send('Daabia Web App  version 0.1')
+     res.send('IntizAfriq Web App  version 0.1')
  })
 const options={ useNewUrlParser: true ,useUnifiedTopology: true,useCreateIndex:true,useFindAndModify:false }
 //Connect to DB
@@ -75,7 +75,7 @@ mongoose.connect(process.env.DB_COMMUNITY_CON, options)
 
     
 //Start lestening to the server
-app.set('PORT',3002 ||process.env.PORT);
+app.set('PORT',process.env.REACT_APP_SERVER_PORT);
 app.listen(app.get('PORT'),()=>{
     console.log(`Server is running on ${app.get('PORT')}`);
 });

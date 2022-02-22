@@ -9,6 +9,7 @@ const Footer = () => {
    const [faceBook,setFaceBook]=useState('');
     const [twitter,setTwitter]=useState('');
     const [instagram,setInstagram]=useState(''); 
+    const[medialinks,setMedialinks]=useState('')
     const [islinksloaded,setIslinksLoaded]=useState(false);
   const handleSubscription = (e) =>{
       
@@ -25,9 +26,15 @@ const Footer = () => {
   
       await axios.get(url).then((response)=>{
         try{
-          setFaceBook(response.data.socialmedialinks[0].medialinks[0].linktext)
-           setInstagram(response.data.socialmedialinks[0].medialinks[1].linktext)
-           setTwitter(response.data.socialmedialinks[0].medialinks[2].linktext)
+
+           let facebookUrl=response.data.socialmedialinks[0].medialinks[0].linktext
+           let instagramUrl=response.data.socialmedialinks[0].medialinks[1].linktext
+           let twitterUrl=response.data.socialmedialinks[0].medialinks[2].linktext
+ 
+           setFaceBook(facebookUrl   ? facebookUrl   : '')
+           setInstagram(instagramUrl ? instagramUrl  : '')
+           setTwitter(twitterUrl     ? twitterUrl    : '')
+           setMedialinks(response.data.socialmedialinks[0])
           //getObjectbyValue(response.data.socialmedialinks,'Twitter')
         }catch(err){
             console.log(err)
@@ -89,10 +96,15 @@ const Footer = () => {
                     <Link to='/'>Influencer</Link>
                   </div> */}
                   <div className="footer-link-items">
-                     <h5>Connect with US </h5>
-                  { instagram !==''  ? <a href={`${instagram}`} target={'_blank'} rel="noreferrer"> <Instagram/></a> : ''}
-                  { faceBook  !==''  ? <a href={`${faceBook}`} target={'_blank'} rel="noreferrer">  <Facebook/></a>  : ''}
-                  { twitter   !==''  ? <a href={`${twitter}`} target={'_blank'} rel="noreferrer">   <Twitter/></a>   : ''}
+                     {medialinks.length > 0 ? <>
+                      <h5>Connect with US </h5> 
+                     
+                    
+                     { instagram !==''  ? <a href={`${instagram}`} target={'_blank'} rel="noreferrer"> <Instagram/></a> : ''}
+                     { faceBook  !==''  ? <a href={`${faceBook}`} target={'_blank'} rel="noreferrer">  <Facebook/></a>  : ''}
+                     { twitter   !==''  ? <a href={`${twitter}`} target={'_blank'} rel="noreferrer">   <Twitter/></a>   : ''} 
+                     </>
+                  : '' }
                   </div>
                 </div>
               </div> 

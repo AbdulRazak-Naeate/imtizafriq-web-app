@@ -93,12 +93,12 @@ const SlidesImage = ({handleImages,slidesImages,setSlidesImages,setPosition}) =>
        }
      })
   return (
-    <div className="imageGallery">
+    <div className="slideImage">
          {
             slidesImages.length > 0  ?  slidesImages.map((img,index)=>{
               return(<div className='slideWrapper'>
-                <CloseRounded className='removeSlide' color='primary' onClick={()=>{removeSlide(index,img.filename)}} />
-                  <img className="slidesImg"  alt={'slideimg'}key={index} id={index} src={`http://localhost:${process.env.REACT_APP_SERVER_PORT}/server/uploads/slides/${img.filename}`}  onClick={ (e) => { onImageClicked(e) }}/>
+             <CloseRounded className='removeSlide' color='primary' onClick={()=>{removeSlide(index,img.filename)}} />
+                  <img className="slidesImg"  alt={'slideimg'}key={index} id={index} src={`http://localhost:${process.env.REACT_APP_SERVER_PORT}/server/uploads/slides/${img.filename}`}  onClick={ (e) => { onImageClicked(e) }}/>   
               </div>)
                
             }):''
@@ -107,7 +107,7 @@ const SlidesImage = ({handleImages,slidesImages,setSlidesImages,setPosition}) =>
 
                 <div className='actions'>
                          {/*  <Button variant="outlined" id='action-btn-size-remove' size='small' onClick={()=>{removeSlide(2)}}>-</Button>  */}
-                           <Button color='primary' variant="outlined" id="action-btn-size-add"  onClick={()=>{addSlide()}}>+</Button>
+                           <Button color='primary' variant="outlined" id="action-btn-size-add" size='large' onClick={()=>{addSlide()}}>+ Add Image</Button>
                           </div>
                 <input style={{display:"none"}} type="file" id="product-file" multiple onChange={onFileInputChange} />
                 </div>

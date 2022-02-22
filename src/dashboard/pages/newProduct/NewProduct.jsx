@@ -11,7 +11,7 @@ import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/stackslide.css';
 import 'react-s-alert/dist/s-alert-css-effects/jelly.css';
 import ImageGallery from './imageGallery/ImageGallery';
-export default function NewProduct() {
+export default function NewProduct({products,setProducts}) {
     
     const [productImages,setProductImages]=useState([]);
     const [digitalProductUrl, setdigitalProductUrl] = useState('');
@@ -129,7 +129,7 @@ export default function NewProduct() {
               console.log(response.data);
              if (response.data.status===200){
               //window.location.reload();
-               
+              setProducts([...products,response.data.product])
                 clearFields();
              }else if (response.data.status===400){ 
 

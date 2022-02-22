@@ -6,6 +6,7 @@ const ImageView = ({images}) => {
     const classes=useStyle();
     const[imageIndex,setImageIndex]=useState(0);
     const[selected,setselected]=useState(0)
+    const[url]=useState(`http://localhost:${process.env.REACT_APP_SERVER_PORT}/server/uploads/products/`)
    const onThumbNailCLick=(index)=>{
      setselected(index)
      setImageIndex(index)
@@ -19,7 +20,7 @@ const ImageView = ({images}) => {
             {
               images.map((img,index)=>(
                 <Card className={classes.root} key={index}>
-                <CardMedia className={`${classes.mediaThumbnail} ${selected===index? classes.select:classes.disSelect} `} onClick={()=>{onThumbNailCLick(index)}}  image={`http://localhost:${process.env.REACT_APP_SERVER_PORT}/server/uploads/products/${img.filename}`} title={img.filename}/>
+                <CardMedia className={`${classes.mediaThumbnail} ${selected===index? classes.select:classes.disSelect} `} onClick={()=>{onThumbNailCLick(index)}}  image={`${url}/${img.filename}`} title={img.filename}/>
                 </Card>
               ))
             }

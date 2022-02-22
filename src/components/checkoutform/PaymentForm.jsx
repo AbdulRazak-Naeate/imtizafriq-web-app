@@ -1,7 +1,7 @@
 import React from 'react'
 import {Typography,Button,Divider} from '@material-ui/core';
 import Review from './Review'
-/* import { useFlutterwave, closePaymentModal } from 'flutterwave-react-v3'; */
+import { useFlutterwave, closePaymentModal } from 'flutterwave-react-v3';
 import axios from 'axios';
 import {formatWithCurrencySymbol} from '../../utils/Utils';
 
@@ -25,22 +25,26 @@ const PaymentForm = ({shippingData,checkoutToken,backStep,onCaptureCheckout,next
         },
       };
       
-    // const handleFlutterPayment = useFlutterwave(config);
+     const handleFlutterPayment = useFlutterwave(config);
 
        const handlePayment =(orderData) =>{
-            /*   handleFlutterPayment({
+            try{
+              handleFlutterPayment({
                 callback: (response) => { 
                   closePaymentModal() // this will close the modal programmatically
                    console.log(response);
                    if (response.status==="success"){
-                      // FwVerifyPayment(response.transactionid,orderData);
+                       FwVerifyPayment(response.transactionid,orderData);
                    }else{
 
                    }
                    
                 },
                 onClose: () => {},
-              }); */
+              });
+            }catch(err){
+
+            }
             }
     
       const handleSubmit= async (event)=>{
@@ -70,7 +74,7 @@ const PaymentForm = ({shippingData,checkoutToken,backStep,onCaptureCheckout,next
               }
 
         const FwVerifyPayment = (transactionid,orderData) =>{
-          var url =`http://localhost:3001/api/verifypayment/${transactionid}`
+          var url =`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/verifypayment/${transactionid}`
          axios.get(url).then((response)=>{
            console.log("verify payment response "+response)
               if (response.body.status==="success"){

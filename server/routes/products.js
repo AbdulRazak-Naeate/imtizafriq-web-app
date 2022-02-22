@@ -5,7 +5,6 @@ const PrefStyleProduct = require('../models/PrefStyleProduct')
 const verify   = require('./verifyToken');
 const {uploadImage}   = require('../upload');
 const fs = require('fs');
-const { promisify } = require('util');
 var mongoose=require('mongoose');
 const {productValidation} = require('../validation');
 /* 
@@ -26,7 +25,6 @@ router.get('/',async(req,res)=>{
         res.json({products:products});
     
     }catch(err){
-        
         res.json({message:err});
     }
 });
@@ -34,7 +32,6 @@ router.get('/',async(req,res)=>{
 //Submit a product
 router.post('/',uploadImage('./server/uploads/products'),verify, async(req,res)=>{
 
-    const userId = req.user._id; //get userid
 
 
     //Validation

@@ -20,6 +20,8 @@ import Settings from "./pages/settings/Settings"
 import axios from 'axios';
 
  function  Dashboard() {
+  document.title =`${process.env.REACT_APP_WEBSITE_NAME} Dashboard`
+
  const [showSidebar,setShowSideBar]=useState(true);
  const [products,setProducts]=useState([]);
  const [transactions,setTransactions]=useState({});
@@ -31,7 +33,7 @@ import axios from 'axios';
  const [monthlySales,setMonthlySales]=useState([]);
  const [ismonthlySalesLoaded,setIsmonthlySalesLoaded]=useState(false);
 
-const paths =[ 
+ const paths =[ 
     '/dashboard',   
     '/dashboard/users',
     '/dashboard/user/:userId',
@@ -171,7 +173,7 @@ return ()=>{
         <Product/>
        </Route>
        <Route path="/dashboard/newProduct">
-        <NewProduct/>
+        <NewProduct products={products} setProducts={setProducts}/>
        </Route>
        
        <Route path="/dashboard/transactions">

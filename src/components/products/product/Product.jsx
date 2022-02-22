@@ -6,7 +6,7 @@ import { AddShoppingCart,FavoriteBorderOutlined,Favorite } from '@mui/icons-mate
 import {useHistory} from 'react-router-dom';
 import { blue, orange } from '@mui/material/colors';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { truncateString } from '../../../utils/Utils';
+import { truncateString,formatWithCurrencySymbol } from '../../../utils/Utils';
 
 const Product = ({product,onAddToCart,onUpdateLikes,favorites}) => {
     const classes=useStyles();
@@ -51,26 +51,33 @@ const Product = ({product,onAddToCart,onUpdateLikes,favorites}) => {
 
    {product ? <div>
     <Card className={classes.root} >
-           <Typography variant="h6" className={classes.price}>
+           {/* <Typography variant="h6" className={classes.price}>
                         {`$${product.price}`}
-            </Typography>  
+            </Typography>   */}
            <CardMedia className={classes.media}  image={`http://localhost:${process.env.REACT_APP_SERVER_PORT}/server/uploads/products/${product.image[0].filename}`} title={product.name} onClick={()=>{handleProductOnClick(product._id)}}/>
             
-              <CardContent className={classes.cardContent}>
+              {/* <CardContent className={classes.cardContent}>
                   <div className={classes.cardContentSub}>
-                    <Typography variant='span' gutterBottom noWrap>
+                   {/*  <Typography variant='span' gutterBottom noWrap>
                         {product.name}
-                    </Typography>
+                    </Typography> }
                     <Typography variant="span">
                         {`$${product.price}`}
                     </Typography>
                   </div>
-                  <div className={classes.description}>
+                {   <div className={classes.description}>
                   <Typography  dangerouslySetInnerHTML={{__html:truncateString(product.description,54)}} variant="body2" color="textSecondary" noWrap={false}/>  
-                  </div>
-              </CardContent>
+                  </div> }
+              </CardContent> */}
+
               <CardActions disableSpacing className={classes.cardActions}>
+                <div className={classes.cardActionsPriceWrapper}>
+                <Typography variant="span">
+                        {`${formatWithCurrencySymbol(product.price,'GHS')}`}
+                    </Typography>
+                  </div>
               <IconButton aria-label="Add to Favourite" onClick={()=>{ handleAddtoFavorites(product)}}>
+                
                    { like ===true ?  <Favorite className={classes.icon} />: <FavoriteBorderOutlined className={classes.icon} /> }
                   </IconButton>
                   <IconButton aria-label="Add to Cart" onClick=

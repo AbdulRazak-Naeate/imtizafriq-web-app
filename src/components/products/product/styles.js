@@ -5,7 +5,7 @@ export default makeStyles((theme)=>({
       maxWidth:'100%',
   },
   media:{
-      height:'32vh',
+      height:'42vh',
       paddingTop: '56.25%',
 
   },
@@ -19,8 +19,11 @@ export default makeStyles((theme)=>({
       display:'flex',
       justifyContent:'flex-end',
   },
+  cardActionsPriceWrapper:{
+    width:'60%'
+  },
   cardContent:{
-      height:'100px',
+      height:'5vh',
       border:'0px solid',
       padding:4,
   },

@@ -58,6 +58,9 @@ const mongoose = require('mongoose');
     active:{
         type:String,
         default:'yes',
+    },length:{
+        type:Number,
+        default:3
     }
     
 
