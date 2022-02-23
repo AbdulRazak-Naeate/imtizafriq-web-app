@@ -7,6 +7,7 @@ import {MenuItem} from '@mui/material';
 import {Link} from 'react-router-dom';
 import SearchField from './searchfield/SearchField';
  const Topbar = ({totalItems,totalOrders,handlesearchProduct,handleUserClick}) => {
+   
    const[loggedin,setLoggedin]=useState(false);
    //const [user] = useState(JSON.parse(localStorage.getItem('user')));
    // const [loggedin] = useState(JSON.parse(localStorage.getItem('loggedin')));

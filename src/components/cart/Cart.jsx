@@ -11,14 +11,14 @@ const Cart = ({cart, handleUpdateCartQty,handleupdateColorSize,handleupdateMeasu
     const [itemsCount,setItemsCount]=useState(0);
     const [onHookFormError,setOnhookFormError]=useState(false);
     var colorSizeError=false;
-    var measurementError=false;
+   /*  var measurementError=false; */
 
    const history=useHistory();
 
    const handleCheckOut=()=>{
    try{
     checkError()
-    if (!colorSizeError && !measurementError){
+    if (!colorSizeError/*  && !measurementError */){
         history.push('/checkout')
    }else{
        
@@ -55,14 +55,14 @@ const Cart = ({cart, handleUpdateCartQty,handleupdateColorSize,handleupdateMeasu
            colorSizeError=false
        }
 
-       for (let i=0;i<objValues.length;i++){//if customer doeos not input measure value return measurement Error
+      /*  for (let i=0;i<objValues.length;i++){//if customer doeos not input measure value return measurement Error
         if (objValues[i]===""){
             measurementError=true
         }else{
             measurementError=false
         }
     }
-
+ */
    }
     useEffect(()=>{
            //console.log("selected List "+colorSelectedList);

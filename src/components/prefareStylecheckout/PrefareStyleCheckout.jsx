@@ -7,8 +7,9 @@ import Alert from 'react-s-alert';
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/stackslide.css';
 import 'react-s-alert/dist/s-alert-css-effects/jelly.css';
-import axios from 'axios';
+import axios,{post} from 'axios';
 import { randNumber } from '../../utils/Utils';
+import FormData from 'form-data';
 
 const PrefareStyleCheckout = ({onAddToCart}) => {
   
@@ -17,6 +18,8 @@ const PrefareStyleCheckout = ({onAddToCart}) => {
     const [loadedImage,setLoadedImages]=useState([]);
     const [productname]= useState("PrefareStyle-"+randNumber(5));
     const[product]=useState({name:productname,price:'150',description:''})
+    const[user]=useState(JSON.parse(localStorage.getItem('user')));
+
     const onImageClicked = (e) => {
         const formfile = document.getElementById("product-file");
         formfile.click();
@@ -28,9 +31,9 @@ const PrefareStyleCheckout = ({onAddToCart}) => {
     var reader = new FileReader();
     reader.onloadend = function (e) {       
       
-       setProductImages([file]);
+       setProductImages(file);
 
-        console.log(productImages);
+        console.log(file);
         setLoadedImages( e.target.result)
 
         document.getElementById('imgpreview').style.backgroundImage = e.target.result
@@ -70,7 +73,7 @@ const initiateAndCreateProduct =()=>{
   formData.append('specification', "none");
   formData.append('digital_product_url', 'null');//append digital
   formData.append('stock','0');
-  formData.append('active','0');
+  formData.append('active','null');
   formData.append('product_type','special');
   console.log(JSON.stringify(formData));
 
@@ -80,14 +83,25 @@ const initiateAndCreateProduct =()=>{
     formData.append('image', productImages[i]);
     console.log(productImages);
   }
+  var image= productImages[0];
+      console.log(image);
 
+  const obj={
+    name:productname,
+    price:'150',
+    description:'null',
+    specification:'none',
+    digital_product_url:'digital_product_url',
+    product_type:'special',
+    image:image
+}
   const config = {
     headers: {
-      'Content-Type': 'multipart/form-data',
-     /*  'auth-token': user.auth_token, */
+      'Content-Type':'multipart/form-data',
+      'auth-token': user.auth_token,
     },
   }
-  return axios.post(url, formData, config)
+  return post(url,formData,config)
 
 };
     const handleMakeOrder=()=>{

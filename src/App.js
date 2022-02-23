@@ -13,7 +13,7 @@ import CheckOut from './components/checkoutform/checkout/CheckOut';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import {RModal} from './components/modal/RModal'
-import {PrefareStyleAlertModal} from './components/modal/PrefareStyleAlertModal'
+import {PrefareStyleAlertModal} from './components/modal/prefstylemodal/PrefareStyleAlertModal'
 import { blue, orange,red} from '@mui/material/colors';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { initializeApp } from "firebase/app";
@@ -94,7 +94,7 @@ const analytics = getAnalytics(app);
   const[userid]=useState(createTempUserId());
   const[user]=useState(JSON.parse(localStorage.getItem('user')));
      const[favorites,setFovirites]=useState([]);
-  const[products,setProducts]=useState([]);
+     const[products,setProducts]=useState([]);
      const[filteredProducts,setFilteredProducts]=useState([]);
      const[product,setProduct]=useState([]);
      const[cart,setCart]=useState({});
@@ -103,8 +103,10 @@ const analytics = getAnalytics(app);
      const[myOrders,setMyOrders]=useState([]);
      const[orderCount,setMyOrderCount]=useState(0);
      const[openModal,setOpenModal]=useState(false);
-     const[openPrefStyleModal,setOpenPrefStyleModal]=useState(true);
 
+     const showAgain=JSON.parse(localStorage.getItem('show-pref-alert'));
+     const[openPrefStyleModal,setOpenPrefStyleModal]=useState(showAgain);
+    
      const[isSlidesLoaded,setIsSlidesLoaded]=useState(false);
      const [slidesImages,setSlidesImages]=useState([]);
 
@@ -619,7 +621,7 @@ const searchProduct =(searchString)=>{
   };
 
  
-   
+  try{
     if (!history.location.pathname.includes('dashboard')){
      
       getFavorites();
@@ -629,6 +631,9 @@ const searchProduct =(searchString)=>{
      
      
     }
+  }catch(err){
+    console.log(err)
+  }
     
 
    },[userid,user,history])
@@ -663,7 +668,7 @@ const searchProduct =(searchString)=>{
          <Topbar totalItems={itemsCount} totalOrders={orderCount} handlesearchProduct={handlesearchProduct} handleUserClick={handleUserClick}/>
          </Route>
          <RModal openModal={openModal} handleCloseModal={handleCloseModal} ref={ref}/>
-         <PrefareStyleAlertModal openModal={openPrefStyleModal} handleCloseModal={handleCloseModal} ref={ref}/>
+         {history.location ==='/' ?   <PrefareStyleAlertModal openModal={openPrefStyleModal} handleCloseModal={handleCloseModal}setOpenPrefStyleModal={setOpenPrefStyleModal} ref={ref}/>:''}
        <Switch>   
         
        <Route exact path="/">  
@@ -681,13 +686,13 @@ const searchProduct =(searchString)=>{
          <CheckOut cart={cart}   order={order}  onCaptureCheckout={handleCaptureCheckout}/>
        </Route>
         <Route exact path="/orders">
-        <Orders orders={myOrders}/>
+        <Orders orders={myOrders} setOpenModal={setOpenModal}/>
          </Route>
         <Route exact path="/proceedcheckout">
           <ProceedCheckOut onAddToCart={handleAddtoCart}/>
         </Route>
         <Route exact path='/prefaredstylecheckout' >
-         <PrefaredStyleCheckOut onAddToCart={handleAddtoCart}/>
+         <PrefaredStyleCheckOut onAddToCart={handleAddtoCart} />
         </Route>
          <Route path="/login">
            <LogIn/>

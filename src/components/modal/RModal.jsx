@@ -30,7 +30,7 @@ const style = {
     return (
       <Typography variant="body2" color="text.secondary" align="center" {...props}>
         {'Copyright © '}
-        <Link color="inherit" href="https://localhost:3000/">
+        <Link color="inherit" to="/">
           {`${process.env.REACT_APP_WEBSITE_NAME}.com`}
         </Link>{' '}
         {new Date().getFullYear()}

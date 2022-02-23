@@ -2,22 +2,35 @@ import React,{useState} from 'react'
 import useStyles from'./styles';
 import {Grid,Typography,Card,CardMedia } from '@material-ui/core';
 import OrderItem from './order/orderItem';
-import {Link} from 'react-router-dom';
-import Comments from '../comments/Comments';
+import {Link,useHistory} from 'react-router-dom';
 import {Button} from '@mui/material';
+import Comments from '../comments/Comments';
+import AlertDialog from '../alertdialog/AlertDialog';
 
-const Orders = ({orders}) => {
+const Orders = ({orders,setOpenModal}) => {
   const classes =useStyles();
   const loggedin =localStorage.getItem('loggedin');
   const [openComments,setOpenComments]=useState(false);
   const [order,setOrder]=useState([]);
+  const [open,setOpen]=useState(false);
+ 
+  
+  const handleClose = (option) => {
+    console.log(option)
+    if (option){
+      setOpenModal(true)
+    }
+   setOpen(false);
 
+
+};
   const handleonReviewClick =(order)=>{
      if (loggedin==='true'){
       setOrder(order)
       setOpenComments(!openComments);
      }else{
-       alert('please login to view and comment')
+      setOpen(true)
+
      }
   }
   const EmptyOrder = ()=>(
@@ -41,7 +54,8 @@ const CommentsContainer = ({order})=>(
   <Comments order={order}/></> 
 );
 const FilledOrder = ()=>(
-      <>
+      <> 
+        <AlertDialog open={open} handleClose={handleClose} title="FeedBack" textContent={`You need to login to Add or review comments`} PositiveText='Ok' NegativeText='No' />
      <Grid container justifyContent="center" spacing={0}>
          {
            orders.map((order)=>(
@@ -57,6 +71,7 @@ const FilledOrder = ()=>(
 if (!orders) return 'loading ...';
   return (
     <div className={classes.root}>
+    
        {
          openComments ? <CommentsContainer order={order}/> : <>
          <div>  

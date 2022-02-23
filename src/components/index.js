@@ -11,3 +11,4 @@ export {default as BottomNav} from './bottomnavigation/BottomNav';
 export {default as Account} from './account/Account';
 export {default as Footer} from './footer/Footer';
 export {default as AboutUs} from './aboutus/AboutUs';
+export {default as AlertDialog} from './alertdialog/AlertDialog';

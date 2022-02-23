@@ -9,6 +9,7 @@ const cors = require('cors');
 
 //Import Routes
 const productsRoute     = require('./routes/products');
+const prefarestyleProductRoute= require('./routes/prefarestyle');
 const userRoute         = require('./routes/auth');
 const categoryRoute     = require('./routes/categories');
 const orders            = require('./routes/orders');
@@ -42,6 +43,7 @@ app.use(express.static('public'));
 app.use('/server/uploads',express.static('./server/uploads'));//making uploads folder accessible
 app.use('/api/user',    userRoute);
 app.use('/api/products',productsRoute);
+app.use('/api/prefarestyle',prefarestyleProductRoute);
 app.use('/api/category', categoryRoute);
 app.use('/api/orders',orders);
 app.use('/api/carts',cartRoute);

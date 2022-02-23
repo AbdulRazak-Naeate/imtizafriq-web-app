@@ -1,15 +1,14 @@
 import React,{useState} from 'react'
-import {Typography,Button,Card,CardActions,CardContent,CardMedia,MenuItem,TextField} from '@mui/material';
+import {Typography,Button,Card,CardActions,CardContent,CardMedia} from '@mui/material';
 import useStyles from './styles';
 import {useForm} from 'react-hook-form';
-import { Grid } from '@material-ui/core';
 import Collapse from '@mui/material/Collapse';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import ListItemButton from '@mui/material/ListItemButton';
 import Checkbox from '@mui/material/Checkbox';
 import Measurement from './Measurement';
-import { pink,orange } from '@mui/material/colors';
+import {orange } from '@mui/material/colors';
 import {formatWithCurrencySymbol} from '../../../utils/Utils';
 
 const CartItem = ({cartitem,onUpdateCartQty,onUpdateColorSize,onUpdateMeasurement,onRemoveFromCart,onUpdateSelect}) => {
