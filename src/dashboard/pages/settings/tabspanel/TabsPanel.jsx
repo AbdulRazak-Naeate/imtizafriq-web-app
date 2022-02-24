@@ -3,6 +3,7 @@ import { Tabs, Tab, TabPanel, TabList} from 'react-web-tabs';
 import './styles.css';
 import SlidesImage  from '../slidesimages/SlidesImage';
 import SocialLinks from '../sociallinks/SocialLinks';
+import Contacts from '../contacts/Contacts'
 import axios,{ post } from 'axios';
 
 const TabsPanel = () => {
@@ -83,6 +84,7 @@ const TabsPanel = () => {
             <TabList className='tablist' >
             <Tab className='tab' tabFor="one">Slide</Tab>
             <Tab className='tab 'tabFor="two">Social Links</Tab>
+            <Tab className='tab 'tabFor="three">Contact</Tab>
             
           </TabList>
           <TabPanel className='tab__panel' tabId="one">
@@ -96,6 +98,13 @@ const TabsPanel = () => {
           <TabPanel className='tab__panel' tabId="two">
             <div className="tabs__panel_content">
                 <SocialLinks/>
+              <div style={{width:'25%'}}></div>
+              </div>  
+          
+          </TabPanel>
+          <TabPanel className='tab__panel' tabId="three">
+            <div className="tabs__panel_content">
+                <Contacts/>
               <div style={{width:'25%'}}></div>
               </div>  
           

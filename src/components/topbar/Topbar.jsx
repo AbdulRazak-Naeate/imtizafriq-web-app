@@ -6,6 +6,8 @@ import Menu from '@mui/material/Menu';
 import {MenuItem} from '@mui/material';
 import {Link} from 'react-router-dom';
 import SearchField from './searchfield/SearchField';
+import axios from 'axios';
+
  const Topbar = ({totalItems,totalOrders,handlesearchProduct,handleUserClick}) => {
    
    const[loggedin,setLoggedin]=useState(false);
@@ -15,6 +17,7 @@ import SearchField from './searchfield/SearchField';
     //const history=useHistory();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
+   
     //eslint-disable-next-line no-unused-vars
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
@@ -23,11 +26,9 @@ import SearchField from './searchfield/SearchField';
       setAnchorEl(null);
     };
     useEffect(()=>{
-      var user =localStorage.getItem('user');
-       //console.log("user "+user)
-       if (user===null){
-        // history.push('/dashboard/login'); 
-       }
+
+       
+    
     })
     return (
         <div className="topbar">

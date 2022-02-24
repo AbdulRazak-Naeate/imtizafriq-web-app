@@ -109,6 +109,10 @@ const analytics = getAnalytics(app);
     
      const[isSlidesLoaded,setIsSlidesLoaded]=useState(false);
      const [slidesImages,setSlidesImages]=useState([]);
+     const [phone,setPhone]=useState('');
+     const [email,setemail]=useState('');
+     const[contacts,setContacts]=useState([])
+     const [isContactsLoaded,setIsContactsLoaded]=useState(false)
 
      const paths=['/','/cart','/checkout','/orders','/proceedcheckout','/prefaredstylecheckout','/account','/aboutus'];
   
@@ -638,6 +642,36 @@ const searchProduct =(searchString)=>{
 
    },[userid,user,history])
    useEffect(()=>{
+    const handlegetLinks = async ()=>{
+      const url=`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/contacts`
+  
+      await axios.get(url).then((response)=>{
+        console.log(response.data.contacts[0].contacts[0])
+        try{
+
+           let phoneUrl=response.data.contacts[0].contacts[0].contacttext
+        /*    let instagramUrl=response.data.socialContacts[0].Contacts[1].linktext */
+           let emailUrl=response.data.contacts[0].contacts[1].contacttext
+ 
+           setPhone(phoneUrl   ? phoneUrl   : '')
+           setemail(emailUrl     ? emailUrl    : '')
+           setContacts(response.data.contacts[0].contacts)
+          //getObjectbyValue(response.data.socialContacts,'email')
+        }catch(err){
+            console.log(err)
+        }
+      })
+  }
+    var user =localStorage.getItem('user');
+   //console.log("user "+user)
+   if (user===null){
+    // history.push('/dashboard/login'); 
+   }
+  if (!isContactsLoaded){
+     handlegetLinks();
+  }
+  
+
     const loadSlides =async ()=>{
      try{
       const url =`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/slides/`
@@ -655,6 +689,9 @@ const searchProduct =(searchString)=>{
     }
     return ()=>{
       setIsSlidesLoaded(true)
+    
+       setIsContactsLoaded(true)
+     
     }
   })
   return (
@@ -663,8 +700,8 @@ const searchProduct =(searchString)=>{
       <CssBaseline />
        
          <Route exact path={paths}>
-           <TopbarcontacInfo/>
-           
+          {contacts.length > 0 ? <TopbarcontacInfo contacts={contacts}/>:''
+           }
          <Topbar totalItems={itemsCount} totalOrders={orderCount} handlesearchProduct={handlesearchProduct} handleUserClick={handleUserClick}/>
          </Route>
          <RModal openModal={openModal} handleCloseModal={handleCloseModal} ref={ref}/>

@@ -25,6 +25,7 @@ const countries         = require('./routes/world/countries');
 const states            = require('./routes/world/states');
 const cities            = require('./routes/world/cities');
 const sociallinksRoute  = require('./routes/socialmedialinks');
+const contactsRoute  = require('./routes/contacts');
 dotenv.config();
 //MiddleWare
 app.use(cors()); // package to allow connections from outisde domains
@@ -58,6 +59,7 @@ app.use('/api/countries',countries);
 app.use('/api/states',states);
 app.use('/api/cities',cities);
 app.use('/api/socialmedialinks',sociallinksRoute)
+app.use('/api/contacts',contactsRoute);
 
 //Home Routes
  app.get('/',(req,res)=>{
