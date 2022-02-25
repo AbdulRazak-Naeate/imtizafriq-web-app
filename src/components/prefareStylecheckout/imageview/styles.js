@@ -11,17 +11,21 @@ export default makeStyles((theme)=>({
             display:'block',
            },
            [theme.breakpoints.down(620)]:{
-            display:'none',
+            
            }
     },
     thumbnailContainer:{
-        flex:'1',
+        flex:'1', 
+        [theme.breakpoints.down(620)]:{
+            flex:'0'   
+        },
        },
     thumbnailList:{
         display:'flex',
         flexDirection:'column',
         justifyContent:'space-around',
-        border:'0px solid'
+        border:'0px solid',
+       
     },
     mediaThumbnail:{
         height:100,
@@ -37,11 +41,15 @@ export default makeStyles((theme)=>({
       },
     previewContainer:{
         flex:'5',
-        margin:'0px 40px'
+        margin:'0px 40px',
+        [theme.breakpoints.down(620)]:{
+          margin:0 ,
+          width:'100%',
+        }
     },
     mediaPreview:{
         height:440,
-        maxWidth:"100%",
+        width:"100%",
         border:'0px solid'
         
     },

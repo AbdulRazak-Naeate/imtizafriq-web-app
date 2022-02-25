@@ -2,6 +2,8 @@ import React from 'react'
 import useStyles from './index.js';
 import { Grid } from '@material-ui/core';
 import Product from './product/Product';
+import {Button} from '@mui/material';
+import {useHistory} from 'react-router-dom';
 import { blue, orange } from '@mui/material/colors';
 import {  createTheme } from '@mui/material/styles';
 const Products = ({products,onAddToCart,onUpdateLikes,favorites}) => {
@@ -19,6 +21,7 @@ const Products = ({products,onAddToCart,onUpdateLikes,favorites}) => {
       },
 });  
   const classes=useStyles();
+  const history=useHistory();
    //console.log(products.length)
   return (
     <main className={classes.content}>
@@ -33,6 +36,11 @@ const Products = ({products,onAddToCart,onUpdateLikes,favorites}) => {
          </Grid>
        ))}
       </Grid>
+      <div className={classes.BtnWrapper}>
+      
+        
+        <Button type='button' variant='contained' onClick={()=>{history.push('/prefaredstylecheckout')}}>Order by uploading your design</Button>
+      </div>
     </main>
   )
 }

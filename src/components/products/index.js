@@ -11,4 +11,10 @@ export default makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
+  BtnWrapper:{
+    width:'100%',
+    padding:40,
+    display:'flex',
+    justifyContent:'center',
+  }
 }));
