@@ -51,11 +51,11 @@ const Contact = () => {
             const url=`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/contacts`
     
             await axios.get(url).then((response)=>{
-                console.log(response.data.contacts[0].contacts[0].linktext);
+                console.log(response.data.contacts[0].contacts[0]);
                 setContacts(response.data.contacts[0].contacts);
               try{
-                setphone(response.data.contacts[0].contacts[0].linktext)
-                setemail(response.data.contacts[0].contacts[1].linktext)
+                setphone(response.data.contacts[0].contacts[0].contacttext)
+                setemail(response.data.contacts[0].contacts[1].contacttext)
                
               }catch(err){
                   console.log(err)

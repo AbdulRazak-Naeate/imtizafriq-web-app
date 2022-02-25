@@ -2,7 +2,7 @@ import React,{useState} from 'react'
 import useStyles from'./styles';
 import {Grid,Typography,Card,CardMedia } from '@material-ui/core';
 import OrderItem from './order/orderItem';
-import {Link,useHistory} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {Button} from '@mui/material';
 import Comments from '../comments/Comments';
 import AlertDialog from '../alertdialog/AlertDialog';
@@ -47,7 +47,7 @@ const CommentsContainer = ({order})=>(
  </div>
  <div style={{display:'flex',justifyContent:'space-between'}}>
    <Card className={classes.ordercard}>
-      <CardMedia className={classes.media} image={`http://localhost:3002/server/uploads/products/${order.filename}`}></CardMedia>
+      <CardMedia className={classes.media} image={`http://localhost:${process.env.REACT_APP_SERVER_PORT}/server/uploads/products/${order.filename}`}></CardMedia>
     </Card> 
  </div>
    

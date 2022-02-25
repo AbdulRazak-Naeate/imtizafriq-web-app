@@ -49,7 +49,7 @@ const style = {
       >
         <Box sx={style} className={classes.root} ref={ref}>
          {
-           isLoggedInForm ===true ?  <SignIn handleCloseModal={props.handleCloseModal} handleSwitchForm={handleSwitchForm}/> : <SignUp handleCloseModal={props.handleCloseModal} handleSwitchForm={handleSwitchForm}/>
+           isLoggedInForm ===true ?  <SignIn replacePermanentId={props.replacePermanentId} handleCloseModal={props.handleCloseModal} handleSwitchForm={handleSwitchForm}/> : <SignUp replacePermanentId={props.replacePermanentId} handleCloseModal={props.handleCloseModal} handleSwitchForm={handleSwitchForm}/>
          }
          <Copyright/>
         </Box>

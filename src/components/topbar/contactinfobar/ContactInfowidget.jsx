@@ -1,11 +1,9 @@
-import React,{useState} from 'react'
+import React from 'react'
 import {EmailOutlined,Call,HomeOutlined} from '@material-ui/icons';
 import {Typography} from '@mui/material';
 import {Link} from 'react-router-dom'
 const ContactInfowidget = ({contacts}) => {
-  console.log(contacts)
-     const [phone,setPhone]=useState('');
-     const[email,setEmail]=useState('');
+    
   
   return (
     <div>

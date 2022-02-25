@@ -1,10 +1,10 @@
 import {useState,useEffect} from 'react';
-import {Link,useHistory} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import './signup.css';
-import {post} from 'axios';
+import axios,{post} from 'axios';
 import {Typography,Button} from '@mui/material'
 /* var loki = require('lokijs'); */
-const SignUp = ({handleCloseModal,handleSwitchForm}) => {
+const SignUp = ({handleCloseModal,handleSwitchForm,replacePermanentId}) => {
     const [username,setUsername]=useState('');
     const [email,setEmail]=useState('');
     const [password,setPassword]=useState('');
@@ -33,6 +33,7 @@ const SignUp = ({handleCloseModal,handleSwitchForm}) => {
         localStorage.setItem('_id', user._id);
         localStorage.setItem('user', JSON.stringify(user));
         localStorage.setItem('loggedin', true);
+        replacePermanentId(user);
 
         //localStorage.setItem('auth-token',response.headers)
   
@@ -159,7 +160,7 @@ const SignUp = ({handleCloseModal,handleSwitchForm}) => {
     
     const SignUp =()=>{
           
-      const url = 'http://localhost:3001/api/user/register';
+      const url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/user/register`;
   
      
       const formData = new FormData();

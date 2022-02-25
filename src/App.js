@@ -91,14 +91,14 @@ const analytics = getAnalytics(app);
      
      return id;
   }
-  const[userid]=useState(createTempUserId());
-  const[user]=useState(JSON.parse(localStorage.getItem('user')));
+     const[userid]=useState(createTempUserId());
+     const[user]=useState(JSON.parse(localStorage.getItem('user')));
      const[favorites,setFovirites]=useState([]);
      const[products,setProducts]=useState([]);
      const[filteredProducts,setFilteredProducts]=useState([]);
      const[product,setProduct]=useState([]);
      const[cart,setCart]=useState({});
-     const[itemsCount,setItemsCount]=useState(0);
+     const[CartItemsCount,setCartItemsCount]=useState(0);
      const [order,setOrder]=useState({});
      const[myOrders,setMyOrders]=useState([]);
      const[orderCount,setMyOrderCount]=useState(0);
@@ -146,7 +146,25 @@ const analytics = getAnalytics(app);
      }
     }
 
-    
+    const replacePermanentId= (user)=>{
+      var tempid=localStorage.getItem('temp_id');
+      console.log("tempid " + user._id)
+      if (tempid!==""){
+       var url=`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/carts/updateuserid/${tempid}/${user._id}`
+        axios.patch(url,{userId:user._id}).then((response)=>{
+          console.log(response)
+          setCart(response.data.cart);
+          setCartItemsCount(response.data.cart.length)
+        })
+        var orderurl=`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/orders/updateuserid/${tempid}/${user._id}`
+        axios.patch(orderurl,{userId:user._id}).then((response)=>{
+          console.log(response)
+          setMyOrders(response.data.orders);
+          setMyOrderCount(response.data.orders.length)
+        })
+     }
+     }
+      
     const sendConfirmationEmail = (_id,newOrder)=>{
      //console.log("id "+_id + "email "+newOrder.customer.email)
       const url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/email/confirmorder/${_id}`;
@@ -164,7 +182,7 @@ const analytics = getAnalytics(app);
          if (response.status===200){
            //console.log(response)
            setCart(response.data.cart)
-           setItemsCount(response.data.cart.items.length);
+           setCartItemsCount(response.data.cart.items.length);
 
          }
       })
@@ -177,7 +195,7 @@ const analytics = getAnalytics(app);
       if(response.status=200){
        try{
         setCart(response.data.cart);
-        setItemsCount(response.data.cart.items.length);
+        setCartItemsCount(response.data.cart.items.length);
 
        }catch(err){
          console.log(err)
@@ -199,7 +217,7 @@ const analytics = getAnalytics(app);
          if (response.status===200){
            //console.log(response)
            setCart(response.data.cart)
-           setItemsCount(response.data.cart.items.length);
+           setCartItemsCount(response.data.cart.items.length);
 
          }
        })
@@ -223,7 +241,7 @@ const analytics = getAnalytics(app);
               if (response.status===200){
                // console.log(response.data.cart.items)
                 setCart(response.data.cart)
-                setItemsCount(response.data.cart.items.length);
+                setCartItemsCount(response.data.cart.items.length);
 
                } 
              })
@@ -251,7 +269,7 @@ const analytics = getAnalytics(app);
         if (response.status===200){
          // console.log(response.data.cart.items)
           setCart(response.data.cart)
-          setItemsCount(response.data.cart.items.length);
+          setCartItemsCount(response.data.cart.items.length);
 
          } 
        })
@@ -278,7 +296,7 @@ const analytics = getAnalytics(app);
             try{
            // console.log(response.data.cart.items)
               setCart(response.data.cart)
-              setItemsCount(response.data.cart.items.length);
+              setCartItemsCount(response.data.cart.items.length);
 
             }catch(err){
               console.log(err)
@@ -305,7 +323,7 @@ const analytics = getAnalytics(app);
         if (response.status===200){
          // console.log(response.data.cart.items)
           setCart(response.data.cart)
-          setItemsCount(response.data.cart.items.length);
+          setCartItemsCount(response.data.cart.items.length);
 
          } 
        })
@@ -330,7 +348,7 @@ const analytics = getAnalytics(app);
      // console.log(response.data);
       if (response.status===200){
         setCart(response.data.cart)
-        setItemsCount(response.data.cart.items.length);
+        setCartItemsCount(response.data.cart.items.length);
 
       }else{
        
@@ -585,7 +603,7 @@ const searchProduct =(searchString)=>{
       if (response.status===200){
         try{
           setCart(response.data.cart)
-          setItemsCount(response.data.cart.items.length);
+          setCartItemsCount(response.data.cart.items.length);
         }catch(err){
           console.log(err)
         }
@@ -702,9 +720,9 @@ const searchProduct =(searchString)=>{
          <Route exact path={paths}>
           {contacts.length > 0 ? <TopbarcontacInfo contacts={contacts}/>:''
            }
-         <Topbar totalItems={itemsCount} totalOrders={orderCount} handlesearchProduct={handlesearchProduct} handleUserClick={handleUserClick}/>
+         <Topbar totalItems={CartItemsCount} totalOrders={orderCount} handlesearchProduct={handlesearchProduct} handleUserClick={handleUserClick}/>
          </Route>
-         <RModal openModal={openModal} handleCloseModal={handleCloseModal} ref={ref}/>
+         <RModal replacePermanentId={replacePermanentId} openModal={openModal} handleCloseModal={handleCloseModal} ref={ref}/>
          {history.location ==='/' ?   <PrefareStyleAlertModal openModal={openPrefStyleModal} handleCloseModal={handleCloseModal}setOpenPrefStyleModal={setOpenPrefStyleModal} ref={ref}/>:''}
        <Switch>   
         
@@ -748,7 +766,7 @@ const searchProduct =(searchString)=>{
          </Route>
        </Switch>
        <Route exact path={paths}>
-       <BottomNav onBottomNavChange={handleOnchange}  totalItems={itemsCount} orderItems={orderCount}/>
+       <BottomNav onBottomNavChange={handleOnchange}  totalItems={CartItemsCount} orderItems={orderCount}/>
          </Route>
          <Route exact path={['/']}>
            <Footer/>

@@ -24,17 +24,21 @@ router.get('/', async (req,res)=>{
     }
 }); 
 
+
+const getCartByUserId = async (req,res) =>{
+    try{   
+        
+        const carts = await Cart.findOne({userId:req.params.userId});
+        res.json({cart:carts,status:200})
+  }catch(error){
+
+      res.json({message:error});
+  }
+}
 //get specific user carts
 
 router.get('/:userId', async (req,res)=>{
-    try{   
-        
-          const carts = await Cart.findOne({userId:req.params.userId});
-          res.json({cart:carts,status:200})
-    }catch(error){
-
-        res.json({message:error});
-    }
+        getCartByUserId(req,res)
 });
 // submit a Cart
 
@@ -297,20 +301,21 @@ router.patch('/specs/measurement',async (req,res)=>{
 });
 
 //update cart set tempid to permanentid
-router.patch('/updateuserid/:tempuserId',async (req,res)=>{
+router.patch('/updateuserid/:tempuserId/:userId',async (req,res)=>{
 
     try{
        
-        Cart.findOneAndUpdate({userId:req.params.tempuserId
+        Cart.updateMany({userId:req.params.tempuserId
                 },
             {
                 $set: {
-                      userId:req.body.userId,
+                      userId:req.params.userId,
                       }
             },   
             { new:true,useFindAndModify:false}).then(ret=>{
             
-            res.json(ret);
+                getCartByUserId(req,res)
+
               
         });
         

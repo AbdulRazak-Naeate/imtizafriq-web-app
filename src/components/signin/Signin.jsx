@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 import {Typography,Button}  from '@mui/material';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
-function Signin({handleCloseModal,handleSwitchForm}) {
+function Signin({handleCloseModal,handleSwitchForm,replacePermanentId}) {
           const [email,setEmail]=useState('');
           const [password,setPassword]=useState('');
           const [error,setError]=useState(false);
@@ -59,7 +59,7 @@ function Signin({handleCloseModal,handleSwitchForm}) {
 
           const SignUp =(user)=>{
 
-            const url = 'http://localhost:3001/api/user/register';
+            const url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/user/register`;
             let fullname=user.displayName;
             const nameArr=fullname.split(" ");
             console.log(nameArr)
@@ -76,7 +76,7 @@ function Signin({handleCloseModal,handleSwitchForm}) {
           };
           /* 
           const checkuserByEmail = async (email,user) =>{
-            const url = `http://localhost:3001/api/user`;
+            const url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/user`;
            
            return await post(url).then((res)=>{
              if (res.status===400){//user not signup yet create account for the user
@@ -122,7 +122,7 @@ function Signin({handleCloseModal,handleSwitchForm}) {
       
         const LogIn = () =>{
           
-          const url ='http://localhost:3001/api/user/login';
+          const url =`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/user/login`;
       
           return  axios.post(url, {
            email: email ,
@@ -130,21 +130,7 @@ function Signin({handleCloseModal,handleSwitchForm}) {
          });
           
          };
-       const replacePermanentId= (user)=>{
-        var tempid=localStorage.getItem('temp_id');
-        console.log("tempid " + user._id)
-        if (tempid!==""){
-         var url=`http://localhost:3001/api/carts/updateuserid/${tempid}`
-          axios.patch(url,{userId:user._id}).then((response)=>{
-            console.log(response)
-          })
-          var orderurl=`http://localhost:3001/api/orders/updateuserid/${tempid}`
-          axios.patch(orderurl,{userId:user._id}).then((response)=>{
-            console.log(response)
-          })
-       }
-       }
-        
+      
   return (
     <div className="loginContainer">
            <div className="FormWrapper">

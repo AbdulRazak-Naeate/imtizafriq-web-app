@@ -29,17 +29,19 @@ router.get('/', async(req,res)=>{
       res.json({message:err})
     }
 });
-
+  const getAllOrders = async (req,res)=>{
+    try{
+      var currentDate= new Date()
+      const orders = await Order.find({$or:[{userId:req.params.userId,expires:{$gt:currentDate}},{userId:req.params.userId,expires:{$gt:currentDate},status:'Pending'}]}); //get approved or completed order which are lessthan 6 months 
+      res.json({orders:orders,status:200});
+      
+    }catch(err){
+      res.json({message:err});
+    }
+  }
 //get all Orders base on user Id
 router.get('/user/:userId', async(req,res)=>{
-  try{
-    var currentDate= new Date()
-    const orders = await Order.find({$or:[{userId:req.params.userId,expires:{$gt:currentDate}},{userId:req.params.userId,expires:{$gt:currentDate},status:'Pending'}]}); //get approved or completed order which are lessthan 6 months 
-    res.json({orders:orders,status:200});
-    
-  }catch(err){
-    res.json({message:err});
-  }
+       getAllOrders(req,res);
 });
 
 //get all Orders base on Store Id and Approved status to populates as sales records
@@ -196,16 +198,18 @@ router.patch('/many/:ids',async (req,res)=> {
 
  
 //update order with temp id to permanent id for user whol already made order without signed in but currently signining 
-router.patch('/updateuserid/:tempuserId',async (req,res)=> {
+router.patch('/updateuserid/:tempuserId/:userId',async (req,res)=> {
   try{
-          await Order.findOneAndUpdate(
+          await Order.updateMany(
           {userId: req.params.tempuserId},
           {
-           $set:{userId:req.body.userId},
+           $set:{userId:req.params.userId},
           },
           {new:true,useFindAndModify:false}
           ).then(ret=>{
-              res.json(ret);
+            
+            getAllOrders(req,res);
+
           });
         
   }catch(err){
