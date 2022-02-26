@@ -72,7 +72,7 @@ router.post('/',uploadImage('./server/uploads/products'),verify, async(req,res)=
 
 
 //Submit a prefare Style product
-router.post('/prefstyle', async(req,res)=>{
+router.post('/prefstyle',uploadImage('./server/uploads/products/prefarestyleproducts'), async(req,res)=>{
     console.log(req.body)
     // const userId = req.user._id; //get userid
  

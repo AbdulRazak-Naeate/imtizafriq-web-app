@@ -4,7 +4,7 @@ import { AddShoppingCart } from '@material-ui/icons';
 import React from 'react';
 import useStyles from './styles';
 import {Link } from 'react-router-dom';
-import { formatWithCurrencySymbol, truncateString } from '../../../utils/Utils';
+import { formatWithCurrencySymbol } from '../../../utils/Utils';
 
 
 const ProductDetails = ({product ,handleMakeOrder}) => {

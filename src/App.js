@@ -109,8 +109,6 @@ const analytics = getAnalytics(app);
     
      const[isSlidesLoaded,setIsSlidesLoaded]=useState(false);
      const [slidesImages,setSlidesImages]=useState([]);
-     const [phone,setPhone]=useState('');
-     const [email,setemail]=useState('');
      const[contacts,setContacts]=useState([])
      const [isContactsLoaded,setIsContactsLoaded]=useState(false)
 
@@ -533,6 +531,7 @@ const searchProduct =(searchString)=>{
   return axios.get(url)
 
 };
+   
 
    useEffect(() => {
      
@@ -671,8 +670,8 @@ const searchProduct =(searchString)=>{
         /*    let instagramUrl=response.data.socialContacts[0].Contacts[1].linktext */
            let emailUrl=response.data.contacts[0].contacts[1].contacttext
  
-           setPhone(phoneUrl   ? phoneUrl   : '')
-           setemail(emailUrl     ? emailUrl    : '')
+          /*  setPhone(phoneUrl   ? phoneUrl   : '')
+           setemail(emailUrl     ? emailUrl    : '') */
            setContacts(response.data.contacts[0].contacts)
           //getObjectbyValue(response.data.socialContacts,'email')
         }catch(err){

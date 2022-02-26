@@ -9,8 +9,8 @@ import 'react-s-alert/dist/s-alert-css-effects/stackslide.css';
 import 'react-s-alert/dist/s-alert-css-effects/jelly.css';
 import axios,{post} from 'axios';
 import { randNumber } from '../../utils/Utils';
-import FormData from 'form-data';
-
+/* import body from 'form-data';
+ */
 const PrefareStyleCheckout = ({onAddToCart}) => {
   
     const classes=useStyles();
@@ -73,37 +73,27 @@ const initiateAndCreateProduct =()=>{
   formData.append('specification', "none");
   formData.append('digital_product_url', 'null');//append digital
   formData.append('stock','0');
-  formData.append('active','null');
+  formData.append('active','0');
   formData.append('product_type','special');
-  console.log(JSON.stringify(formData));
+  //console.log(JSON.stringify(formData));
 
   //append files to image to create an a file array
 
-  for (var i = 0; i <= productImages.length; i++) {
-    formData.append('image', productImages[i]);
+  //for (var i = 0; i <= productImages.length; i++) {
+    formData.append('image', productImages);
     console.log(productImages);
-  }
-  var image= productImages[0];
-      console.log(image);
+ // }
 
-  const obj={
-    name:productname,
-    price:'150',
-    description:'null',
-    specification:'none',
-    digital_product_url:'digital_product_url',
-    product_type:'special',
-    image:image
-}
   const config = {
     headers: {
-      'Content-Type':'multipart/form-data',
-      'auth-token': user.auth_token,
+      'Content-Type': 'multipart/form-data',
+     /*  'auth-token': user.auth_token, */
     },
   }
-  return post(url,formData,config)
+  return axios.post(url, formData, config)
 
 };
+
     const handleMakeOrder=()=>{
       if (loadedImage.length > 0){
         initiateAndCreateProduct().then((response) => {
