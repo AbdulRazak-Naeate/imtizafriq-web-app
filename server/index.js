@@ -5,7 +5,8 @@ require('dotenv/config');
 const dotenv = require('dotenv');
 const app = express();
 const cors = require('cors');
- 
+const path = require('path');
+
 
 //Import Routes
 const productsRoute     = require('./routes/products');
@@ -77,7 +78,14 @@ mongoose.connect(process.env.DB_COMMUNITY_CON, options)
         console.error('connection eror: ',err)
      })
 
-    
+     if (process.env.NODE_ENV === 'production') {
+        // Serve any static files
+        app.use(express.static(path.join(__dirname, 'build')));
+      // Handle React routing, return all requests to React app
+        app.get('*', function(req, res) {
+          res.sendFile(path.join(__dirname, 'build', 'index.html'));
+        });
+      }  
 //Start lestening to the server
 app.set('PORT',  process.env.REACT_APP_SERVER_PORT || 3001);
 app.listen(app.get('PORT'),()=>{
