@@ -46,7 +46,7 @@ const PrefareStyleCheckout = ({onAddToCart}) => {
     }
 }
    
-const initiateAndCreateProduct =()=>{
+const initiateAndCreateProduct =(sizes)=>{
   
   const url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/products/prefstyle`;
 
@@ -75,6 +75,10 @@ const initiateAndCreateProduct =()=>{
   formData.append('stock','0');
   formData.append('active','0');
   formData.append('product_type','special');
+  for (let i=0 ;i<sizes.length;i++){
+    formData.append('size',sizes[i]);
+
+  }
   //console.log(JSON.stringify(formData));
 
   //append files to image to create an a file array
@@ -94,9 +98,9 @@ const initiateAndCreateProduct =()=>{
 
 };
 
-    const handleMakeOrder=()=>{
+    const handleMakeOrder=(sizes)=>{
       if (loadedImage.length > 0){
-        initiateAndCreateProduct().then((response) => {
+        initiateAndCreateProduct(sizes).then((response) => {
           console.log(response.data);
          if (response.data.status===200){
           //window.location.reload();

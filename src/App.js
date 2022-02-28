@@ -18,7 +18,10 @@ import { blue, orange,red} from '@mui/material/colors';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-
+import Alert from 'react-s-alert';
+import 'react-s-alert/dist/s-alert-default.css';
+import 'react-s-alert/dist/s-alert-css-effects/stackslide.css';
+import 'react-s-alert/dist/s-alert-css-effects/jelly.css';
 function App() {
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -347,7 +350,11 @@ const analytics = getAnalytics(app);
       if (response.status===200){
         setCart(response.data.cart)
         setCartItemsCount(response.data.cart.items.length);
+        Alert.success(response.data.message, {
+          position: 'top-right',
+          effect: 'jelly'
 
+      });
       }else{
        
       

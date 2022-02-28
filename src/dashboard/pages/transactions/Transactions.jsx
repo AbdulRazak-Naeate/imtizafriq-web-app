@@ -26,9 +26,9 @@ const Transactions = () => {
   const [istransactionsLoaded,setIstransactionsLoaded]=useState(false);
 
    // const history=useHistory();
-  const componentRef = useRef();
+   //const componentRef = useRef();
 
-   const handlePrint = ()=>{
+   /* const handlePrint = ()=>{
     setOpenModal(true);
     setTranxData(selectedRows);
     
@@ -38,7 +38,7 @@ const Transactions = () => {
        return(
          <div>userDetails</div>
        )
-     }
+     } */
      const handleClickOpen = (row) => {
            setOrderId(row._id);
            switch (row.status) {
@@ -55,13 +55,13 @@ const Transactions = () => {
        
 
       };
-    const handleOpenTransacModal =(data)=>{
+   /*  const handleOpenTransacModal =(data)=>{
        setOpenModal(true);
        var arr=[];
            arr.push(data)
        setTranxData(arr);
       
-    }
+    } */
     const handleCloseTransacModal = () =>{ 
       setOpenModal(false);
     }

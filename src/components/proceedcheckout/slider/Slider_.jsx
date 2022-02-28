@@ -1,5 +1,4 @@
 import React from 'react'
-import 'react-alice-carousel/lib/alice-carousel.css';
 import './styles.css';
 import Slider from "react-slick";
 
