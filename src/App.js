@@ -114,6 +114,10 @@ const analytics = getAnalytics(app);
      const [slidesImages,setSlidesImages]=useState([]);
      const[contacts,setContacts]=useState([])
      const [isContactsLoaded,setIsContactsLoaded]=useState(false)
+     const [isFavoritesLoaded,setIsFavoritesLoaded]=useState(false)
+     const [isProductsLoaded,setIsProductsLoaded]=useState(false)
+     const [isCartsLoaded,setIsCartsLoaded]=useState(false)
+     const [isOrdersLoaded,setIsOrdersLoaded]=useState(false)
 
      const paths=['/','/cart','/checkout','/orders','/proceedcheckout','/prefaredstylecheckout','/account','/aboutus'];
   
@@ -652,19 +656,25 @@ const searchProduct =(searchString)=>{
   try{
     if (!history.location.pathname.includes('dashboard')){
      
-      getFavorites();
-      getProducts();
-      handlegetCart();
-      getOrders();
+   if(!isFavoritesLoaded) {getFavorites();}
+   if(!isProductsLoaded) { getProducts();}
+   if(!isCartsLoaded)    { handlegetCart();}
+   if(!isOrdersLoaded)   {getOrders();}
+   
      
      
     }
   }catch(err){
     console.log(err)
   }
-    
+    return()=>{
+      setIsFavoritesLoaded( true);
+      setIsProductsLoaded(true);
+      setIsCartsLoaded(true);
+      setIsOrdersLoaded(true);
+    }
 
-   },[userid,user,history])
+   },[userid, user, history, isFavoritesLoaded, isProductsLoaded, isCartsLoaded, isOrdersLoaded])
    useEffect(()=>{
     const handlegetLinks = async ()=>{
       const url=`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/contacts`

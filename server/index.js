@@ -26,7 +26,7 @@ const countries         = require('./routes/world/countries');
 const states            = require('./routes/world/states');
 const cities            = require('./routes/world/cities');
 const sociallinksRoute  = require('./routes/socialmedialinks');
-const contactsRoute  = require('./routes/contacts');
+const contactsRoute     = require('./routes/contacts');
 dotenv.config();
 
 const whitelist = ['http://localhost:3000', 'http://localhost:8080', 'https://hidden-forest-01999.herokuapp.com/']
