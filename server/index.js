@@ -28,8 +28,22 @@ const cities            = require('./routes/world/cities');
 const sociallinksRoute  = require('./routes/socialmedialinks');
 const contactsRoute  = require('./routes/contacts');
 dotenv.config();
+
+const whitelist = ['http://localhost:3000', 'http://localhost:8080', 'https://hidden-forest-01999.herokuapp.com/']
+const corsOptions = {
+  origin: function (origin, callback) {
+    console.log("** Origin of request " + origin)
+    if (whitelist.indexOf(origin) !== -1 || !origin) {
+      console.log("Origin acceptable")
+      callback(null, true)
+    } else {
+      console.log("Origin rejected")
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
 //MiddleWare
-app.use(cors()); // package to allow connections from outisde domains
+app.use(cors(corsOptions)); // package to allow connections from outisde domains
 app.use(express.json()); //body-parser alternate
 app.use(pino);
 
