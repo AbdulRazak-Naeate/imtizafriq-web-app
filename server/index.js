@@ -75,7 +75,7 @@ mongoose.connect(process.env.DB_COMMUNITY_CON, options)
          console.log('Database connected : ')
     })  
     db.on('error',err =>{
-        console.error('connection eror: ',err)
+        console.error('connection eror:',err)
      })
 
      if (process.env.NODE_ENV === 'production') {

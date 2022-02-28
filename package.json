@@ -55,6 +55,9 @@
     "server": "node-env-run server --exec nodemon | pino-colada",
     "dev": "run-p server start"
   },
+  "engines": {
+    "node": "v16.13.0"
+  },
   "proxy": "http://localhost:3001",
   "eslintConfig": {
     "extends": [
