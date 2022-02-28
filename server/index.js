@@ -43,7 +43,7 @@ const corsOptions = {
   }
 }
 //MiddleWare
-app.use(cors(corsOptions)); // package to allow connections from outisde domains
+app.use(cors()); // package to allow connections from outisde domains
 app.use(express.json()); //body-parser alternate
 app.use(pino);
 
