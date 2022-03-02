@@ -82,7 +82,6 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
-    "express-pino-logger": "^6.0.0",
     "node-env-run": "^4.0.2",
     "nodemon": "^2.0.12",
     "npm-run-all": "^4.1.5",
