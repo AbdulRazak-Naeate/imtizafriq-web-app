@@ -1,5 +1,5 @@
 const express = require('express');
-//const pino = require('express-pino-logger');
+const pino = require('express-pino-logger');
 const mongoose = require('mongoose');
 require('dotenv/config');
 const dotenv = require('dotenv');
