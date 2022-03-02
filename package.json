@@ -49,7 +49,7 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "heroku-postbuild": "npm run install && npm run build",
+    "heroku-postbuild": "npm run install && Npm audit fix --force && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server/index.js"
   },
