@@ -1,5 +1,5 @@
 const express = require('express');
-const pino = require('express-pino-logger');
+//const pino = require('express-pino-logger');
 const mongoose = require('mongoose');
 require('dotenv/config');
 const dotenv = require('dotenv');
@@ -45,7 +45,7 @@ const corsOptions = {
 //MiddleWare
 app.use(cors()); // package to allow connections from outisde domains
 app.use(express.json()); //body-parser alternate
-app.use(pino);
+//app.use(pino);
 
 // This endpoint is pinged every 5 mins by uptimerobot.com to prevent 
 // free services like Heroku and Now.sh from letting the app go to sleep.
