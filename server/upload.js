@@ -21,7 +21,6 @@ const storage = multer.diskStorage({
   return uploadImage; 
 }
 const uploadImage = (uploadpath)=>{
-    console.log('upload path '+uploadpath)
     //Images Upload path and file names
   const storage = multer.diskStorage({
 

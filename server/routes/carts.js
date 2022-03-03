@@ -423,7 +423,8 @@ const exactMatchQuantity =(matchItems,productId)=>{//search and get the exact ca
 }
 const updateSubtotal = async (req,res) =>{//sum all line_items_sub_price
      var subtotal = 0;
-  const aggr= await Cart.aggregate([{$match:{userId:req.body.userId}},{$unwind:"$items"},
+     console.log("userId "+req.body.userId)
+  const aggr = await Cart.aggregate([{$match:{userId:req.body.userId}},{$unwind:"$items"},
         {$match:{'items.selected':true}},
     {
         $group:{
@@ -431,7 +432,7 @@ const updateSubtotal = async (req,res) =>{//sum all line_items_sub_price
             "subTotal":{$sum:"$items.line_item_sub_price"}
      
           }
-   }]).then((ret=>{ 
+   }]).then((ret =>{ 
        //update subtotal 
         
     try{

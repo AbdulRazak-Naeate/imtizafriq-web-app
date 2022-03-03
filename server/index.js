@@ -1,5 +1,5 @@
 const express = require('express');
-const pino = require('express-pino-logger');
+const pino = require('express-pino-logger')();
 const mongoose = require('mongoose');
 require('dotenv/config');
 const dotenv = require('dotenv');
@@ -45,7 +45,7 @@ const corsOptions = {
 //MiddleWare
 app.use(cors()); // package to allow connections from outisde domains
 app.use(express.json()); //body-parser alternate
-//app.use(pino);
+app.use(pino);
 
 // This endpoint is pinged every 5 mins by uptimerobot.com to prevent 
 // free services like Heroku and Now.sh from letting the app go to sleep.
@@ -94,14 +94,14 @@ mongoose.connect(process.env.DB_COMMUNITY_CON, options)
      console.log(process.env.NODE_ENV)
      if (process.env.NODE_ENV === 'production') {
         // Serve any static files
-        app.use(express.static(path.join(__dirname, '../build')));
+        app.use(express.static(path.join(__dirname, '../client/build')));
       // Handle React routing, return all requests to React app
         app.get('*', function(req, res) {
-          res.sendFile(path.join(__dirname, '../build', 'index.html'));
+          res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
         });
       }  
 //Start lestening to the server
-app.set('PORT',  process.env.REACT_APP_SERVER_PORT || 3001);
+app.set('PORT',  process.env.REACT_APP_SERVER_PORT);
 app.listen(app.get('PORT'),()=>{
     console.log(`Server is running on ${app.get('PORT')}`);
 });
