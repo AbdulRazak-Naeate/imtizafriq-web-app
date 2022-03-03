@@ -82,7 +82,7 @@ app.use('/api/contacts',contactsRoute);
  })
 const options={ useNewUrlParser: true ,useUnifiedTopology: true,useCreateIndex:true,useFindAndModify:false }
 //Connect to DB
-mongoose.connect(process.env.DB_COMMUNITY_CON, options)
+mongoose.connect(process.env.DB_CONNECTION, options)
 
     const db = mongoose.connection
     db.once('open', _ =>{
