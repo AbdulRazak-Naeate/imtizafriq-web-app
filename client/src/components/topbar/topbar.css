@@ -1,0 +1,169 @@
+.topbar{
+    width: 100%;
+    background-color: cornflowerblue;
+ /*    #4d97f3 #59f cornflowerblue hsl(213,87,62) rgb(77,151,243) */
+    position: sticky;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+}
+.topbarContact{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    color: darkgray;
+    background-color: snow;
+    padding:2px 15px;
+}
+.topbarContactLeft{
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    width: 6%;
+    border: 0px solid;
+
+}.topbarContactRight{
+    display: flex;
+    justify-content: space-between;
+    align-items:flex-start;
+    width: 38%;
+
+}
+.topbarinfoIcon{
+    width: 5px;
+    cursor:pointer;
+    margin-bottom: -5px;
+    margin-right: 5px;
+}
+.topleftTypo{
+    margin-bottom: -5px !important;
+}
+
+.topnavlink{
+
+    text-decoration: none;
+    color: darkgray;
+
+    
+}
+
+
+.topnavlink  :hover{
+    color:goldenrod !important;
+}
+.topbarActions{
+    height: 80%;
+    padding: 0px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.logowrapper{
+    display: flex;
+    justify-content:flex-start;
+    align-items: center;
+    border: 0px solid;
+    width: 100%;
+    height: 100%;
+}
+.logo-img{
+    width:100%;
+    height:40px;
+}
+.siteName{
+    font-weight: bold;
+    font-style: 30px;
+    color:snow;
+    cursor: pointer;
+    margin-left: 10px;
+}
+.topLeft{
+    border:0px solid;
+    width: 20%;
+    height: 50px;
+    margin-top: 10px;
+    
+
+}
+.topRight{
+    display: flex;
+    align-items: center;
+}
+.topbarIonContainer{
+    position: relative;
+    cursor:pointer;
+    color: #fff;
+    margin-left: 25px;
+}
+.topIconBadge{
+    width: 15px;
+    height: 15px;
+    position: absolute; 
+    top:-5px;
+    right: 0px;
+    background-color: #efa41c;
+    color: white;
+    border-radius: 50%; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+}
+.topAvatar{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.link{
+    text-decoration: none;
+    color: #fff;
+}
+.searchfield{
+    border: 0px solid seashell;
+    width: 350px;
+}
+.bottomnav{
+    display: none;
+}
+
+@media only screen and (max-device-width:620px) {
+    .topbar{
+        height: 60px;}
+    .topbarContact, .siteName{
+    display: none;
+    }
+   
+    .topbarActions{
+        height: 100%;
+    } .topRight{
+      display:none;
+    }
+    .searchfield{
+        display: block;
+        width:65%;
+    }
+    .bottomnav{
+        display: block;
+    }
+    .topbarContactRight{
+        border: 0px solid;
+        width: 50%;
+    
+    }
+}
+@media only screen and (max-device-width:420px) {
+   
+}
+
+@media only screen and (max-device-width:820px) {
+    .topbarContactRight{
+        border: 0px solid;
+        width: 50%;
+    
+    } .siteLogo{
+        width: 90%;
+    
+    }
+}
+

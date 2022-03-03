@@ -1,0 +1,10 @@
+.settings{
+    flex: 4;
+    padding: 20px;
+    margin-bottom: 50px;
+}
+.settingsTitleContainer{
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+}

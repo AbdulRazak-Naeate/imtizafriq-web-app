@@ -1,0 +1,23 @@
+.awesomeSlider{
+   height: 100px !important;
+}
+
+.autoSlider{
+    height: 400px;
+}
+.awssld__content{
+  background-color: #fff;
+}
+.awssld__content img{
+    height:400px
+}
+
+.awssld__timer{
+    opacity:0;
+}
+.awssld__timer--animated{
+    opacity: 0;
+}
+.awssld__timer--run{
+    opacity: 0;
+}
