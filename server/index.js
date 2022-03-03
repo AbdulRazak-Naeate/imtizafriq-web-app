@@ -101,7 +101,7 @@ mongoose.connect(process.env.DB_CONNECTION, options)
         });
       }  
 //Start lestening to the server
-app.set('PORT',  process.env.REACT_APP_SERVER_PORT);
+app.set('PORT',  process.env.REACT_APP_SERVER_PORT || 3001);
 app.listen(app.get('PORT'),()=>{
     console.log(`Server is running on ${app.get('PORT')}`);
 });
