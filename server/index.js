@@ -76,10 +76,10 @@ app.use('/api/cities',cities);
 app.use('/api/socialmedialinks',sociallinksRoute)
 app.use('/api/contacts',contactsRoute);
 
-//Home Routes
+/* //Home Routes
  app.get('/',(req,res)=>{
      res.send('IntizAfriq Web App  version 0.1')
- })
+ }) */
 const options={ useNewUrlParser: true ,useUnifiedTopology: true,useCreateIndex:true,useFindAndModify:false }
 //Connect to DB
 mongoose.connect(process.env.DB_CONNECTION, options)
@@ -91,7 +91,6 @@ mongoose.connect(process.env.DB_CONNECTION, options)
     db.on('error',err =>{
         console.error('connection eror:',err)
      })
-     console.log(process.env.NODE_ENV)
      if (process.env.NODE_ENV === 'production') {
         // Serve any static files
         app.use(express.static(path.join(__dirname, '../client/build')));
