@@ -21,7 +21,7 @@ const CheckOut = ({cart,order,onCaptureCheckout,error}) => {
     
     useEffect(() => {
       const getToken = async (cartid)=>{
-        const url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/carts/generate_token`;
+        const url = `/api/carts/generate_token`;
        
      
         return axios.patch(url,{

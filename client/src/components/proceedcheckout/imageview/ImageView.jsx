@@ -6,7 +6,7 @@ const ImageView = ({images}) => {
     const classes=useStyle();
     const[imageIndex,setImageIndex]=useState(0);
     const[selected,setselected]=useState(0)
-    const[url]=useState(`http://localhost:${process.env.REACT_APP_SERVER_PORT}/server/uploads/products/`)
+    const[url]=useState(`/server/uploads/products/`)
    const onThumbNailCLick=(index)=>{
      setselected(index)
      setImageIndex(index)
@@ -29,7 +29,7 @@ const ImageView = ({images}) => {
 
      <div className={classes.previewContainer}>
            <Card>
-            <CardMedia className={classes.mediaPreview} id="img-preview"  image={`http://localhost:${process.env.REACT_APP_SERVER_PORT}/server/uploads/products/${images[imageIndex].filename}`} title={images[imageIndex].name}/>
+            <CardMedia className={classes.mediaPreview} id="img-preview"  image={`/server/uploads/products/${images[imageIndex].filename}`} title={images[imageIndex].name}/>
             </Card>
      </div>
      

@@ -4,7 +4,7 @@ import useStyles from './styles';
 import './styles.css';
 const OrderItem = ({order,onReviewClick}) => {
     const classes=useStyles();
-    const [imagepath]=useState(order.orderType==='normal' ? `http://localhost:${process.env.REACT_APP_SERVER_PORT}/server/uploads/products/${order.filename}` : `http://localhost:${process.env.REACT_APP_SERVER_PORT}/server/uploads/products/prefarestyleproducts/${order.filename}`);
+    const [imagepath]=useState(order.orderType==='normal' ? `/server/uploads/products/${order.filename}` : `/server/uploads/products/prefarestyleproducts/${order.filename}`);
 
 
 

@@ -48,7 +48,7 @@ const PrefareStyleCheckout = ({onAddToCart}) => {
    
 const initiateAndCreateProduct =(sizes)=>{
   
-  const url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/products/prefstyle`;
+  const url = `/api/products/prefstyle`;
 
   //console.log(colors);
   const formData = new FormData();
