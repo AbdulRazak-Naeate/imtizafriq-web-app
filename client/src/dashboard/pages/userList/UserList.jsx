@@ -17,7 +17,7 @@ function UserList(){
    const fetchUsers = async () => {//get User Stores 
  
     try {
-   const res = await fetch(`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/user/`);
+   const res = await fetch(`/api/user/`);
    const data = await res.json();
   
    return data.users;
