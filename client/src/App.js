@@ -708,7 +708,7 @@ const searchProduct =(searchString)=>{
 
     const loadSlides =async ()=>{
      try{
-      const url =`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/slides/`
+      const url =`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/slides/` 
            await axios.get(url).then((response)=>{
            console.log(response.data.slides);
            setSlidesImages(response.data.slides[0].image)
