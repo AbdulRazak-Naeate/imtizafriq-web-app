@@ -157,7 +157,7 @@ const initiateCities = async (db,citiesJSON) =>{
   
   const SignUp =()=>{
         
-    const url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/user/register`;
+    const url = `/api/user/register`;
 
    
     const formData = new FormData();
