@@ -29,7 +29,8 @@ const sociallinksRoute  = require('./routes/socialmedialinks');
 const contactsRoute     = require('./routes/contacts');
 dotenv.config();
 
-const whitelist = ['http://localhost:3000', 'http://localhost:8080', 'https://hidden-forest-01999.herokuapp.com/']
+const whitelist = ['http://localhost:3000', 'http://localhost:8080', 'https://imtiz.herokuapp.com/']
+
 const corsOptions = {
   origin: function (origin, callback) {
     console.log("** Origin of request " + origin)
