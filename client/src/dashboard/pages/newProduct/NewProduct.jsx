@@ -145,7 +145,7 @@ export default function NewProduct({products,setProducts}) {
       }
      const initiateAndCreateProduct =()=>{
         
-        const url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/products/`;
+        const url = `/api/products/`;
     
         console.log(colors);
         const formData = new FormData();

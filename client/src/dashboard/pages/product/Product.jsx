@@ -72,7 +72,7 @@ export default function Product() {
       }
 
       const editProduct =()=>{
-        const url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/products/${productid}`;
+        const url = `/api/products/${productid}`;
         const colval=getValues('color');
         console.log(colval);
        // const sizeval=getValues('size');
@@ -107,7 +107,7 @@ export default function Product() {
       useEffect(()=>{
           
           const getSalesPerformance = async() =>{
-             const url =`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/analytics/transactions/product/sales/monthly/${product._id}`
+             const url =`/api/analytics/transactions/product/sales/monthly/${product._id}`
           
              await axios.post(url,{year:2022}).then((response)=>{
                     console.log(response.data.monthlySales);
@@ -143,7 +143,7 @@ export default function Product() {
                 </div>
                 <div className="productTopRight">
                     <div className="productInfoTop">
-                        <img src={`http://localhost:${process.env.REACT_APP_SERVER_PORT}/server/uploads/products/${product.image[0].filename}`} alt="" className="productInfoImg" />
+                        <img src={`/server/uploads/products/${product.image[0].filename}`} alt="" className="productInfoImg" />
                        <span className="productName">{productname}</span>
                     </div>
                     <div className="productInfoBottom">
@@ -236,7 +236,7 @@ export default function Product() {
                     </div>
                     <div className="productFormRight">
                         <div className="productUpload">
-                            <img src={`http://localhost:${process.env.REACT_APP_SERVER_PORT}/server/uploads/products/${product.image[0].filename}`} alt="" className="productUploadImg" />
+                            <img src={`/server/uploads/products/${product.image[0].filename}`} alt="" className="productUploadImg" />
                             <label htmlFor="file" style={{display:'block'}}>
                                 <Publish/>
                             </label>

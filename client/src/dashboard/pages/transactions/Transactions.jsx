@@ -94,7 +94,7 @@ const Transactions = () => {
 }
 
 const editTransaction =(orderid)=>{
-const url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/orders/${orderid}`;
+const url = `/api/orders/${orderid}`;
 const body={
          status:status,
 }
@@ -124,7 +124,7 @@ const handleUpdateMany=(option)=>{
 
 const editTransactions =(option)=>{
   const ids=JSON.stringify(selected_Ids);
-  const url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/orders/many/${ids}`;
+  const url = `/api/orders/many/${ids}`;
 
 const body={
        status:option,
@@ -149,7 +149,7 @@ return patch(url, body,config)
      try {
        
        
-    const res = await fetch(`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/orders`);
+    const res = await fetch(`/api/orders`);
     const data = await res.json();
     console.log(data)
     return data.orders;

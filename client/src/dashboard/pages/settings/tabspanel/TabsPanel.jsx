@@ -17,7 +17,7 @@ const TabsPanel = () => {
   useEffect(()=>{
     const loadSlides =async ()=>{
      try{
-      const url =`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/slides`
+      const url =`/api/slides`
       await axios.get(url).then((response)=>{
            //console.log(response.data.slides[0].image);
            setSlidesImages(response.data.slides[0].image)
@@ -52,7 +52,7 @@ const TabsPanel = () => {
     }
     const  updateSlides =(currentfile)=>{
         
-      const url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/slides/`;
+      const url = `/api/slides/`;
   
       const formData = new FormData();
   

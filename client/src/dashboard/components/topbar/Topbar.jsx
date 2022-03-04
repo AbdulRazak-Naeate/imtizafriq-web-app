@@ -88,7 +88,7 @@ export const Topbar = () => {
                         <span className="topIconBadge">2</span> </>}
                     </div> */}
                     <div className="topbarIonContainer">
-                      <img src={`http://localhost:3001/server/uploads/users/${imagefilename}`} onClick={handleClick}  id="avatar"  onError={imgonLoadError} alt=""  className="topAvatar" /> 
+                      <img src={`/server/uploads/users/${imagefilename}`} onClick={handleClick}  id="avatar"  onError={imgonLoadError} alt=""  className="topAvatar" /> 
                     </div>
                     
                 </div>

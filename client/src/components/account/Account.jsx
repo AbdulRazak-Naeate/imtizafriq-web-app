@@ -67,7 +67,7 @@ function onFileInputChange(e) {
   }
 const handleVerifyEmail = ()=>{
 
-    const url = `http://localhost:3001/api/email`;
+    const url = `/api/email`;
 
   post(url,{email:user.email}).then((response)=>{
       console.log(response)

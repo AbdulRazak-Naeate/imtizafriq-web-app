@@ -10,7 +10,7 @@ const Confirm = () => {
      
     useEffect(()=>{
        
-        axios.post(`http://localhost:3001/api/email/confirm/${id}`).then((res)=>{
+        axios.post(`/api/email/confirm/${id}`).then((res)=>{
           setConfirming(false)
           setMessage(res.data.msg);
         })

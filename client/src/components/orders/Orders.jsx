@@ -47,7 +47,7 @@ const CommentsContainer = ({order})=>(
  </div>
  <div style={{display:'flex',justifyContent:'space-between'}}>
    <Card className={classes.ordercard}>
-      <CardMedia className={classes.media} image={`http://localhost:${process.env.REACT_APP_SERVER_PORT}/server/uploads/products/${order.filename}`}></CardMedia>
+      <CardMedia className={classes.media} image={`/server/uploads/products/${order.filename}`}></CardMedia>
     </Card> 
  </div>
    

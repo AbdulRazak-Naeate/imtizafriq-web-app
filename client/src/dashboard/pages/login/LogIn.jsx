@@ -35,7 +35,7 @@ function LogIn({toggleSideBar}) {
       
         const LogIn = () =>{
           
-          const url ='http://localhost:3002/api/user/login';
+          const url =`/api/user/login`;
       
           return  axios.post(url, {
            email: email ,
