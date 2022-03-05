@@ -25,7 +25,8 @@
     "react": "^17.0.2"
   },
   "scripts": {
-    "start": "node server/index.js -p $PORT",
+    "start": "node server -p $PORT",
+    "server": "node-env-run server --exec nodemon | pino-colada",
     "build": "cd client && npm install && npm run build"
   },
   "engines": {
