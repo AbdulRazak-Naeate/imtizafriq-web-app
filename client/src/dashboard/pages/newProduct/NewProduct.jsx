@@ -184,7 +184,7 @@ export default function NewProduct({products,setProducts}) {
     
         const config = {
           headers: {
-            'Content-Type': 'multipart/form-data',
+            'Content-Type': 'null',
             'auth-token':
               user.auth_token,
           },
