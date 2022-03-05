@@ -30,7 +30,7 @@ router.get('/',async(req,res)=>{
 });
 
 //Submit a product
-router.post('/',verify, async(req,res)=>{
+router.post('/',uploadImage('./server/uploads/products'),verify, async(req,res)=>{
 
 
 
@@ -266,3 +266,4 @@ router.patch('/updatelikes/:productId',verify,async (req,res)=> {
     }
 });
 module.exports = router;
+
