@@ -184,7 +184,7 @@ export default function NewProduct({products,setProducts}) {
     
         const config = {
           headers: {
-            'Content-Type': 'null',
+            'Content-Type':null,
             'auth-token':
               user.auth_token,
           },
