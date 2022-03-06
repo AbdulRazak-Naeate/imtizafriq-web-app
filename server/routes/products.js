@@ -37,7 +37,7 @@ router.post('/',verify, async(req,res)=>{
     //Validation
     const {error} = productValidation(req.body);
 
-    if (error) return  res.json({status:400,message:error.details[0].message});
+    if (error) return  res.json({status:400,message:error.details[0].message,d:req.body});
 
     //check if product name already exist
     const productnameExist = await Product.findOne({name:req.body.name});
