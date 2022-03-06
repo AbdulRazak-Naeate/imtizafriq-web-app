@@ -177,14 +177,14 @@ export default function NewProduct({products,setProducts}) {
      
         //append files to image to create an a file array
       
-        for (var i = 0; i <= productImages.length; i++) {
+       /*  for (var i = 0; i <= productImages.length; i++) {
           formData.append('image', productImages[i]);
           //console.log(productImages);
-        }
+        } */
     
         const config = {
           headers: {
-            'Content-Type':null,
+            'Content-Type': 'multipart/form-data',
             'auth-token':
               user.auth_token,
           },
