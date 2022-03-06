@@ -199,7 +199,9 @@ export default function NewProduct({products,setProducts}) {
               user.auth_token,
           },
         }
-        return post(url,data)
+
+       return fetch(url,{method:'POST',body:formData,'Content-Type':'multipart/form-data','auth-token':user.auth_token})
+       // return post(url,data)
       
       };
   
