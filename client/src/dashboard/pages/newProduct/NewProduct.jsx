@@ -125,7 +125,7 @@ export default function NewProduct({products,setProducts}) {
         
         e.preventDefault()// Stop form default submit
         
-            initiateAndCreateProduct().then((response) => {
+            initiateAndCreateProduct(form).then((response) => {
               console.log(response.data);
              if (response.data.status===200){
               //window.location.reload();
@@ -143,7 +143,7 @@ export default function NewProduct({products,setProducts}) {
             });
            
       }
-     const initiateAndCreateProduct =()=>{
+     const initiateAndCreateProduct =(form)=>{
         
         const url = `/api/products/`;
     
@@ -200,7 +200,7 @@ export default function NewProduct({products,setProducts}) {
           },
         }
 
-       return fetch(url,{method:'POST',body:formData,headers:{'auth-token':user.auth_token}})
+       return fetch(url,{method:'POST',body:new FormData(form),headers:{'auth-token':user.auth_token}})
        // return post(url,data)
       
       };
