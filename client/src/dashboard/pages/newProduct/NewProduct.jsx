@@ -174,7 +174,17 @@ export default function NewProduct({products,setProducts}) {
         formData.append('length',productImages.length);
 
         console.log(JSON.stringify(formData));
-     
+      const data ={
+        'name': name,
+         'price': price,
+        'category':category,
+        'description': description,
+        'specification': specification,
+        'digital_product_url': digitalProductUrl,
+        'stock' : stock,
+        'active' : active,
+        'length': productImages.length
+       }
         //append files to image to create an a file array
       
        /*  for (var i = 0; i <= productImages.length; i++) {
@@ -189,7 +199,7 @@ export default function NewProduct({products,setProducts}) {
               user.auth_token,
           },
         }
-        return post(url, formData, config)
+        return post(url, data, config)
       
       };
   
