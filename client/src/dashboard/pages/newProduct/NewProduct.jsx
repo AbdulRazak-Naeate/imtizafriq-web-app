@@ -125,7 +125,7 @@ export default function NewProduct({products,setProducts}) {
         
         e.preventDefault()// Stop form default submit
         
-            initiateAndCreateProduct(form).then((response) => {
+            initiateAndCreateProduct().then((response) => {
               console.log(response.data);
              if (response.data.status===200){
               //window.location.reload();
@@ -143,7 +143,7 @@ export default function NewProduct({products,setProducts}) {
             });
            
       }
-     const initiateAndCreateProduct =(form)=>{
+     const initiateAndCreateProduct =()=>{
         
         const url = `/api/products/`;
     
@@ -163,7 +163,7 @@ export default function NewProduct({products,setProducts}) {
             formData.append('size', sizes[j]);
           }
         }
-        formData.append('productname', name);
+        formData.append('name', name);
         formData.append('price', price);
         formData.append('category',category);
         formData.append('description', description);
@@ -194,13 +194,13 @@ export default function NewProduct({products,setProducts}) {
     
         const config = {
           headers: {
-            'Content-Type': 'multipart/form-data',
+            'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryzQElRDhS4p8IlwgX',
             'auth-token':
               user.auth_token,
           },
         }
 
-       return fetch(url,{method:'POST',body:new FormData(form),headers:{'auth-token':user.auth_token}})
+       return fetch(url,{method:'POST',body:formData,headers:{'auth-token':user.auth_token}})
        // return post(url,data)
       
       };
