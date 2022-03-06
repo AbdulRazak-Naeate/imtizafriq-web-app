@@ -200,7 +200,7 @@ export default function NewProduct({products,setProducts}) {
           },
         }
 
-       return fetch(url,{method:'POST',body:formData,headers:{'Content-Type':'multipart/form-data','auth-token':user.auth_token}})
+       return fetch(url,{method:'POST',body:formData,headers:{'auth-token':user.auth_token}})
        // return post(url,data)
       
       };
