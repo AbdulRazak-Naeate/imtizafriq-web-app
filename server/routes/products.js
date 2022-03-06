@@ -39,10 +39,12 @@ router.post('/',verify, async(req,res)=>{
     let form = new multiparty.Form();
 
     form.parse(req, function(err, fields, files) {
-         return res.json({data:fields})
-       /* Object.keys(fields).forEach(function(name) {
+        
+       Object.keys(fields).forEach(function(name) {
             console.log('got field named ' + name);
-        }); */
+            return res.json({data:name})
+
+        });
     });
     if (error) return  res.json({status:400,message:error.details[0].message,d:req.body});
 
