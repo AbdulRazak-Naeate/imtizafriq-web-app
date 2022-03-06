@@ -163,7 +163,7 @@ export default function NewProduct({products,setProducts}) {
             formData.append('size', sizes[j]);
           }
         }
-        formData.append('name', name);
+        formData.append('productname', name);
         formData.append('price', price);
         formData.append('category',category);
         formData.append('description', description);
