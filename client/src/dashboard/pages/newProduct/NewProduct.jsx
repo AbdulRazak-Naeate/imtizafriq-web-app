@@ -199,7 +199,7 @@ export default function NewProduct({products,setProducts}) {
               user.auth_token,
           },
         }
-        return post(url, data, config)
+        return post(url,data)
       
       };
   
