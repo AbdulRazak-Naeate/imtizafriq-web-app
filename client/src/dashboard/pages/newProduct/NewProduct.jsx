@@ -148,7 +148,7 @@ export default function NewProduct({products,setProducts}) {
         const url = `/api/products/`;
     
         console.log(colors);
-        const formData = new FormData();
+        let formData = new FormData();
         //getInput values
        // let colors = getInputValues('color-specs');
         //let sizes  = getInputValues('size-specs');
