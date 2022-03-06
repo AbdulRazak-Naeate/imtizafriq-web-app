@@ -229,11 +229,11 @@ export default function NewProduct({products,setProducts}) {
 
                 <div className="addProductItem">
                 <label>Name</label>
-                  <input type="text" placeholder="Name" value={name} required onChange={(e)=>{setName(e.target.value)}} />
+                  <input type="text" placeholder="Name" name='name' value={name} required onChange={(e)=>{setName(e.target.value)}} />
                 </div>
                 <div className="addProductItem">
             <label >Price</label>
-             <input type="number"  placeholder="100 pi" value={price} required onChange={(e)=>{setPrice(e.target.value)}} />
+             <input type="number"  placeholder="100 pi"  name='price'value={price} required onChange={(e)=>{setPrice(e.target.value)}} />
          </div>
 
          <div className="addProductItem">
@@ -255,13 +255,13 @@ export default function NewProduct({products,setProducts}) {
          </div>
           <div className="addProductItem">
              <label>Stock</label>
-             <input type="number" placeholder="123" required setStock={stock} onChange={onstockChange} />
+             <input type="number" placeholder="123" name='stock' required setStock={stock} onChange={onstockChange} />
            </div>
            </div>
         <div className="productFormTopItem">
       <div className="addProductItem">
            <label htmlFor="validationCustom04">Specification</label>
-          <select id="validationCustom04" value={specification} onChange={onSpecificationChange}>
+          <select id="validationCustom04" value={specification} name='specification' onChange={onSpecificationChange}>
              <option>no</option>
              <option>yes</option>
           </select> 
