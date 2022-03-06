@@ -36,16 +36,7 @@ router.post('/',verify, async(req,res)=>{
 
     //Validation
     const {error} = productValidation(req.body);
-    let form = new multiparty.Form();
 
-    form.parse(req, function(err, fields, files) {
-        
-       Object.keys(fields).forEach(function(name) {
-            console.log('got field named ' + name);
-            return res.json({data:name})
-
-        });
-    });
     if (error) return  res.json({status:400,message:error.details[0].message,d:req.body});
 
     //check if product name already exist
