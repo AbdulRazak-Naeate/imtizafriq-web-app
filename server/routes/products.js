@@ -30,7 +30,7 @@ router.get('/',async(req,res)=>{
 });
 
 //Submit a product
-router.post('/new',uploadImage('./server/uploads/products'),verify, async(req,res)=>{
+router.post('/',verify, async(req,res)=>{
 
     //Validation
     const {error} = productValidation(req.body);
