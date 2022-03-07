@@ -1,12 +1,11 @@
 const express  = require('express');
-var mongoose   = require('mongoose');
 const router   = express.Router();
 const Product  = require('../models/Product');
 const PrefStyleProduct = require('../models/PrefStyleProduct')
 const verify   = require('./verifyToken');
 const {uploadImage}   = require('../upload');
 const fs = require('fs');
-
+var mongoose=require('mongoose');
 const {productValidation} = require('../validation');
 /* 
 const MongoClient = require('mongodb').MongoClient;
@@ -31,7 +30,9 @@ router.get('/',async(req,res)=>{
 });
 
 //Submit a product
-router.post('/',verify, async(req,res)=>{
+router.post('/',uploadImage('./server/uploads/products'),verify, async(req,res)=>{
+
+
 
     //Validation
     const {error} = productValidation(req.body);
@@ -46,7 +47,8 @@ router.post('/',verify, async(req,res)=>{
     const product = new Product({
         color:req.body.color,
         size:req.body.size,
-        name:req.body.name,        description:req.body.description,
+        name:req.body.name,
+        description:req.body.description,
         category:req.body.category,
         specification:req.body.specification,
         stock:{currentstock:stockvalue,availablestock:stockvalue,
@@ -73,7 +75,9 @@ router.post('/',verify, async(req,res)=>{
 router.post('/prefstyle',uploadImage('./server/uploads/products/prefarestyleproducts'), async(req,res)=>{
     console.log(req.body)
     // const userId = req.user._id; //get userid
-  
+ 
+     //const store_Id=store._id; //get user store id
+ 
      //Validation
      //const {error} = productValidation(req.body);
  
@@ -262,3 +266,4 @@ router.patch('/updatelikes/:productId',verify,async (req,res)=> {
     }
 });
 module.exports = router;
+

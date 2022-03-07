@@ -1,13 +1,13 @@
 var bodyParser = require('body-parser')
-const express = require('express');
-const app = express();
-const pino = require('express-pino-logger')();
+const app =  require('express')();
+const pino = require('express-pino-logger');
 const mongoose = require('mongoose');
 require('dotenv/config');
 const dotenv = require('dotenv');
+dotenv.config();
 const cors = require('cors');
 const path = require('path');
-
+const PORT = process.env.PORT || 3001;
 const whitelist = ['http://localhost:3000', 'http://localhost:8080', 'https://imtiz.herokuapp.com'];
 
 const corsOptions = {
@@ -24,7 +24,8 @@ const corsOptions = {
 }
 //MiddleWare
 app.use(express.json())
-app.use(express.urlencoded({ extended: true}));
+app.use(express.urlencoded({ extended: false}));
+
 app.use(cors(corsOptions)); // package to allow connections from outisde domains
 app.use(pino);
 
@@ -48,7 +49,6 @@ const states            = require('./routes/world/states');
 const cities            = require('./routes/world/cities');
 const sociallinksRoute  = require('./routes/socialmedialinks');
 const contactsRoute     = require('./routes/contacts');
-dotenv.config();
 
 
 
@@ -105,8 +105,6 @@ mongoose.connect(process.env.DB_CONNECTION, options)
         });
       }  
 //Start lestening to the server
-app.set('PORT',  process.env.PORT || 3001);
-
-app.listen(app.get('PORT'),() => {
+app.listen(PORT,() => {
     console.log(`Server is running on ${app.get('PORT')}`);
 });
