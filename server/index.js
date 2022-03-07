@@ -1,11 +1,10 @@
 var bodyParser = require('body-parser')
 const express = require('express');
+const app = express();
 const pino = require('express-pino-logger')();
 const mongoose = require('mongoose');
 require('dotenv/config');
-
 const dotenv = require('dotenv');
-const app = express();
 const cors = require('cors');
 const path = require('path');
 
@@ -24,12 +23,12 @@ const corsOptions = {
   }
 }
 //MiddleWare
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
-// parse application/json
-app.use(bodyParser.json())
+app.use(express.json())
+app.use(express.urlencoded({ extended: true}));
 app.use(cors(corsOptions)); // package to allow connections from outisde domains
 app.use(pino);
+
+
 //Import Routes
 const productsRoute     = require('./routes/products');
 const prefarestyleProductRoute= require('./routes/prefarestyle');
