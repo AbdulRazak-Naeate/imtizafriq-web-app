@@ -34,7 +34,6 @@ router.get('/',async(req,res)=>{
 router.post('/',verify, async(req,res)=>{
 
     //Validation
-    res.json(req.body)
     const {error} = productValidation(req.body);
 
     if (error) return  res.json({status:400,message:error.details[0].message});
