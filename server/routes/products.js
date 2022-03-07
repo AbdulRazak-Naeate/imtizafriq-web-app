@@ -4,6 +4,7 @@ const router   = express.Router();
 const Product  = require('../models/Product');
 const PrefStyleProduct = require('../models/PrefStyleProduct')
 const verify   = require('./verifyToken');
+const {uploadImage}   = require('../upload');
 const fs = require('fs');
 
 const {productValidation} = require('../validation');
@@ -33,6 +34,7 @@ router.get('/',async(req,res)=>{
 router.post('/',verify, async(req,res)=>{
 
     //Validation
+    res.json(req.body)
     const {error} = productValidation(req.body);
 
     if (error) return  res.json({status:400,message:error.details[0].message});
@@ -69,7 +71,7 @@ router.post('/',verify, async(req,res)=>{
 
 
 //Submit a prefare Style product
-router.post('/prefstyle', async(req,res)=>{
+router.post('/prefstyle',uploadImage('./server/uploads/products/prefarestyleproducts'), async(req,res)=>{
     console.log(req.body)
     // const userId = req.user._id; //get userid
   

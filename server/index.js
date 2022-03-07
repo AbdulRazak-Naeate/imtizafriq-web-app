@@ -1,13 +1,36 @@
+var bodyParser = require('body-parser')
 const express = require('express');
 const pino = require('express-pino-logger')();
 const mongoose = require('mongoose');
 require('dotenv/config');
+
 const dotenv = require('dotenv');
 const app = express();
 const cors = require('cors');
 const path = require('path');
 
+const whitelist = ['http://localhost:3000', 'http://localhost:8080', 'https://imtiz.herokuapp.com'];
 
+const corsOptions = {
+  origin: function (origin, callback) {
+    console.log("** Origin of request " + origin)
+    if (whitelist.indexOf(origin) !== -1 || !origin) {
+      console.log("Origin acceptable")
+      callback(null, true)
+    } else {
+      console.log("Origin rejected")
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
+//MiddleWare
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+app.use(bodyParser.json())
+app.use(cors(corsOptions)); // package to allow connections from outisde domains
+app.use(pino);
 //Import Routes
 const productsRoute     = require('./routes/products');
 const prefarestyleProductRoute= require('./routes/prefarestyle');
@@ -29,24 +52,7 @@ const sociallinksRoute  = require('./routes/socialmedialinks');
 const contactsRoute     = require('./routes/contacts');
 dotenv.config();
 
-const whitelist = ['http://localhost:3000', 'http://localhost:8080', 'https://imtiz.herokuapp.com'];
 
-const corsOptions = {
-  origin: function (origin, callback) {
-    console.log("** Origin of request " + origin)
-    if (whitelist.indexOf(origin) !== -1 || !origin) {
-      console.log("Origin acceptable")
-      callback(null, true)
-    } else {
-      console.log("Origin rejected")
-      callback(new Error('Not allowed by CORS'))
-    }
-  }
-}
-//MiddleWare
-app.use(cors(corsOptions)); // package to allow connections from outisde domains
-app.use(express.json()); //body-parser alternate
-app.use(pino);
 
 // This endpoint is pinged every 5 mins by uptimerobot.com to prevent 
 // free services like Heroku and Now.sh from letting the app go to sleep.
