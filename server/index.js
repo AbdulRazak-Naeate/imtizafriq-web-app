@@ -29,6 +29,7 @@ app.use(express.json())
 app.use(cors(corsOptions)); // package to allow connections from outisde domains
 app.use(pino);
 
+
 //Import Routes
 const productsRoute     = require('./routes/products');
 const prefarestyleProductRoute= require('./routes/prefarestyle');
