@@ -31,7 +31,7 @@ router.get('/',async(req,res)=>{
     }
 });
 
-router.post('/new/product', async(req,res)=>{
+router.post('/', async(req,res)=>{
 var storage = multer.diskStorage({
         destination: function (req, file, cb) {
             console.log(req.body)
@@ -44,7 +44,7 @@ var storage = multer.diskStorage({
       })
 })
 //Submit a product
-router.post('/',uploadImage('./server/uploads/products'),verify, async(req,res)=>{
+/* router.post('/',uploadImage('./server/uploads/products'),verify, async(req,res)=>{
 
     
 
@@ -82,7 +82,7 @@ router.post('/',uploadImage('./server/uploads/products'),verify, async(req,res)=
     }catch(err){
         res.json({message:err})
     }
-});
+}); */
 
 
 
