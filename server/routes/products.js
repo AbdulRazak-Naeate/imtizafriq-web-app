@@ -4,7 +4,6 @@ const router   = express.Router();
 const Product  = require('../models/Product');
 const PrefStyleProduct = require('../models/PrefStyleProduct')
 const verify   = require('./verifyToken');
-const {uploadImage}   = require('../upload');
 const fs = require('fs');
 
 const {productValidation} = require('../validation');
@@ -46,8 +45,7 @@ router.post('/',verify, async(req,res)=>{
     const product = new Product({
         color:req.body.color,
         size:req.body.size,
-        name:req.body.name,
-        description:req.body.description,
+        name:req.body.name,        description:req.body.description,
         category:req.body.category,
         specification:req.body.specification,
         stock:{currentstock:stockvalue,availablestock:stockvalue,
@@ -71,7 +69,7 @@ router.post('/',verify, async(req,res)=>{
 
 
 //Submit a prefare Style product
-router.post('/prefstyle',uploadImage('./server/uploads/products/prefarestyleproducts'), async(req,res)=>{
+router.post('/prefstyle', async(req,res)=>{
     console.log(req.body)
     // const userId = req.user._id; //get userid
   
