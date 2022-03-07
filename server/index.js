@@ -26,7 +26,6 @@ const corsOptions = {
 //MiddleWare
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
-
 // parse application/json
 app.use(bodyParser.json())
 app.use(cors(corsOptions)); // package to allow connections from outisde domains
