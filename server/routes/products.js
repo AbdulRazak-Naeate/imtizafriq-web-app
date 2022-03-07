@@ -7,6 +7,8 @@ const {uploadImage}   = require('../upload');
 const fs = require('fs');
 var mongoose=require('mongoose');
 const {productValidation} = require('../validation');
+const multer  = require('multer');
+
 /* 
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert'); */
@@ -29,15 +31,28 @@ router.get('/',async(req,res)=>{
     }
 });
 
+router.post('/new/product', async(req,res)=>{
+var storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+            console.log(req.body)
+            res.json({d:req.body.description});
+          cb(null, '/tmp/my-uploads')
+        },
+        filename: function (req, file, cb) {
+          cb(null, file.fieldname + '-' + Date.now())
+        }
+      })
+})
 //Submit a product
-router.post('/',verify, async(req,res)=>{
+router.post('/',uploadImage('./server/uploads/products'),verify, async(req,res)=>{
 
+    
 
 
     //Validation
     const {error} = productValidation(req.body);
 
-    if (error) return  res.json({status:400,message:error.details[0].message,d:req.body});
+    if (error) return  res.json({status:400,message:error.details[0].message});
 
     //check if product name already exist
     const productnameExist = await Product.findOne({name:req.body.name});
@@ -266,4 +281,3 @@ router.patch('/updatelikes/:productId',verify,async (req,res)=> {
     }
 });
 module.exports = router;
-

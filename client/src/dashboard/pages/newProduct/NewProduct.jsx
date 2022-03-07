@@ -145,7 +145,7 @@ export default function NewProduct({products,setProducts}) {
       }
      const initiateAndCreateProduct =()=>{
         
-        const url = `/api/products/`;
+        const url = `/api/products/new/product`;
     
         console.log(colors);
         let formData = new FormData();
