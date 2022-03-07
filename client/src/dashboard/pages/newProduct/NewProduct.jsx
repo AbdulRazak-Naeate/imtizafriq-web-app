@@ -192,16 +192,20 @@ export default function NewProduct({products,setProducts}) {
           //console.log(productImages);
         }
     
-        const config = {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            'auth-token':
-              user.auth_token,
-          },
-        }
+       
 
-       return fetch(url,{method:'POST',body:formData,headers:{'auth-token':user.auth_token}})
-       // return post(url,data)
+       /*  fetch(url,{method:'POST',body:formData,
+       headers:{'auth-token':user.auth_token,
+                'Content-Type': 'multipart/form-data',
+      }}) */
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'auth-token':
+            user.auth_token,
+        },
+      }
+      return post(url, data, config)
       
       };
   
