@@ -7,8 +7,6 @@ const {uploadImage}   = require('../upload');
 const fs = require('fs');
 var mongoose=require('mongoose');
 const {productValidation} = require('../validation');
-const multer  = require('multer');
-
 /* 
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert'); */
@@ -31,23 +29,8 @@ router.get('/',async(req,res)=>{
     }
 });
 
-router.post('/', async(req,res)=>{
-var storage = multer.diskStorage({
-        destination: function (req, file, cb) {
-            console.log(req.body)
-            res.json({d:req.body.description});
-          cb(null, '/tmp/my-uploads')
-        },
-        filename: function (req, file, cb) {
-          cb(null, file.fieldname + '-' + Date.now())
-        }
-      })
-})
 //Submit a product
-/* router.post('/',uploadImage('./server/uploads/products'),verify, async(req,res)=>{
-
-    
-
+router.post('/new',uploadImage('./server/uploads/products'),verify, async(req,res)=>{
 
     //Validation
     const {error} = productValidation(req.body);
@@ -82,7 +65,7 @@ var storage = multer.diskStorage({
     }catch(err){
         res.json({message:err})
     }
-}); */
+});
 
 
 
