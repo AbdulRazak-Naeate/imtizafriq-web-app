@@ -1,11 +1,12 @@
 const express  = require('express');
+var mongoose   = require('mongoose');
 const router   = express.Router();
 const Product  = require('../models/Product');
 const PrefStyleProduct = require('../models/PrefStyleProduct')
 const verify   = require('./verifyToken');
 const {uploadImage}   = require('../upload');
 const fs = require('fs');
-var mongoose=require('mongoose');
+
 const {productValidation} = require('../validation');
 /* 
 const MongoClient = require('mongodb').MongoClient;
@@ -73,9 +74,7 @@ router.post('/',verify, async(req,res)=>{
 router.post('/prefstyle',uploadImage('./server/uploads/products/prefarestyleproducts'), async(req,res)=>{
     console.log(req.body)
     // const userId = req.user._id; //get userid
- 
-     //const store_Id=store._id; //get user store id
- 
+  
      //Validation
      //const {error} = productValidation(req.body);
  
