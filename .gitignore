@@ -7,8 +7,7 @@ node_modules
 /client/node_modules
 /.pnp
 .pnp.js
-/uploads/products
-/uploads/stores
+
 /public/images
 /public/videos
 # testing
