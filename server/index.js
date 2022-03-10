@@ -82,7 +82,7 @@ app.use('/api/contacts',contactsRoute);
  })
 const options={ useNewUrlParser: true ,useUnifiedTopology: true,useCreateIndex:true,useFindAndModify:false }
 //Connect to DB
-mongoose.connect(process.env.DB_COMMUNITY_CON, options)
+mongoose.connect(process.env.DB_CONNECTION, options)
 
     const db = mongoose.connection
     db.once('open', _ =>{
@@ -94,10 +94,10 @@ mongoose.connect(process.env.DB_COMMUNITY_CON, options)
      console.log(process.env.NODE_ENV)
      if (process.env.NODE_ENV === 'production') {
         // Serve any static files
-        app.use(express.static(path.join(__dirname, '../client/build')));
+        app.use(express.static(path.resolve(__dirname, '../client/build')));
       // Handle React routing, return all requests to React app
         app.get('*', function(req, res) {
-          res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+          res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
         });
       }  
 //Start lestening to the server
