@@ -81,8 +81,9 @@ app.use('/api/contacts',contactsRoute);
      res.send('IntizAfriq Web App  version 0.1')
  })
 const options={ useNewUrlParser: true ,useUnifiedTopology: true,useCreateIndex:true,useFindAndModify:false }
+
 //Connect to DB
-mongoose.connect(process.env.DB_CONNECTION, options)
+mongoose.connect(process.env.DB_CONNECTION,options)
 
     const db = mongoose.connection
     db.once('open', _ =>{
