@@ -29,7 +29,7 @@ const sociallinksRoute  = require('./routes/socialmedialinks');
 const contactsRoute     = require('./routes/contacts');
 dotenv.config();
 
-const whitelist = ['http://localhost:3000', 'http://localhost:8080', 'https://hidden-forest-01999.herokuapp.com/']
+const whitelist = ['http://localhost:3000', 'http://localhost:8080', 'https://imtiz-prod.herokuapp.com']
 const corsOptions = {
   origin: function (origin, callback) {
     console.log("** Origin of request " + origin)
@@ -43,7 +43,7 @@ const corsOptions = {
   }
 }
 //MiddleWare
-app.use(cors()); // package to allow connections from outisde domains
+app.use(cors(corsOptions)); // package to allow connections from outisde domains
 app.use(express.json()); //body-parser alternate
 app.use(pino);
 
