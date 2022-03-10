@@ -35,7 +35,7 @@ function LogIn({toggleSideBar}) {
       
         const LogIn = () =>{
           
-          const url =`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/user/login`;
+          const url =`/api/user/login`;
       
           return  axios.post(url, {
            email: email ,
