@@ -67,7 +67,7 @@ function onFileInputChange(e) {
   }
 const handleVerifyEmail = ()=>{
 
-    const url = `http://localhost:3001/api/email`;
+    const url = `/api/email`;
 
   post(url,{email:user.email}).then((response)=>{
       console.log(response)
@@ -123,12 +123,12 @@ const config = {
   }
 
 }
-return post(`http://localhost:3001/api/user/updateImage/${user._id}`, formData, config)
+return post(`/api/user/updateImage/${user._id}`, formData, config)
 }
 
 const editUser =()=>{
  
-const url = `http://localhost:3001/api/user/${user._id}`;
+const url = `/api/user/${user._id}`;
      let _address={
        country:country,
        state:state,
@@ -166,7 +166,7 @@ return patch(url, body,config)
         <Grid item={true} xs={12} sm={4} md={4} lg={4}>
                 <div className="userShow">
                     <div className="userShowTop">
-                        <img src={`http://localhost:3001/server/uploads/users/${user.image[0].filename}`}  id="avatar"  onError={imgonLoadError} alt="" className="userShowImg" />
+                        <img src={`/server/uploads/users/${user.image[0].filename}`}  id="avatar"  onError={imgonLoadError} alt="" className="userShowImg" />
                         
                        <div className="userShowTopTitle">
                            <span className="userShowUsername">{username}</span>  <span className="active"></span>
@@ -268,7 +268,7 @@ return patch(url, body,config)
                <Grid item={true} xs={12} sm={4} md={4} lg={2}>
                     <div className="userUpdateUploadWrapper">
                         <div className="userUpdateUpload">
-                            <img src={`http://localhost:3001/server/uploads/users/${user.image[0].filename}`} onError={imgonLoadError} alt=""  id="user-image"className="userUpdateImg" />
+                            <img src={`/server/uploads/users/${user.image[0].filename}`} onError={imgonLoadError} alt=""  id="user-image"className="userUpdateImg" />
                             <label htmlFor="file"> <Publish className="userUpdateIcon"/> </label>
                                 <input type="file" onChange={onFileInputChange} id="file" style={{display:"none"}}/>
                        </div>

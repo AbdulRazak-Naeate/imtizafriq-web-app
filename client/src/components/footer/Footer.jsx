@@ -14,7 +14,7 @@ const Footer = () => {
   const handleSubscription = (e) =>{
       
         e.preventDefault();
-       var url =`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/subscribe/${email}`;
+       var url =`/api/subscribe/${email}`;
           axios.post(url).then((response)=>{
              setEmail('');
           console.log(response)
@@ -22,7 +22,7 @@ const Footer = () => {
   }
   useEffect(()=>{
     const handlegetLinks = async ()=>{
-      const url=`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/socialmedialinks`
+      const url=`/api/socialmedialinks`
   
       await axios.get(url).then((response)=>{
         try{

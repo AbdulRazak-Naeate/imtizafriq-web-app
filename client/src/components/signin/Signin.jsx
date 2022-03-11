@@ -59,7 +59,7 @@ function Signin({handleCloseModal,handleSwitchForm,replacePermanentId}) {
 
           const SignUp =(user)=>{
 
-            const url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/user/register`;
+            const url = `/api/user/register`;
             let fullname=user.displayName;
             const nameArr=fullname.split(" ");
             console.log(nameArr)
@@ -76,7 +76,7 @@ function Signin({handleCloseModal,handleSwitchForm,replacePermanentId}) {
           };
           /* 
           const checkuserByEmail = async (email,user) =>{
-            const url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/user`;
+            const url = `/api/user`;
            
            return await post(url).then((res)=>{
              if (res.status===400){//user not signup yet create account for the user
@@ -122,7 +122,7 @@ function Signin({handleCloseModal,handleSwitchForm,replacePermanentId}) {
       
         const LogIn = () =>{
           
-          const url =`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/user/login`;
+          const url =`/api/user/login`;
       
           return  axios.post(url, {
            email: email ,

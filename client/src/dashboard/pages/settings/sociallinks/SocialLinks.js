@@ -75,7 +75,7 @@ const SocialLinks = () => {
             },]
             
         
-        const url=`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/socialmedialinks`
+        const url=`/api/socialmedialinks`
 
         await axios.post(url,{ linktype:'social',medialinks:JSON.stringify(medialinks)}).then((response)=>{
             //console.log(response)
@@ -85,7 +85,7 @@ const SocialLinks = () => {
       
     useEffect(()=>{
         const handlegetLinks = async ()=>{
-            const url=`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/socialmedialinks`
+            const url=`/api/socialmedialinks`
     
             await axios.get(url).then((response)=>{
                 console.log(response.data.socialmedialinks[0].medialinks[0].linktext);

@@ -38,7 +38,7 @@ const Contact = () => {
             },]
             
         
-        const url=`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/contacts`
+        const url=`/api/contacts`
 
         await axios.post(url,{ contacttype:'support',contacts:JSON.stringify(contacts)}).then((response)=>{
             //console.log(response)
@@ -48,7 +48,7 @@ const Contact = () => {
       
     useEffect(()=>{
         const handlegetLinks = async ()=>{
-            const url=`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/contacts`
+            const url=`/api/contacts`
     
             await axios.get(url).then((response)=>{
                 console.log(response.data.contacts[0].contacts[0]);

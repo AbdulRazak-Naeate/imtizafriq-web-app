@@ -9,7 +9,6 @@ import {
     CButton,
 } from '@coreui/react';
 import "bootstrap/dist/css/bootstrap.min.css";
-import {Button} from '@mui/material'
 import './index.css';
 
 class Specification extends React.Component {

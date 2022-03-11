@@ -77,7 +77,7 @@ const SlidesImage = ({handleImages,slidesImages,setSlidesImages,setPosition}) =>
     }
     const removeSlideItem =async (position,filename)=>{
       try{
-       const url =`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/slides/deleteslide`
+       const url =`/api/slides/deleteslide`
        await axios.post(url,{name:'heroslide',position:position,filename:filename}).then((response)=>{
            // console.log(response.data.slides[0].image);
             setSlidesImages(response.data.slides[0].image)
@@ -98,7 +98,7 @@ const SlidesImage = ({handleImages,slidesImages,setSlidesImages,setPosition}) =>
             slidesImages.length > 0  ?  slidesImages.map((img,index)=>{
               return(<div className='slideWrapper'>
              <CloseRounded className='removeSlide' color='primary' onClick={()=>{removeSlide(index,img.filename)}} />
-                  <img className="slidesImg"  alt={'slideimg'}key={index} id={index} src={`http://localhost:${process.env.REACT_APP_SERVER_PORT}/server/uploads/slides/${img.filename}`}  onClick={ (e) => { onImageClicked(e) }}/>   
+                  <img className="slidesImg"  alt={'slideimg'}key={index} id={index} src={`/server/uploads/slides/${img.filename}`}  onClick={ (e) => { onImageClicked(e) }}/>   
               </div>)
                
             }):''

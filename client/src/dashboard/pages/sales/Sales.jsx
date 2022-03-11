@@ -60,7 +60,7 @@ const Sales = ({stores}) => {
 }
 
 const editTransaction =(orderid)=>{
-const url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/orders/${orderid}`;
+const url = `/api/orders/${orderid}`;
 const body={
          status:status,
       
@@ -91,7 +91,7 @@ const handleUpdateMany=(option)=>{
 
 const editTransactions =(option)=>{
   const ids=JSON.stringify(selected_Ids);
-  const url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/orders/many/${ids}`;
+  const url = `/api/orders/many/${ids}`;
 
 const body={
        status:option,
@@ -116,7 +116,7 @@ return patch(url, body,config)
      try {
      
        
-    const res = await fetch(`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/orders/completed`);
+    const res = await fetch(`/api/orders/completed`);
     const data = await res.json();
     
     return data.orders;
@@ -159,7 +159,7 @@ return patch(url, body,config)
      /*  renderCell:(params)=>{
           return(
               <div className="userListUser">
-                  <img className="userListImg" src={`http://localhost:${process.env.REACT_APP_SERVER_PORT}/server/uploads/users/${params.row.image[0].filename}`} alt=""/>
+                  <img className="userListImg" src={`/server/uploads/users/${params.row.image[0].filename}`} alt=""/>
                   {params.row.username}
               </div>
           )

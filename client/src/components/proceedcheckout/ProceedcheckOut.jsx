@@ -71,7 +71,7 @@ const ProceedcheckOut = ({onAddToCart}) => {
          
            const fetchProduct =()=>{
          
-             const url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/products/${productid}`;
+             const url = `/api/products/${productid}`;
              
              return axios.get(url)
            
@@ -86,7 +86,7 @@ const ProceedcheckOut = ({onAddToCart}) => {
       })
   }
    const loadCommentsFromServer= async ()=>{
-     const url=`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/comments/${productid}`;
+     const url=`/api/comments/${productid}`;
     return axios.get(url)
    }
 

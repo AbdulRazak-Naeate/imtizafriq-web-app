@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-import {Grid,Typography} from '@mui/material';
-import { CalendarToday, LocationSearching, MailOutline, PermIdentity, PhoneAndroid, Publish,MyLocationOutlined,AddShoppingCart,HeightOutlined,ColorLensOutlined ,PhoneAndroidOutlined} from '@material-ui/icons'
+import {Grid} from '@mui/material';
+import { PermIdentity,MyLocationOutlined,AddShoppingCart,HeightOutlined,ColorLensOutlined ,PhoneAndroidOutlined} from '@material-ui/icons'
 import './modal.css'
 import ShoppingBagOutlined from '@mui/icons-material/ShoppingBagOutlined';
 import ReactToPrint from 'react-to-print';
@@ -49,7 +49,7 @@ const style = {
                 return(
                     <Grid item={true} xs={12} md={6}  key={index}>
                         <div className="detailContainer">
-                          <img className='media' src={`http://localhost:3001/server/uploads/products/${data.filename}`} alt='item-img' />
+                          <img className='media' src={`/server/uploads/products/${data.filename}`} alt='item-img' />
                         <div className="tranxdetailsContainer">
                         <div className="tranxdetailsItem">
                              <ShoppingBagOutlined className="userShowIcon"/>

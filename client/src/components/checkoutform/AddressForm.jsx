@@ -71,15 +71,15 @@ const AddressForm = ({checkoutToken,next}) => {
   }
  
   const getStates= async (cid)=>{
-    const url=`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/states/${cid}`;
+    const url=`/api/states/${cid}`;
     await axios.get(url).then((response)=>{
            console.log(response.data.states)
           setStates(response.data.states);
-
+        
     })
  }
  const getCities= async (sid)=>{
-  const url=`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/cities/${sid}`;
+  const url=`/api/cities/${sid}`;
   await axios.get(url).then((response)=>{
         console.log(response.data.cities)
         setCities(response.data.cities);
@@ -92,7 +92,7 @@ const AddressForm = ({checkoutToken,next}) => {
 
      if (!isCountriesloaded){
       try{
-        const url=`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/countries`;
+        const url=`/api/countries`;
         await axios.get(url).then((response)=>
               setCountries(response.data.countries)
              

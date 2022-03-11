@@ -74,7 +74,7 @@ const PaymentForm = ({shippingData,checkoutToken,backStep,onCaptureCheckout,next
               }
 
         const FwVerifyPayment = (transactionid,orderData) =>{
-          var url =`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/verifypayment/${transactionid}`
+          var url =`/api/verifypayment/${transactionid}`
          axios.get(url).then((response)=>{
            console.log("verify payment response "+response)
               if (response.body.status==="success"){

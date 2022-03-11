@@ -20,7 +20,7 @@ const CartItem = ({cartitem,onUpdateCartQty,onUpdateColorSize,onUpdateMeasuremen
     const[open,setOpen]=useState(true);
     const[colorSelectedList,setColorSelectedList]=useState([]);
     const [checked, setChecked] = useState(cartitem.selected);
-    const [imagepath]=useState(cartitem.product.product_type==='normal' ? `http://localhost:${process.env.REACT_APP_SERVER_PORT}/server/uploads/products/${cartitem.product.image[0].filename}`:`http://localhost:${process.env.REACT_APP_SERVER_PORT}/server/uploads/products/prefarestyleproducts/${cartitem.product.image[0].filename}`)
+    const [imagepath]=useState(cartitem.product.product_type==='normal' ? `/server/uploads/products/${cartitem.product.image[0].filename}`:`/server/uploads/products/prefarestyleproducts/${cartitem.product.image[0].filename}`)
 
     const label = { inputProps: { 'aria-label': 'Select item' } };
 

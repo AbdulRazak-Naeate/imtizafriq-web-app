@@ -57,7 +57,7 @@ export default function NewUser() {
 
       const createUser =()=>{
         
-        const url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/user/register`;
+        const url = `/api/user/register`;
 
         return post(url,  {
           username:username,
