@@ -36,7 +36,7 @@ export default function SignUp() {
 
   const SignUp =()=>{
         
-    const url = 'http://localhost:3001/api/user/register';
+    const url = `api/user/register`;
  
     return post(url,  {
       name:username,
