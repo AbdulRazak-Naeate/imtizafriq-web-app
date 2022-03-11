@@ -31,7 +31,7 @@ const firebaseConfig = {
   databaseURL: "https://imtizafriq.firebaseio.com",
   projectId: "imtizafriq",
   storageBucket: "imtizafriq.appspot.com",
-  messagingSenderId: "731374409752",
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
   appId: process.env.REACT_APP_FIREBASE_APP_ID,
   measurementId: process.env.REACT_APP_MEASUREMENT_ID
 };
