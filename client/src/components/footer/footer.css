@@ -50,7 +50,7 @@
     max-width: 1200px;
     display: flex;
     justify-content: space-between;
-    border: px solid #fff;
+    border: 0px solid #fff;
   }
   
   .footer-link-wrapper {
