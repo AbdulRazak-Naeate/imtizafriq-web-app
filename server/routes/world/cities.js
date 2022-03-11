@@ -5,7 +5,7 @@ const Cities= require('../../models/world/Cities');
 //get cities data
 router.get('/', async(req,res) =>{
        try{
-        const states = await Cities.find();
+        const states = await Cities.find().sort({"name":1}).collation({ locale: "en", caseLevel: true });
     
         res.json({states:states});
               
@@ -17,7 +17,7 @@ router.get('/', async(req,res) =>{
 //get cities data by state Id
 router.get('/:stateId', async(req,res) =>{
     try{
-     const cities = await Cities.find({state_id:req.params.stateId});
+     const cities = await Cities.find({state_id:req.params.stateId}).sort({name:1}).collation({ locale: "en", caseLevel: true });
  
      res.json({cities:cities});
            
