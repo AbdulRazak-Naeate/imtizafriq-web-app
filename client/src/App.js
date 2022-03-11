@@ -347,7 +347,6 @@ const analytics = getAnalytics(app);
   
   };
   const handleAddtoCart = async (product,quantity)=>{
-  /*   sendConfirmationEmail(userid,"abdulrazakneate@gmail.com") */
 
     addtoCart(product,quantity).then((response) => {
      // console.log(response.data);

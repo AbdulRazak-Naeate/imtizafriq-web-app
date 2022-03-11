@@ -55,7 +55,7 @@ import axios from 'axios';
     
     async function handleDeleteProduct(_id) {
       try {
-        const response = await axios.delete(`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/products/${_id}`);
+        const response = await axios.delete(`/api/products/${_id}`);
        
         if (response.data.deletedCount>=1){
         setProducts(products.filter((item) => item._id !==_id))
@@ -70,7 +70,7 @@ import axios from 'axios';
     const fetchProducts = async ()=>{
       console.log(process.env.REACT_APP_SERVER_PORT)
       try{
-         const res = await fetch(`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/products`);
+         const res = await fetch(`/api/products`);
          const data=await res.json();
                //console.log(data);
                return data.products;
@@ -94,7 +94,7 @@ const handlegetProducts = async() => {
 }
   const handlegetMonthAnalytics =  async () => {//get Orders 
  
-    var url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/analytics/transactions/sales/monthly`
+    var url = `/api/analytics/transactions/sales/monthly`
   
     await axios.post(url,{year:2022}).then((response)=>{
       //console.log(response.data)
@@ -106,7 +106,7 @@ const handlegetProducts = async() => {
 useEffect(()=>{
   const handlegetAnalytics =  async () => {//get Orders 
  
-    var url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/analytics/transactions`
+    var url = `/api/analytics/transactions`
 
     await axios.get(url).then((response)=>{
      // console.log(response.data.transactions)

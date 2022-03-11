@@ -6,7 +6,7 @@ import { AddShoppingCart,FavoriteBorderOutlined,Favorite } from '@mui/icons-mate
 import {useHistory} from 'react-router-dom';
 import { blue, orange } from '@mui/material/colors';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { truncateString,formatWithCurrencySymbol } from '../../../utils/Utils';
+import {formatWithCurrencySymbol } from '../../../utils/Utils';
 
 const Product = ({product,onAddToCart,onUpdateLikes,favorites}) => {
     const classes=useStyles();
