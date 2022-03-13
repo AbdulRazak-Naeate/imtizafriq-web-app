@@ -21,6 +21,9 @@ const mongoose = require('mongoose');
     image:{
         type:Object
     },
+    encodedimages:{
+        type:Object
+    },
     color:{
         type:Array
     },

@@ -44,7 +44,7 @@ const corsOptions = {
 }
 //MiddleWare
 app.use(cors()); // package to allow connections from outisde domains
-app.use(express.json()); //body-parser alternate
+app.use(express.json({ limit: '50mb' })); //body-parser alternate
 app.use(pino);
 
 // This endpoint is pinged every 5 mins by uptimerobot.com to prevent 

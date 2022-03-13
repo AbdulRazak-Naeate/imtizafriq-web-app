@@ -91,7 +91,8 @@ const loginValidation = data =>{
       image:Joi.any(),
       product_type:Joi.string(),
       digital_product_url:Joi.any(),
-      length:Joi.number()
+      length:Joi.number(),
+      encodedimages:Joi.any()
      });
 
      return   schema.validate(data);

@@ -7,6 +7,7 @@ const {uploadImage}   = require('../upload');
 const fs = require('fs');
 var mongoose=require('mongoose');
 const {productValidation} = require('../validation');
+const { cloudinary } = require('../cloudinary');
 /* 
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert'); */
@@ -28,21 +29,46 @@ router.get('/',async(req,res)=>{
         res.json({message:err});
     }
 });
+//upload image
+router.post('/uploadimage', async(req,res)=>{
+    var imageUrls=[];
+    var base64encImages=req.body.data
+    try {
+         for(let i=0;i<base64encImages.length;i++){
+            const fileStr  = base64encImages[i];
+            const uploadResponse = await cloudinary.uploader.upload(fileStr, {
+                upload_preset: 'products',
+            });
+            console.log(uploadResponse);
+            imageUrls.push(uploadResponse.secure_url)
+         }     
+       res.json({ msg: 'yaya',urls:imageUrls });
 
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ err: 'Something went wrong' });
+    }
+
+
+    
+ });
+ 
 //Submit a product
 router.post('/',uploadImage('./server/uploads/products'),verify, async(req,res)=>{
 
 
-
+    res.json({files:req.files,body:req.body});
     //Validation
+   
+    
     const {error} = productValidation(req.body);
 
-    if (error) return  res.json({status:400,message:error.details[0].message});
+    if (error) return  res.json({status:400,message:error.details[0].message,data:req.files});
 
-    //check if product name already exist
+     //check if product name already exist
     const productnameExist = await Product.findOne({name:req.body.name});
-    if (productnameExist) return res.json({status:400,message:"Product name already taken"});
-    console.log(req.files);
+    if (productnameExist) return res.json({status:400,message:"Product name already taken"}); 
+    //console.log(req.files);
     var stockvalue=parseInt(req.body.stock);
     const product = new Product({
         color:req.body.color,
@@ -63,7 +89,8 @@ router.post('/',uploadImage('./server/uploads/products'),verify, async(req,res)=
     try{
 
        const saveProduct = await product.save();
-        res.json({product:saveProduct,status:200,message:"product successfully created"});
+        res.json({product:saveProduct,status:200,message:"product successfully created",d:req.body});
+        
     }catch(err){
         res.json({message:err})
     }
@@ -266,3 +293,4 @@ router.patch('/updatelikes/:productId',verify,async (req,res)=> {
     }
 });
 module.exports = router;
+

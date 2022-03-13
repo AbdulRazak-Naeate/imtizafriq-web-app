@@ -13,8 +13,10 @@ import 'react-s-alert/dist/s-alert-css-effects/jelly.css';
 import ImageGallery from './imageGallery/ImageGallery';
 export default function NewProduct({products,setProducts}) {
     
-    const [productImages,setProductImages]=useState([]);
-    const [digitalProductUrl, setdigitalProductUrl] = useState('');
+  const [productImages,setProductImages]=useState([]);
+  const [base64Images,setBase64Images]=useState([]);
+  const [cloudinaryimageUrls,setCloudinaryImageUrls]=useState([]);
+  const [digitalProductUrl, setdigitalProductUrl] = useState('');
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
@@ -124,7 +126,24 @@ export default function NewProduct({products,setProducts}) {
         }
         
         e.preventDefault()// Stop form default submit
-        
+
+        /* uploadImageAndCreateProduct(base64Images).then((response) => {
+          console.log(response.data);
+         if (response.data.status===200){
+          //window.location.reload();
+          setProducts([...products,response.data.product])
+            clearFields();
+         }else if (response.data.status===400){ 
+
+          Alert.error(response.data.message, {
+            position: 'top-right',
+            effect: 'jelly'
+
+        });
+       // history.go(0);
+         }
+        }); */
+
             initiateAndCreateProduct().then((response) => {
               console.log(response.data);
              if (response.data.status===200){
@@ -143,6 +162,37 @@ export default function NewProduct({products,setProducts}) {
             });
            
       }
+      const uploadImageAndCreateProduct = async (base64EncodedImage) => {
+        try {
+          const url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/products`;
+              const body ={
+                name: name,
+                price: price,
+                category:category,
+                color:colors,
+                description: description,
+                specification: specification,
+                digital_product_url: digitalProductUrl,
+                stock:stock,
+                size:sizes,
+                active:active,
+                length:productImages.length,
+                encodedimages: base64EncodedImage 
+              }
+           
+            const config = {
+              headers: {
+                'Content-Type': 'application/json',
+                'auth-token':
+                  user.auth_token,
+              },
+            }
+            return post(url, JSON.stringify(body), config)
+            
+        } catch (err) {
+            console.error(err);
+        }
+    };
      const initiateAndCreateProduct =()=>{
         
         const url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/products/`;
@@ -241,6 +291,7 @@ export default function NewProduct({products,setProducts}) {
          placeholder="Describe the product you are selling" value={description}
          required onChange={(e)=>{setDescription(e.target.value)}}></textarea>
          </div>
+
           <div className="addProductItem">
              <label>Stock</label>
              <input type="number" placeholder="123" required setStock={stock} onChange={onstockChange} />
@@ -277,13 +328,13 @@ export default function NewProduct({products,setProducts}) {
         </div>
            
              {/* <ImagesContainer handleImages={handleImages} onSubmit={onSubmit} setOnsubmit={setOnsubmit} clearImagesonSubmit={clearImagesonSubmit}/> */}
-             <ImageGallery handleImages={handleImages} productImages={productImages}/>
+             <ImageGallery handleImages={handleImages} productImages={productImages} base64Images={base64Images}/>
               {showSpecification ? <Specs setColors={setColors} setSizes={setSizes}/>:<></>}
          
            
         <div className="addProductItem">
         <button className="addProductButton" type="submit" onClick={onAddProductCLick}>Create</button>
-
+         {/* <button className="addProductButton" onClick={()=>{uploadImage(base64Images)}}> Upload Image</button> */}
         </div>
         </form>
         </div>

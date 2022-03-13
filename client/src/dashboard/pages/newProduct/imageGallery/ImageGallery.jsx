@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import thumbnail from './thumbnail-wide.png';
 import './index.css'
-const ImageGallery = ({handleImages,productImages}) => {
+const ImageGallery = ({handleImages,productImages,base64Images}) => {
   
     const[imagediv]=useState(["0","1","2"]);
     const [imageTagIndex, setImageTagIndex] = useState(null);
@@ -32,11 +32,14 @@ const ImageGallery = ({handleImages,productImages}) => {
               try{
             //push image item whiles Array length is 3 
             //else replace existing index with new image  
+
             productImages.length <= 2 ? productImages.push(file) : productImages.splice(indextoRemove, 1, file);
+            
+            productImages.length <= 2 ? base64Images.push(e.target.result) : base64Images.splice(indextoRemove, 1, e.target.result);
             // console.log("replaced index "+typeof(indextoRemove));
               }catch(err){
 
-                 console.log(err)
+                 console.log(err)            
               }
 
             console.log(productImages.length);
