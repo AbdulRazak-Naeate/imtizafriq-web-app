@@ -13,6 +13,7 @@ import 'react-s-alert/dist/s-alert-css-effects/jelly.css';
 import ImageGallery from './imageGallery/ImageGallery';
 export default function NewProduct({products,setProducts}) {
     
+    const [base64EncodedImage,setBase64EncodedImage]=useState([]);
     const [productImages,setProductImages]=useState([]);
     const [digitalProductUrl, setdigitalProductUrl] = useState('');
     const [name, setName] = useState('');
@@ -125,7 +126,23 @@ export default function NewProduct({products,setProducts}) {
         
         e.preventDefault()// Stop form default submit
         
-            initiateAndCreateProduct().then((response) => {
+          /*   initiateAndCreateProduct().then((response) => {
+              console.log(response.data);
+             if (response.data.status===200){
+              //window.location.reload();
+              setProducts([...products,response.data.product])
+                clearFields();
+             }else if (response.data.status===400){ 
+
+              Alert.error(response.data.message, {
+                position: 'top-right',
+                effect: 'jelly'
+    
+            });
+           // history.go(0);
+             }
+            }); */
+            uploadImageAndCreateProduct().then((response) => {
               console.log(response.data);
              if (response.data.status===200){
               //window.location.reload();
@@ -143,6 +160,37 @@ export default function NewProduct({products,setProducts}) {
             });
            
       }
+      const uploadImageAndCreateProduct = async (base64EncodedImage) => {
+        try {
+          const url = `/api/products`;
+              const body ={
+                name: name,
+                price: price,
+                category:category,
+                color:colors,
+                description: description,
+                specification: specification,
+                digital_product_url: digitalProductUrl,
+                stock:stock,
+                size:sizes,
+                active:active,
+                length:productImages.length,
+                encodedimages: base64EncodedImage 
+              }
+           
+            const config = {
+              headers: {
+                'Content-Type': 'application/json',
+                'auth-token':
+                  user.auth_token,
+              },
+            }
+            return post(url, JSON.stringify(body), config)
+            
+        } catch (err) {
+            console.error(err);
+        }
+    };
      const initiateAndCreateProduct =()=>{
         
         const url = `/api/products/`;
@@ -277,7 +325,7 @@ export default function NewProduct({products,setProducts}) {
         </div>
            
              {/* <ImagesContainer handleImages={handleImages} onSubmit={onSubmit} setOnsubmit={setOnsubmit} clearImagesonSubmit={clearImagesonSubmit}/> */}
-             <ImageGallery handleImages={handleImages} productImages={productImages}/>
+             <ImageGallery handleImages={handleImages} productImages={productImages} base64EncodedImage={base64EncodedImage}/>
               {showSpecification ? <Specs setColors={setColors} setSizes={setSizes}/>:<></>}
          
            

@@ -89,6 +89,7 @@ const loginValidation = data =>{
       color:Joi.any(),
       size:Joi.any(),
       image:Joi.any(),
+      encodedimages:Joi.any(),
       product_type:Joi.string(),
       digital_product_url:Joi.any(),
       length:Joi.number()
