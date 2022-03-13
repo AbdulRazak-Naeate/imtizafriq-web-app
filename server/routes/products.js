@@ -223,15 +223,15 @@ router.delete('/:productId', async (req,res)=>{
 
           // Delete the file like normal
           images.forEach( image=>{
-             
-            fs.unlink('server/uploads/products/'+image.filename,(err) =>{
+             cloudinary.uploader.destroy(image.public_id)
+            /* fs.unlink('server/uploads/products/'+image.filename,(err) =>{
               if(err){
                   console.error(err)
                   return
-              }
+             
  
           })
-
+         } */
          
           });
 

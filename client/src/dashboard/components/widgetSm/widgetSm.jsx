@@ -17,7 +17,7 @@ function WidgetSm({products}) {
                {
                  products.map((product,index)=>{
                    return( <li className="widgetSmListItem">
-                   <img src={`http://localhost:${process.env.REACT_APP_SERVER_PORT}/server/uploads/products/${product.image[0].filename}`} alt="" className="widgetSmImg" />
+                   <img src={`/server/uploads/products/${product.image[0].url}`} alt="" className="widgetSmImg" />
                  <div className="widgetSmProduct">
                      <span className="widgetSmProductTitle">{product.name}</span>
                      <span className="widgetSmProductDescription">{product.desscription}</span>

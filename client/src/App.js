@@ -435,7 +435,7 @@ const analytics = getAnalytics(app);
             color:items[i].color,
             size:items[i].size,
             measurement:items[i].measurement,
-            filename:items[i].product.image[0].filename,
+            filename:items[i].product.image[0].url,
             priceEach:items[i].product.price,
             totalPrice:items[i].line_item_sub_price,
             userId:userid,
