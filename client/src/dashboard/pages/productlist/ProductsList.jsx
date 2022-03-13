@@ -51,7 +51,7 @@ export default function ProductsList({products,handleDeleteProduct}) {
           renderCell:(params)=>{
               return(
                   <div className="productListItem" onClick={()=>{handleEdit(params)}}>
-                      <img className="productListImg"  src={`/server/uploads/products/${params.row.image[0].filename}`} alt=""/>
+                      <img className="productListImg"  src={`${params.row.image[0].url}`} alt=""/>
                       {params.row.name}
                   </div>
               )
