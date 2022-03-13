@@ -97,7 +97,7 @@ router.post('/',verify, async(req,res)=>{
             });
             //console.log(uploadResponse);
 
-            imageUrls.push(uploadResponse.secure_url);
+            imageUrls.push(uploadResponse);
          }     
         
        console.log({ urls:imageUrls });
