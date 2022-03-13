@@ -19,6 +19,9 @@ const mongoose = require('mongoose');
         type:Number,
         required:false
     },
+    encodedimages:{
+        type:Object
+    },
     image:{
         type:Object
     },

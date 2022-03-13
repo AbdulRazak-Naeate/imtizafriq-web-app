@@ -20,7 +20,7 @@ const ImageView = ({images}) => {
             {
               images.map((img,index)=>(
                 <Card className={classes.root} key={index}>
-                <CardMedia className={`${classes.mediaThumbnail} ${selected===index? classes.select:classes.disSelect} `} onClick={()=>{onThumbNailCLick(index)}}  image={`${url}/${img.filename}`} title={img.filename}/>
+                <CardMedia className={`${classes.mediaThumbnail} ${selected===index? classes.select:classes.disSelect}`} onClick={()=>{onThumbNailCLick(index)}}  image={`${img.url}`} title={img.public_id}/>
                 </Card>
               ))
             }
@@ -29,7 +29,7 @@ const ImageView = ({images}) => {
 
      <div className={classes.previewContainer}>
            <Card>
-            <CardMedia className={classes.mediaPreview} id="img-preview"  image={`/server/uploads/products/${images[imageIndex].filename}`} title={images[imageIndex].name}/>
+            <CardMedia className={classes.mediaPreview} id="img-preview"  image={`${images[imageIndex].url}`} title={images[imageIndex].public_id}/>
             </Card>
      </div>
      

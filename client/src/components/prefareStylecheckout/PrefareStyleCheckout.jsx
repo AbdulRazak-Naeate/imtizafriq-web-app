@@ -18,7 +18,6 @@ const PrefareStyleCheckout = ({onAddToCart}) => {
     const [loadedImage,setLoadedImages]=useState([]);
     const [productname]= useState("PrefareStyle-"+randNumber(5));
     const[product]=useState({name:productname,price:'150',description:''})
-    const[user]=useState(JSON.parse(localStorage.getItem('user')));
 
     const onImageClicked = (e) => {
         const formfile = document.getElementById("product-file");
@@ -45,7 +44,34 @@ const PrefareStyleCheckout = ({onAddToCart}) => {
         console.log({ readAsDataURLError: error })
     }
 }
-   
+const uploadAndCreateProduct =(sizes)=>{
+  
+  const url = `/api/products/prefstyle`;
+
+  const body={
+      name: productname,
+      price: "150",
+      category:"null",
+      description:"null",
+      specification: "none",
+      digital_product_url: 'null',
+      stock:'0',
+      sizes:sizes,
+      active:'0',
+      product_type :'special',
+      encodedimages:loadedImage,
+  }
+
+
+
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }
+  return axios.post(url, JSON.stringify(body), config)
+
+};
 const initiateAndCreateProduct =(sizes)=>{
   
   const url = `/api/products/prefstyle`;
@@ -100,7 +126,7 @@ const initiateAndCreateProduct =(sizes)=>{
 
     const handleMakeOrder=(sizes)=>{
       if (loadedImage.length > 0){
-        initiateAndCreateProduct(sizes).then((response) => {
+        uploadAndCreateProduct(sizes).then((response) => {
           console.log(response.data);
          if (response.data.status===200){
           //window.location.reload();
@@ -116,6 +142,22 @@ const initiateAndCreateProduct =(sizes)=>{
        // history.go(0);
          }
         }); 
+        /* initiateAndCreateProduct(sizes).then((response) => {
+          console.log(response.data);
+         if (response.data.status===200){
+          //window.location.reload();
+          onAddToCart(response.data.product,1);
+            //clearFields();
+         }else if (response.data.status===400){ 
+  
+          Alert.error(response.data.message, {
+            position: 'top-left',
+            effect: 'jelly'
+  
+        });
+       // history.go(0);
+         }
+        });  */
       }else{
         Alert.error('Please click on the style image to upload your design ', {
           position: 'top-right',

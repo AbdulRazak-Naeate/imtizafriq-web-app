@@ -136,7 +136,7 @@ router.post('/',verify, async(req,res)=>{
 
 
 //Submit a prefare Style product
-router.post('/prefstyle',uploadImage('./server/uploads/products/prefarestyleproducts'), async(req,res)=>{
+router.post('/prefstyle', async(req,res)=>{
     console.log(req.body)
     // const userId = req.user._id; //get userid
  
@@ -150,8 +150,27 @@ router.post('/prefstyle',uploadImage('./server/uploads/products/prefarestyleprod
      //check if product name already exist
      const productnameExist =  await PrefStyleProduct.findOne({name:req.body.name});
      if (productnameExist) return  res.json({status:400,message:"Product name already taken"});
-     console.log(req.files);
-     console.log(req.body);
+     var imageUrls=[];
+     var base64encImages=req.body.encodedimages
+     try {
+          for(let i=0;i < base64encImages.length;i++){
+             const fileStr  = base64encImages[i];
+             const uploadResponse = await cloudinary.uploader.upload(fileStr, {
+                 upload_preset: 'prefstyle_products',
+             });
+             //console.log(uploadResponse);
+ 
+             imageUrls.push(uploadResponse);
+          }     
+         
+        console.log({ urls:imageUrls });
+     } catch (err) {
+         console.error(err);
+     }
+ 
+     if (imageUrls.length<=0) return res.json({status:400,message:"error uploading images"});
+ 
+     //console.log(req.body);
      const product = new PrefStyleProduct({
          color:req.body.color,
          size:req.body.size,
@@ -160,7 +179,7 @@ router.post('/prefstyle',uploadImage('./server/uploads/products/prefarestyleprod
          category:req.body.category,
          specification:req.body.specification,
          price:req.body.price,
-         image:req.files,
+         image:imageUrls,
      });
  
      try{
