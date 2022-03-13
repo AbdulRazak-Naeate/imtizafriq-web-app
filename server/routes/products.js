@@ -153,15 +153,13 @@ router.post('/prefstyle', async(req,res)=>{
      var imageUrls=[];
      var base64encImages=req.body.encodedimages
      try {
-          for(let i=0;i < base64encImages.length;i++){
-             const fileStr  = base64encImages[i];
-             const uploadResponse = await cloudinary.uploader.upload(fileStr, {
+         
+             const uploadResponse = await cloudinary.uploader.upload(base64encImages, {
                  upload_preset: 'prefstyle_products',
              });
              //console.log(uploadResponse);
  
-             imageUrls.push(uploadResponse);
-          }     
+             imageUrls.push(uploadResponse);     
          
         console.log({ urls:imageUrls });
      } catch (err) {
