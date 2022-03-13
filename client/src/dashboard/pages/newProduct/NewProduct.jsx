@@ -142,7 +142,7 @@ export default function NewProduct({products,setProducts}) {
            // history.go(0);
              }
             }); */
-            uploadImageAndCreateProduct().then((response) => {
+            uploadImageAndCreateProduct(base64EncodedImage).then((response) => {
               console.log(response.data);
              if (response.data.status===200){
               //window.location.reload();

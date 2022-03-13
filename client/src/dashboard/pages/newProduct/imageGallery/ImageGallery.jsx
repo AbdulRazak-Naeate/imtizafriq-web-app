@@ -33,7 +33,7 @@ const ImageGallery = ({handleImages,productImages,base64EncodedImage}) => {
             //push image item whiles Array length is 3 
             //else replace existing index with new image  
             productImages.length <= 2 ? productImages.push(file) : productImages.splice(indextoRemove, 1, file);
-            productImages.length <= 2 ? base64EncodedImage.push( e.target.result) : base64EncodedImage.splice(indextoRemove, 1,  e.target.result);
+            base64EncodedImage.length <= 2 ? base64EncodedImage.push( e.target.result) : base64EncodedImage.splice(indextoRemove, 1,  e.target.result);
 
             
             // console.log("replaced index "+typeof(indextoRemove));
