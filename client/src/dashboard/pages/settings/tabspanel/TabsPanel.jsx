@@ -50,7 +50,7 @@ const TabsPanel = () => {
      /*  updateSlides(currentfile).then((response)=>{
         console.log(response)
       }) */
-      addAndUpdateSlides().then((response)=>{
+      addAndUpdateSlides(base64EncodedImage).then((response)=>{
         console.log(response)
       })
      }
@@ -86,7 +86,7 @@ const TabsPanel = () => {
       try {
         const url = `/api/slides/`;
             const body ={
-              name: 'heroslider',
+              name: 'heroslide',
               position:position,
               encodedimages: base64EncodedImage 
             }
@@ -94,8 +94,7 @@ const TabsPanel = () => {
           const config = {
             headers: {
               'Content-Type': 'application/json',
-              'auth-token':
-                user.auth_token,
+             
             },
           }
           return post(url, JSON.stringify(body), config)

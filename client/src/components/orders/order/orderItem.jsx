@@ -4,7 +4,7 @@ import useStyles from './styles';
 import './styles.css';
 const OrderItem = ({order,onReviewClick}) => {
     const classes=useStyles();
-    const [imagepath]=useState(order.orderType==='normal' ? `/server/uploads/products/${order.filename}` : `/server/uploads/products/prefarestyleproducts/${order.filename}`);
+    const [imagepath]=useState(order.filename);
 
 
 
