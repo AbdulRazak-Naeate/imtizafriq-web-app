@@ -17,8 +17,8 @@ const Cart = ({cart, handleUpdateCartQty,handleupdateColorSize,handleupdateMeasu
 
    const handleCheckOut=()=>{
    try{
-    checkError()
-    if (!colorSizeError/*  && !measurementError */){
+    checkFieldErrors()
+    if (!colorSizeError && cart.subtotal!=0/*  && !measurementError */){
         history.push('/checkout')
    }else{
        
@@ -27,7 +27,7 @@ const Cart = ({cart, handleUpdateCartQty,handleupdateColorSize,handleupdateMeasu
        console.log(err)
    }
    } 
-   const checkError=()=>{
+   const checkFieldErrors=()=>{
        const values=[]
       
        for(var i=0;i<cart.items.length;i++){

@@ -6,7 +6,6 @@ const ImageView = ({images}) => {
     const classes=useStyle();
     const[imageIndex,setImageIndex]=useState(0);
     const[selected,setselected]=useState(0)
-    const[url]=useState(`/server/uploads/products/`)
    const onThumbNailCLick=(index)=>{
      setselected(index)
      setImageIndex(index)

@@ -43,6 +43,10 @@ module.exports = async (to, content) => {
   // If you are running into errors getting Nodemailer working, wrap the following 
   // line in a try/catch. Most likely is not loading the credentials properly in 
   // the .env file or failing to allow unsafe apps in your gmail settings.
-  await transporter.sendMail(email)
+  try{
+    await transporter.sendMail(email)
+  }catch(err){
+   console.log(err)
+  }
 
 }
