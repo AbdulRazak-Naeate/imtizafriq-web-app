@@ -88,7 +88,7 @@ const TabsPanel = () => {
             const body ={
               name: 'heroslide',
               position:position,
-              encodedimages: base64EncodedImage 
+              encodedimages: base64EncodedImage[0]
             }
          
           const config = {
