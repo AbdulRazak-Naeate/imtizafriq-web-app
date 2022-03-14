@@ -17,7 +17,7 @@ const AweSlider = ({images}) => {
           {
             images.map((image,index)=>{
               return(
-                <div className='image' key={index} data-src={`/server/uploads/slides/${image.filename}`} />
+                <div className='image' key={index} data-src={`${image.url}`} />
               )
             })
           }

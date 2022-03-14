@@ -5,9 +5,10 @@ const {uploadImage}   = require('../upload');
 const {updateSlidesImage}   = require('../upload');
 const mongoose = require('mongoose');
 const fs = require('fs');
+const { cloudinary } = require('../cloudinary');
 
 //post new slides
-router.post('/',updateSlidesImage('./server/uploads/slides'), async(req,res) =>{
+router.post('/', async(req,res) =>{
        try{
         var query= {image:req.files };
         var  position=parseInt(req.body.position);
@@ -19,7 +20,24 @@ router.post('/',updateSlidesImage('./server/uploads/slides'), async(req,res) =>{
        
        
         if (slidesExist){
-            
+            var image=[];
+            var base64encImages=req.body.encodedimages
+            try {
+                
+                    const uploadResponse = await cloudinary.uploader.upload(base64encImages, {
+                        upload_preset: 'slides',
+                    });
+                    //console.log(uploadResponse);
+        
+                    image.push(uploadResponse);     
+                
+               console.log({ urls:image });
+            } catch (err) {
+                console.error(err);
+            }
+        
+            if (image.length<=0) return res.json({status:400,message:"error uploading images"});
+        
         try{
             size = slidesExist.image.length;
         }catch(err){
@@ -29,19 +47,19 @@ router.post('/',updateSlidesImage('./server/uploads/slides'), async(req,res) =>{
            if (size >= 2){
             await Slides.findOneAndUpdate({name:req.body.name},
                 {$set: {
-                    [`image.${position}`]: file
+                    [`image.${position}`]: image[0]
                     }},
                 {new:true,useFindAndModify:false});
            }else{
            const addSlides = await Slides.findOneAndUpdate({name:req.body.name},
-                {$push: {image:file}},
+                {$push: {image:image[0]}},
                 {new:true,useFindAndModify:false});
 
                 res.json({slides:addSlides});
 
            }
         } else{
-            const slides= new Slides({image:req.files,name:req.body.name});
+            const slides= new Slides({image:[image[0]],name:req.body.name});
             const saveSlides= await slides.save();
             res.json({slides:saveSlides});
         }   
@@ -81,15 +99,16 @@ router.post('/update',uploadImage('./server/uploads/slides'),async(req,res)=>{
 
 })
 
-router.post('/deleteslide',uploadImage('./server/uploads/slides'),async(req,res)=>{
+router.post('/deleteslide',async(req,res)=>{
 
     var position=req.body.position
-    var filename=req.body.filename
-    console.log(position +' '+filename)
+    var image=req.body.image
+    var public_id=image.public_id
+    console.log(position +' '+public_id)
 
     const updateSlide = await Slides.findOneAndUpdate({name:req.body.name},
        {
-          $pull:{image:{filename:filename}}
+          $pull:{image:{public_id:public_id}}
 
       }, { new:true,useFindAndModify:false}
     
@@ -97,12 +116,14 @@ router.post('/deleteslide',uploadImage('./server/uploads/slides'),async(req,res)
 
     if (updateSlide){
       try{
-        fs.unlink('server/uploads/slides/'+filename,(err) =>{
+        cloudinary.uploader.destroy(public_id)
+
+        /* fs.unlink('server/uploads/slides/'+filename,(err) =>{
             if(err){
                 console.error(err)
                 return
             }
-        });
+        }); */
       }catch(err){
           console.log(err)
       }

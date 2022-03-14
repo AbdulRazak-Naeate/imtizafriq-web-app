@@ -4,7 +4,7 @@ import {Button} from '@mui/material'
 import { CloseRounded} from '@mui/icons-material';
 import './index.css';
 import axios from 'axios';
-const SlidesImage = ({handleImages,slidesImages,setSlidesImages,setPosition}) => {
+const SlidesImage = ({handleImages,slidesImages,setSlidesImages,base64EncodedImage,setPosition}) => {
 
     const [imageTagIndex, setImageTagIndex] = useState(null);
     const [ImageToLoadId, setImageToLoadId] = useState(null);
@@ -38,9 +38,9 @@ const SlidesImage = ({handleImages,slidesImages,setSlidesImages,setPosition}) =>
   const addSlide =()=>{
     setSlidesImages([...slidesImages,imgobj])
   }
-  const removeSlide =(position,filename)=>{
+  const removeSlide =(position,img)=>{
     setSlidesImages([...removeLastIndex(slidesImages)]);
-    removeSlideItem(position,filename)
+    removeSlideItem(position,img)
   }
 
     function  onFileInputChange(e) {
@@ -56,6 +56,8 @@ const SlidesImage = ({handleImages,slidesImages,setSlidesImages,setPosition}) =>
             //push image item whiles Array length is 3 
             //else replace existing index with new image  
             slidesImages.length <= 2 ? slidesImages.push(file) : slidesImages.splice(indextoRemove, 1, file);
+            base64EncodedImage.length <= 2 ? base64EncodedImage.push(e.target.result) : base64EncodedImage.splice(indextoRemove, 1, e.target.result);
+            
             // console.log("replaced index "+typeof(indextoRemove));
               }catch(err){
 
@@ -75,10 +77,19 @@ const SlidesImage = ({handleImages,slidesImages,setSlidesImages,setPosition}) =>
             console.log({ readAsDataURLError: error })
         }
     }
-    const removeSlideItem =async (position,filename)=>{
+    const removeSlideItem =async (position,image)=>{
       try{
        const url =`/api/slides/deleteslide`
-       await axios.post(url,{name:'heroslide',position:position,filename:filename}).then((response)=>{
+       const config = {
+        headers: {
+          'Content-Type':'application/json',
+
+        }}
+
+      const body={name:'heroslide',position:position,image:image}
+
+
+       await axios.post(url,JSON.stringify(body),config).then((response)=>{
            // console.log(response.data.slides[0].image);
             setSlidesImages(response.data.slides[0].image)
        })
@@ -97,8 +108,8 @@ const SlidesImage = ({handleImages,slidesImages,setSlidesImages,setPosition}) =>
          {
             slidesImages.length > 0  ?  slidesImages.map((img,index)=>{
               return(<div className='slideWrapper'>
-             <CloseRounded className='removeSlide' color='primary' onClick={()=>{removeSlide(index,img.filename)}} />
-                  <img className="slidesImg"  alt={'slideimg'}key={index} id={index} src={`/server/uploads/slides/${img.filename}`}  onClick={ (e) => { onImageClicked(e) }}/>   
+             <CloseRounded className='removeSlide' color='primary' onClick={()=>{removeSlide(index,img)}} />
+                  <img className="slidesImg"  alt={'slideimg'}key={index} id={index} src={`${img.url}`}  onClick={ (e) => { onImageClicked(e) }}/>   
               </div>)
                
             }):''

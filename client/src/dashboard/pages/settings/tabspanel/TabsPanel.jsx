@@ -1,3 +1,4 @@
+
 import React,{useState,useEffect} from 'react'
 import { Tabs, Tab, TabPanel, TabList} from 'react-web-tabs';
 import './styles.css';
@@ -10,6 +11,7 @@ const TabsPanel = () => {
  
   const [user]=useState(JSON.parse(localStorage.getItem('user')));
   const [slidesImages,setSlidesImages]=useState([]);
+  const [base64EncodedImage,setBase64EncodedImage]=useState([])
   const[isSlidesLoaded,setIsSlidesLoaded]=useState(false);
   const[position,setPosition]=useState(0);
 
@@ -17,7 +19,7 @@ const TabsPanel = () => {
   useEffect(()=>{
     const loadSlides =async ()=>{
      try{
-      const url =`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/slides`
+      const url =`/api/slides`
       await axios.get(url).then((response)=>{
            //console.log(response.data.slides[0].image);
            setSlidesImages(response.data.slides[0].image)
@@ -44,15 +46,18 @@ const TabsPanel = () => {
           return null
        })
        //setslidesImages(tmp);
-     if (tmp.length>0 && currentfile != null)(
-      updateSlides(currentfile).then((response)=>{
+     if (tmp.length>0 && currentfile != null){
+     /*  updateSlides(currentfile).then((response)=>{
+        console.log(response)
+      }) */
+      addAndUpdateSlides().then((response)=>{
         console.log(response)
       })
-     )
+     }
     }
     const  updateSlides =(currentfile)=>{
         
-      const url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/slides/`;
+      const url = `/api/slides/`;
   
       const formData = new FormData();
   
@@ -77,6 +82,29 @@ const TabsPanel = () => {
     
     };
 
+    const addAndUpdateSlides = async (base64EncodedImage) => {
+      try {
+        const url = `/api/slides/`;
+            const body ={
+              name: 'heroslider',
+              position:position,
+              encodedimages: base64EncodedImage 
+            }
+         
+          const config = {
+            headers: {
+              'Content-Type': 'application/json',
+              'auth-token':
+                user.auth_token,
+            },
+          }
+          return post(url, JSON.stringify(body), config)
+          
+      } catch (err) {
+          console.error(err);
+      }
+  };
+
   return (
     <div className='tabsPanelContainer'>
         <Tabs   defaultTab="one"
@@ -89,7 +117,7 @@ const TabsPanel = () => {
           </TabList>
           <TabPanel className='tab__panel' tabId="one">
           <div className="tabs__panel_content">
-             <SlidesImage slidesImages={slidesImages} setSlidesImages={setSlidesImages}handleImages={handleImages} setPosition={setPosition}/>
+             <SlidesImage slidesImages={slidesImages} setSlidesImages={setSlidesImages}handleImages={handleImages} base64EncodedImage={base64EncodedImage} setPosition={setPosition}/>
              <div style={{width:'25%'}}></div>
             </div>  
 
