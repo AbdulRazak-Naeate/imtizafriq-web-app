@@ -58,7 +58,8 @@ router.post('/', async(req,res) =>{
 
            }
         } else{
-            const slides= new Slides({image:[image[0]],name:req.body.name});
+            var s=image[0];
+            const slides= new Slides({image:[s],name:req.body.name});
             const saveSlides= await slides.save();
             res.json({slides:saveSlides});
         }   
