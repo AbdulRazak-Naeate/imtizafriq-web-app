@@ -37,6 +37,7 @@ const SlidesImage = ({handleImages,slidesImages,setSlidesImages,base64EncodedIma
 
   const addSlide =()=>{
     setSlidesImages([...slidesImages,imgobj])
+    console.log(slidesImages.length)
   }
   const removeSlide =(position,img)=>{
     setSlidesImages([...removeLastIndex(slidesImages)]);
@@ -56,6 +57,7 @@ const SlidesImage = ({handleImages,slidesImages,setSlidesImages,base64EncodedIma
             //push image item whiles Array length is 3 
             //else replace existing index with new image  
             slidesImages.length <= 2 ? slidesImages.push(file) : slidesImages.splice(indextoRemove, 1, file);
+              
             base64EncodedImage.length <= 2 ? base64EncodedImage.push(e.target.result) : base64EncodedImage.splice(indextoRemove, 1, e.target.result);
             
             // console.log("replaced index "+typeof(indextoRemove));
@@ -109,7 +111,7 @@ const SlidesImage = ({handleImages,slidesImages,setSlidesImages,base64EncodedIma
             slidesImages.length > 0  ?  slidesImages.map((img,index)=>{
               return(<div className='slideWrapper'>
              <CloseRounded className='removeSlide' color='primary' onClick={()=>{removeSlide(index,img)}} />
-                  <img className="slidesImg"  alt={'slideimg'}key={index} id={index} src={`${img.url}`}  onClick={ (e) => { onImageClicked(e) }}/>   
+                  <img className="slidesImg"  alt={'slideimg'}  key={index} id={index} src={`${img.url}`}  onClick={ (e) => { onImageClicked(e) }}/>   
               </div>)
                
             }):''

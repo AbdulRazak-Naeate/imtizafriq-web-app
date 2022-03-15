@@ -44,11 +44,14 @@ router.post('/', async(req,res) =>{
         }
          console.log('position '+ position +' size '+size);
            if (size >= 2){
-            await Slides.findOneAndUpdate({name:req.body.name},
+           const pushslide = await Slides.findOneAndUpdate({name:req.body.name},
                 {$set: {
                     [`image.${position}`]: image[0]
                     }},
                 {new:true,useFindAndModify:false});
+
+                res.json({slides:pushslide});
+
            }else{
            const addSlides = await Slides.findOneAndUpdate({name:req.body.name},
                 {$push: {image:image[0]}},
@@ -73,7 +76,7 @@ router.post('/', async(req,res) =>{
                 console.error(err);
             }
         
-            if (image.length <=0) return res.json({status:400,message:"error uploading images"});
+        if (image.length <=0) return res.json({status:400,message:"error uploading images"});
         
             const slides= new Slides({image:[image[0]],name:req.body.name});
             const saveSlides= await slides.save();
