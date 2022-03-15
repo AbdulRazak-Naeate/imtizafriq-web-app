@@ -119,7 +119,7 @@
 }
 .userUpdateLeft{
     border: 0px solid ;
-    width: 30%;
+    width: 100%;
 }
 .userUpdateRight{
     display: flex;
