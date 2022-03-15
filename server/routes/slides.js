@@ -10,18 +10,17 @@ const { cloudinary } = require('../cloudinary');
 //post new slides
 router.post('/', async(req,res) =>{
        try{
-        var query= {image:req.files };
-        var  position=parseInt(req.body.position);
+         var  position=parseInt(req.body.position);
 
-        var file=req.files[0]
-         console.log(file)
+       //  var file=req.files[0]
+       //  console.log(file)
         var size=0;
         const slidesExist = await Slides.findOne({name:req.body.name});
-       
+       var image=[];
+       var base64encImages=req.body.encodedimages
        
         if (slidesExist){
-            var image=[];
-            var base64encImages=req.body.encodedimages
+            
             try {
                 
                     const uploadResponse = await cloudinary.uploader.upload(base64encImages, {
@@ -29,7 +28,7 @@ router.post('/', async(req,res) =>{
                     });
                     //console.log(uploadResponse);
         
-                    image.push(uploadResponse);     
+                    image.push(uploadResponse);  // cloudinary image object  
                 
                console.log({ urls:image });
             } catch (err) {
