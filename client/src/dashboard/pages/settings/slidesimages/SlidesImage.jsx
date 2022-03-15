@@ -14,7 +14,7 @@ const SlidesImage = ({handleImages,slidesImages,setSlidesImages,base64EncodedIma
       "encoding":"7bit",
       "mimetype":"image/png",
       "destination":"./server/uploads/slides", */
-      "url":"./thumbnail-wide.png"
+      "url":thumbnail
   });
    
     const onImageClicked = (e) => {

@@ -57,10 +57,25 @@ router.post('/', async(req,res) =>{
                 res.json({slides:addSlides});
 
            }
+
         } else{
-            var s=image[0];
-            console.log(s)
-            const slides= new Slides({image:[s],name:req.body.name});
+             try {
+                
+                    const uploadResponse = await cloudinary.uploader.upload(base64encImages, {
+                        upload_preset: 'slides',
+                    });
+                    console.log(uploadResponse);
+        
+                    image.push(uploadResponse);  // cloudinary image object  
+                
+               console.log({ urls:image });
+            } catch (err) {
+                console.error(err);
+            }
+        
+            if (image.length <=0) return res.json({status:400,message:"error uploading images"});
+        
+            const slides= new Slides({image:[image[0]],name:req.body.name});
             const saveSlides= await slides.save();
             res.json({slides:saveSlides});
         }   
