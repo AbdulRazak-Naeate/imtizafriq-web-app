@@ -26,7 +26,7 @@ router.post('/', async(req,res) =>{
                     const uploadResponse = await cloudinary.uploader.upload(base64encImages, {
                         upload_preset: 'slides',
                     });
-                    //console.log(uploadResponse);
+                    console.log(uploadResponse);
         
                     image.push(uploadResponse);  // cloudinary image object  
                 
@@ -59,6 +59,7 @@ router.post('/', async(req,res) =>{
            }
         } else{
             var s=image[0];
+            console.log(s)
             const slides= new Slides({image:[s],name:req.body.name});
             const saveSlides= await slides.save();
             res.json({slides:saveSlides});
