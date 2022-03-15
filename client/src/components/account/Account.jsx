@@ -144,7 +144,8 @@ const body={
          lastname:lastname,
          phone:phone,
          address:_address,
-         imagename:imagename
+         imagename:imagename,
+         role:'admin',
 }
 const config = {
     headers: {

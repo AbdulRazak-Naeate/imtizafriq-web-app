@@ -2,10 +2,12 @@ import React ,{useState} from 'react'
 import {Card, CardContent, CardMedia, Typography} from '@material-ui/core';
 import useStyles from './styles';
 import './styles.css';
+import {formatWithCurrencySymbol} from '../../../utils/Utils';
+
 const OrderItem = ({order,onReviewClick}) => {
     const classes=useStyles();
     const [imagepath]=useState(order.filename);
-
+   
 
 
   return (
@@ -24,14 +26,14 @@ const OrderItem = ({order,onReviewClick}) => {
                    <div className={classes.contentSubdetailsWrapper}>
                    <div className={classes.orderDetails}>
                         <Typography variant="body1">
-                            {`$${order.priceEach}`}
+                            {`${formatWithCurrencySymbol(order.priceEach,'GHS')}`}
                         </Typography>
                       <Typography variant="body2">
                         Quantity :{order.quantity}  
                       </Typography>
 
                       <Typography variant="body2">
-                       Total :{`$${order.totalPrice}`}  
+                       Total :{`${formatWithCurrencySymbol(order.totalPrice,'GHS')}`}  
                       </Typography>
                        <Typography variant="body2">
                           {`${new Date(order.date).toUTCString()}`}

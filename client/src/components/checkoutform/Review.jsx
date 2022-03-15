@@ -8,6 +8,7 @@ import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import useStyles from './styles';
 import { formatWithCurrencySymbol } from '../../utils/Utils';
+import{ Grid} from '@mui/material';
 
 const Review = ({checkoutToken,fees}) => {
     console.log(fees)
@@ -20,17 +21,43 @@ const Review = ({checkoutToken,fees}) => {
     setOpen(!open);
   };
 
-  const ListItemSecondaryContent= ({item})=>{
+  const ListItemSecondaryContent= ({item,index})=>{
     return(<div className={classes.secondaryItemContent}>
-      <div className={classes.measuremenItem}><span>Back</span><span>{item.measurement.back}</span></div> 
-      <div className={classes.measuremenItem}><span>Chest</span><span>{item.measurement.chest}</span></div> 
-      <div className={classes.measuremenItem}><span>Length</span><span>{item.measurement.shirtLength}</span></div> 
-      <div className={classes.measuremenItem}><span>Sleeve</span><span>{item.measurement.sleeve}</span></div> 
-      <div className={classes.measuremenItem}><span>Trouser length</span><span>{item.measurement.trouserLength}</span></div> 
-      <div className={classes.measuremenItem}><span>Waist</span><span>{item.measurement.waist}</span></div> 
-      <div className={classes.measuremenItem}><span>Thigh</span><span>{item.measurement.thigh}</span></div> 
-      <div className={classes.measuremenItem}><span>Bust</span><span>{item.measurement.bust}</span></div> 
+      <Grid container spacing ={1}>
+        <Grid item xs={2} md={2} sm={2} lg={2} key={`grid-${index}`}>
+          <div className={classes.measuremenItem}><span>Back</span><span>{item.measurement.back}</span></div> 
+        </Grid>
+        <Grid item xs={2} md={2} sm={2} lg={2} key={`grid-${index}`}>
 
+      <div className={classes.measuremenItem}><span>Chest</span><span>{item.measurement.chest}</span></div> 
+      </Grid>
+      <Grid item xs={2} md={2} sm={2} lg={2} key={`grid-${index}`}>
+
+      <div className={classes.measuremenItem}><span>Length</span><span>{item.measurement.shirtLength}</span></div> 
+      </Grid>
+      <Grid item xs={2} md={2} sm={2} lg={2} key={`grid-${index}`}>
+
+      <div className={classes.measuremenItem}><span>Sleeve</span><span>{item.measurement.sleeve}</span></div> 
+      </Grid>
+      <Grid item xs={2} md={2} sm={2} lg={2} key={`grid-${index}`}>
+
+      <div className={classes.measuremenItem}><span>Trouser length</span><span>{item.measurement.trouserLength}</span></div> 
+      </Grid>
+      <Grid item xs={2} md={2} sm={2} lg={2} key={`grid-${index}`}>
+
+      <div className={classes.measuremenItem}><span>Waist</span><span>{item.measurement.waist}</span></div> 
+      </Grid>
+      <Grid item xs={2} md={2} sm={2} lg={2} key={`grid-${index}`}>
+
+      <div className={classes.measuremenItem}><span>Thigh</span><span>{item.measurement.thigh}</span></div>
+      </Grid> 
+      <Grid item xs={2} md={2} sm={2} lg={2} key={`grid-${index}`}>
+
+      <div className={classes.measuremenItem}><span>Bust</span><span>{item.measurement.bust}</span></div> 
+      </Grid>
+
+      </Grid>
+     
       {/* Chest:${item.measurement.chest} Length:${item.measurement.shirtLength} Sleeve:${item.measurement.sleeve} Trouser Length:${item.measurement.trouserLength} Waist:${item.measurement.waist} Thigh:${item.measurement.thigh} Bust:${item.measurement.bust} */}
     </div>)
   }
@@ -67,7 +94,7 @@ const Review = ({checkoutToken,fees}) => {
               {/* <ListItemIcon>
                 <StarBorder />
               </ListItemIcon> */}
-              <ListItemText  key={`listItem${index}`}secondary={<ListItemSecondaryContent item={item}/>} />
+              <ListItemText  key={`listItem${index}`}secondary={<ListItemSecondaryContent item={item} index={index}/>} />
             </ListItemButton>
           </List>
         </Collapse>

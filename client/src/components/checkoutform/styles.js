@@ -19,6 +19,9 @@ import {makeStyles} from '@material-ui/core/styles';
         alignItems:'center',
         border:'0px solid',
         width:'130%',
+        [theme.breakpoints.down(620)]:{
+          width:'100%',
+        },
         marginLeft:'5px',
     },
     secondaryItemIitle:{
