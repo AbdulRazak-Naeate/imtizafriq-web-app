@@ -16,9 +16,9 @@ const PrefareStyleCheckout = ({onAddToCart}) => {
     const classes=useStyles();
     const [productImages,setProductImages]=useState([]);
     const [loadedImage,setLoadedImages]=useState([]);
-    const [productname,setProductName]= useState('');
+    const [productname,setProductName]= useState("PrefareStyle-"+ randNumber(5));
     const [sizes]=useState(['M','L','XL','XXL','XXXL'])
-    const [product]=useState({name:productname,price:'150',description:''})
+    const [product,setProduct]=useState({name:productname,price:'150',description:''})
 
     const onImageClicked = (e) => {
         const formfile = document.getElementById("product-file");
@@ -132,7 +132,9 @@ const initiateAndCreateProduct =(sizes)=>{
           console.log(response.data);
          if (response.data.status===200){
           //window.location.reload();
-          setProductName("PrefareStyle-"+randNumber(5))
+          var pn="PrefareStyle-"+randNumber(5)
+          setProductName(pn);
+          setProduct({name:pn,price:'150',description:''})
           setLoadedImages([]);
           onAddToCart(response.data.product,1);
             
@@ -171,12 +173,12 @@ const initiateAndCreateProduct =(sizes)=>{
       }
       
     }
-     useEffect(()=>{
+    /*  useEffect(()=>{
       if(productname ===''){
         setProductName("PrefareStyle-"+ randNumber(5))
       }
      },[setProductName, productname]);
-
+ */
   return (
     <div className={classes.content}> 
            <Alert stack={{limit: 3}} />

@@ -112,6 +112,7 @@ const Footer = () => {
                 </div>
               </div> 
               <section className='social-media'>
+                
         <div className='social-media-wrap'>
           <div className='footer-logo'>
             <Link to='/' className='social-logo'>
@@ -121,10 +122,10 @@ const Footer = () => {
           </div>
           <small className='website-rights'>{`${process.env.REACT_APP_WEBSITE_NAME} © ${new Date().getFullYear()}`}</small>
         <div>
-        <small className='developer'>Designed by NaeateStudios</small>
+        <small className='website-rights'>Designed by NaeateStudios</small>
           <Typography className='topnavlink' variant="body2">
              <Call fontSize='small' className='topbarinfoIcon'/>
-             <a  className='topnavlink' href='tel:+2330207055540'>{`+2330207055540}`}</a>
+             <a  className='topnavlink' href='tel:+2330207055540'>{`+2330207055540`}</a>
              </Typography>
         </div>
           <div className='social-icons'>

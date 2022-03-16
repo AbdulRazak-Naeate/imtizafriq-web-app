@@ -56,7 +56,9 @@ const analytics = getAnalytics(app);
           contrastText:'#fff'
         },
         googlebuttoncolor:{
-          main:red[800],
+          main:red[500],
+          contrastText:'#fff'
+
         }
       },
 });   
