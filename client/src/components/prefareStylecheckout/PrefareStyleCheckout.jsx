@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import{Grid} from '@mui/material';
 import ImageView from './imageview/ImageView';
 import ProductDetails from './productDetails/ProductDetails';
@@ -7,7 +7,7 @@ import Alert from 'react-s-alert';
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/stackslide.css';
 import 'react-s-alert/dist/s-alert-css-effects/jelly.css';
-import axios,{post} from 'axios';
+import axios from 'axios';
 import { randNumber } from '../../utils/Utils';
 /* import body from 'form-data';
  */
@@ -16,7 +16,8 @@ const PrefareStyleCheckout = ({onAddToCart}) => {
     const classes=useStyles();
     const [productImages,setProductImages]=useState([]);
     const [loadedImage,setLoadedImages]=useState([]);
-    const [productname,setProductName]= useState("PrefareStyle-"+randNumber(5));
+    const [productname,setProductName]= useState('');
+    const [sizes]=useState(['M','L','XL','XXL','XXXL'])
     const [product]=useState({name:productname,price:'150',description:''})
 
     const onImageClicked = (e) => {
@@ -126,6 +127,7 @@ const initiateAndCreateProduct =(sizes)=>{
 
     const handleMakeOrder=(sizes)=>{
       if (loadedImage.length > 0){
+
         uploadAndCreateProduct(sizes).then((response) => {
           console.log(response.data);
          if (response.data.status===200){
@@ -169,7 +171,10 @@ const initiateAndCreateProduct =(sizes)=>{
       }
       
     }
-     
+     useEffect(()=>{
+       setProductName("PrefareStyle-"+randNumber(5))
+     },[setProductName]);
+
   return (
     <div className={classes.content}> 
            <Alert stack={{limit: 3}} />
@@ -180,7 +185,7 @@ const initiateAndCreateProduct =(sizes)=>{
        
         </Grid>
         <Grid item={true} xs={12} sm={12} md={5} lg={4}> 
-        <ProductDetails product={product}  handleMakeOrder={handleMakeOrder}/>
+        <ProductDetails product={product}  handleMakeOrder={handleMakeOrder(sizes)}/>
          {/*   <ProductDetails product={product} onAddToCart={onAddToCart}/>
            */}
         </Grid>

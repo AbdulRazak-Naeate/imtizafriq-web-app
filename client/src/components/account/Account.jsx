@@ -4,7 +4,6 @@ import {Grid} from '@mui/material';
 import './user.css'
 import {useState} from 'react';
 import {useHistory} from 'react-router-dom';
-import QueryParams from '../../QueryParams';
 import {post,patch}from 'axios';
 import Alert from 'react-s-alert';
 import 'react-s-alert/dist/s-alert-default.css';
@@ -14,7 +13,6 @@ import Avatar from '../../assets/icons/user_96px.png';
 import useStyles from './styles'
 const Account = () => {
    const classes = useStyles()
-  const query =QueryParams();    
   const [user,setUser] = useState(JSON.parse(localStorage.getItem('user')));
   const[username,setUsername]=useState(user.name);
   const[firstname,setFirstname]=useState(user.firstname);
@@ -27,11 +25,11 @@ const Account = () => {
   const[city,setCity]=useState(address.city!== 'null'? address.city :'');
   const[street,setStreet]=useState(address.street!== 'null'? address.street :'');
   const[aprt_suit_num,setApt_suit_num]=useState(address.aprt_suit_num!== 'null'? address.aprt_suit_num :'');
-  const[image,setImage]=useState(null)
+  const[setImage]=useState(null)
   const[base64Image,setBase64Image]=useState(null)
   const [imagename,setImageName]=useState(null);
   const[onuserUpdated,setonuserUpdated]=useState(false);
-  const[onImageChanged,setOnImageChanged]=useState(false)
+  const[onImageChanged,setOnImageChanged]=useState(false);
   const history=useHistory();
   const imgonLoadError=(e)=>{
     e.target.onerror = null; e.target.src = Avatar
@@ -41,8 +39,9 @@ function onFileInputChange(e) {
     var file = e.target.files[0];
     var reader = new FileReader();
     reader.onloadend = function (e) {
+
         document.getElementById('avatar').src = e.target.result;
-         document.getElementById('user-image').src = e.target.result;
+        document.getElementById('user-image').src = e.target.result;
        
         setOnImageChanged(true);
      console.log(file)
@@ -201,7 +200,7 @@ return patch(url, body,config)
         <Grid item={true} xs={12} sm={4} md={4} lg={4}>
                 <div className="userShow">
                     <div className="userShowTop">
-                        <img src={`/server/uploads/users/${user.image[0].filename}`}  id="avatar"  onError={imgonLoadError} alt="" className="userShowImg" />
+                        <img src={`${user.image[0].url}`}  id="avatar"  onError={imgonLoadError} alt="" className="userShowImg" />
                         
                        <div className="userShowTopTitle">
                            <span className="userShowUsername">{username}</span>  <span className="active"></span>
@@ -303,7 +302,7 @@ return patch(url, body,config)
                <Grid item={true} xs={12} sm={4} md={4} lg={2}>
                     <div className="userUpdateUploadWrapper">
                         <div className="userUpdateUpload">
-                            <img src={`/server/uploads/users/${user.image[0].filename}`} onError={imgonLoadError} alt=""  id="user-image"className="userUpdateImg" />
+                            <img src={`${user.image[0].url}`} onError={imgonLoadError} alt=""  id="user-image"className="userUpdateImg" />
                             <label htmlFor="file"> <Publish className="userUpdateIcon"/> </label>
                                 <input type="file" onChange={onFileInputChange} id="file" style={{display:"none"}}/>
                        </div>
