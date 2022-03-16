@@ -17,7 +17,7 @@ function UserList(){
    const fetchUsers = async () => {//get User Stores 
  
     try {
-   const res = await fetch(`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/user/`);
+   const res = await fetch(`/api/user/`);
    const data = await res.json();
   
    return data.users;
@@ -57,7 +57,7 @@ function UserList(){
           renderCell:(params)=>{
               return(
                   <div className="userListUser">
-                      <img className="userListImg" src={`http://localhost:3002/server/uploads/users/${params.row.image[0].filename}`} alt=""/>
+                      <img className="userListImg" src={`${params.row.image[0].url}`} alt=""/>
                       {params.row.username}
                   </div>
               )
@@ -114,10 +114,9 @@ function UserList(){
            onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
            rowsPerPageOptions={[5, 10, 20]}
            pagination
-          checkboxSelection
-        disableSelectionOnClick
-        components={{
-          Toolbar:GridToolbar,
+           checkboxSelection
+           disableSelectionOnClick
+           components={{Toolbar:GridToolbar,
           NoRowsOverlay: () => (
             <Stack height="100%" alignItems="center" justifyContent="center">
               No products found ,click on new product to add products

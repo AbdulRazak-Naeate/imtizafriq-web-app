@@ -39,7 +39,7 @@ const Products = ({products,onAddToCart,onUpdateLikes,favorites}) => {
       <div className={classes.BtnWrapper}>
       
         
-        <Button type='button' variant='contained' onClick={()=>{history.push('/prefaredstylecheckout')}}>Order by uploading your design</Button>
+        <Button type='button' variant='contained' onClick={()=>{history.push('/prefaredstylecheckout')}}>upload design to Order</Button>
       </div>
     </main>
   )

@@ -1,7 +1,10 @@
 import React,{useState,useEffect} from 'react'
 import {Link} from 'react-router-dom';
 import {Button} from '@mui/material';
+import {EmailOutlined,Call,HomeOutlined} from '@material-ui/icons';
 import {Facebook,Instagram,Twitter} from '@mui/icons-material'
+import {Typography} from '@mui/material';
+
 import './footer.css';
 import axios from 'axios';
 const Footer = () => {
@@ -117,6 +120,13 @@ const Footer = () => {
             </Link>
           </div>
           <small className='website-rights'>{`${process.env.REACT_APP_WEBSITE_NAME} © ${new Date().getFullYear()}`}</small>
+        <div>
+        <small className='developer'>Designed by NaeateStudios</small>
+          <Typography className='topnavlink' variant="body2">
+             <Call fontSize='small' className='topbarinfoIcon'/>
+             <a  className='topnavlink' href='tel:+2330207055540'>{`+2330207055540}`}</a>
+             </Typography>
+        </div>
           <div className='social-icons'>
             <Link
               className='social-icon-link facebook'

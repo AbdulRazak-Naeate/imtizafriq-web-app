@@ -54,6 +54,9 @@ const analytics = getAnalytics(app);
         warning:{
           main:red[100],
           contrastText:'#fff'
+        },
+        googlebuttoncolor:{
+          main:red[800],
         }
       },
 });   

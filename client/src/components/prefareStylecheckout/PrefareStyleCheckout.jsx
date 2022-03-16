@@ -16,7 +16,7 @@ const PrefareStyleCheckout = ({onAddToCart}) => {
     const classes=useStyles();
     const [productImages,setProductImages]=useState([]);
     const [loadedImage,setLoadedImages]=useState([]);
-    const [productname]= useState("PrefareStyle-"+randNumber(5));
+    const [productname,setProductName]= useState("PrefareStyle-"+randNumber(5));
     const [product]=useState({name:productname,price:'150',description:''})
 
     const onImageClicked = (e) => {
@@ -130,8 +130,10 @@ const initiateAndCreateProduct =(sizes)=>{
           console.log(response.data);
          if (response.data.status===200){
           //window.location.reload();
+          setProductName("PrefareStyle-"+randNumber(5))
+          setLoadedImages([]);
           onAddToCart(response.data.product,1);
-            //clearFields();
+            
          }else if (response.data.status===400){ 
   
           Alert.error(response.data.message, {

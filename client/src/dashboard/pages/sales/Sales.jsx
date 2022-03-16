@@ -7,8 +7,7 @@ import {useState , useEffect} from "react";
 import AlertDialog from '../../components/alertdialog/AlertDialog'
 import {patch} from 'axios';
 
-const Sales = ({stores}) => {
-  console.log(stores)
+const Sales = () => {
   const [transactions,setTransactions]=useState([]);
   const [pageSize, setPageSize] = useState(20);
   const [user]=useState(localStorage.getItem('user'));
@@ -284,8 +283,12 @@ return patch(url, body,config)
                selectedIDs.has(trans._id)
             );
             
-           console.log(selectedData)
-           setSelectedRows(selectedData);
+          try{
+            console.log(selectedData)
+            setSelectedRows(selectedData);
+          }catch(err){
+            console.log(err)
+          }
         }}
         selectionModel={selectionModel}
         components={{

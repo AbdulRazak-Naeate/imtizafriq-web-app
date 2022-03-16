@@ -5,6 +5,7 @@ const bcrypt = require('bcryptjs');
 const jwt= require('jsonwebtoken');
 const {updateImage}= require('../upload');
 var mongoose=require('mongoose');
+const { cloudinary } = require('../cloudinary');
 
 //Get a  specific user
 router.get('/',async(req,res)=>{
@@ -276,12 +277,32 @@ router.patch('/:userId',async (req,res)=> {
 });
 
 
-router.post('/updateImage/:userId',updateImage('./server/uploads/users'),async (req,res)=>{
+router.post('/updateImage/:userId'/* ,updateImage('./server/uploads/users') */,async (req,res)=>{
   try{
     //update iamge field in user
     var oId= new mongoose.Types.ObjectId(req.params.userId);
-    var query= {image:req.files };
+   // var query= {image:req.files };
      //console.log(req.body)
+
+     var imageUrls=[];
+     var base64encImages=req.body.encodedimages
+     try {
+         
+             const uploadResponse = await cloudinary.uploader.upload(base64encImages, {
+                 upload_preset: 'users',
+             });
+             //console.log(uploadResponse);
+ 
+             imageUrls.push(uploadResponse);     
+         
+        console.log({ urls:imageUrls });
+     } catch (err) {
+         console.error(err);
+     }
+ 
+     if (imageUrls.length<=0) return res.json({status:400,message:"error uploading images"});
+    
+     var query= {image:imageUrls[0]};
     const updateUser = await User.findOneAndUpdate(
         {_id:oId},
         {$set: query},

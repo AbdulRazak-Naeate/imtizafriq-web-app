@@ -28,6 +28,7 @@ const Account = () => {
   const[street,setStreet]=useState(address.street!== 'null'? address.street :'');
   const[aprt_suit_num,setApt_suit_num]=useState(address.aprt_suit_num!== 'null'? address.aprt_suit_num :'');
   const[image,setImage]=useState(null)
+  const[base64Image,setBase64Image]=useState(null)
   const [imagename,setImageName]=useState(null);
   const[onuserUpdated,setonuserUpdated]=useState(false);
   const[onImageChanged,setOnImageChanged]=useState(false)
@@ -46,6 +47,7 @@ function onFileInputChange(e) {
         setOnImageChanged(true);
      console.log(file)
      setImage(file);
+     setBase64Image(e.target.result)
      //use user to name uer image 
      var filename=username+'.'+file.name.split('.').pop();
      console.log(filename);
@@ -92,7 +94,17 @@ const handleUpdate=(e)=>{
             }); ;              
             setonuserUpdated(!onuserUpdated);
             if (onImageChanged){
-                UploadStoreImage(image).then((response) => {
+            /*     UploadStoreImage(image).then((response) => {
+                    if (response.data.status===200){
+                      Alert.success('user image updated', {
+                        position: 'top-right',
+                        effect: 'stackslide'
+            
+                    }); 
+                    }
+                    //addToast(exampleToast(response.data.message));
+                  }) */
+                  uploadImageIntoCloudinary(base64Image).then((response) => {
                     if (response.data.status===200){
                       Alert.success('user image updated', {
                         position: 'top-right',
@@ -108,6 +120,28 @@ const handleUpdate=(e)=>{
 
     });
 }
+
+const uploadImageIntoCloudinary = async (base64EncodedImage) => {
+  try {
+    const url = `api/user/updateImage/${user._id}`;
+        const body ={
+          name: "name",
+          encodedimages: base64EncodedImage 
+        }
+     
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          'auth-token':
+            user.auth_token,
+        },
+      }
+      return post(url, JSON.stringify(body), config)
+      
+  } catch (err) {
+      console.error(err);
+  }
+};
 const UploadStoreImage = (file) => {
 //const url = process.env.STORE_URL;
 

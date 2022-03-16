@@ -158,7 +158,7 @@ function Signin({handleCloseModal,handleSwitchForm,replacePermanentId}) {
  */}                  </div>  
                <div className="signUpLoginItem">
                
-      <Button fullWidth variant="contained" id='googleButton' color="warning" onClick={()=>{onLogInwithgoogle()}} >LogIn With Google</Button>
+      <Button fullWidth variant="contained" id='googleButton' color="googlebuttoncolor" onClick={()=>{onLogInwithgoogle()}} >LogIn With Google</Button>
    
                  </div>      
                   <div className="signUpLoginItem">

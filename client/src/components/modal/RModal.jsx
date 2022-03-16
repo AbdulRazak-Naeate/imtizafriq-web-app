@@ -12,7 +12,7 @@ const style = {
   transform: 'translate(-50%, -50%)',
   width: '98%',
   bgcolor: 'background.paper',
-  border: '2px solid cadetblue',
+  border: '0px solid ',
   borderRadius:'4px',
   boxShadow: 24,
   p: 4,

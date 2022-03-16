@@ -46,7 +46,7 @@ const style = {
                 return(
                     <Grid item={true} xs={12} md={6}  key={index}>
                         <div className="detailContainer">
-                          <img className='media' src={`/server/uploads/products/${data.filename}`} alt='item-img' />
+                          <img className='media' src={`${data.url}`} alt='item-img' />
                         <div className="tranxdetailsContainer">
                         <div className="tranxdetailsItem">
                              <ShoppingBagOutlined className="userShowIcon"/>
