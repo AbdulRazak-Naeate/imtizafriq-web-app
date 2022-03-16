@@ -45,7 +45,7 @@ const PrefareStyleCheckout = ({onAddToCart}) => {
         console.log({ readAsDataURLError: error })
     }
 }
-const uploadAndCreateProduct =(sizes)=>{
+const uploadAndCreateProduct =()=>{
   
   const url = `/api/products/prefstyle`;
 
@@ -128,7 +128,7 @@ const initiateAndCreateProduct =(sizes)=>{
     const handleMakeOrder=()=>{
       if (loadedImage.length > 0){
 
-        uploadAndCreateProduct(sizes).then((response) => {
+        uploadAndCreateProduct().then((response) => {
           console.log(response.data);
          if (response.data.status===200){
           //window.location.reload();
@@ -189,7 +189,7 @@ const initiateAndCreateProduct =(sizes)=>{
        
         </Grid>
         <Grid item={true} xs={12} sm={12} md={5} lg={4}> 
-        <ProductDetails product={product}  handleMakeOrder={handleMakeOrder()}/>
+        <ProductDetails product={product}  handleMakeOrder={handleMakeOrder}/>
          {/*   <ProductDetails product={product} onAddToCart={onAddToCart}/>
            */}
         </Grid>

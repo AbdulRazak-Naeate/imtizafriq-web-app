@@ -33,7 +33,7 @@ const ProductDetails = ({product ,handleMakeOrder}) => {
          </div>
          <div className={classes.actions}>
          <Button to="/" component={Link} variant='outlined'>Back to Home</Button>
-           <Button type="submit" variant="contained" color="primary" onClick={()=>{handleMakeOrder(sizes)}}>Add to  Cart <AddShoppingCart/>  
+           <Button type="submit" variant="contained" color="primary" onClick={()=>{handleMakeOrder()}}>Add to  Cart <AddShoppingCart/>  
           </Button>
          </div>
         </CardContent>
