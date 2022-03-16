@@ -57,7 +57,7 @@ const uploadAndCreateProduct =(sizes)=>{
       specification: "none",
       digital_product_url: 'null',
       stock:'0',
-      sizes:sizes,
+      size:sizes,
       active:'0',
       product_type :'special',
       encodedimages:loadedImage,
@@ -125,7 +125,7 @@ const initiateAndCreateProduct =(sizes)=>{
 
 };
 
-    const handleMakeOrder=(sizes)=>{
+    const handleMakeOrder=()=>{
       if (loadedImage.length > 0){
 
         uploadAndCreateProduct(sizes).then((response) => {
@@ -189,7 +189,7 @@ const initiateAndCreateProduct =(sizes)=>{
        
         </Grid>
         <Grid item={true} xs={12} sm={12} md={5} lg={4}> 
-        <ProductDetails product={product}  handleMakeOrder={handleMakeOrder(sizes)}/>
+        <ProductDetails product={product}  handleMakeOrder={handleMakeOrder()}/>
          {/*   <ProductDetails product={product} onAddToCart={onAddToCart}/>
            */}
         </Grid>
