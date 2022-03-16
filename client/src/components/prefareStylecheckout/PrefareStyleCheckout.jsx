@@ -172,8 +172,10 @@ const initiateAndCreateProduct =(sizes)=>{
       
     }
      useEffect(()=>{
-       setProductName("PrefareStyle-"+randNumber(5))
-     },[setProductName]);
+      if(productname ===''){
+        setProductName("PrefareStyle-"+ randNumber(5))
+      }
+     },[setProductName, productname]);
 
   return (
     <div className={classes.content}> 
