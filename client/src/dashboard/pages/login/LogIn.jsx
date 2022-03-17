@@ -69,9 +69,9 @@ function LogIn({toggleSideBar}) {
                         </div>
                          <div className="signUpLoginItem">
                        <Link to="/dashboard/signup" className="link">
-                       <button className="btnSignUp">SignUp</button>
+                       <button className="adminbtnSignUp">SignUp</button>
                        </Link>
-                         <button className="btnLogIn">LogIn</button>
+                         <button className="adminbtnLogIn">LogIn</button>
 
                          </div>
                     </form>

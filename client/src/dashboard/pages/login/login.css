@@ -68,7 +68,7 @@ flex:1
     margin-top: 10px;
     padding: 10px 20px;
 }
-.btnLogIn ,.btnSignUp{
+.adminbtnLogIn ,.adminbtnSignUp{
     border-radius: 5px;
     border: none;
     margin-top: 20px;
@@ -78,10 +78,10 @@ flex:1
     color: white;
     font-weight: 600;
 }
-.btnLogIn{
+.adminbtnLogIn{
     background-color:  var(--dashboard-primary);
 }
-.btnSignUp{
+.adminbtnSignUp{
     background-color: rgb(109, 240, 183);
 
 }

@@ -12,7 +12,7 @@ return( <input type="text" className={`measurementItem ${name}`} placeholder="" 
 }
 const Specs = ({setColors,setSizes}) => {
     const[mcolors,setmColors] = useState([""]); //initiliaze color inputs 
-    const[msizes,setmSizes]   = useState([""]); //initilaize size inputs
+    const[msizes,setmSizes]   = useState(['M','L','XL','XXL','XXXL']); //initilaize size inputs
     
   
 const removeLastIndex = (values) => {

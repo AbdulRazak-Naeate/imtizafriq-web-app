@@ -22,7 +22,7 @@ export default function NewProduct({products,setProducts}) {
     const [stock,setStock]=useState('');
     const [active,setActive]=useState('');
     const [specification,setSpecification] = useState('none');
-    const [showSpecification,setShowSpeicification]=useState(false);
+    const [showSpecification,setShowSpeicification]=useState(true);
     const [showDigitalProductFileInput,setShowDigitalProductFileInput] = useState(false);
     const [clearImages,setClearImages]=useState(false);
 
@@ -311,7 +311,7 @@ export default function NewProduct({products,setProducts}) {
              </select></>:''}  
           </div>
 
-          <div className="addProductItem">
+        {/*   <div className="addProductItem">
             {  showDigitalProductFileInput ?   <div className="digital_product">
                <label>Google Drive Url File</label>
                <div className="addProductItem">
@@ -319,7 +319,7 @@ export default function NewProduct({products,setProducts}) {
                </div>
                </div> :<></>
            }
-            </div>
+            </div> */}
         
          </div>
         </div>
