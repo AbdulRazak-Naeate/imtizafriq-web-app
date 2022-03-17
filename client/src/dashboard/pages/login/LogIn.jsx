@@ -38,7 +38,7 @@ function LogIn({toggleSideBar}) {
           const url =`/api/user/login`;
       
           return  axios.post(url, {
-           email: email ,
+           email: email.toLowerCase() ,
            password: password,
          });
           

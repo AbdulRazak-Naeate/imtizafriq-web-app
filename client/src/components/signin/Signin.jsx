@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react'
 import './signin.css'
 import axios from 'axios';
@@ -64,10 +65,10 @@ function Signin({handleCloseModal,handleSwitchForm,replacePermanentId}) {
             const nameArr=fullname.split(" ");
             console.log(nameArr)
            return axios.post(url,  {
-              username:nameArr[0],
+              username:nameArr[0].toLowerCase(),
               firstname:nameArr[0],
               lastname:nameArr[1],
-              email: user.email ,
+              email: user.email.toLowerCase() ,
               phone:"+2330000000000",
               password:"000000",
               fromGoogle:true
@@ -125,7 +126,7 @@ function Signin({handleCloseModal,handleSwitchForm,replacePermanentId}) {
           const url =`/api/user/login`;
       
           return  axios.post(url, {
-           email: email ,
+           email: email.toLowerCase() ,
            password: password,
          });
           

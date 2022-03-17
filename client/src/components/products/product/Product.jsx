@@ -1,6 +1,5 @@
 import React,{useState,useEffect} from 'react'
-import {Card,CardMedia,CardContent,CardActions,Typography,IconButton} from '@mui/material';
-
+import {Card,CardMedia,CardActions,Typography,IconButton} from '@mui/material';
 import useStyles from './styles';
 import { AddShoppingCart,FavoriteBorderOutlined,Favorite } from '@mui/icons-material';
 import {useHistory} from 'react-router-dom';
@@ -13,6 +12,7 @@ const Product = ({product,onAddToCart,onUpdateLikes,favorites}) => {
     const history=useHistory();
     const[like,setLike]=useState(false);
     const loggedin =localStorage.getItem('loggedin');
+    
     const theme = createTheme({
       palette: {
         primary:{

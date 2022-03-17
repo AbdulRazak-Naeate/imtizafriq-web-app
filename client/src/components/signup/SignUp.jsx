@@ -1,7 +1,7 @@
 import React, {useState,useEffect} from 'react';
 import {useHistory} from 'react-router-dom';
 import './signup.css';
-import axios,{post} from 'axios';
+import axios from 'axios';
 import {Typography,Button} from '@mui/material'
 /* var loki = require('lokijs'); */
 const SignUp = ({handleCloseModal,handleSwitchForm,replacePermanentId}) => {
@@ -10,10 +10,7 @@ const SignUp = ({handleCloseModal,handleSwitchForm,replacePermanentId}) => {
     const [password,setPassword]=useState('');
     const [phone,setPhone]=useState('');
     const [repeatPassword,setRepeatPassword]=useState('');
-   /*  const [countries,setCountries]=useState([]);
-    const [states,setStates]=useState([]);
-    const [cities,setCities]=useState([]);
-   */
+   
     const history=useHistory();
   
   /* 
@@ -46,133 +43,17 @@ const SignUp = ({handleCloseModal,handleSwitchForm,replacePermanentId}) => {
       });
       }
     } 
-  /* 
-    const onCountryChange=(e)=>{
-      var sid=e.target.value;
-       filterStates(sid,db);
-    }
   
-    const onStateChange=(e)=>{
-      var cid=e.target.value;
-       filterCities(cid,db);
-    }
   
-    
-  const filterStates = async(cid,db)=> {
-    console.log(cid);
-    let statesColl = db.getCollection("states");
-   // console.log(statesColl.data)
-    let states = await statesColl.find({ country_id: parseInt(cid) });
-        setStates(states);
-  
-  }
-  
-    
-  const filterCities = async(sid,db)=> {
-    console.log(sid);
-    let citiesColl = db.getCollection("cities");
-    console.log(citiesColl.data)
-    let cities = await citiesColl.find({ state_id: parseInt(sid) });
-        setCities(cities);
-  
-  }
-  
-  const initiateCities = async (db,citiesJSON) =>{
-    var _cities = db.getCollection("cities");
-   if (!_cities) {
-       _cities = db.addCollection('cities');
-       const cities=  await fetch(citiesJSON)
-       .then(cities => cities.json())
-     
-       await cities.forEach((c) => {
-         _cities.insert(c);
-       });
-  
-    }
-    return _cities;
-  }
-    const initiateStates = async (db,statesJSON) =>{
-      var _states = db.getCollection("states");
-     if (!_states) {
-     _states = db.addCollection('states');
-   const states=  await fetch(statesJSON)
-       .then(states => states.json())
-       
-         await states.forEach((s) => {
-           _states.insert(s);
-         });
-    
-      }
-      return _states;
-    }
-    const  initializeData  = async (db,countriesJSON)  => {
-      var _countries = db.getCollection("countries");
-      if (!_countries) {
-        _countries = db.addCollection('countries');
-         const countries =  await fetch(countriesJSON)
-      .then(countries=>countries.json());
-      
-       await countries.forEach((c) => {
-         
-        _countries.insert(c);
-        });
-      }
-     
-      return _countries;
-  
-    } */
-  
-    useEffect(()=>{
-     
-  
-       /* const init = async () =>{
-       const countriesJSON = 'https://raw.githubusercontent.com/dr5hn/countries-states-cities-database/master/countries.json';
-  
-      const statesJSON = 'https://raw.githubusercontent.com/dr5hn/countries-states-cities-database/master/states.json';
-      const citiesJSON = 'https://raw.githubusercontent.com/dr5hn/countries-states-cities-database/master/cities.json';
-  
-        try{
-         //get country data from server
-        const countriesfromServer = await initializeData(db,countriesJSON)
-        setCountries(countriesfromServer.data);
-       // console.log(countriesfromServer.data[0]);
-  
-         //get states data from server
-        const statesfromServer = await initiateStates(db,statesJSON)
-        setStates(statesfromServer.data);
-       // console.log(statesfromServer.data[0]);
-       //get cities data from server
-        const citiesfromServer = await initiateCities(db,citiesJSON)
-        setCities(citiesfromServer.data);
-       // console.log(citiesfromServer.data[0]);
-        }catch(err){
-          console.log(err);
-        }
-      }
-      
-      init();
-   */
-      
-       
-      
-     });
   
     
     const SignUp =()=>{
           
       const url = `/api/user/register`;
-  
-     
-      const formData = new FormData();
-     
-      formData.append('name', username);
-      formData.append('email', email);
-      formData.append('phone', phone);
-      formData.append('password', repeatPassword);
-     
+
    
-      return post(url,  {
-        username:username,
+      return axios.post(url,  {
+        username:username.toLowerCase(),
         firstname:'null',
         lastname:'null',
         email: email ,

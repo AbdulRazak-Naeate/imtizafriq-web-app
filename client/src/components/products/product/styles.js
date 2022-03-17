@@ -20,7 +20,9 @@ export default makeStyles((theme)=>({
       justifyContent:'flex-end',
   },
   cardActionsPriceWrapper:{
-    width:'60%'
+    width:'60%',
+    fontSize: '12px',
+    fontWeight: 500
   },
   cardContent:{
       height:'5vh',
