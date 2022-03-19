@@ -307,7 +307,7 @@ return patch(url, body,config)
                <Grid item={true} xs={12} sm={4} md={4} lg={2}>
                     <div className="userUpdateUploadWrapper">
                         <div className="userUpdateUpload">
-                            <img src={`${user.image[0].url}`} onError={imgonLoadError} alt=""  id="user-image"className="userUpdateImg" />
+                            <img src={`${userImage}`} onError={imgonLoadError} alt=""  id="user-image"className="userUpdateImg" />
                             <label htmlFor="file"> <Publish className="userUpdateIcon"/> </label>
                                 <input type="file" onChange={onFileInputChange} id="file" style={{display:"none"}}/>
                        </div>
