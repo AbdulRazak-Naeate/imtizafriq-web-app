@@ -14,6 +14,11 @@ import useStyles from './styles'
 const Account = () => {
    const classes = useStyles()
   const [user,setUser] = useState(JSON.parse(localStorage.getItem('user')));
+ try{
+  const userImage=user.image[0].url
+ }catch(err){
+   console.log(err)
+ }
   const[username,setUsername]=useState(user.name);
   const[firstname,setFirstname]=useState(user.firstname);
   const[lastname,setLastname]=useState(user.lastname);
@@ -200,7 +205,7 @@ return patch(url, body,config)
         <Grid item={true} xs={12} sm={4} md={4} lg={4}>
                 <div className="userShow">
                     <div className="userShowTop">
-                        <img src={`${user.image[0].url}`}  id="avatar"  onError={imgonLoadError} alt="" className="userShowImg" />
+                        <img src={`${userImage}`}  id="avatar"  onError={imgonLoadError} alt="" className="userShowImg" />
                         
                        <div className="userShowTopTitle">
                            <span className="userShowUsername">{username}</span>  <span className="active"></span>
