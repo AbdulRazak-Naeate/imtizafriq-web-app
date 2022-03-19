@@ -300,7 +300,7 @@ router.post('/updateImage/:userId'/* ,updateImage('./server/uploads/users') */,a
          console.error(err);
      }
  
-     if (imageUrls.length<=0) return res.json({status:400,message:"error uploading images"});
+     if (imageUrls.length<=0) return res.json({status:400,message:"error uploading  image"});
     
      var query= {image:imageUrls[0]};
     const updateUser = await User.findOneAndUpdate(

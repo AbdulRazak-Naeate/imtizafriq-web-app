@@ -20,8 +20,26 @@ const Review = ({checkoutToken,fees}) => {
   const handleClick = () => {
     setOpen(!open);
   };
+  const CheckforemptyFields =(item)=>{
+
+    const[containsEmptyField,setcontainsEmptyField]=useState(false)
+
+    var measurement=item.measurement
+            if (item.selected===true){
+                var objValues=Object.values(measurement) //get values withen ,measurement object 
+            }
+            for (let i=0;i<objValues.length;i++){//if customer doeos not input measure value return measurement Error
+              if (objValues[i]!==""){
+                  setcontainsEmptyField(false)
+              }else{
+                  setcontainsEmptyField(true)
+              }
+          }
+       return containsEmptyField
+  }
 
   const ListItemSecondaryContent= ({item,index})=>{
+
     return(<div className={classes.secondaryItemContent}>
       <Grid container spacing ={1}>
         <Grid item xs={1} md={1} sm={1} lg={1} key={`grid-${index}`}>
@@ -94,7 +112,7 @@ const Review = ({checkoutToken,fees}) => {
               {/* <ListItemIcon>
                 <StarBorder />
               </ListItemIcon> */}
-              <ListItemText  key={`listItem${index}`}secondary={<ListItemSecondaryContent item={item} index={index}/>} />
+              <ListItemText  key={`listItem${index}`}secondary={ CheckforemptyFields ? <ListItemSecondaryContent item={item} index={index}/>:''} />
             </ListItemButton>
           </List>
         </Collapse>

@@ -127,7 +127,7 @@ const handleUpdate=(e)=>{
 
 const uploadImageIntoCloudinary = async (base64EncodedImage) => {
   try {
-    const url = `api/user/updateImage/${user._id}`;
+    const url = `/api/user/updateImage/${user._id}`;
         const body ={
           name: "name",
           encodedimages: base64EncodedImage 

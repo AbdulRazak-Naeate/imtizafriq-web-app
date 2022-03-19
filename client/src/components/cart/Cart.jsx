@@ -49,7 +49,7 @@ const Cart = ({cart, handleUpdateCartQty,handleupdateColorSize,handleupdateMeasu
        }
         
         //check through items  if user has choosen a specc if not value will be null else the user choice is found 
-       if(values.includes('null')){  //Error null value is found user does selected some choice 
+       if(values.includes('null')){  //Error null value is found user does not select some choice 
            colorSizeError=true
        }else{// no colorSizeError ,not single null value found withen the list
            colorSizeError=false
