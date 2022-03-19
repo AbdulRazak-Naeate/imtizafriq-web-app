@@ -175,11 +175,11 @@ const analytics = getAnalytics(app);
      }
      }
       
-    const sendConfirmationEmail = (_id,newOrder)=>{
+    const sendConfirmationEmail = async (_id,newOrder)=>{
      //console.log("id "+_id + "email "+newOrder.customer.email)
       const url = `/api/email/confirmorder/${_id}`;
 
-    post(url,{email:newOrder.customer.email,data:newOrder}).then((response)=>{
+   await post(url,{email:newOrder.customer.email,data:newOrder}).then((response)=>{
         console.log(response)
     })
   }

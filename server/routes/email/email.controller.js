@@ -4,6 +4,8 @@ const msgs = require('./email.messages')
 const templates = require('./email.templates')
 
 exports.confirmOrder =(req,res)=>{
+  console.log("send email body "+req.body)
+
   const { email,data } = req.body
   User.findOne({ email })
     .then(user => {

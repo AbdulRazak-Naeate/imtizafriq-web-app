@@ -68,14 +68,14 @@ const PaymentForm = ({shippingData,checkoutToken,backStep,onCaptureCheckout,next
                     }
                 } 
               //console.log(orderData)
-               // handlePayment(orderData);
+               //handlePayment(orderData);
                onCaptureCheckout(checkoutToken._id,orderData);
                nextStep();
               }
 
-        const FwVerifyPayment = (transactionid,orderData) =>{
+        const FwVerifyPayment = async (transactionid,orderData) =>{
           var url =`/api/verifypayment/${transactionid}`
-         axios.get(url).then((response)=>{
+        await  axios.get(url).then((response)=>{
            console.log("verify payment response "+response)
               if (response.body.status==="success"){
                 onCaptureCheckout(checkoutToken._id,orderData);
