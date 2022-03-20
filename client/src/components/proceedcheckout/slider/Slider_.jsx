@@ -1,7 +1,7 @@
 import React from 'react'
 import './styles.css';
 import Slider from "react-slick/lib";
-
+import {Card,CardMedia,CardActions,Typography,IconButton} from '@mui/material';
 import useStyles from './styles'
 const Slider_ = ({images}) => {
    const classes= useStyles(); 
@@ -21,9 +21,9 @@ const Dslider = ({images})=>{
         {
           images.map((image,index)=>{
             return(
-              <div key={index}>
+              <Card key={index}>
               <img className={classes.sliderItem}  style={{objectFit:'cover'}} src={`${image.url}`} alt={image.public_id}  />
-               </div>
+               </Card>
              
             )
           })
