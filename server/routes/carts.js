@@ -190,7 +190,7 @@ router.patch('/item/selection',async (req,res)=>{
     try{
         var value=  req.body.selected;
      
-         await  Cart.findOneAndUpdate({userId:req.body.userId,
+      const updateSelection =   await  Cart.findOneAndUpdate({userId:req.body.userId,
                 items:{
                     $elemMatch:{productId:req.body.productId}
                      }
@@ -201,11 +201,13 @@ router.patch('/item/selection',async (req,res)=>{
                           }
                 },   
                 { new:true,useFindAndModify:false}).then(ret=>{
-                  console.log(ret)
-                 updateSubtotal(req,res)            
+                                 console.log(ret)
+      
             });
       
-        
+        if (updateSelection){
+            updateSubtotal(req,res) 
+        }
            
 
      
