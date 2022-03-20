@@ -42,37 +42,42 @@ const Review = ({checkoutToken,fees}) => {
 
     return(<div className={classes.secondaryItemContent}>
       <Grid container spacing ={1}>
-        <Grid item xs={1} md={1} sm={1} lg={1} key={`grid-${index}`}>
+        {
+          item.measurement.back!=='' ? <Grid item xs={1} md={1} sm={1} lg={1} key={`grid-${index}`}>
           <div className={classes.measuremenItem}><span>Back</span><span>{item.measurement.back}</span></div> 
-        </Grid>
-        <Grid item xs={1} md={1} sm={1} lg={1} key={`grid-${index}`}>
+        </Grid>:''
+        }
+       
 
+        {item.measurement.chest!==''? <Grid item xs={1} md={1} sm={1} lg={1} key={`grid-${index}`}>
+       
       <div className={classes.measuremenItem}><span>Chest</span><span>{item.measurement.chest}</span></div> 
-      </Grid>
-      <Grid item xs={1} md={1} sm={1} lg={1} key={`grid-${index}`}>
+      </Grid>:''}
+     {item.measurement.shirtLength!==''? <Grid item xs={1} md={1} sm={1} lg={1} key={`grid-${index}`}>
 
       <div className={classes.measuremenItem}><span>Length</span><span>{item.measurement.shirtLength}</span></div> 
-      </Grid>
-      <Grid item xs={1} md={1} sm={1} lg={1} key={`grid-${index}`}>
+      </Grid>:''}
+      {item.measurement.sleeve!==''?<Grid item xs={1} md={1} sm={1} lg={1} key={`grid-${index}`}>
 
       <div className={classes.measuremenItem}><span>Sleeve</span><span>{item.measurement.sleeve}</span></div> 
-      </Grid>
-      <Grid item xs={1} md={1} sm={1} lg={1} key={`grid-${index}`}>
+      </Grid>:''}
+
+      {item.measurement.trouserLength!=='' ?<Grid item xs={1} md={1} sm={1} lg={1} key={`grid-${index}`}>
 
       <div className={classes.measuremenItem}><span>Trouser length</span><span>{item.measurement.trouserLength}</span></div> 
-      </Grid>
-      <Grid item xs={1} md={1} sm={1} lg={1} key={`grid-${index}`}>
+      </Grid>:''}
+      {item.measurement.waist!=='' ? <Grid item xs={1} md={1} sm={1} lg={1} key={`grid-${index}`}>
 
       <div className={classes.measuremenItem}><span>Waist</span><span>{item.measurement.waist}</span></div> 
-      </Grid>
-      <Grid item xs={1} md={1} sm={1} lg={1} key={`grid-${index}`}>
+      </Grid>: ''}
+      {item.measurement.thigh!=='' ?<Grid item xs={1} md={1} sm={1} lg={1} key={`grid-${index}`}>
 
       <div className={classes.measuremenItem}><span>Thigh</span><span>{item.measurement.thigh}</span></div>
-      </Grid> 
-      <Grid item xs={1} md={1} sm={1} lg={1} key={`grid-${index}`}>
+      </Grid>:'' }
+    {item.measurement.bust!=='' ? <Grid item xs={1} md={1} sm={1} lg={1} key={`grid-${index}`}>
 
       <div className={classes.measuremenItem}><span>Bust</span><span>{item.measurement.bust}</span></div> 
-      </Grid>
+      </Grid>:''}
 
       </Grid>
      
@@ -112,7 +117,7 @@ const Review = ({checkoutToken,fees}) => {
               {/* <ListItemIcon>
                 <StarBorder />
               </ListItemIcon> */}
-              <ListItemText  key={`listItem${index}`}secondary={ !CheckforemptyFields ? <ListItemSecondaryContent item={item} index={index}/>:''} />
+              <ListItemText  key={`listItem${index}`}secondary={ <ListItemSecondaryContent item={item} index={index}/>} />
             </ListItemButton>
           </List>
         </Collapse>
