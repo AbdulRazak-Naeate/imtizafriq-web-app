@@ -201,7 +201,7 @@ router.patch('/item/selection',async (req,res)=>{
                           }
                 },   
                 { new:true,useFindAndModify:false}).then(ret=>{
-                                 console.log(ret)
+                 console.log(ret)
       
             });
       
