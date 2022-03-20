@@ -21,6 +21,8 @@ import {makeStyles} from '@material-ui/core/styles';
         width:'130%',
         [theme.breakpoints.down(620)]:{
           width:'100%',
+          justifyContent:'space-between',
+
         },
         marginLeft:'5px',
     },

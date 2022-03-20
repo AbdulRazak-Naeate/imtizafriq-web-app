@@ -41,7 +41,7 @@ const Review = ({checkoutToken,fees}) => {
   const ListItemSecondaryContent= ({item,index})=>{
 
     return(<div className={classes.secondaryItemContent}>
-      <Grid container spacing ={1}>
+      <Grid container spacing ={1} justifyContent={'space-between'}>
         {
           item.measurement.back!=='' ? <Grid item xs={1} md={1} sm={1} lg={1} key={`grid-${index}`}>
           <div className={classes.measuremenItem}><span>Back</span><span>{item.measurement.back}</span></div> 
