@@ -21,3 +21,11 @@
 .awssld__timer--run{
     opacity: 0;
 }
+@media screen and (max-width: 620px) {
+    .autoSlider{
+        height: 100px !important;
+    }
+    .awssld__content img{
+        height:100px !important
+    }
+  }
