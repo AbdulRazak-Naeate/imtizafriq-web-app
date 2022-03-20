@@ -112,7 +112,7 @@ const Review = ({checkoutToken,fees}) => {
               {/* <ListItemIcon>
                 <StarBorder />
               </ListItemIcon> */}
-              <ListItemText  key={`listItem${index}`}secondary={ !CheckforemptyFields ? <ListItemSecondaryContent item={item} index={index}/>:''} />
+              <ListItemText  key={`listItem${index}`}secondary={ CheckforemptyFields ? <ListItemSecondaryContent item={item} index={index}/>:''} />
             </ListItemButton>
           </List>
         </Collapse>
