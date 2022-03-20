@@ -32,7 +32,7 @@ router.get('/', async(req,res)=>{
   const getAllOrders = async (req,res)=>{
     try{
       var currentDate= new Date()
-      const orders = await Order.find({$or:[{userId:req.params.userId,expires:{$gt:currentDate}},{userId:req.params.userId,expires:{$gt:currentDate},status:'Pending'}]}); //get approved or completed order which are lessthan 6 months 
+      const orders = await Order.find({$or:[{userId:req.params.userId,expires:{$gt:currentDate}},{userId:req.params.userId,expires:{$gt:currentDate},status:'Processing'}]}); //get approved or completed order which are lessthan 6 months 
       res.json({orders:orders,status:200});
       
     }catch(err){
@@ -55,7 +55,7 @@ router.get('/approved', async(req,res)=>{
     }
 });
 
-//get all Orders base on Store Id and Completed status to populates as sales records
+//get all Orders base on Completed status to populates as sales records
 router.get('/completed', async(req,res)=>{
   try{
     const orders = await Order.find({status:"Completed"});
