@@ -449,18 +449,16 @@ const updateSubtotal = async (req,res) =>{//sum all line_items_sub_price
        $set:{subtotal:subtotal},
      },   
      { new:true,useFindAndModify:false}
-     ).then((ret=>{
+     ).then((ret)=>{
        console.log("updateSub "+ret)
-    })) 
+           //return the whole cart 
+       const  cart =  Cart.findOne({userId:req.body.userId});
+    if (cart){
+        res.json({cart:cart,status:200,message:'successfully updated cart'})
+    }
+
+    }) 
  }));
-  console.log(aggr)
- if (aggr){
-      //return the whole cart 
-  const  cart = await Cart.findOne({userId:req.body.userId});
-  res.json({cart:cart,status:200,message:'successfully updated cart'})
-
-
- }
    
 }
 
