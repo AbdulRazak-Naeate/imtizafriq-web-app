@@ -432,30 +432,28 @@ const updateSubtotal = async (req,res) =>{//sum all line_items_sub_price
      
           }
    }]).then((ret =>{ 
-       //update subtotal 
-        
-    try{
-      var retLength=ret.length
-       console.log("aggr : "+JSON.stringify(ret)+ " length :"+retLength);
-       
-         ret.length === 0 ? subtotal=0 : subtotal=ret[0].subTotal;
-       }catch(err){
-           console.log("subTotal Error : "+err)
-       }
-        
-        
-        })).then(()=>{
+    //update subtotal 
+     
+ try{
+   var retLength=ret.length
+    console.log("aggr : "+JSON.stringify(ret)+ " length :"+retLength);
+     if(retLength!==0){
+         subtotal=ret[0].subTotal;
 
-             Cart.findOneAndUpdate({userId:req.body.userId},
-        {
-          $set:{subtotal:subtotal},
-        },   
-        { new:true,useFindAndModify:false}
-        ).then((ret=>{
-        //console.log("updateSub "+ret)
-       })) 
-        });
-      
+     }
+    }catch(err){
+        console.log("subTotal Error : "+err)
+    }
+
+    Cart.findOneAndUpdate({userId:req.body.userId},
+     {
+       $set:{subtotal:subtotal},
+     },   
+     { new:true,useFindAndModify:false}
+     ).then((ret=>{
+     //console.log("updateSub "+ret)
+    })) 
+ }));
   //return the whole cart 
   const  cart = await Cart.findOne({userId:req.body.userId});
   res.json({cart:cart,status:200,message:'successfully updated cart'})
