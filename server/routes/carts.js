@@ -436,29 +436,32 @@ const updateSubtotal = async (req,res) =>{//sum all line_items_sub_price
      
  try{
    var retLength=ret.length
-    
+    console.log("aggr : "+JSON.stringify(ret)+ " length :"+retLength);
      if(retLength!==0){
-          console.log("aggr : "+JSON.stringify(ret)+ " length :"+retLength);
-   
          subtotal=ret[0].subTotal;
 
      }
     }catch(err){
         console.log("subTotal Error : "+err)
     }
-      Cart.findOneAndUpdate({userId:req.body.userId},
+  Cart.findOneAndUpdate({userId:req.body.userId},
      {
        $set:{subtotal:subtotal},
      },   
      { new:true,useFindAndModify:false}
      ).then((ret=>{
+       console.log("updateSub "+ret)
+    })) 
+ }));
+  console.log(aggr)
+ if (aggr){
       //return the whole cart 
-       if (ret){
-        const  cart =  Cart.findOne({userId:req.body.userId});
-        res.json({cart:cart,status:200,message:'successfully updated cart'})
-       }
-       }));
-      }
-   ))}
+  const  cart = await Cart.findOne({userId:req.body.userId});
+  res.json({cart:cart,status:200,message:'successfully updated cart'})
+
+
+ }
+   
+}
 
 module.exports = router;
