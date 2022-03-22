@@ -460,11 +460,10 @@ const updateSubtotal = async (req,res) =>{//sum all line_items_sub_price
 
 
     })  
-     if (typeof cart === 'object') {
        
              res.json({cart:cart,status:200,message:'successfully updated cart'})
    
-        }
+
 
 
  }));
