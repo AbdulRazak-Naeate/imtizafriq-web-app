@@ -19,7 +19,7 @@ const AweSlider = ({images}) => {
           {
             images.map((image,index)=>{
               return(
-               <div>
+               <div className='image'>
                   <Card>
                     <CardMedia className={classes.media} alt={image.name} key={index} image={`${image.url}`}/>
                 </Card>
