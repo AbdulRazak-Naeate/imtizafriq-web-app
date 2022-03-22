@@ -118,9 +118,9 @@ router.post('/',async (req,res)=>{
  try{
       await order.save();
       var currentDate= new Date()
-      //get user order which does not expired  or which is still pending but expires
-      const newOrders = await Order.find({$or:[{/* orderNumber:req.body.orderNumber, */expires:{$gt:currentDate}},{expires:{$gt:currentDate},status:'Pending'}]});
-
+      //get user order which does not expired  or which is still Processing but expires
+      const newOrders = await Order.find({$or:[{/* orderNumber:req.body.orderNumber, */expires:{$gt:currentDate}},{expires:{$gt:currentDate},status:'Processing'}]});
+     
     res.json({orders:newOrders,status:200});
 
     }catch(err){
