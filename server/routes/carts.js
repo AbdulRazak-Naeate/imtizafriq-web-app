@@ -437,10 +437,10 @@ const updateSubtotal = async (req,res) =>{//sum all line_items_sub_price
     try{
       var retLength=ret.length
        console.log("aggr : "+JSON.stringify(ret)+ " length :"+retLength);
-       if(retLength!==0){
+       //if(retLength!==0){
         subtotal=ret[0].subTotal;
 
-    }
+    //}
        }catch(err){
            console.log("subTotal Error : "+err)
        }
