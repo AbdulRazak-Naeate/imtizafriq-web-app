@@ -454,13 +454,12 @@ const updateSubtotal = async (req,res) =>{//sum all line_items_sub_price
      ).then((ret)=>{
       // console.log("updateSub "+ret)
            //return the whole cart 
-       const  usercart =  Cart.findOne({userId:req.body.userId});
-              cart = usercart
-        console.log(cart)
+      
 
 
     })  
-       
+        const  cart =  Cart.findOne({userId:req.body.userId});
+          
              res.json({cart:cart,status:200,message:'successfully updated cart'})
    
 
