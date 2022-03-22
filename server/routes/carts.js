@@ -464,7 +464,7 @@ const updateSubtotal = async (req,res) =>{//sum all line_items_sub_price
        }) 
         });
       
-  if (isComplete){
+  if (isComplete===true){
       console.log(" cart: "+obj)
     res.json({cart:obj[0],status:200})
 
