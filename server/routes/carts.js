@@ -448,16 +448,17 @@ const updateSubtotal = async (req,res) =>{//sum all line_items_sub_price
         
         })).then(()=>{
 
-             Cart.findOneAndUpdate({userId:req.body.userId},
+          
+        });
+        await  Cart.findOneAndUpdate({userId:req.body.userId},
         {
           $set:{subtotal:subtotal},
         },   
         { new:true,useFindAndModify:false}
         ).then((ret)=>{
         //console.log("updateSub "+ret)
-       }) 
-        });
-      
+       })
+       
   //return the whole cart 
   const  cart = await Cart.findOne({userId:req.body.userId}).then((ret)=>{
    
