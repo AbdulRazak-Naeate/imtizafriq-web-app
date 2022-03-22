@@ -106,6 +106,7 @@ const analytics = getAnalytics(app);
      const[filteredProducts,setFilteredProducts]=useState([]);
      const[product,setProduct]=useState([]);
      const[cart,setCart]=useState({});
+     const [checked, setChecked] = useState(false);
      const[CartItemsCount,setCartItemsCount]=useState(0);
      const [order,setOrder]=useState({});
      const[myOrders,setMyOrders]=useState([]);
@@ -307,7 +308,7 @@ const analytics = getAnalytics(app);
            // console.log(response.data.cart.items)
               setCart(response.data.cart)
               setCartItemsCount(response.data.cart.items.length);
-
+              
             }catch(err){
               console.log(err)
             }
@@ -333,6 +334,7 @@ const analytics = getAnalytics(app);
         if (response.status===200){
          // console.log(response.data.cart.items)
           setCart(response.data.cart)
+          
           setCartItemsCount(response.data.cart.items.length);
 
          } 
