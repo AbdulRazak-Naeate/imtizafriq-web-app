@@ -422,6 +422,8 @@ const exactMatchQuantity =(matchItems,productId)=>{//search and get the exact ca
 }
 const updateSubtotal = async (req,res) =>{//sum all line_items_sub_price
      var subtotal = 0;
+     var itemsLoaded;
+     var  cart =null;
      console.log("userId "+req.body.userId)
   const aggr = await Cart.aggregate([{$match:{userId:req.body.userId}},{$unwind:"$items"},
         {$match:{'items.selected':true}},
@@ -452,14 +454,21 @@ const updateSubtotal = async (req,res) =>{//sum all line_items_sub_price
      ).then((ret)=>{
        console.log("updateSub "+ret)
            //return the whole cart 
-       const  cart =  Cart.findOne({userId:req.body.userId});
-
-        if (!cart) return  res.json({status:400,message:'Error : cart not loaded'})
-
-        res.json({cart:cart,status:200,message:'successfully updated cart'})
+         cart =  Cart.findOne({userId:req.body.userId});
 
 
-    }) 
+
+
+    })  
+     if (!cart) {
+         
+         return  res.json({status:400,message:'Error : cart not loaded'})
+        }else{
+             res.json({cart:cart,status:200,message:'successfully updated cart'})
+   
+        }
+
+
  }));
    
 }
