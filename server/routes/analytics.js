@@ -41,7 +41,7 @@ const alltimeAggr = await Order.aggregate([{$unwind:'$totalPrice'},
 }
 ]);
     
-
+     
     res.json({transactions:transactions,completedAggregate:completedAggr,inCompleteAggregate:inCompletedAggr,alltimeAggregate:alltimeAggr,message:'transactions loaded'});
 
 });

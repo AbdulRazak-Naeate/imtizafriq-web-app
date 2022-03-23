@@ -19,7 +19,7 @@ function Home({products,transactions,completedAggregate,inCompletedAggregate,all
     return (
         <div className="home">
        <div className="widgetwrapper">
-                 {isAnalyticsLoadCompleted ===true ? <FeaturedInfo completedAggregate={completedAggregate} inCompletedAggregate={inCompletedAggregate} alltimeAggregate={alltimeAggregate}/>: ''}
+                 {isAnalyticsLoadCompleted ===true  ? <FeaturedInfo completedAggregate={completedAggregate} inCompletedAggregate={inCompletedAggregate} alltimeAggregate={alltimeAggregate}/>: ''}
 
             {monthlySales ?  <Chart data={monthlySales} title="Sales Analytics" grid datakey={"Monthly Sales"}/>:''}
           <div className="homeWidgets">

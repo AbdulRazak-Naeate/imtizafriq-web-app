@@ -2,14 +2,14 @@
 import React from 'react';
 import "./featuredInfo.css";
 import { ArrowDownward,Add} from "@material-ui/icons"
-import { formatWithCurrencySymbol } from "../../../utils/Utils"
-
+import { formatWithCurrencySymbol } from "../../../utils/Utils";
+import {useHistory} from 'react-router-dom';
 export const FeaturedInfo = ({completedAggregate,inCompletedAggregate,alltimeAggregate}) => {
-   
+    const history=useHistory()
    var completeCount=0;
-   var completeSales=0
+   var completeSales=0;
    var inCompleteCount=0;
-   var inCompleteAmount=0
+   var inCompleteAmount=0;
    var alltimeCount=0;
    var alltimeSales=0;
    try{
@@ -26,11 +26,14 @@ export const FeaturedInfo = ({completedAggregate,inCompletedAggregate,alltimeAgg
    }catch(err){
        console.log(err)
    }
+   const navigate = (url)=>{
+     history.push(url)
+   }
    const Featured =({completeCount,completeSales})=>(
     <div className="featured">
         <div className="featuredItem">
     <span className="featureTitle">Orders</span>
-     <div className="featuredMoneyContainer">
+     <div className="featuredMoneyContainer" onClick={()=>{navigate('/dashboard/transactions')}}>
          <span className="featuredMoney">{inCompleteCount}</span>
          <span className="featuredMoneyRate">
          <Add  className="featuredIcon positive"/>
@@ -41,7 +44,7 @@ export const FeaturedInfo = ({completedAggregate,inCompletedAggregate,alltimeAgg
 
     <div className="featuredItem">
     <span className="featureTitle">Orders</span>
-     <div className="featuredMoneyContainer">
+     <div className="featuredMoneyContainer" onClick={()=>{navigate('/dashboard/sales')}}>
          <span className="featuredMoney">{completeCount}</span>
          <span className="featuredMoneyRate">
          <Add  className="featuredIcon positive"/>

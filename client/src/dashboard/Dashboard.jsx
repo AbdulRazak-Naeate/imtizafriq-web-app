@@ -107,12 +107,21 @@ useEffect(()=>{
   const handlegetAnalytics =  async () => {//get Orders 
  
     var url = `/api/analytics/transactions`
+    const completeAggregateDefault =[{_id: "0",count: 0, total: 0}]
 
     await axios.get(url).then((response)=>{
           console.log(response.data.transactions)
           //setAnalytics(response.data);
           setTransactions(response.data.transactions);
-          setCompletedAggregate(response.data.completedAggregate);
+          if (response.data.completedAggregate.length > 0){
+             setCompletedAggregate(response.data.completedAggregate);
+
+          }else{
+          
+                setCompletedAggregate(completeAggregateDefault);
+
+          }
+
           setinCompletedAggregate(response.data.inCompleteAggregate);
           setAlltimeAggregate(response.data.alltimeAggregate);
           setIsAnalyticsLoadCompleted(true);
