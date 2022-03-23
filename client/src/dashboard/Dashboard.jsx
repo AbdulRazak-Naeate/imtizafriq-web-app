@@ -115,7 +115,6 @@ useEffect(()=>{
           setTransactions(response.data.transactions);
           if (response.data.completedAggregate.length > 0){
              setCompletedAggregate(response.data.completedAggregate);
-
           }else{
           
                 setCompletedAggregate(completeAggregateDefault);
