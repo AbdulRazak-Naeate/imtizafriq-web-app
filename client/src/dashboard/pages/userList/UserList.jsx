@@ -57,7 +57,7 @@ function UserList(){
           renderCell:(params)=>{
               return(
                   <div className="userListUser">
-                      <img className="userListImg" src={`${params.row.image[0].url}`} alt=""/>
+                      <img className="userListImg" src={`${params.row.image.secure_url}`} alt=""/>
                       {params.row.username}
                   </div>
               )

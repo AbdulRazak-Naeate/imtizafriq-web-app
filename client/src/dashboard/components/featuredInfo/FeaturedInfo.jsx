@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import "./featuredInfo.css";
-import { ArrowDownward,Add} from "@material-ui/icons"
+import { ArrowDownward,ArrowUpward,Add} from "@material-ui/icons"
 import { formatWithCurrencySymbol } from "../../../utils/Utils";
 import {useHistory} from 'react-router-dom';
 export const FeaturedInfo = ({completedAggregate,inCompletedAggregate,alltimeAggregate}) => {
@@ -39,7 +39,7 @@ export const FeaturedInfo = ({completedAggregate,inCompletedAggregate,alltimeAgg
          <Add  className="featuredIcon positive"/>
          </span>
      </div>
-     <span className="featuredSub">Current orders</span>
+     <span className="featuredSub">Current  orders</span>
     </div>
 
     <div className="featuredItem">
@@ -57,8 +57,8 @@ export const FeaturedInfo = ({completedAggregate,inCompletedAggregate,alltimeAgg
     <span className="featureTitle">Sales</span>
      <div className="featuredMoneyContainer">
          <span className="featuredMoney">{`${formatWithCurrencySymbol(completeSales,'GHS')}`}</span>
-         <span className="featuredMoneyRate">-11.4
-         <ArrowDownward className="featuredIcon negative"/>
+         <span className="featuredMoneyRate">{/* -11.4 */}
+         <ArrowUpward className="featuredIcon positive"/>
          </span>
      </div>
      <span className="featuredSub">All time sales made</span>
