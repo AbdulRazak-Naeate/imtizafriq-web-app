@@ -68,7 +68,6 @@ import axios from 'axios';
 
    
     const fetchProducts = async ()=>{
-      console.log(process.env.REACT_APP_SERVER_PORT)
       try{
          const res = await fetch(`/api/products`);
          const data=await res.json();
