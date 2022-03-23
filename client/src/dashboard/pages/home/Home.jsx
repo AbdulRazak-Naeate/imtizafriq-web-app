@@ -1,5 +1,5 @@
 import React from 'react'
-import { Chart } from  "../../../../../charts/Chart";
+import { Chart } from  "../../components/charts/Chart";
 import { FeaturedInfo } from "../../components/featuredInfo/FeaturedInfo";
 import "./home.css";
 //import {monthlySales} from "../../analyticsData";

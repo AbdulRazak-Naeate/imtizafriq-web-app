@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import './product.css';
 import {Link} from "react-router-dom";
 import {Button} from '@mui/material';
-import { Chart } from '../../../../../charts/Chart';
+import { Chart } from '../../components/charts/Chart';
 import { Publish } from '@material-ui/icons';
 import { formatWithCurrencySymbol } from "../../../utils/Utils";
 import axios,{patch}from 'axios';
