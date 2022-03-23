@@ -108,12 +108,13 @@ useEffect(()=>{
     var url = `/api/analytics/transactions`
 
     await axios.get(url).then((response)=>{
-     // console.log(response.data.transactions)
+          console.log(response.data.transactions)
           //setAnalytics(response.data);
           setTransactions(response.data.transactions);
           setCompletedAggregate(response.data.completedAggregate);
           setinCompletedAggregate(response.data.inCompleteAggregate);
           setAlltimeAggregate(response.data.alltimeAggregate);
+        
 
    });
  }
