@@ -3,11 +3,9 @@ import AwesomeSlider from 'react-awesome-slider';
 import withAutoplay from 'react-awesome-slider/dist/autoplay';
 import 'react-awesome-slider/dist/styles.css';
 import './style.css';
-import useStyles from './styles';
-import {Card,CardMedia} from '@mui/material'
 const AweSlider = ({images}) => {
    const AutoplaySlider = withAutoplay(AwesomeSlider);
-   const classes = useStyles()
+
   return (
       <div className='awesomeSlider' >
         <AutoplaySlider className='autoSlider'
@@ -19,12 +17,7 @@ const AweSlider = ({images}) => {
           {
             images.map((image,index)=>{
               return(
-               <div className='image'>
-                  <Card>
-                    <CardMedia className={classes.media} alt={image.name} key={index} image={`${image.url}`}/>
-                </Card>
-               </div>
-                
+                <div className='image' key={index} data-src={`${image.url}`} />
               )
             })
           }
