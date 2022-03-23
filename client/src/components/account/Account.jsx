@@ -15,7 +15,7 @@ const Account = () => {
    const classes = useStyles()
   const [user,setUser] = useState(JSON.parse(localStorage.getItem('user')));
  try{
-  var userImage=user.image[0].url
+  var userImage=user.image.url
  }catch(err){
    console.log(err)
  }
