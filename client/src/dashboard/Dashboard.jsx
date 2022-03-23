@@ -32,6 +32,7 @@ import axios from 'axios';
  const [isproductsLoaded,setIsproductsLoaded]=useState(false);
  const [monthlySales,setMonthlySales]=useState([]);
  const [ismonthlySalesLoaded,setIsmonthlySalesLoaded]=useState(false);
+ const [isAnalyticsLoadCompleted,setIsAnalyticsLoadCompleted]=useState(false);
 
  const paths =[ 
     '/dashboard',   
@@ -114,8 +115,7 @@ useEffect(()=>{
           setCompletedAggregate(response.data.completedAggregate);
           setinCompletedAggregate(response.data.inCompleteAggregate);
           setAlltimeAggregate(response.data.alltimeAggregate);
-        
-
+          setIsAnalyticsLoadCompleted(true);
    });
  }
  if (!isproductsLoaded) {handlegetProducts();}
@@ -155,7 +155,7 @@ return ()=>{
     
      <Switch>
      <Route exact  path="/dashboard">
-         <Home products={products} transactions={transactions} completedAggregate={completedAggregate} inCompletedAggregate={inCompletedAggregate} alltimeAggregate={alltimeAggregate} monthlySales={monthlySales} />
+         <Home products={products} transactions={transactions} completedAggregate={completedAggregate} inCompletedAggregate={inCompletedAggregate} alltimeAggregate={alltimeAggregate} monthlySales={monthlySales} isAnalyticsLoadCompleted={isAnalyticsLoadCompleted}/>
        </Route>
        <Route path="/dashboard/users">
         <UserList/>
