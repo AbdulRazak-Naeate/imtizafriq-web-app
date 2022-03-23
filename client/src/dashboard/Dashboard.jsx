@@ -155,7 +155,7 @@ return ()=>{
     
      <Switch>
      <Route exact  path="/dashboard">
-         <Home products={products} transactions={transactions} completedAggregate={completedAggregate} inCompletedAggregate={inCompletedAggregate} alltimeAggregate={alltimeAggregate} monthlySales={monthlySales}/>
+         <Home products={products} transactions={transactions} completedAggregate={completedAggregate} inCompletedAggregate={inCompletedAggregate} alltimeAggregate={alltimeAggregate} monthlySales={monthlySales} />
        </Route>
        <Route path="/dashboard/users">
         <UserList/>

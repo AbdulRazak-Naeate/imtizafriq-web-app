@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import "./featuredInfo.css";
-import { ArrowDownward,ArrowUpward,Add} from "@material-ui/icons"
+import { ArrowDownward,Add} from "@material-ui/icons"
 import { formatWithCurrencySymbol } from "../../../utils/Utils"
 
 export const FeaturedInfo = ({completedAggregate,inCompletedAggregate,alltimeAggregate}) => {
