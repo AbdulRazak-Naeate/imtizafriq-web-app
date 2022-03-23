@@ -19,7 +19,7 @@ function Home({products,transactions,completedAggregate,inCompletedAggregate,all
     return (
         <div className="home">
        <div className="widgetwrapper">
-                 {isAnalyticsLoadCompleted ? <FeaturedInfo completedAggregate={completedAggregate.length > 0 ?completedAggregate :completeAggregateDefault} inCompletedAggregate={inCompletedAggregate>0 ?inCompletedAggregate : inCompleteAggregateDefualt} alltimeAggregate={alltimeAggregate.length > 0? alltimeAggregate : alltimeAggregateDefault}/>: ''}
+                 {isAnalyticsLoadCompleted ===true ? <FeaturedInfo completedAggregate={completedAggregate} inCompletedAggregate={inCompletedAggregate} alltimeAggregate={alltimeAggregate}/>: ''}
 
             {monthlySales ?  <Chart data={monthlySales} title="Sales Analytics" grid datakey={"Monthly Sales"}/>:''}
           <div className="homeWidgets">
