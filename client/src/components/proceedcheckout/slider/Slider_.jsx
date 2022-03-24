@@ -22,7 +22,7 @@ const Dslider = ({images})=>{
           images.map((image,index)=>{
             return(
               <Card key={index}>
-              <img className={classes.sliderItem}  style={{objectFit:'cover'}} src={`${image.url}`} alt={image.public_id}  />
+              <img className={classes.sliderItem}  style={{objectFit:'cover'}} src={`${image.secure_url}`} alt={image.public_id}  />
                </Card>
              
             )

@@ -20,7 +20,7 @@ const CartItem = ({cartitem,onUpdateCartQty,onUpdateColorSize,onUpdateMeasuremen
     const[open,setOpen]=useState(true);
     const[colorSelectedList,setColorSelectedList]=useState([]);
     const [checked, setChecked] = useState(cartitem.selected);
-    const [imagepath]=useState(`${cartitem.product.image[0].url}`)
+    const [imagepath]=useState(`${cartitem.product.image[0].secure_url}`)
 
     const label = { inputProps: { 'aria-label': 'Select item' } };
 
