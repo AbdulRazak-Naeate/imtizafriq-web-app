@@ -62,7 +62,7 @@ router.post('/',async (req,res)=>{
                       
                     var matchItems=itemAlreadyExistInCart.items;
                     // console.log("mtachItems :"+itemAlreadyExistInCart)
-                     var pQty=exactMatchQuantity(matchItems,pid)//gets eaxct item quantity
+                     var pQty=exactMatchQuantity(matchItems,pid)//gets eaxct item quantity then add
                    
                      //console.log("Matched item qty "+pQty);
                      //console.log("Matched Items length : "+matchItems.length);
@@ -82,7 +82,9 @@ router.post('/',async (req,res)=>{
                         },   
                         { new:true,useFindAndModify:false}
                         
-                   )
+                   ).then((ret)=>{
+                            console.log(ret)
+                   })
                    updateSubtotal(req,res);
 
                    
