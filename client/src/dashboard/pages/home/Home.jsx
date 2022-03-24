@@ -7,15 +7,9 @@ import Widgetsm from "../../components/widgetSm/widgetSm";
 import WidgetLg from "../../components/widgetLg/WidgetLg";
 function Home({products,transactions,completedAggregate,inCompletedAggregate,alltimeAggregate,monthlySales,isAnalyticsLoadCompleted}) {
 
-    console.log(completedAggregate)
-    console.log(inCompletedAggregate)
-    console.log(alltimeAggregate)
-    console.log(monthlySales)
+   
 
-    const alltimeAggregateDefault =[ { "_id": "0", "count": 0, "total": 0  } ]
-    const inCompleteAggregateDefualt =[{"_id": "0","count": 0, "total": 0}]
-    const completeAggregateDefault =[{"_id": "0","count": 0, "total": 0}]
-    
+ 
     return (
         <div className="home">
        <div className="widgetwrapper">

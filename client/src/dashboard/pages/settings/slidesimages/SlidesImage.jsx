@@ -111,7 +111,7 @@ const SlidesImage = ({handleImages,slidesImages,setSlidesImages,base64EncodedIma
             slidesImages.length > 0  ?  slidesImages.map((img,index)=>{
               return(<div className='slideWrapper'>
              <CloseRounded className='removeSlide' color='primary' onClick={()=>{removeSlide(index,img)}} />
-                  <img className="slidesImg"  alt={'slideimg'}  key={index} id={index} src={`${img.url}`}  onClick={ (e) => { onImageClicked(e) }}/>   
+                  <img className="slidesImg"  alt={'slideimg'}  key={index} id={index} src={`${img.secure_url}`}  onClick={ (e) => { onImageClicked(e) }}/>   
               </div>)
                
             }):''

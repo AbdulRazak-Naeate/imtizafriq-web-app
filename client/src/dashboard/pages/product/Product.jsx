@@ -143,7 +143,7 @@ export default function Product() {
                 </div>
                 <div className="productTopRight">
                     <div className="productInfoTop">
-                        <img src={`${product.image[0].url}`} alt="" className="productInfoImg" />
+                        <img src={`${product.image[0].secure_url}`} alt="" className="productInfoImg" />
                        <span className="productName">{productname}</span>
                     </div>
                     <div className="productInfoBottom">
@@ -236,7 +236,7 @@ export default function Product() {
                     </div>
                     <div className="productFormRight">
                         <div className="productUpload">
-                            <img src={`${product.image[0].url}`} alt="" className="productUploadImg" />
+                            <img src={`${product.image[0].secure_url}`} alt="" className="productUploadImg" />
                             <label htmlFor="file" style={{display:'block'}}>
                                 <Publish/>
                             </label>
