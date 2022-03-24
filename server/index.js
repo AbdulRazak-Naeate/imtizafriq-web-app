@@ -29,7 +29,7 @@ const sociallinksRoute  = require('./routes/socialmedialinks');
 const contactsRoute     = require('./routes/contacts');
 dotenv.config();
 
-const whitelist = ['http://localhost:3000', 'http://localhost:8080', 'https://imtizafriq.herokuapp.com','https://imtizafriq.com']
+const whitelist = ['http://localhost:3000', 'http://localhost:8080', 'https://imtizafriq.herokuapp.com', 'http://imtizafriq.herokuapp.com','https://imtizafriq.com']
 const corsOptions = {
   origin: function (origin, callback) {
     console.log("** Origin of request " + origin)

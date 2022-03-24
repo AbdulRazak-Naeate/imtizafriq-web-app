@@ -119,7 +119,7 @@ function UserList(){
            components={{Toolbar:GridToolbar,
           NoRowsOverlay: () => (
             <Stack height="100%" alignItems="center" justifyContent="center">
-              No products found ,click on new product to add products
+              No user found ,click on new user to add users
             </Stack>
           ),
           NoResultsOverlay: () => (
