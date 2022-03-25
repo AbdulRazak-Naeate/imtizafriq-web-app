@@ -105,7 +105,6 @@ router.post('/',async (req,res)=>{
                         product:req.body.product,
                         line_item_sub_price:sub_price,
                         selected:false
-                       
                      
                 }}
               },{new:true,useFindAndModify:false}
