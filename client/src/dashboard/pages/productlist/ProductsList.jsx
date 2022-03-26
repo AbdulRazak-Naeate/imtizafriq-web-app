@@ -49,11 +49,12 @@ export default function ProductsList({products,handleDeleteProduct}) {
           textToClipBoard(link);
  }
  function textToClipBoard (text){
-   var dummy =document.createElement("textarea");
-   document.body.appendChild(dummy);
-   dummy.value=text;
+   var elem =document.createElement("textarea");
+   elem.value=text; 
+   document.body.appendChild(elem);
+  elem.select();
    document.execCommand('copy');
-   document.body.removeChild(dummy);
+   document.body.removeChild(elem);
  }
      
     const columns = [
