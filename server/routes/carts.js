@@ -73,7 +73,7 @@ router.post('/',async (req,res)=>{
                     console.log('product exist in cart inc qty, sub price :'+line_item_sub_price)
                     const updateCartQuantity =await Cart.findOneAndUpdate({//update item
                         items:{
-                            $elemMatch:{productId:req.body.productId,userId:req.body.userId,}
+                            $elemMatch:{productId:req.body.productId,userId:req.body.userId}
                              }
                             },
                         {
