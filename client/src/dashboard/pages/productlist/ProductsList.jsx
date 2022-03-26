@@ -52,7 +52,7 @@ export default function ProductsList({products,handleDeleteProduct}) {
    var dummy =document.createElement("textarea");
    document.body.appendChild(dummy);
    dummy.value=text;
-   document.execCommand('copy',true,'url copied');
+   document.execCommand('copy');
    document.body.removeChild(dummy);
  }
      
