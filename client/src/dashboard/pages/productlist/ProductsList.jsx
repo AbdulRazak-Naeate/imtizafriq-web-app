@@ -1,6 +1,6 @@
 import './productsList.css'
 import {DataGrid,GridToolbar} from '@material-ui/data-grid';
-import { DeleteOutline,EditOutlined } from '@material-ui/icons';
+import { DeleteOutline,EditOutlined,ShareOutlined} from '@material-ui/icons';
 import { Stack } from '@mui/material';
 import {Tooltip} from '@material-ui/core';
 import QueryParams from '../../QueryParams';
@@ -41,6 +41,19 @@ export default function ProductsList({products,handleDeleteProduct}) {
 
         localStorage.setItem('product', JSON.stringify(params.row));        
     }
+    const handleShare = (params)=>{
+
+      //product checout link
+      let link =`https://imtizafriq.herokuapp.com/proceedcheckout?productId=${params.row._id}`
+          textToClipBoard(link);
+ }
+ function textToClipBoard (text){
+   var dummy =document.createElement("textarea");
+   document.body.appendChild(dummy);
+   dummy.value=text;
+   document.execCommand('copy');
+   document.body.removeChild(dummy);
+ }
      
     const columns = [
         { field: '_id', headerName: 'Id', width: 220 },
@@ -95,6 +108,9 @@ export default function ProductsList({products,handleDeleteProduct}) {
             renderCell: (params)=>{
                 return(
                    <>
+                    <Tooltip title="share product"  enterDelay={500} leaveDelay={200}>
+                    <ShareOutlined className="productlistEditIcon" onClick={()=>{handleShare(params)}}>Edit</ShareOutlined>
+                  </Tooltip>
                     <Tooltip title="edit product"  enterDelay={500} leaveDelay={200}>
                     <EditOutlined className="productlistEditIcon" onClick={()=>{handleEdit(params)}}>Edit</EditOutlined>
                   </Tooltip>
