@@ -2,6 +2,7 @@ import './productsList.css'
 import {DataGrid,GridToolbar} from '@material-ui/data-grid';
 import { DeleteOutline,EditOutlined,ShareOutlined} from '@material-ui/icons';
 import { Stack } from '@mui/material';
+import { ContentCopyOutlined  } from '@mui/icons-material';
 import {Tooltip} from '@material-ui/core';
 import QueryParams from '../../QueryParams';
 import { Link ,useHistory} from 'react-router-dom';
@@ -51,7 +52,7 @@ export default function ProductsList({products,handleDeleteProduct}) {
    var dummy =document.createElement("textarea");
    document.body.appendChild(dummy);
    dummy.value=text;
-   document.execCommand('copy');
+   document.execCommand('copy',true,'url copied');
    document.body.removeChild(dummy);
  }
      
@@ -108,8 +109,8 @@ export default function ProductsList({products,handleDeleteProduct}) {
             renderCell: (params)=>{
                 return(
                    <>
-                    <Tooltip title="share product"  enterDelay={500} leaveDelay={200}>
-                    <ShareOutlined className="productlistEditIcon" onClick={()=>{handleShare(params)}}>Edit</ShareOutlined>
+                    <Tooltip title="copy link"  enterDelay={500} leaveDelay={200}>
+                    <ContentCopyOutlined className="productlistEditIcon" onClick={()=>{handleShare(params)}}>copy link</ContentCopyOutlined>
                   </Tooltip>
                     <Tooltip title="edit product"  enterDelay={500} leaveDelay={200}>
                     <EditOutlined className="productlistEditIcon" onClick={()=>{handleEdit(params)}}>Edit</EditOutlined>
