@@ -288,11 +288,8 @@ router.post('/updateImage/:userId'/* ,updateImage('./server/uploads/users') */,a
      var base64encImages=req.body.encodedimages
      try {
          
-             const uploadResponse = await cloudinary.uploader.upload(base64encImages, {
+             const uploadResponse = await cloudinary.uploader.upload(base64encImages,{
                  upload_preset: 'users',
-                 transformation: [
-                  {width: 150, height: 150, gravity: "face", crop: "thumb"},
-                  ]
              });
              //console.log(uploadResponse);
  

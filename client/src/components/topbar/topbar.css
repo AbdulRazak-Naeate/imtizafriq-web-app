@@ -46,8 +46,6 @@
 
     
 }
-
-
 .topnavlink  :hover{
     color:goldenrod !important;
 }
@@ -67,7 +65,7 @@
     height: 100%;
 }
 .logo-img{
-    width:100%;
+    width:40px;
     height:40px;
 }
 .siteName{
