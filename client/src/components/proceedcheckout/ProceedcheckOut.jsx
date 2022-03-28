@@ -19,7 +19,7 @@ const ProceedcheckOut = ({onAddToCart}) => {
     const[iscommentstLoaded,setIscommentsLoaded]=useState(false)
 
     const isMountedRef =useRef(true);
-
+     
 /* const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
   padding: theme.spacing(1),
@@ -115,7 +115,7 @@ const ProceedcheckOut = ({onAddToCart}) => {
     <Slider images={images} />
     </Grid>
     <Grid item={true} xs={12} sm={12} md={5} lg={4}>
-       <ProductDetails product={product} onAddToCart={onAddToCart}/>
+       <ProductDetails product={product} onAddToCart={onAddToCart} images={images}/>
       
     </Grid>
      

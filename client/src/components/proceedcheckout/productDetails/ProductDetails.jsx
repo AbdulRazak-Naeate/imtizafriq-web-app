@@ -7,9 +7,10 @@ import {Link } from 'react-router-dom';
 import { formatWithCurrencySymbol, truncateString } from '../../../utils/Utils';
 
 
-const ProductDetails = ({product,onAddToCart}) => {
+const ProductDetails = ({product,onAddToCart,images}) => {
     const classes =useStyles();
-
+    document.title=product.name
+    document.images=images
   return (
     <div className={classes.root} >
        <Card className={classes.card}>
