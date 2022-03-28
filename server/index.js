@@ -6,7 +6,7 @@ const dotenv = require('dotenv');
 const app = express();
 const cors = require('cors');
 const path = require('path');
-
+const fs = require("fs");
 
 //Import Routes
 const productsRoute     = require('./routes/products');

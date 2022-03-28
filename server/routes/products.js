@@ -4,10 +4,14 @@ const Product  = require('../models/Product');
 const PrefStyleProduct = require('../models/PrefStyleProduct')
 const verify   = require('./verifyToken');
 const {uploadImage}   = require('../upload');
+const path = require('path');
+
 const fs = require('fs');
 var mongoose=require('mongoose');
 const {productValidation} = require('../validation');
 const { cloudinary } = require('../cloudinary');
+const indexPath  = path.resolve(__dirname, '../../client/build');
+
 /* 
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert'); */
@@ -192,11 +196,28 @@ router.post('/prefstyle', async(req,res)=>{
 
 //get specific product
 router.get('/:productId', async (req,res)=>{
+
     
     try{
         const product = await Product.findById({_id:req.params.productId});
-        res.json({product:product,status:200,message:"product successfully created"});
-
+        fs.readFile(indexPath, 'utf8', (err, htmlData) => {
+        if (err) {
+            console.error('Error during file reading', err);
+            return res.status(404).end()
+        }
+       // inject meta tags
+       htmlData = htmlData.replace(
+        "<title>React App</title>",
+        `<title>${product.title}</title>`
+    )
+    .replace('__META_OG_TITLE__', product.title)
+    .replace('__META_OG_DESCRIPTION__', product.description)
+    .replace('__META_DESCRIPTION__', product.description)
+    .replace('__META_OG_IMAGE__', product.image[0].secure_url)
+    res.send(htmlData)
+    });
+        res.json({product:product,status:200,message:"product loaded created"});
+        
     }catch(err){
         res.json({message:err})
     }
