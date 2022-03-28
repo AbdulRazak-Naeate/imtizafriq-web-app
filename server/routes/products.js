@@ -207,13 +207,13 @@ router.get('/:productId', async (req,res)=>{
         }
        // inject meta tags
        htmlData = htmlData.replace(
-        "<title>React App</title>",
-        `<title>${product.title}</title>`
+        "<title>ImtizAfriq</title>",  `<title>${product.title}</title>`
     )
     .replace('__META_OG_TITLE__', product.title)
     .replace('__META_OG_DESCRIPTION__', product.description)
     .replace('__META_DESCRIPTION__', product.description)
     .replace('__META_OG_IMAGE__', product.image[0].secure_url)
+    
     res.send(htmlData)
     });
         res.json({product:product,status:200,message:"product loaded created"});
