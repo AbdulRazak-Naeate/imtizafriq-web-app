@@ -79,7 +79,7 @@ const ProceedcheckOut = ({onAddToCart}) => {
 
              const fetchProductMetatdata =()=>{
          
-            const url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/products/metadata/${productid}`;
+            const url = `/api/products/metadata/${productid}`;
             
             return axios.get(url)
           
