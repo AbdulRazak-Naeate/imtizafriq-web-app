@@ -115,7 +115,7 @@ mongoose.connect(process.env.DB_CONNECTION,options)
           return res.status(404).end()
       }
       // TODO get product info
-try{
+     try{
       const product = await Product.findById({_id:req.query.productId});
       
       htmlData = htmlData.replace(
@@ -124,7 +124,7 @@ try{
       ).replace('__META_OG_TITLE__', product.name)
       .replace('__META_OG_DESCRIPTION__', product.description)
       .replace('__META_DESCRIPTION__', product.description)
-      .replace('__META_OG_IMAGE__', product.image[0].secure_url)
+      .replace('__META_OG_IMAGE__', "product.image[0].secure_url")
       
       return res.send(htmlData);
   }catch(err){
