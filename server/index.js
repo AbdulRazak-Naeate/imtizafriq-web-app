@@ -27,9 +27,14 @@ const states            = require('./routes/world/states');
 const cities            = require('./routes/world/cities');
 const sociallinksRoute  = require('./routes/socialmedialinks');
 const contactsRoute     = require('./routes/contacts');
+const Product  = require('./models/Product');
+
 dotenv.config();
 
 const whitelist = ['http://localhost:3000', 'http://localhost:8080', 'https://imtizafriq.herokuapp.com', 'http://imtizafriq.herokuapp.com','https://imtizafriq.com']
+
+const indexPath  = path.resolve(__dirname, '../client/build', 'index.html');
+
 const corsOptions = {
   origin: function (origin, callback) {
     console.log("** Origin of request " + origin)
@@ -100,6 +105,35 @@ mongoose.connect(process.env.DB_CONNECTION,options)
         app.get('*', function(req, res) {
           res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
         });
+
+      // here we serve the index.html page
+      app.get('/*', async (req,res)=>{
+    
+      fs.readFile(indexPath, 'utf8',async (err, htmlData) => {
+      if (err) {
+          console.error('Error during file reading', err);
+          return res.status(404).end()
+      }
+      // TODO get product info
+try{
+      const product = await Product.findById({_id:req.query.productId});
+      
+      htmlData = htmlData.replace(
+          "<title>ImtizAfriq</title>",
+          `<title>${product.name}</title>`
+      ).replace('__META_OG_TITLE__', product.name)
+      .replace('__META_OG_DESCRIPTION__', product.description)
+      .replace('__META_DESCRIPTION__', product.description)
+      .replace('__META_OG_IMAGE__', product.image[0].secure_url)
+      
+      return res.send(htmlData);
+  }catch(err){
+      res.json({message:err})
+  }
+      // TODO inject meta tags
+  });
+ 
+});
       }  
 //Start lestening to the server
 app.set('PORT',  process.env.PORT||3001);
