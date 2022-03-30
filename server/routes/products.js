@@ -209,7 +209,7 @@ router.get('/:productId', async (req,res)=>{
 });
 
 //get specific product metatdata
-router.get('/metadata/:productId', async (req,res)=>{
+router.get('/product/metadata/:productId', async (req,res)=>{
     
     fs.readFile(indexPath, 'utf8',async (err, htmlData) => {
         if (err) {
