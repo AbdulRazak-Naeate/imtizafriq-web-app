@@ -17,7 +17,7 @@ const ProceedcheckOut = ({onAddToCart}) => {
     const[comments,setComments]=useState([]);
     const[isproductLoaded,setIsproductLoaded]=useState(false)
     const[iscommentstLoaded,setIscommentsLoaded]=useState(false)
-
+    const[isproductmetadata,setIsproductmetadata]=useState(false)
     const isMountedRef =useRef(true);
      
 /* const Item = styled(Paper)(({ theme }) => ({
@@ -68,7 +68,22 @@ const ProceedcheckOut = ({onAddToCart}) => {
          
          
            
+         const getProductMetatData = async ()=>{
+           
+          fetchProductMetatdata().then((response) => {
+           console.log(response.data);
+            
+          })
+        
+      }
+
+             const fetchProductMetatdata =()=>{
          
+            const url = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/products/metadata/${productid}`;
+            
+            return axios.get(url)
+          
+          };
            const fetchProduct =()=>{
          
              const url = `/api/products/${productid}`;
@@ -92,6 +107,11 @@ const ProceedcheckOut = ({onAddToCart}) => {
 
    
       if (productid){
+        
+      if (!isproductmetadata){
+          getProductMetatData();
+        }
+
         if (!isproductLoaded){
           getProduct();
         }
@@ -103,9 +123,10 @@ const ProceedcheckOut = ({onAddToCart}) => {
     return ()=>{
         setIsproductLoaded(true);
         setIscommentsLoaded(true);
+        setIsproductmetadata(true);
     }
        
-    },[iscommentstLoaded, isproductLoaded, productid])
+    },[iscommentstLoaded, isproductLoaded, isproductmetadata, productid])
   return (
    <div className={classes.content}> { product ?
     <Grid container justifyContent="center" spacing={1}>

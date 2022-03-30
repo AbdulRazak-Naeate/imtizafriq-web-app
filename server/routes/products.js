@@ -200,22 +200,7 @@ router.get('/:productId', async (req,res)=>{
     
     try{
         const product = await Product.findById({_id:req.params.productId});
-        fs.readFile(indexPath, 'utf8', (err, htmlData) => {
-        if (err) {
-            console.error('Error during file reading', err);
-            return res.status(404).end()
-        }
-       // inject meta tags
-       htmlData = htmlData.replace(
-        "<title>ImtizAfriq</title>",  `<title>${product.title}</title>`
-    )
-    .replace('__META_OG_TITLE__', product.title)
-    .replace('__META_OG_DESCRIPTION__', product.description)
-    .replace('__META_DESCRIPTION__', product.description)
-    .replace('__META_OG_IMAGE__', product.image[0].secure_url)
-    
-    res.send(htmlData)
-    });
+        
         res.json({product:product,status:200,message:"product loaded created"});
         
     }catch(err){
@@ -223,7 +208,34 @@ router.get('/:productId', async (req,res)=>{
     }
 });
 
+//get specific product metatdata
+router.get('/metadata/:productId', async (req,res)=>{
+    
+    fs.readFile(indexPath, 'utf8',async (err, htmlData) => {
+        if (err) {
+            console.error('Error during file reading', err);
+            return res.status(404).end()
+        }
+        // TODO get post info
+ try{
+        const product = await Product.findById({_id:req.params.productId});
+        htmlData = htmlData.replace(
+            "<title>ImtizAfriq</title>",
+            `<title>${product.name}</title>`
+        ).replace('__META_OG_TITLE__', product.name)
+        .replace('__META_OG_DESCRIPTION__', product.description)
+        .replace('__META_DESCRIPTION__', product.description)
+        .replace('__META_OG_IMAGE__', product.image[0].secure_url)
+        
+         res.send(htmlData);     
 
+    }catch(err){
+        res.json({message:err})
+    }
+        // TODO inject meta tags
+    });
+   
+});
 //get specific category products 
 router.get('/category/:categoryId', async (req,res)=>{
     try{
