@@ -8,6 +8,10 @@ const fs = require('fs');
 var mongoose=require('mongoose');
 const {productValidation} = require('../validation');
 const { cloudinary } = require('../cloudinary');
+const path = require('path');
+
+const indexPath  = path.resolve(__dirname, '..', '../client/build', 'index.html');
+
 /* 
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert'); */
@@ -139,13 +143,58 @@ router.post('/prefstyle',uploadImage('./server/uploads/products/prefarestyleprod
 //get specific product
 router.get('/:productId', async (req,res)=>{
     
-    try{
+    fs.readFile(indexPath, 'utf8',async (err, htmlData) => {
+        if (err) {
+            console.error('Error during file reading', err);
+            return res.status(404).end()
+        }
+        // TODO get post info
+ try{
         const product = await Product.findById({_id:req.params.productId});
-        res.json({product:product,status:200,message:"product successfully created"});
+        htmlData = htmlData.replace(
+            "<title>React App</title>",
+            `<title>${product.name}</title>`
+        ).replace('__META_OG_TITLE__', product.name)
+        .replace('__META_OG_DESCRIPTION__', product.description)
+        .replace('__META_DESCRIPTION__', product.description)
+        .replace('__META_OG_IMAGE__', product.image[0].secure_url)
+    
+         res.json({product:product,status:200,message:"product successfully created"});
 
     }catch(err){
         res.json({message:err})
     }
+        // TODO inject meta tags
+    });
+   
+});
+//get specific product
+router.get('/metadata/:productId', async (req,res)=>{
+    
+    fs.readFile(indexPath, 'utf8',async (err, htmlData) => {
+        if (err) {
+            console.error('Error during file reading', err);
+            return res.status(404).end()
+        }
+        // TODO get post info
+ try{
+        const product = await Product.findById({_id:req.params.productId});
+        htmlData = htmlData.replace(
+            "<title>React App</title>",
+            `<title>${product.name}</title>`
+        ).replace('__META_OG_TITLE__', product.name)
+        .replace('__META_OG_DESCRIPTION__', product.description)
+        .replace('__META_DESCRIPTION__', product.description)
+        .replace('__META_OG_IMAGE__', product.image[0].secure_url)
+    
+         res.send(htmlData);     
+
+    }catch(err){
+        res.json({message:err})
+    }
+        // TODO inject meta tags
+    });
+   
 });
 
 

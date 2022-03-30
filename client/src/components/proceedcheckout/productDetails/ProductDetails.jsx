@@ -1,7 +1,7 @@
 import { Card,Typography,Button, CardContent} from '@material-ui/core';
 import { AddShoppingCart } from '@material-ui/icons';
 
-import React from 'react';
+import React,{useEffect} from 'react';
 import useStyles from './styles';
 import {Link } from 'react-router-dom';
 import { formatWithCurrencySymbol, truncateString } from '../../../utils/Utils';
@@ -10,6 +10,21 @@ import { formatWithCurrencySymbol, truncateString } from '../../../utils/Utils';
 const ProductDetails = ({product,onAddToCart}) => {
     const classes =useStyles();
 
+    const changeMetaInfo =(product)=>{
+      console.log(product)
+      document.title=product.name
+      document.getElementsByTagName('meta')["title"].content="product.name"
+      document.getElementsByTagName('meta')["og:title"].content="product.name"
+      document.getElementsByTagName('meta')["description"].content=product.description
+      document.getElementsByTagName('meta')["og:description"].content=product.description
+      document.getElementsByTagName('meta')["og:image"].content=product.image[0].filename
+    }
+
+    useEffect(()=>{
+      if (product.length>0){
+        //changeMetaInfo(product)
+      }
+    },[product])
   return (
     <div className={classes.root} >
        <Card className={classes.card}>
