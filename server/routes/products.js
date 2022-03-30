@@ -4,13 +4,13 @@ const Product  = require('../models/Product');
 const PrefStyleProduct = require('../models/PrefStyleProduct')
 const verify   = require('./verifyToken');
 const {uploadImage}   = require('../upload');
-const path = require('path');
-
 const fs = require('fs');
 var mongoose=require('mongoose');
 const {productValidation} = require('../validation');
 const { cloudinary } = require('../cloudinary');
-const indexPath  = path.resolve(__dirname, '../../client/build');
+const path = require('path');
+
+const indexPath  = path.resolve(__dirname, '..', '../client/build', 'index.html');
 
 /* 
 const MongoClient = require('mongodb').MongoClient;
@@ -33,84 +33,46 @@ router.get('/',async(req,res)=>{
         res.json({message:err});
     }
 });
-const uploadImagestoCloudinary = async (req,res) =>{
-    //console.log(req.body)
- var imageUrls=[];
- var base64encImages=req.body.encodedimages
- try {
-      for(let i=0;i < base64encImages.length;i++){
-         const fileStr  = base64encImages[i];
-         const uploadResponse = await cloudinary.uploader.upload(fileStr, {
-             upload_preset: 'products',
-         });
-         //console.log(uploadResponse);
-
-         imageUrls.push(uploadResponse.secure_url);
-      }     
-     
-    console.log({ msg: 'yaya',urls:imageUrls });
- } catch (err) {
-     console.error(err);
- }
-return imageUrls;
-
-}
 //upload image
 router.post('/uploadimage', async(req,res)=>{
- var imageUrls=[];
- var base64encImages=req.body.encodedimages
- try {
-      for(let i=0;i<base64encImages.length;i++){
-         const fileStr  = base64encImages[i];
-         const uploadResponse = await cloudinary.uploader.upload(fileStr, {
-             upload_preset: 'products',
-         });
-         console.log(uploadResponse);
-         imageUrls.push(uploadResponse.secure_url)
-      }     
-    res.json({ msg: 'yaya',urls:imageUrls });
-
- } catch (err) {
-     console.error(err);
-     res.status(500).json({ err: 'Something went wrong' });
- }
-
-
- 
-});
-//Submit a product
-router.post('/',verify, async(req,res)=>{
-
-
-
-    //Validation
-    const {error} = productValidation(req.body);
-
-    if (error) return  res.json({status:400,message:error.details[0].message});
-
-    //check if product name already exist
-    const productnameExist = await Product.findOne({name:req.body.name});
-    if (productnameExist) return res.json({status:400,message:"Product name already taken"});
     var imageUrls=[];
-    var base64encImages=req.body.encodedimages
+    var base64encImages=req.body.data
     try {
-         for(let i=0;i < base64encImages.length;i++){
+         for(let i=0;i<base64encImages.length;i++){
             const fileStr  = base64encImages[i];
             const uploadResponse = await cloudinary.uploader.upload(fileStr, {
                 upload_preset: 'products',
             });
-            //console.log(uploadResponse);
-
-            imageUrls.push(uploadResponse);
+            console.log(uploadResponse);
+            imageUrls.push(uploadResponse.secure_url)
          }     
-        
-       console.log({ urls:imageUrls });
+       res.json({ msg: 'yaya',urls:imageUrls });
+
     } catch (err) {
         console.error(err);
+        res.status(500).json({ err: 'Something went wrong' });
     }
 
-    if (imageUrls.length<=0) return res.json({status:400,message:"error uploading images"});
 
+    
+ });
+ 
+//Submit a product
+router.post('/',uploadImage('./server/uploads/products'),verify, async(req,res)=>{
+
+
+    res.json({files:req.files,body:req.body});
+    //Validation
+   
+    
+    const {error} = productValidation(req.body);
+
+    if (error) return  res.json({status:400,message:error.details[0].message,data:req.files});
+
+     //check if product name already exist
+    const productnameExist = await Product.findOne({name:req.body.name});
+    if (productnameExist) return res.json({status:400,message:"Product name already taken"}); 
+    //console.log(req.files);
     var stockvalue=parseInt(req.body.stock);
     const product = new Product({
         color:req.body.color,
@@ -123,7 +85,7 @@ router.post('/',verify, async(req,res)=>{
                alltimestock:stockvalue},
         price:req.body.price,
         likes:req.body.likes,
-        image:imageUrls,
+        image:req.files,
         digital_product_url:req.body.digital_product_url,
         comments:req.body.comments
     });
@@ -131,7 +93,8 @@ router.post('/',verify, async(req,res)=>{
     try{
 
        const saveProduct = await product.save();
-        res.json({product:saveProduct,status:200,message:"product successfully created"});
+        res.json({product:saveProduct,status:200,message:"product successfully created",d:req.body});
+        
     }catch(err){
         res.json({message:err})
     }
@@ -140,7 +103,7 @@ router.post('/',verify, async(req,res)=>{
 
 
 //Submit a prefare Style product
-router.post('/prefstyle', async(req,res)=>{
+router.post('/prefstyle',uploadImage('./server/uploads/products/prefarestyleproducts'), async(req,res)=>{
     console.log(req.body)
     // const userId = req.user._id; //get userid
  
@@ -154,25 +117,8 @@ router.post('/prefstyle', async(req,res)=>{
      //check if product name already exist
      const productnameExist =  await PrefStyleProduct.findOne({name:req.body.name});
      if (productnameExist) return  res.json({status:400,message:"Product name already taken"});
-     var imageUrls=[];
-     var base64encImages=req.body.encodedimages
-     try {
-         
-             const uploadResponse = await cloudinary.uploader.upload(base64encImages, {
-                 upload_preset: 'prefstyle_products',
-             });
-             //console.log(uploadResponse);
- 
-             imageUrls.push(uploadResponse);     
-         
-        console.log({ urls:imageUrls });
-     } catch (err) {
-         console.error(err);
-     }
- 
-     if (imageUrls.length<=0) return res.json({status:400,message:"error uploading images"});
- 
-     //console.log(req.body);
+     console.log(req.files);
+     console.log(req.body);
      const product = new PrefStyleProduct({
          color:req.body.color,
          size:req.body.size,
@@ -181,35 +127,20 @@ router.post('/prefstyle', async(req,res)=>{
          category:req.body.category,
          specification:req.body.specification,
          price:req.body.price,
-         image:imageUrls,
+         image:req.files,
      });
  
      try{
  
         const saveProduct = await product.save();
-         res.json({product:saveProduct,status:200,message:"Prefared style product successfully createdm..."});
+        return res.json({product:saveProduct,status:200,message:"Prefared style product successfully createdm..."});
      }catch(err){
          res.json({message:err})
      }
  });
  
-
-//get specific product
-router.get('/:productId', async (req,res)=>{
-
-    
-    try{
-        const product = await Product.findById({_id:req.params.productId});
-        
-        res.json({product:product,status:200,message:"product loaded created"});
-        
-    }catch(err){
-        res.json({message:err})
-    }
-});
-
-//get specific product metatdata
-router.get('/product/metadata/:productId', async (req,res)=>{
+//get specific product metadata
+router.get('/metadata/:productId', async (req,res)=>{
     
     fs.readFile(indexPath, 'utf8',async (err, htmlData) => {
         if (err) {
@@ -219,6 +150,7 @@ router.get('/product/metadata/:productId', async (req,res)=>{
         // TODO get post info
  try{
         const product = await Product.findById({_id:req.params.productId});
+        //res.json({product:product,status:200,message:"product successfully created"});
         htmlData = htmlData.replace(
             "<title>ImtizAfriq</title>",
             `<title>${product.name}</title>`
@@ -227,8 +159,7 @@ router.get('/product/metadata/:productId', async (req,res)=>{
         .replace('__META_DESCRIPTION__', product.description)
         .replace('__META_OG_IMAGE__', product.image[0].secure_url)
         
-         res.send(htmlData);     
-
+        return res.send(htmlData);
     }catch(err){
         res.json({message:err})
     }
@@ -236,6 +167,21 @@ router.get('/product/metadata/:productId', async (req,res)=>{
     });
    
 });
+//get specific product
+router.get('/:productId', async (req,res)=>{
+    
+ try{
+        const product = await Product.findById({_id:req.params.productId});
+       
+        res.json({product:product,status:200,message:"product successfully created"});
+    }catch(err){
+        res.json({message:err})
+    }
+     
+   
+});
+
+
 //get specific category products 
 router.get('/category/:categoryId', async (req,res)=>{
     try{
@@ -273,15 +219,15 @@ router.delete('/:productId', async (req,res)=>{
 
           // Delete the file like normal
           images.forEach( image=>{
-             cloudinary.uploader.destroy(image.public_id)
-            /* fs.unlink('server/uploads/products/'+image.filename,(err) =>{
+             
+            fs.unlink('server/uploads/products/'+image.filename,(err) =>{
               if(err){
                   console.error(err)
                   return
-             
+              }
  
           })
-         } */
+
          
           });
 
@@ -380,3 +326,4 @@ router.patch('/updatelikes/:productId',verify,async (req,res)=> {
     }
 });
 module.exports = router;
+

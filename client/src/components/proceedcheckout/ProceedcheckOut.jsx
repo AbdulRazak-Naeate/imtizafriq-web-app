@@ -79,7 +79,7 @@ const ProceedcheckOut = ({onAddToCart}) => {
 
              const fetchProductMetatdata =()=>{
          
-            const url = `/api/products/product/metadata/${productid}`;
+            const url = `/api/products/metadata/${productid}`;
 
             return axios.get(url)
           
