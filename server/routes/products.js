@@ -159,13 +159,13 @@ router.get('/metadata/:productId', async (req,res)=>{
         .replace('__META_OG_DESCRIPTION__', product.description)
         .replace('__META_DESCRIPTION__', product.description)
         .replace('__META_OG_IMAGE__', product.image[0].secure_url)
-        fs.writeFileSync(indexPath,htmlData,{encoding:'utf8',flag:'w'})
+      /*   fs.writeFileSync(indexPath,htmlData,{encoding:'utf8',flag:'w'}) */
 
-        //return res.send(htmlData);
+        return res.send(htmlData);
     }catch(err){
         res.json({message:err})
     }
-        // TODO inject meta tags
+        // TODO inject meta 
     });
    
 });
