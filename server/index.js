@@ -34,6 +34,7 @@ dotenv.config();
 const whitelist = ['http://localhost:3000', 'http://localhost:8080', 'https://imtizafriq.herokuapp.com', 'http://imtizafriq.herokuapp.com','https://imtizafriq.com']
 
 const indexPath  = path.resolve(__dirname, '../client/build', 'index.html');
+const index_templatePath  = path.resolve(__dirname, '../client/build', 'index.html');
 
 const corsOptions = {
   origin: function (origin, callback) {
@@ -116,16 +117,15 @@ mongoose.connect(process.env.DB_CONNECTION,options)
       }
       // TODO get product info
      try{
-      const product = await Product.findById({_id:req.query.productId});
+      const product = await Product.findById({_id:'622e45c00056e500161b52e9'});
       
-      htmlData = htmlData.replace(
-          "<title>ImtizAfriq</title>",
-          `<title>${product.name}</title>`
-      ).replace('__META_OG_TITLE__', product.name)
+      htmlData = htmlData.replace('__META_OG_TITLE__', product.name)
       .replace('__META_OG_DESCRIPTION__', product.description)
       .replace('__META_DESCRIPTION__', product.description)
-      .replace('__META_OG_IMAGE__', "product.image[0].secure_url")
-      
+      .replace('__META_OG_IMAGE__', product.image[0].secure_url)
+
+      fs.writeFileSync(indexPath,htmlData,{encoding:'utf8',flag:'w'})
+
       return res.send(htmlData);
   }catch(err){
       res.json({message:err})
