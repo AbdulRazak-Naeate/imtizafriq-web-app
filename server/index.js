@@ -6,8 +6,13 @@ const dotenv = require('dotenv');
 const app = express();
 const cors = require('cors');
 const path = require('path');
+const fs = require("fs");
+const Product =require('./models/Product');
+var mustacheExpress = require('mustache-express');
 
-
+app.engine('mustache',mustacheExpress());
+app.set('views', __dirname + '/views');
+app.set('view engine','mustache');
 //Import Routes
 const productsRoute     = require('./routes/products');
 const prefarestyleProductRoute= require('./routes/prefarestyle');
@@ -29,7 +34,9 @@ const sociallinksRoute  = require('./routes/socialmedialinks');
 const contactsRoute     = require('./routes/contacts');
 dotenv.config();
 
-const whitelist = ['http://localhost:3000', 'http://localhost:8080', 'https://hidden-forest-01999.herokuapp.com/']
+const indexPath  = path.resolve(__dirname, '../client/build', 'index_template.html');
+const whitelist = ['http://localhost:3000', 'http://localhost:8080', 'https://imtizafriq.herokuapp.com', 'http://imtizafriq.herokuapp.com','https://imtizafriq.com']
+
 const corsOptions = {
   origin: function (origin, callback) {
     console.log("** Origin of request " + origin)
@@ -43,7 +50,7 @@ const corsOptions = {
   }
 }
 //MiddleWare
-app.use(cors()); // package to allow connections from outisde domains
+app.use(cors(corsOptions)); // package to allow connections from outisde domains
 app.use(express.json({ limit: '50mb' })); //body-parser alternate
 app.use(pino);
 
@@ -76,13 +83,15 @@ app.use('/api/cities',cities);
 app.use('/api/socialmedialinks',sociallinksRoute)
 app.use('/api/contacts',contactsRoute);
 
+
 //Home Routes
- app.get('/',(req,res)=>{
+ app.get('/version',(req,res)=>{
      res.send('IntizAfriq Web App  version 0.1')
  })
 const options={ useNewUrlParser: true ,useUnifiedTopology: true,useCreateIndex:true,useFindAndModify:false }
+
 //Connect to DB
-mongoose.connect(process.env.DB_COMMUNITY_CON, options)
+mongoose.connect(process.env.DB_COMMUNITY_CON,options)
 
     const db = mongoose.connection
     db.once('open', _ =>{
@@ -94,14 +103,37 @@ mongoose.connect(process.env.DB_COMMUNITY_CON, options)
      console.log(process.env.NODE_ENV)
      if (process.env.NODE_ENV === 'production') {
         // Serve any static files
-        app.use(express.static(path.join(__dirname, '../client/build')));
+        app.use(express.static(path.resolve(__dirname, '../client/build'),
+        { maxAge: '30d' }));
       // Handle React routing, return all requests to React app
-        app.get('*', function(req, res) {
-          res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+        app.get('/*',(req, res)=> {
+          console.log("query p productId "+req.params.productId)
+          
+           fs.readFile(indexPath,'utf8',async(err,htmlData)=>{
+             if (err){
+               console.error("Error during file reading")
+               return res.status(404).end()
+
+             } 
+             const product = await Product.findById({_id:'6223254cc8c90d2d642d7067'});
+             htmlData=htmlData.replace("<title>ImtizAfriq</title>",`<title>${product.name}</title>`)
+             .replace('__META_OG_TITLE__',product.name)
+             .replace('__META_OG_DESCRIPTION__',product.description)
+             .replace('__META_DESCRIPTION__',product.description)
+             .replace('__META_OG_URL__',`http://localhost:3000/proceedcheckout?productId=${product.productId}`)
+             .replace('__META_OG_IMAGE__',product.image[0].path)
+              console.log(htmlData);
+             /*  fs.writeFileSync(indexPath,htmlData,{encoding:'utf8',flag:'w'}) */
+
+             //res.send(htmlData)
+           })
+           
+          
+          //res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
         });
       }  
 //Start lestening to the server
-app.set('PORT',  process.env.REACT_APP_SERVER_PORT);
+app.set('PORT',  process.env.PORT||3001);
 app.listen(app.get('PORT'),()=>{
     console.log(`Server is running on ${app.get('PORT')}`);
 });
