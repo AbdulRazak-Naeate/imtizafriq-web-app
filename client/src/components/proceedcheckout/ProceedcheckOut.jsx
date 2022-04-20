@@ -109,7 +109,7 @@ const ProceedcheckOut = ({onAddToCart}) => {
       if (productid){
         
       if (!isproductmetadata){
-          getProductMetatData();
+        //  getProductMetatData();
         }
 
         if (!isproductLoaded){

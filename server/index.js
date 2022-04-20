@@ -6,11 +6,15 @@ const mongoose = require('mongoose');
 require('dotenv/config');
 const dotenv = require('dotenv');
 dotenv.config();
-
+const Product  = require('../models/Product');
 const cors = require('cors');
 const path = require('path');
 
-const whitelist = ['http://localhost:3000', 'http://localhost:8080', 'https://imtiz.herokuapp.com'];
+const fs = require('fs');
+
+const indexPath  = path.resolve(__dirname, '..', '../client/build', 'index.html');
+
+const whitelist = ['http://localhost:3000', 'http://localhost:8080', 'https://imtizafriq.herokuapp.com'];
 
 const corsOptions = {
   origin: function (origin, callback) {
@@ -98,15 +102,53 @@ mongoose.connect(process.env.DB_CONNECTION, options)
     db.on('error',err =>{
         console.error('connection eror:',err)
      })
-     if (process.env.NODE_ENV  === 'production') {
-        // Serve any static files
-        app.use(express.static(path.resolve(__dirname, '../client/build')));
-        
-      // Handle React routing, return all requests to React app
-        app.get('*', function(req, res) {
-          res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
-        });
-      }  
+    
+if (process.env.NODE_ENV === 'production') {
+  // Serve any static files
+  app.use(express.static(path.resolve(__dirname, '../client/build')));
+  
+// Handle React routing, return all requests to React app
+  app.get('*',async (req, res)=> {
+    console.log("query productid from any request "+ req.query.productId)
+   try{
+    var pid=req.query.productId
+    var product;
+      console.log("productid "+pid)
+  if (pid){
+              product = await Product.findById({_id:pid});
+  }else{
+     product={
+      name:'ImtizAfriq',
+      description:'mark of honor',
+      image:[`http://imtizafriq.herokuapp.com/logo192.png`]
+    }
+  }
+    
+     fs.readFile(indexPath,'utf8',(err,htmlData)=>{
+       
+       if (err){
+         console.error("Error during file reading")
+         return res.status(404).end()
+
+       } 
+      
+       htmlData=htmlData.replace("<title>ImtizAfriq</title>",`<title>${product.name}</title>`)
+       .replace('__META_OG_TITLE__',product.name)
+       .replace('__META_OG_DESCRIPTION__',product.description)
+       .replace('__META_DESCRIPTION__',product.description)
+       .replace('__META_OG_URL__',`https://imtizafriq.herokuapp.com/proceedcheckout?productId=${product.productId}`)
+       .replace('__META_OG_IMAGE__',product.image[0].secure_url)
+        console.log(htmlData);
+        res.send(htmlData)
+     })
+     
+     }catch(err){
+     console.log(err)
+   }
+   
+    //res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+  });
+}    
 //Start lestening to the server
 app.set('PORT',  process.env.PORT || 3001);
 
