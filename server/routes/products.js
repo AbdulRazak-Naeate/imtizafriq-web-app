@@ -159,7 +159,7 @@ router.get('/metadata/:productId', async (req,res)=>{
         .replace('__META_DESCRIPTION__', product.description)
         .replace('__META_OG_IMAGE__', product.image[0].path)
         console.log(htmlData)
-        return res.send(htmlData);
+        //return res.send(htmlData);
     }catch(err){
         res.json({message:err})
     }
