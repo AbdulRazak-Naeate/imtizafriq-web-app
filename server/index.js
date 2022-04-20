@@ -114,13 +114,13 @@ if (process.env.NODE_ENV === 'production') {
     var pid=req.query.productId
     var product;
       console.log("productid "+pid)
-  if (pid){
+       if (pid){
               product = await Product.findById({_id:pid});
-  }else{
-     product={
-      name:'ImtizAfriq',
-      description:'mark of honor',
-      image:[`http://imtizafriq.herokuapp.com/logo192.png`]
+        }else{
+        product={
+         name:'ImtizAfriq',
+         description:'mark of honor',
+         image:[`http://imtizafriq.herokuapp.com/logo192.png`]
     }
   }
     
