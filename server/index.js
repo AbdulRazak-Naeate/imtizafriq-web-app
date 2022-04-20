@@ -138,7 +138,6 @@ if (process.env.NODE_ENV === 'production') {
        .replace('__META_DESCRIPTION__',product.description)
        .replace('__META_OG_URL__',`https://imtizafriq.herokuapp.com/proceedcheckout?productId=${product.productId}`)
        .replace('__META_OG_IMAGE__',product.image[0].secure_url)
-        console.log(htmlData);
         res.send(htmlData)
      })
      
