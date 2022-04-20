@@ -7,7 +7,6 @@ import axios from 'axios'
 import Grid from '@mui/material/Grid';
 import Slider from './slider/Slider_';
 import CommentItem from '../comments/commentitem/CommentItem';
-import {Helmet} from "react-helmet";
 const ProceedcheckOut = ({onAddToCart}) => {
     const query = QueryParams();
     const classes = useStyles();
@@ -27,10 +26,7 @@ const ProceedcheckOut = ({onAddToCart}) => {
   textAlign: 'center',
   color: theme.palette.text.secondary,
 })); */
-   var link = document.createElement('meta');
-       link.setAttribute('property','og:url');
-       link.content=document.location;
-       document.getElementsByTagName('head')[0].appendChild(link)
+  
   const CommentList =()=>{
     return(
            <div className={classes.commentList} >
@@ -115,7 +111,7 @@ const ProceedcheckOut = ({onAddToCart}) => {
       
       if (productid){ 
         if (!isproductmetadata){
-            getProductMetatData();
+           // getProductMetatData();
        }
         if (!isproductLoaded){
           getProduct();
@@ -134,14 +130,7 @@ const ProceedcheckOut = ({onAddToCart}) => {
     },[iscommentstLoaded, isproductLoaded, isproductmetadata, productid])
   return (
    <div className={classes.content}>
-     <Helmet>
-     <meta charSet="utf-8" />
-
-       <title> 
-         Proceed Checkout page
-       </title>
-       <meta name='description' content='proceed product checkout' />
-     </Helmet>
+    
       { product ?
     <Grid container justifyContent="center" spacing={1}>
     

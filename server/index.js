@@ -8,11 +8,11 @@ const cors = require('cors');
 const path = require('path');
 const fs = require("fs");
 const Product =require('./models/Product');
-var mustacheExpress = require('mustache-express');
+/* var mustacheExpress = require('mustache-express');
 
 app.engine('mustache',mustacheExpress());
 app.set('views', __dirname + '/views');
-app.set('view engine','mustache');
+app.set('view engine','mustache'); */
 //Import Routes
 const productsRoute     = require('./routes/products');
 const prefarestyleProductRoute= require('./routes/prefarestyle');
@@ -34,7 +34,7 @@ const sociallinksRoute  = require('./routes/socialmedialinks');
 const contactsRoute     = require('./routes/contacts');
 dotenv.config();
 
-const indexPath  = path.resolve(__dirname, '../client/build', 'index_template.html');
+const indexPath  = path.resolve(__dirname, '../client/build', 'index.html');
 const whitelist = ['http://localhost:3000', 'http://localhost:8080', 'https://imtizafriq.herokuapp.com', 'http://imtizafriq.herokuapp.com','https://imtizafriq.com']
 
 const corsOptions = {
@@ -103,19 +103,33 @@ mongoose.connect(process.env.DB_COMMUNITY_CON,options)
      console.log(process.env.NODE_ENV)
      if (process.env.NODE_ENV === 'production') {
         // Serve any static files
-        app.use(express.static(path.resolve(__dirname, '../client/build'),
-        { maxAge: '30d' }));
+        app.use(express.static(path.resolve(__dirname, '../client/build')));
+        
       // Handle React routing, return all requests to React app
-        app.get('/*',(req, res)=> {
-          console.log("query p productId "+req.params.productId)
+        app.get('*',async (req, res)=> {
+          console.log("query productid from any request "+ req.query.productId)
+         try{
+          var pid=req.query.productId
+          var product;
+            console.log("productid "+pid)
+        if (pid){
+                    product = await Product.findById({_id:pid});
+        }else{
+           product={
+            name:'ImtizAfriq',
+            description:'mark of honor',
+            image:[`server/uploads/products/White Black Kaftan -1646470083381.jpg`]
+          }
+        }
           
-           fs.readFile(indexPath,'utf8',async(err,htmlData)=>{
+           fs.readFile(indexPath,'utf8',(err,htmlData)=>{
+             
              if (err){
                console.error("Error during file reading")
                return res.status(404).end()
 
              } 
-             const product = await Product.findById({_id:'6223254cc8c90d2d642d7067'});
+            
              htmlData=htmlData.replace("<title>ImtizAfriq</title>",`<title>${product.name}</title>`)
              .replace('__META_OG_TITLE__',product.name)
              .replace('__META_OG_DESCRIPTION__',product.description)
@@ -125,10 +139,13 @@ mongoose.connect(process.env.DB_COMMUNITY_CON,options)
               console.log(htmlData);
              /*  fs.writeFileSync(indexPath,htmlData,{encoding:'utf8',flag:'w'}) */
 
-             //res.send(htmlData)
+             res.send(htmlData)
            })
            
-          
+           }catch(err){
+           console.log(err)
+         }
+         
           //res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
         });
       }  

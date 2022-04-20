@@ -4,13 +4,12 @@ const Product  = require('../models/Product');
 const PrefStyleProduct = require('../models/PrefStyleProduct')
 const verify   = require('./verifyToken');
 const {uploadImage}   = require('../upload');
+const fs = require('fs');
 var mongoose=require('mongoose');
 const {productValidation} = require('../validation');
 const { cloudinary } = require('../cloudinary');
 const path = require('path');
-const fs = require('fs');
 
-const indextemplatePath  = path.resolve(__dirname, '..', '../client/build', 'index_template.html');
 const indexPath  = path.resolve(__dirname, '..', '../client/build', 'index.html');
 
 /* 
@@ -134,54 +133,52 @@ router.post('/prefstyle',uploadImage('./server/uploads/products/prefarestyleprod
      try{
  
         const saveProduct = await product.save();
-         res.json({product:saveProduct,status:200,message:"Prefared style product successfully createdm..."});
+        return res.json({product:saveProduct,status:200,message:"Prefared style product successfully createdm..."});
      }catch(err){
          res.json({message:err})
      }
  });
  
+//get specific product metadata
+router.get('/metadata/:productId', async (req,res)=>{
+  const product = await Product.findById({_id:req.params.productId});
 
-//get specific product
-router.get('/:productId', async (req,res)=>{
-
-        const product = await Product.findById({_id:req.params.productId});
-
-        fs.readFile(indextemplatePath,'utf8',async(err,htmlData)=>{
-            if (err){
-              console.error("Error during file reading")
-              return res.status(404).end()
-
-            } 
-           
-            htmlData=htmlData.replace("<title>ImtizAfriq</title>",`<title> ${product.name}</title>`)
-            .replace('__META_OG_TITLE__',product.name)
-            .replace('__META_OG_DESCRIPTION__',product.description)
-            .replace('__META_DESCRIPTION__',product.description)
-            .replace('__META_OG_URL__',`http://localhost:3000/proceedcheckout?productId=${product.productId}`)
-            .replace('__META_OG_IMAGE__',product.image[0].path)
-             console.log(htmlData);
-             fs.writeFileSync(indexPath,htmlData,{encoding:'utf8',flag:'w'})
-
-            //res.send(htmlData)
-          })
-          
-         
-         //res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
-     
-        res.json({product:product,status:200,message:"product successfully created"});
-       
+    fs.readFile(indexPath, 'utf8', (err, htmlData) => {
+        if (err) {
+            console.error('Error during file reading', err);
+            return res.status(404).end()
+        }
+        // TODO get post info
+ try{
+        //res.json({product:product,status:200,message:"product successfully created"});
+        htmlData = htmlData.replace(
+            "<title>ImtizAfriq</title>",
+            `<title>${product.name}</title>`
+        ).replace('__META_OG_TITLE__', product.name)
+        .replace('__META_OG_DESCRIPTION__', product.description)
+        .replace('__META_DESCRIPTION__', product.description)
+        .replace('__META_OG_IMAGE__', product.image[0].path)
+        console.log(htmlData)
+        return res.send(htmlData);
+    }catch(err){
+        res.json({message:err})
+    }
+        // TODO inject meta tags
+    });
    
 });
-
-
 //get specific product
-router.get('/metadata/:productId', async function (req,res){
-
-    const product = await Product.findById({_id:req.params.productId});
-    let imageurl='http://localhost:3001/server/uploads/products/Jilma Kaftan -1646595404544.jpg'
+router.get('/:productId', async (req,res)=>{
+    
+ try{
+        const product = await Product.findById({_id:req.params.productId});
+       
+        res.json({product:product,status:200,message:"product successfully created"});
+    }catch(err){
+        res.json({message:err})
+    }
      
-       return res.render('index',{imageUrl:imageurl});
-
+   
 });
 
 

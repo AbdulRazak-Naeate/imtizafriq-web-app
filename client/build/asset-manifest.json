@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/static/css/main.2fdb908c.css",
+    "main.js": "/static/js/main.fdef7db5.js",
+    "static/media/captan_thumb_nail.png": "/static/media/captan_thumb_nail.96b3cdf972330d8f8874.png",
+    "index.html": "/index.html",
+    "main.2fdb908c.css.map": "/static/css/main.2fdb908c.css.map",
+    "main.fdef7db5.js.map": "/static/js/main.fdef7db5.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2fdb908c.css",
+    "static/js/main.fdef7db5.js"
+  ]
+}

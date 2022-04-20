@@ -612,8 +612,10 @@ const searchProduct =(searchString)=>{
       //console.log(response.data);
       if (response.status===200){
         try{
+         if (cart){
           setCart(response.data.cart)
           setCartItemsCount(response.data.cart.items.length);
+         }
         }catch(err){
           console.log(err)
         }
@@ -702,7 +704,7 @@ const searchProduct =(searchString)=>{
     // history.push('/dashboard/login'); 
    }
   if (!isContactsLoaded){
-     handlegetLinks();
+     //handlegetLinks();
   }
   
 
