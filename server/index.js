@@ -120,7 +120,11 @@ if (process.env.NODE_ENV === 'production') {
         product={
          name:'ImtizAfriq',
          description:'mark of honor',
-         image:[`http://imtizafriq.herokuapp.com/logo192.png`]
+         image:  [
+          {
+            secure_url : 'https://res.cloudinary.com/abdulrazakneate/image/upload/v1647199679/,'
+          },
+        ]
     }
   }
     
