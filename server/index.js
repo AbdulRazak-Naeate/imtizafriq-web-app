@@ -102,16 +102,54 @@ mongoose.connect(process.env.DB_COMMUNITY_CON,options)
      })
      console.log(process.env.NODE_ENV)
      if (process.env.NODE_ENV === 'production') {
-        // Serve any static files
-        app.use(express.static(path.resolve(__dirname, '../client/build'),
-        { maxAge: '30d' }));
-      // Handle React routing, return all requests to React app
-        app.get('*',async (req, res)=> {
-       
+      // Serve any static files
+      app.use(express.static(path.resolve(__dirname, '../client/build')));
+      
+    // Handle React routing, return all requests to React app
+      app.get('*',async (req, res)=> {
+        console.log("query productid from any request "+ req.query.productId)
+       try{
+        var pid=req.query.productId
+        var product;
+          console.log("productid "+pid)
+           if (pid){
+                  product = await Product.findById({_id:pid});
+            }else{
+            product={
+             name:'ImtizAfriq',
+             description:'mark of honor',
+             image:  [
+              {
+                secure_url : 'https://res.cloudinary.com/abdulrazakneate/image/upload/v1647199679/,'
+              },
+            ]
+        }
+      }
+        
+         fs.readFile(indexPath,'utf8',(err,htmlData)=>{
+           
+           if (err){
+             console.error("Error during file reading")
+             return res.status(404).end()
+    
+           } 
           
-          res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
-        });
-      }  
+           htmlData=htmlData.replace("<title>ImtizAfriq</title>",`<title>${product.name}</title>`)
+           .replace('__META_OG_TITLE__',product.name)
+           .replace('__META_OG_DESCRIPTION__',product.description)
+           .replace('__META_DESCRIPTION__',product.description)
+           .replace('__META_OG_URL__',`https://imtizafriq.herokuapp.com/proceedcheckout?productId=${product.productId}`)
+           .replace('__META_OG_IMAGE__',product.image[0].secure_url)
+            res.send(htmlData)
+         })
+         
+         }catch(err){
+         console.log(err)
+       }
+       
+        //res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+      });
+    }   
 //Start lestening to the server
 app.set('PORT',  process.env.PORT||3001);
 app.listen(app.get('PORT'),()=>{
