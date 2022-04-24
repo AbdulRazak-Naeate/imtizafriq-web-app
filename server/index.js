@@ -144,7 +144,7 @@ mongoose.connect(process.env.DB_COMMUNITY_CON,options)
          })
          
          }catch(err){
-         console.log(err)
+         console.log('proceed checkout not access')
        }
        
         //res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
