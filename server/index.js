@@ -100,7 +100,7 @@ mongoose.connect(process.env.DB_CONNECTION,options)
     db.on('error',err =>{
         console.error('connection eror:',err)
      })
-     console.log(process.env.NODE_ENV)
+     //console.log(process.env.NODE_ENV)
      if (process.env.NODE_ENV === 'production') {
       // Serve any static files
       app.use(express.static(path.resolve(__dirname, '../client/build')));
