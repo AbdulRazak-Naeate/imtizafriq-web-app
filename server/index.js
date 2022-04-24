@@ -107,7 +107,7 @@ mongoose.connect(process.env.DB_COMMUNITY_CON,options)
       
     // Handle React routing, return all requests to React app
       app.get('*',async (req, res)=> {
-     /*   try{
+       try{
                  console.log("query productid from any request "+ req.query.productId)
 
         var pid=req.query.productId
@@ -146,9 +146,9 @@ mongoose.connect(process.env.DB_COMMUNITY_CON,options)
          
          }catch(err){
          console.log('proceedcheckout route not access')
-       } */
+       }
        
-      res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+        //res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
       });
     }   
 //Start lestening to the server
