@@ -11,7 +11,6 @@ const { cloudinary } = require('../cloudinary');
 const path = require('path');
 
 const indexPath  = path.resolve(__dirname, '..', '../client/build', 'index.html');
-const indextemplate  = path.resolve(__dirname, '..', '../client/build', 'index_template.html');
 
 /* 
 const MongoClient = require('mongodb').MongoClient;
@@ -143,7 +142,7 @@ router.post('/prefstyle',uploadImage('./server/uploads/products/prefarestyleprod
 //get specific product metadata
 router.get('/metadata/:productId', async (req,res)=>{
     
-    fs.readFile(indextemplate, 'utf8',async (err, htmlData) => {
+    fs.readFile(indexPath, 'utf8',async (err, htmlData) => {
         if (err) {
             console.error('Error during file reading', err);
             return res.status(404).end()
