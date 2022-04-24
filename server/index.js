@@ -91,7 +91,7 @@ app.use('/api/contacts',contactsRoute);
 const options={ useNewUrlParser: true ,useUnifiedTopology: true,useCreateIndex:true,useFindAndModify:false }
 
 //Connect to DB
-mongoose.connect(process.env.DB_COMMUNITY_CON,options)
+mongoose.connect(process.env.DB_CONNECTION,options)
 
     const db = mongoose.connection
     db.once('open', _ =>{
@@ -108,7 +108,7 @@ mongoose.connect(process.env.DB_COMMUNITY_CON,options)
     // Handle React routing, return all requests to React app
       app.get('*',async (req, res)=> {
        try{
-                 console.log("query productid from any request "+ req.query.productId)
+        console.log("query productid from any request "+ req.query.productId)
 
         var pid=req.query.productId
         var product;
