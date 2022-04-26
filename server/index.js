@@ -117,6 +117,7 @@ mongoose.connect(process.env.DB_CONNECTION,options)
                   product = await Product.findById({_id:pid});
             }else{
             product={
+              _id:"iereree8wsew89ehyy757884",
              name:'ImtizAfriq',
              description:'mark of honor',
              image:  [
@@ -139,7 +140,7 @@ mongoose.connect(process.env.DB_CONNECTION,options)
            .replace('__META_OG_TITLE__',product.name)
            .replace('__META_OG_DESCRIPTION__',product.description)
            .replace('__META_DESCRIPTION__',product.description)
-           .replace('__META_OG_URL__',`https://imtizafriq.herokuapp.com/proceedcheckout?productId=${product.productId}`)
+           .replace('__META_OG_URL__',`https://imtizafriq.herokuapp.com/proceedcheckout?productId=${product._id}`)
            .replace('__META_OG_IMAGE__',product.image[0].secure_url)
             res.send(htmlData)
          })
