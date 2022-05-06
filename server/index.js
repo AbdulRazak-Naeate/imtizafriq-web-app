@@ -8,11 +8,12 @@ const cors = require('cors');
 const path = require('path');
 const fs = require("fs");
 const Product =require('./models/Product');
-/* var mustacheExpress = require('mustache-express');
+/**/ var mustacheExpress = require('mustache-express');
 
-app.engine('mustache',mustacheExpress());
-app.set('views', __dirname + '/views');
-app.set('view engine','mustache'); */
+app.engine('html',mustacheExpress());
+app.set('view engine','html'); 
+app.set('views', path.resolve(__dirname, '../client/build'));
+
 //Import Routes
 const productsRoute     = require('./routes/products');
 const prefarestyleProductRoute= require('./routes/prefarestyle');
@@ -35,16 +36,16 @@ const contactsRoute     = require('./routes/contacts');
 dotenv.config();
 
 const indexPath  = path.resolve(__dirname, '../client/build', 'index.html');
-const whitelist = ['http://localhost:3000', 'http://localhost:8080', 'https://imtizafriq.herokuapp.com', 'http://imtizafriq.herokuapp.com','https://imtizafriq.com']
+const whitelist = ['http://localhost:3000',"http://localhost:3001", 'http://localhost:8080', 'https://imtizafriq.herokuapp.com', 'http://imtizafriq.herokuapp.com','https://imtizafriq.com']
 
 const corsOptions = {
   origin: function (origin, callback) {
-    console.log("** Origin of request " + origin)
+    //console.log("** Origin of request " + origin)
     if (whitelist.indexOf(origin) !== -1 || !origin) {
-      console.log("Origin acceptable")
+     // console.log("Origin acceptable")
       callback(null, true)
     } else {
-      console.log("Origin rejected")
+    //  console.log("Origin rejected")
       callback(new Error('Not allowed by CORS'))
     }
   }
@@ -100,25 +101,27 @@ mongoose.connect(process.env.DB_COMMUNITY_CON,options)
     db.on('error',err =>{
         console.error('connection eror:',err)
      })
-     console.log(process.env.NODE_ENV)
-     if (process.env.NODE_ENV === 'production') {
+     if (process.env.NODE_ENV === 'production') {   
+         console.log("node env : "+process.env.NODE_ENV)
+
         // Serve any static files
         app.use(express.static(path.resolve(__dirname, '../client/build')));
         
       // Handle React routing, return all requests to React app
-        app.get('*',async (req, res)=> {
+        app.get('/*', async(req, res)=> {
           console.log("query productid from any request "+ req.query.productId)
          try{
           var pid=req.query.productId
           var product;
             console.log("productid "+pid)
-        if (pid){
+        if (pid!==undefined){
                     product = await Product.findById({_id:pid});
         }else{
            product={
+             _id:'rr485ureie9e99itr8867uu77',
             name:'ImtizAfriq',
             description:'mark of honor',
-            image:[`server/uploads/products/White Black Kaftan -1646470083381.jpg`]
+            image:[{path:`server/uploads/products/White Black Kaftan -1646470083381.jpg`}]
           }
         }
           
@@ -134,12 +137,14 @@ mongoose.connect(process.env.DB_COMMUNITY_CON,options)
              .replace('__META_OG_TITLE__',product.name)
              .replace('__META_OG_DESCRIPTION__',product.description)
              .replace('__META_DESCRIPTION__',product.description)
-             .replace('__META_OG_URL__',`http://localhost:3000/proceedcheckout?productId=${product.productId}`)
+             .replace('__META_OG_URL__',`http://localhost:3000/proceedcheckout?productId=${product._id}`)
+             .replace('__META_URL__',`http://localhost:3000/proceedcheckout?productId=${product._id}`)
              .replace('__META_OG_IMAGE__',product.image[0].path)
-              console.log(htmlData);
+             // console.log(htmlData);
+             res.send(htmlData)
              /*  fs.writeFileSync(indexPath,htmlData,{encoding:'utf8',flag:'w'}) */
 
-             res.send(htmlData)
+           /*   res.render('index.html',{"myname":"Abdul rAZAK","__META_DESCRIPTION__":"Unique Dress"}) */
            })
            
            }catch(err){

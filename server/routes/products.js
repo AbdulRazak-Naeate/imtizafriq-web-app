@@ -133,6 +133,7 @@ router.post('/prefstyle',uploadImage('./server/uploads/products/prefarestyleprod
      try{
  
         const saveProduct = await product.save();
+        
         return res.json({product:saveProduct,status:200,message:"Prefared style product successfully createdm..."});
      }catch(err){
          res.json({message:err})
@@ -158,7 +159,7 @@ router.get('/metadata/:productId', async (req,res)=>{
         .replace('__META_OG_DESCRIPTION__', product.description)
         .replace('__META_DESCRIPTION__', product.description)
         .replace('__META_OG_IMAGE__', product.image[0].path)
-        console.log(htmlData)
+        //console.log(htmlData)
         //return res.send(htmlData);
     }catch(err){
         res.json({message:err})
@@ -173,6 +174,25 @@ router.get('/:productId', async (req,res)=>{
  try{
         const product = await Product.findById({_id:req.params.productId});
        
+        fs.readFile(indexPath,'utf8',(err,htmlData)=>{
+             
+            if (err){
+              console.error("Error during file reading")
+              return res.status(404).end()
+
+            } 
+           
+            htmlData=htmlData.replace("<title>ImtizAfriq</title>",`<title>${product.name}</title>`)
+            .replace('__META_OG_TITLE__',product.name)
+            .replace('__META_OG_DESCRIPTION__',product.description)
+            .replace('__META_DESCRIPTION__',product.description)
+            .replace('__META_OG_URL__',`http://localhost:3000/proceedcheckout?productId=${product.productId}`)
+            .replace('__META_OG_IMAGE__',product.image[0].path)
+             //console.log(htmlData);
+            /*  fs.writeFileSync(indexPath,htmlData,{encoding:'utf8',flag:'w'}) */
+
+          //  res.send(htmlData)
+          })
         res.json({product:product,status:200,message:"product successfully created"});
     }catch(err){
         res.json({message:err})
