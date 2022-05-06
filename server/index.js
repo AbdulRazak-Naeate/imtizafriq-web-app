@@ -12,7 +12,7 @@ const Product =require('./models/Product');
 
 app.engine('mustache',mustacheExpress());
 app.set('views', __dirname + '/views');
-app.set('view engine','mustache'); */
+app.set('view engine','mustache');*/
 //Import Routes
 const productsRoute     = require('./routes/products');
 const prefarestyleProductRoute= require('./routes/prefarestyle');
@@ -106,7 +106,7 @@ mongoose.connect(process.env.DB_CONNECTION,options)
       app.use(express.static(path.resolve(__dirname, '../client/build')));
       
     // Handle React routing, return all requests to React app
-      app.get('*',async (req, res)=> {
+      app.get('/*',async (req, res)=> {
        try{
         console.log("query productid from any request "+ req.query.productId)
 
@@ -140,8 +140,10 @@ mongoose.connect(process.env.DB_CONNECTION,options)
            .replace('__META_OG_TITLE__',product.name)
            .replace('__META_OG_DESCRIPTION__',product.description)
            .replace('__META_DESCRIPTION__',product.description)
-           .replace('__META_OG_URL__',`https://imtizafriq.herokuapp.com/proceedcheckout?productId=${product._id}`)
+           .replace('__META_OG_URL__',`https://imtizafriq.herokuapp.com/proceedcheckout?productId=${product._id}`) 
+           .replace('__META_URL__',`https://imtizafriq.herokuapp.com/proceedcheckout?productId=${product._id}`)
            .replace('__META_OG_IMAGE__',product.image[0].secure_url)
+           
             res.send(htmlData)
          })
          
