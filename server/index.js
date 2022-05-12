@@ -13,6 +13,8 @@ const Product =require('./models/Product');
 app.engine('mustache',mustacheExpress());
 app.set('views', __dirname + '/views');
 app.set('view engine','mustache');*/
+
+
 //Import Routes
 const productsRoute     = require('./routes/products');
 const prefarestyleProductRoute= require('./routes/prefarestyle');
@@ -42,7 +44,7 @@ const corsOptions = {
     console.log("** Origin of request " + origin)
     if (whitelist.indexOf(origin) !== -1 || !origin) {
       console.log("Origin acceptable")
-      callback(null, true)
+      callback(null, true);
     } else {
       console.log("Origin rejected")
       callback(new Error('Not allowed by CORS'))

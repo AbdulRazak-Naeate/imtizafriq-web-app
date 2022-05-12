@@ -7,7 +7,7 @@ const {updateImage}= require('../upload');
 var mongoose=require('mongoose');
 const { cloudinary } = require('../cloudinary');
 
-//Get a  specific user
+//Get all user
 router.get('/',async(req,res)=>{
   try{
       const users= await User.find();
@@ -20,7 +20,7 @@ router.get('/',async(req,res)=>{
 //Get a  specific user
 router.get('/:userId',async(req,res)=>{
   try{
-      const user= await User.findOne({_Id:req.body.userId});
+      const user= await User.findOne({_id:req.body.userId});
       res.send({name:user.name,email:user.email});
   
   }catch(err){
