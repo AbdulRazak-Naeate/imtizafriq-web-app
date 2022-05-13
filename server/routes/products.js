@@ -61,13 +61,13 @@ router.post('/uploadimage', async(req,res)=>{
 router.post('/',uploadImage('./server/uploads/products'),verify, async(req,res)=>{
 
 
-    res.json({files:req.files,body:req.body});
+    ///res.json({files:req.files,body:req.body});
     //Validation
    
     
     const {error} = productValidation(req.body);
 
-    if (error) return  res.json({status:400,message:error.details[0].message,data:req.files});
+    if (error) return  res.json({status:400,message:error.details[0].message});
     var imageUrls=[];
     var base64encImages=req.body.encodedimages
     try {
