@@ -68,7 +68,23 @@ router.post('/',uploadImage('./server/uploads/products'),verify, async(req,res)=
     const {error} = productValidation(req.body);
 
     if (error) return  res.json({status:400,message:error.details[0].message,data:req.files});
+    var imageUrls=[];
+    var base64encImages=req.body.encodedimages
+    try {
+         for(let i=0;i<base64encImages.length;i++){
+            const fileStr  = base64encImages[i];
+            const uploadResponse = await cloudinary.uploader.upload(fileStr, {
+                upload_preset: 'products',
+            });
+            console.log(uploadResponse);
+            imageUrls.push(uploadResponse.secure_url)
+         }     
+       res.json({ msg: 'yaya',urls:imageUrls });
 
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ err: 'Something went wrong' });
+    }
      //check if product name already exist
     const productnameExist = await Product.findOne({name:req.body.name});
     if (productnameExist) return res.json({status:400,message:"Product name already taken"}); 
@@ -85,7 +101,7 @@ router.post('/',uploadImage('./server/uploads/products'),verify, async(req,res)=
                alltimestock:stockvalue},
         price:req.body.price,
         likes:req.body.likes,
-        image:req.files,
+        image:imageUrls,
         digital_product_url:req.body.digital_product_url,
         comments:req.body.comments
     });
