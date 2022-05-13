@@ -79,7 +79,7 @@ router.post('/',uploadImage('./server/uploads/products'),verify, async(req,res)=
             console.log(uploadResponse);
             imageUrls.push(uploadResponse.secure_url)
          }     
-       res.json({ msg: 'yaya',urls:imageUrls });
+       //res.json({ msg: 'yaya',urls:imageUrls });
 
     } catch (err) {
         console.error(err);
