@@ -62,3 +62,26 @@
 .userShowIcon{
     font-size: 16px !important;
 }
+/* customer modal */
+.userShowTitle{
+    font-size: 14px;
+    font-weight: 600;
+    color: darkgray;
+}
+.userShowBottom{
+    margin-top: 20px;
+}
+.userShowInfo{
+    display: flex;
+    align-items: center;
+    margin: 20px 0px;
+    color: #444;
+
+}
+.email .phone{
+    cursor: pointer;
+}
+.customer-contact-link{
+    text-decoration: none;
+    color: blue;
+}

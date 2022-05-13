@@ -73,3 +73,7 @@
     color:#2a7ade ;
     border-radius: 4px;
   }
+  .valueHilight{
+    color: #2a7ade ;
+    cursor:'pointer'
+  }

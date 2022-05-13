@@ -7,7 +7,7 @@ import {useState , useEffect} from "react";
 import AlertDialog from '../../components/alertdialog/AlertDialog'
 import  {patch} from 'axios';
 import {TransacModal} from  './modal/TransacModal'
-
+import {CustomerDetailsModal} from './modal/CustomerDetailsModal'
 import {PrintBox} from './printbox/PrintBox.jsx';
 
 const Transactions = () => {
@@ -21,8 +21,10 @@ const Transactions = () => {
   const [status,setStatus]=useState('Approved');
   const [open,setOpen]=useState(false);
   const [openModal,setOpenModal]=useState(false)
+  const [openCustomerModal,setOpenCustomerModal]=useState(false)
   const [orderid,setOrderId]=useState('');
   const [tranxData,setTranxData]=useState([]);
+  const [transData,setTransData]=useState([]);
   const [istransactionsLoaded,setIstransactionsLoaded]=useState(false);
 
    // const history=useHistory();
@@ -65,8 +67,15 @@ const Transactions = () => {
     const handleCloseTransacModal = () =>{ 
       setOpenModal(false);
     }
+   const handleCloseCustomerModal=()=>{
+     setOpenCustomerModal(false)
+   }
 
-
+    const handlOpenCustomerModal =(row)=>{
+      setTransData(row)
+      console.log(row)
+     setOpenCustomerModal(!openCustomerModal)
+   }
     const handleClose = (option) => {
       
       setOpen(false);
@@ -193,7 +202,7 @@ return patch(url, body,config)
     { field: '_id', headerName: 'Id', width: 210,
      renderCell:(params)=>{
         return(
-          <div style={{color:'cadetblue',cursor:'pointer'}} onClick={()=>{/* handleOpenTransacModal(params.row) */}}>
+          <div className="valueHilight" onClick={()=>{/* handleOpenTransacModal(params.row) */}}>
             {`${params.row._id}`}
           </div>
         )
@@ -205,9 +214,9 @@ return patch(url, body,config)
       width:200,
         renderCell:(params)=>{
           return(
-            <div className="userListUser">
-                {`${params.row.customer.firstname} ${params.row.customer.lastname}`}
-            </div>
+            <div className="userListUser valueHilight" onClick={()=>{handlOpenCustomerModal(params.row)}}>
+            {`${params.row.customer.firstname} ${params.row.customer.lastname}`}
+        </div>
         )}, 
     },
     {
@@ -310,6 +319,9 @@ return patch(url, body,config)
         console.log(futureDate.toISOString())
       }}>future Date</button> */}
         <TransacModal openModal={openModal} handleCloseTransacModal={handleCloseTransacModal} tranxData={tranxData} />
+        
+        <CustomerDetailsModal openCustomerModal={openCustomerModal} handleCloseCustomerModal={handleCloseCustomerModal} transData={transData}/>
+       
        <AlertDialog open={open} handleClickOpen={handleClickOpen} handleClose={handleClose} title="Mark transaction" textContent={`Are you sure you want to mark transaction status as ${status} !`}DeleteOutline={Edit}/>
        <div className="pageTitleContainer">
            <h1 className="pageTitle">Transactions</h1>    
