@@ -58,7 +58,7 @@ router.post('/uploadimage', async(req,res)=>{
  });
  
 //Submit a product
-router.post('/',uploadImage('./server/uploads/products'),verify, async(req,res)=>{
+router.post('/',/* uploadImage('./server/uploads/products'), */verify, async(req,res)=>{
 
 
     ///res.json({files:req.files,body:req.body});
@@ -83,7 +83,7 @@ router.post('/',uploadImage('./server/uploads/products'),verify, async(req,res)=
 
     } catch (err) {
         console.error(err);
-        res.status(500).json({ err: 'Something went wrong' });
+        //res.status(500).json({ err: 'Something went wrong' });
     }
      //check if product name already exist
     const productnameExist = await Product.findOne({name:req.body.name});
@@ -133,7 +133,23 @@ router.post('/prefstyle',uploadImage('./server/uploads/products/prefarestyleprod
      //check if product name already exist
      const productnameExist =  await PrefStyleProduct.findOne({name:req.body.name});
      if (productnameExist) return  res.json({status:400,message:"Product name already taken"});
-     console.log(req.files);
+     var imageUrls=[];
+    var base64encImages=req.body.encodedimages
+    try {
+         for(let i=0;i<base64encImages.length;i++){
+            const fileStr  = base64encImages[i];
+            const uploadResponse = await cloudinary.uploader.upload(fileStr, {
+                upload_preset: 'prefare_style',
+            });
+            console.log(uploadResponse);
+            imageUrls.push(uploadResponse)
+         }     
+       //res.json({ msg: 'yaya',urls:imageUrls });
+
+    } catch (err) {
+        console.error(err);
+        //res.status(500).json({ err: 'Something went wrong' });
+    }
      console.log(req.body);
      const product = new PrefStyleProduct({
          color:req.body.color,
@@ -143,7 +159,7 @@ router.post('/prefstyle',uploadImage('./server/uploads/products/prefarestyleprod
          category:req.body.category,
          specification:req.body.specification,
          price:req.body.price,
-         image:req.files,
+         image:imageUrls,
      });
  
      try{
