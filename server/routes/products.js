@@ -119,7 +119,7 @@ router.post('/',/* uploadImage('./server/uploads/products'), */verify, async(req
 
 
 //Submit a prefare Style product
-router.post('/prefstyle',uploadImage('./server/uploads/products/prefarestyleproducts'), async(req,res)=>{
+router.post('/prefstyle',/* uploadImage('./server/uploads/products/prefarestyleproducts') */ async(req,res)=>{
     console.log(req.body)
     // const userId = req.user._id; //get userid
  
@@ -139,7 +139,7 @@ router.post('/prefstyle',uploadImage('./server/uploads/products/prefarestyleprod
          for(let i=0;i<base64encImages.length;i++){
             const fileStr  = base64encImages[i];
             const uploadResponse = await cloudinary.uploader.upload(fileStr, {
-                upload_preset: 'prefare_style',
+                upload_preset: 'prefstyle_products',
             });
             console.log(uploadResponse);
             imageUrls.push(uploadResponse)
