@@ -302,7 +302,7 @@ export default function NewProduct({products,setProducts}) {
              <option>yes</option>
           </select> 
       </div>
-       <div className="addProductItem">
+       <div className="addProductItem" style={{display:'none'}}>
           { !showSpecification ? <>
          <label htmlFor="validationCustom05">Digital Product</label>
            <select id="validationCustom05" onChange={onDigitalProuctInputChange}>

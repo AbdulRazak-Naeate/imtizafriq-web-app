@@ -37,6 +37,7 @@ const contactsRoute     = require('./routes/contacts');
 dotenv.config();
 
 const indexPath  = path.resolve(__dirname, '../client/build', 'index.html');
+
 const whitelist = ['http://localhost:3000', 'http://localhost:8080', 'https://imtizafriq.herokuapp.com', 'http://imtizafriq.herokuapp.com','https://imtizafriq.com']
 
 const corsOptions = {
@@ -109,14 +110,15 @@ mongoose.connect(process.env.DB_CONNECTION,options)
       
     // Handle React routing, return all requests to React app
       app.get('/*',async (req, res)=> {
+        var product={};
        try{
         console.log("query productid from any request "+ req.query.productId)
 
         var pid=req.query.productId
-        var product;
           console.log("productid "+pid)
            if (pid){
                   product = await Product.findById({_id:pid});
+
             }else{
             product={
               _id:"iereree8wsew89ehyy757884",
