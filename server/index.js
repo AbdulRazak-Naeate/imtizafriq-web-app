@@ -157,7 +157,8 @@ mongoose.connect(process.env.DB_CONNECTION,options)
        
         //res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
       });
-    }   
+    }
+       
 //Start lestening to the server
 app.set('PORT',  process.env.PORT||3001);
 app.listen(app.get('PORT'),()=>{
