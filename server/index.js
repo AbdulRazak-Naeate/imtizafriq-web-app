@@ -110,54 +110,53 @@ mongoose.connect(process.env.DB_CONNECTION,options)
       
     // Handle React routing, return all requests to React app
       app.get('/*',async (req, res)=> {
+        var product={};
        try{
         console.log("query productid from any request "+ req.query.productId)
 
         var pid=req.query.productId
-        var product;
           console.log("productid "+pid)
            if (pid!==undefined){
                   product = await Product.findById({_id:pid});
-                  
+                  fs.readFile(indexPath,'utf8',(err,htmlData)=>{
+           
+                    if (err){
+                      console.error("Error during file reading")
+                      return res.status(404).end()
+             
+                    } 
+                   
+                    htmlData=htmlData.replace("<title>ImtizAfriq</title>",`<title>${product.name}</title>`)
+                    .replace('__META_OG_TITLE__',product.name)
+                    .replace('__META_OG_DESCRIPTION__',product.description)
+                    .replace('__META_DESCRIPTION__',product.description)
+                    .replace('__META_OG_URL__',`https://imtizafriq.herokuapp.com/proceedcheckout?productId=${product._id}`) 
+                    .replace('__META_URL__',`https://imtizafriq.herokuapp.com/proceedcheckout?productId=${product._id}`)
+                    .replace('__META_OG_IMAGE__',product.image[0].secure_url)
+                    
+                     res.send(htmlData)
+                  })
             }else{
-            product={
-              _id:"iereree8wsew89ehyy757884",
-             name:'ImtizAfriq',
-             description:'mark of honor',
-             image:  [
-              {
-                secure_url : 'https://res.cloudinary.com/abdulrazakneate/image/upload/v1653561344/720_qmtz7w.png'
-              }
-            ]
-        }
-      }
-        
-         fs.readFile(indexPath,'utf8',(err,htmlData)=>{
+            fs.readFile(indexPath,'utf8',(err,htmlData)=>{
            
            if (err){
              console.error("Error during file reading")
              return res.status(404).end()
     
            } 
-          if (pid!==undefined){
-            htmlData=htmlData.replace("<title>ImtizAfriq</title>",`<title>${product.name}</title>`)
-            .replace('__META_OG_TITLE__',product.name)
-            .replace('__META_OG_DESCRIPTION__',product.description)
-            .replace('__META_DESCRIPTION__',product.description)
-            .replace('__META_OG_URL__',`https://imtizafriq.herokuapp.com/proceedcheckout?productId=${product._id}`) 
-            .replace('__META_URL__',`https://imtizafriq.herokuapp.com/proceedcheckout?productId=${product._id}`)
-            .replace('__META_OG_IMAGE__',product.image[0].secure_url)
-          }else{
-            htmlData=htmlData.replace("<title>ImtizAfriq</title>",`<title>${product.name}</title>`)
-            .replace('__META_OG_TITLE__',product.name)
-            .replace('__META_OG_DESCRIPTION__',product.description)
-            .replace('__META_DESCRIPTION__',product.description)
-            .replace('__META_OG_IMAGE__',product.image[0].secure_url)
-          }
-         
+          
+           htmlData=htmlData
+           .replace("<title>ImtizAfriq</title>",`<title>ImtizAfriq</title>`)
+           .replace('__META_OG_TITLE__',"Imtizafriq")
+           .replace('__META_OG_DESCRIPTION__',"Mark Of Honor")
+           .replace('__META_DESCRIPTION__',"Mark of Honor")
+           .replace('__META_OG_URL__',"https://imtizafriq.herokuapp.com") 
+           .replace('__META_URL__',"https://imtizafriq.herokuapp.com")
+           .replace('__META_OG_IMAGE__',"https://res.cloudinary.com/abdulrazakneate/image/upload/v1653561344/720_qmtz7w.png")
            
             res.send(htmlData)
          })
+      }
          
          }catch(err){
          console.log('proceedcheckout route not access')
