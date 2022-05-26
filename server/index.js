@@ -152,8 +152,8 @@ mongoose.connect(process.env.DB_CONNECTION,options)
             .replace('__META_OG_TITLE__',product.name)
             .replace('__META_OG_DESCRIPTION__',product.description)
             .replace('__META_DESCRIPTION__',product.description)
-            .replace('__META_OG_URL__',`https://imtizafriq.herokuapp.com`) 
-            .replace('__META_URL__',`https://imtizafriq.herokuapp.com`)
+            .replace('__META_OG_URL__',`https://imtizafriq.herokuapp.com/`) 
+            .replace('__META_URL__',`https://imtizafriq.herokuapp.com/`)
             .replace('__META_OG_IMAGE__',product.image[0].secure_url)
           }
          
