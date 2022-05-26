@@ -127,7 +127,7 @@ mongoose.connect(process.env.DB_CONNECTION,options)
              image:  [
               {
                 secure_url : 'https://res.cloudinary.com/abdulrazakneate/image/upload/v1653561344/720_qmtz7w.png'
-              },
+              }
             ]
         }
       }
@@ -139,14 +139,24 @@ mongoose.connect(process.env.DB_CONNECTION,options)
              return res.status(404).end()
     
            } 
-          
-           htmlData=htmlData.replace("<title>ImtizAfriq</title>",`<title>${product.name}</title>`)
-           .replace('__META_OG_TITLE__',product.name)
-           .replace('__META_OG_DESCRIPTION__',product.description)
-           .replace('__META_DESCRIPTION__',product.description)
-           .replace('__META_OG_URL__',`https://imtizafriq.herokuapp.com/proceedcheckout?productId=${product._id}`) 
-           .replace('__META_URL__',`https://imtizafriq.herokuapp.com/proceedcheckout?productId=${product._id}`)
-           .replace('__META_OG_IMAGE__',product.image[0].secure_url)
+          if (pid!==undefined){
+            htmlData=htmlData.replace("<title>ImtizAfriq</title>",`<title>${product.name}</title>`)
+            .replace('__META_OG_TITLE__',product.name)
+            .replace('__META_OG_DESCRIPTION__',product.description)
+            .replace('__META_DESCRIPTION__',product.description)
+            .replace('__META_OG_URL__',`https://imtizafriq.herokuapp.com/proceedcheckout?productId=${product._id}`) 
+            .replace('__META_URL__',`https://imtizafriq.herokuapp.com/proceedcheckout?productId=${product._id}`)
+            .replace('__META_OG_IMAGE__',product.image[0].secure_url)
+          }else{
+            htmlData=htmlData.replace("<title>ImtizAfriq</title>",`<title>${product.name}</title>`)
+            .replace('__META_OG_TITLE__',product.name)
+            .replace('__META_OG_DESCRIPTION__',product.description)
+            .replace('__META_DESCRIPTION__',product.description)
+            .replace('__META_OG_URL__',`https://imtizafriq.herokuapp.com`) 
+            .replace('__META_URL__',`https://imtizafriq.herokuapp.com`)
+            .replace('__META_OG_IMAGE__',product.image[0].secure_url)
+          }
+         
            
             res.send(htmlData)
          })
