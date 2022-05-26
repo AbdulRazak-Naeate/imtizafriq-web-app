@@ -116,7 +116,7 @@ mongoose.connect(process.env.DB_CONNECTION,options)
 
         var pid=req.query.productId
           console.log("productid "+pid)
-           if (pid){
+           if (pid!==undefined){
                   product = await Product.findById({_id:pid});
                   fs.readFile(indexPath,'utf8',(err,htmlData)=>{
            
@@ -156,8 +156,6 @@ mongoose.connect(process.env.DB_CONNECTION,options)
             res.send(htmlData)
          })
       }
-        
-         
          
          }catch(err){
          console.log('proceedcheckout route not access')
