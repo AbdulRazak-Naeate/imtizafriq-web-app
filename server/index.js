@@ -146,12 +146,12 @@ mongoose.connect(process.env.DB_CONNECTION,options)
            } 
           
            htmlData=htmlData
-           .replace('__META_OG_TITLE__','Imtizafriq')
-           .replace('__META_OG_DESCRIPTION__','Mark Of Honor')
-           .replace('__META_DESCRIPTION__','Mark of Honor')
-           .replace('__META_OG_URL__',`https://imtizafriq.herokuapp.com`) 
-           .replace('__META_URL__',`https://imtizafriq.herokuapp.com`)
-           .replace('__META_OG_IMAGE__','https://res.cloudinary.com/abdulrazakneate/image/upload/v1647199679/')
+           .replace('__META_OG_TITLE__',"Imtizafriq")
+           .replace('__META_OG_DESCRIPTION__',"Mark Of Honor")
+           .replace('__META_DESCRIPTION__',"Mark of Honor")
+           .replace('__META_OG_URL__',"https://imtizafriq.herokuapp.com") 
+           .replace('__META_URL__',"https://imtizafriq.herokuapp.com")
+           .replace('__META_OG_IMAGE__',"https://res.cloudinary.com/abdulrazakneate/image/upload/v1653561344/720_qmtz7w.png")
            
             res.send(htmlData)
          })
