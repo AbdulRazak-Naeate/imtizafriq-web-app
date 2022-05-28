@@ -37,6 +37,7 @@ const contactsRoute     = require('./routes/contacts');
 dotenv.config();
 
 const indexPath  = path.resolve(__dirname, '../client/build', 'index.html');
+const defualtindexPath  = path.resolve(__dirname, '../client/build', 'default.html');
 
 const whitelist = ['http://localhost:3000', 'http://localhost:8080', 'https://imtizafriq.herokuapp.com', 'http://imtizafriq.herokuapp.com','https://imtizafriq.com']
 
@@ -137,15 +138,15 @@ mongoose.connect(process.env.DB_CONNECTION,options)
                      res.send(htmlData)
                   })
             }else{
-            fs.readFile(indexPath,'utf8',(err,htmlData)=>{
+            fs.readFile(defualtindexPath,'utf8',(err,htmlData)=>{
            
            if (err){
              console.error("Error during file reading")
              return res.status(404).end()
-    
+            
            } 
           
-           htmlData=htmlData
+         /*   htmlData=htmlData
            .replace("<title>ImtizAfriq</title>",`<title>ImtizAfriq</title>`)
            .replace('__META_OG_TITLE__',"Imtizafriq")
            .replace('__META_OG_DESCRIPTION__',"Mark Of Honor")
@@ -153,7 +154,7 @@ mongoose.connect(process.env.DB_CONNECTION,options)
            .replace('__META_OG_URL__',"https://imtizafriq.herokuapp.com") 
            .replace('__META_URL__',"https://imtizafriq.herokuapp.com")
            .replace('__META_OG_IMAGE__',"https://res.cloudinary.com/abdulrazakneate/image/upload/v1653561344/720_qmtz7w.png")
-           
+            */
             res.send(htmlData)
          })
       }
